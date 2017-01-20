@@ -7,7 +7,7 @@
  * Email: blaybleybluy@gmail.com
 * Cervera Saldaña, Annhelen
  * [Github account](https://github.com/annyCS).
- * Email: 
+ * Email: annycerverasaldana@gmail.com
 * Córdova Proaño, Jorge Jherel
  * [Github account](https://github.com/jherel).
  * Email: jhereldev@gmail.com
