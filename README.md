@@ -21,7 +21,7 @@ This web application allows you to reserve one or several books easily. It conta
 
 Like an user, all you are allow to do is to sign-up and, and, once you are a registered user, you can reserve a book, change your profile data, request a new book and write a review about the book you've read.
 
-* [Trello](https://trello.com/b/3hdFhlap/brems).
+* [Trello](https://trello.com/b/3hdFhIap/brems).
 
 #### Home page
 
