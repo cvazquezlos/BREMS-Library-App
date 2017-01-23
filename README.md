@@ -17,7 +17,7 @@
  
 ### About this web application
 
-This web application allows you to reserve one or several books easily. It contains a *Home page*, an *User panel*, an *Administrator panel*, *one page for each book avaible on the site* and a page when you can *request a new book*.
+This web application allows you to reserve one or several books easily. It contains a *Home page*, an *User panel*, an *Administrator panel* and *one page for each book avaible on the site*.
 
 Like an user, all you are allow to do is to sign-up and, and, once you are a registered user, you can reserve a book, change your profile data, request a new book and write a review about the book you've read.
 
@@ -44,11 +44,5 @@ The site administrator is able to use this page to manage: users, avaible books 
 #### Data page for each book
 
 Each book of the library has its own page, which contains much information about the book: title, short description, large description, author, year of publication, literary genre, reader's feedback... Only administrators of site can manage the page and modify its info.
-
-// IMAGE
-
-#### Request page
-
-If you want to reserve a book whis is unavailable, it's possible to initiate a request. This request will be answered by the administrator.
 
 // IMAGE
