@@ -1,0 +1,390 @@
+/*background-color: #0A4E4D; verde oscuro*/
+/*background-color: #b1ad27; verde claro*/
+/*background-color: #bbe0de; azul claro*/
+/*background-color: #9a5c28; marrón*/
+
+.show-grid [class^="col-"] {
+    /*padding-top: 10px;
+    padding-bottom: 10px;*/
+    border: 1px solid #AAA;
+}
+.show-elements{
+    border: 1px solid #AAA;
+}
+
+/************************
+        GENERALES
+*************************/
+body{
+    background-color: #faf9f9;
+    color: #3b3a3b;
+}
+a {
+    color: #215E5D;
+}
+a:focus, a:hover {
+    color: #215E5D;
+    opacity: 0.75;
+    text-decoration: none;
+}
+a .moreInfo,  a:hover .moreInfo{
+    color: #337ab7;
+}
+.paddingNone{
+    padding: 0px;
+}
+.marginNone{
+    margin: 0px;
+}
+.hide {
+    display: none;
+}
+.visibilityHide {
+    visibility: hidden;
+}
+.container-fluid{
+    margin-top: 28px;
+}
+
+
+/************************
+        HEADER
+*************************/
+header{
+    height: auto;
+    width: auto;
+    margin-bottom: 30px;
+}
+.logo{
+    height: 100px;
+    margin-left: 41px;
+}
+.logo:hover {
+    opacity: 0.80;
+    cursor: pointer;
+}
+.logo .logoImg{
+    margin-top: 20px;
+    margin-right: 10px;
+    height: 56px;
+    background-image: url("../img/logo.png");
+    background-size: 63px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-right: 1px solid #3b3a3b;
+}
+.logo .logoImg span{
+    display: none;
+}
+.logo .logoText{
+    padding-left: 0px;
+}
+.logo .logoText h2{
+    font-size: 28px;
+    color: #3b3a3b;
+}
+/************************
+        Menu Nav
+*************************/
+.mainMenuNav{
+    margin-top: 58px;
+    padding-left: 35px;
+    text-transform: uppercase;
+}
+.mainMenuNav .nav li{
+    margin-right: 20px;
+    text-align: center;
+    width: auto;
+}
+.mainMenuNav .nav-pills li a, .mainMenuNav .nav-pills li.active a{
+    font-size: 16px;
+    border-radius: 0px;
+    color: #3b3a3b;
+    padding: 4px 6px;
+}
+.mainMenuNav .nav-pills li.active a, .mainMenuNav .nav-pills li.active a:hover,
+.mainMenuNav .nav-pills li.active a:focus, .mainMenuNav .nav-pills li a:hover, .mainMenuNav .nav-pills li a:focus{
+    border-bottom: 2px solid #b1ad27;
+    background-color: transparent;
+}
+
+/************************
+        Sub Header
+*************************/
+.mainOptionsUser{
+    margin-top: 5px;
+    height: 50px;
+    background-color: rgba(10,78,77, 0.9);
+}
+.mainOptionsUser .search{
+    color: #ffffff;
+    margin-left: 68px;
+}
+.mainOptionsUser .search .input-group{
+    height: 35px;
+    margin-top: 8px;
+}
+.mainOptionsUser .search .inputSearch, .mainOptionsUser .search .btn-default {
+    height: 35px;
+    background-color: rgba(0,0,0,0.3);
+    color: #ffffff;
+    border: 0px;
+    border-radius: 0px;
+}
+.mainOptionsUser .search .glyphicon-search {
+    font-size: 18px;
+}
+.mainOptionsUser .userDropdownMenu {
+    width: 360px;
+    background-color: transparent;
+    padding-left: 25px;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .icon, .mainOptionsUser .userDropdownMenu .iconMenu .dropdown-toggle {
+    height: 50px;
+    border-radius: 0px;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .icon {
+    width: 56px;
+    padding: 13px;
+    font-size: 19px;
+    vertical-align: center;
+}
+.mainOptionsUser .userDropdownMenu .btn-default:hover, .mainOptionsUser .userDropdownMenu .btn-default:active:hover,
+.mainOptionsUser .userDropdownMenu .btn-default:active, .mainOptionsUser .userDropdownMenu .btn-default:focus,
+.mainOptionsUser .userDropdownMenu .dropdown-toggle:hover, .mainOptionsUser .userDropdownMenu .dropdown-toggle:focus{
+    background-color: rgba(0, 0, 0, 0.38);
+    border: 0px;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .icon-alarm, .mainOptionsUser .userDropdownMenu .iconMenu .icon-book,
+.mainOptionsUser .userDropdownMenu .iconMenu .icon-alarm.active, .mainOptionsUser .userDropdownMenu .iconMenu .icon-book.active {
+    color: #faf9f9;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .icon .badge{
+    position: absolute;
+    top: 3px;
+    right: 35px;
+    padding: 3px 5px;
+    color: #faf9f9;
+    font-weight: normal;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .icon-alarm .badgeAlarm{
+    background-color: #EA1313;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .icon-book .badgeBook{
+    background-color: rgba(177, 173, 39, 0.91);
+}
+.mainOptionsUser .userDropdownMenu .btn-default, .mainOptionsUser .userDropdownMenu .btn-group{
+    border: 0px;
+    background-color: transparent;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .dropdown-toggle{
+    width: 214px;
+    text-align: right;
+    color: #faf9f9;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .dropdown-toggle .img-circle{
+    margin-top: -3px;
+    margin-right: 6px;
+}
+.mainOptionsUser .userDropdownMenu .iconMenu .dropdown-toggle .caret {
+    margin-left: 5px;
+}
+.mainOptionsUser .userDropdownMenu .dropdown-menu{
+    top: 97%;
+    left: 44px;
+    border-radius: 0px;
+}
+.mainOptionsUser .userDropdownMenu .dropdown-menu li a {
+    color: #3b3a3b;
+}
+.mainOptionsUser .userDropdownMenu .dropdown-menu .fa-user,
+.mainOptionsUser .userDropdownMenu .dropdown-menu .fa-power-off {
+    margin-left: -6px;
+    margin-right: 8px;
+}
+
+
+
+/************************
+        CONTENT
+*************************/
+.contentMain {
+    margin-left: 40px;
+    height: auto;
+    margin-bottom: 100px;
+}
+/*Nav tabs*/
+.contentMain .nav-tabs {
+    font-size: 16px;
+}
+.contentMain .nav-tabs li a:hover, .nav-tabs li a:focus:hover, .nav-tabs li a:active:hover{
+    border: 1px solid #ddd;
+    background-color: #FAF9F9;
+}
+.contentMain .nav-tabs li.active a,  .nav-tabs li.active a:focus, .nav-tabs li.active a:hover {
+    background-color: #faf9f9;
+    border-bottom-color: transparent;
+    opacity: 1;
+    color: #A2A2A2;
+}
+.contentMain .nav-tabs li a:focus, .nav-tabs li a:active{
+    background-color: transparent;
+}
+/*Breadcrumb*/
+.contentMain .titleBreadcrumb {
+    margin-bottom: 10px;
+}
+.contentMain .breadcrumb {
+    margin-right: 21px;
+    float: right;
+    background-color: transparent;
+}
+.contentMain .breadcrumb li i {
+    margin-right: 5px;
+}
+.contentMain .breadcrumb .active {
+    color: #A2A2A2;
+}
+.contentMain .titleBreadcrumb h2 {
+    float: left;
+    margin: 0px;
+    font-size: 32px;
+}
+
+.contentMain .listItems {
+    margin-top: 10px;
+    padding: 5px;
+}
+.contentMain .item {
+    margin-bottom: 30px;
+}
+.contentMain .coverItem {
+    text-align: center;
+}
+.contentMain .coverItem img {
+    width: 125px;
+    height: 180px;
+    margin-top: 20px;
+}
+.contentMain .coverItem .btn-success {
+    width: 110px;
+    height: 28px;
+    margin-top: 13px;
+    font-size: 13px;
+    color: #faf9f9;
+    background-color: #409D69;
+    border-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    border-radius: 0px;
+}
+.contentMain .coverItem .btn-success:hover {
+    background-color: #3d9363;
+}
+.contentMain .informationItem{
+    height: 243px;
+}
+.contentMain .authorName {
+    color: #A2A2A2;
+}
+.contentMain .ratingValue {
+    font-size: 13px;
+}
+.contentMain .stars {
+    padding-left: 0px;
+    width: 96px;
+    color: #AAAAAA;
+    display: inline-block;
+}
+.contentMain .staticStar {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    white-space: nowrap;
+    background-repeat: no-repeat;
+}
+.contentMain .stars .p10{
+    background-image: url("../img/star_full.png");
+    background-size: 15px;
+}
+.contentMain .stars .p6{
+    background-image: url("../img/star_p6.png");
+    background-size: 15px;
+}
+.contentMain .stars .p0{
+    background-image: url("../img/star_empty.png");
+    background-size: 15px;
+}
+.contentMain .informationItem .description p{
+    margin-top: -4px;
+}
+.contentMain .listItems .available {
+    margin-top: 11px;
+}
+.contentMain .available .glyphicon {
+    font-size: 12px;
+}
+.contentMain .textAvailable {
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 3px;
+}
+.contentMain .listItems .available.stockAvailable {
+    color: #148014;
+}
+.contentMain .listItems .available.stockUnavailable {
+    color: #A09F9F;
+}
+
+
+
+/************************
+        FOOTER
+*************************/
+footer {
+    background-color: #f5f5f5;
+}
+footer .footerLinks div{
+    padding-left: 80px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+footer h3 {
+    text-transform: uppercase;
+    padding-left: 40px;
+    font-size: 20px;
+}
+footer ul {
+    list-style-type: none;
+}
+footer ul li {
+    margin-bottom: 8px;
+}
+footer ul li a, footer ul li a:link{
+    color: #A09F9F;
+}
+footer ul li a:hover, footer ul li a:focus {
+    color: #9a5c28;
+    text-decoration: none;
+}
+.copyright {
+    padding: 20px;
+    background-color: #9a5c28;
+    color: #faf9f9;
+    font-size: 12px;
+    line-height: 7px;
+    word-spacing: 1px;
+}
+
+
+/*
+.contentMain .bookStand {
+    margin-top: 30px;
+}
+.contentMain .bookListStand {
+    height: 860px;
+    background-image: url("../img/book_stand.png");
+    background-repeat: no-repeat;
+    background-size: 900px 825px;
+    background-position: center center;
+}*/
+
