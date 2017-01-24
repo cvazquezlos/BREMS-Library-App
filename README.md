@@ -59,4 +59,5 @@ Funcionalidades:
     * Dar de baja a un usuario
 
 
-Gestor de tareas: [Trello](https://trello.com/b/3hdFhIap/brems).
+Gestor de tareas:
+[Trello](https://trello.com/b/3hdFhIap/brems).
