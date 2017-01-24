@@ -58,6 +58,14 @@ Funcionalidades:
     * Modificar datos de usuarios ya existentes
     * Dar de baja a un usuario
 
+#### Entidades
+Usuario, autor , libro, préstamo y ejemplar
+
+* Usuario: Representa cada uno de los individuos presentes en el sistema.
+* Autor: Representa el escritor de un libro determinado.
+* Libro: También puede ser una revista; es el elemento básico de la librería.
+* Préstamo: Representa la acción a través de la cual, un usuario puede alquilar un ejemplar.
+* Ejemplar: Dícese de un libro en específico, susodicho con su género, año de publicación y autor creacional del mismo.
 
 Gestor de tareas:
 [Trello](https://trello.com/b/3hdFhIap/brems).
