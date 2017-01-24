@@ -17,32 +17,46 @@
  
 ### About this web application
 
-This web application allows you to reserve one or several books easily. It contains a *Home page*, an *User panel*, an *Administrator panel* and *one page for each book avaible on the site*.
+Gestión online de reserva de libros y revistas de una biblioteca.
+Cada recurso (libros y revistas) tendrá un ejemplar que es realmente éste el que el usuario podrá adquirir para realizar el préstamo, y podrá ser prestado por un máximo de 30 días para los libros, y un máximo de 2 días para las revistas.
+Además, habrá un administrador que será quien gestione dichas reservas, gestionará el stock de los libros y las revistas y cada uno con sus ejemplares.
+La funcionalidad de la Web está diferenciada por el tipo de usuario que vaya a utilizarla, siendo estos de dos tipos:
 
-Like an user, all you are allow to do is to sign-up and, and, once you are a registered user, you can reserve a book, change your profile data, request a new book and write a review about the book you've read.
+##### Lectores/Usuarios:
+Son los que realizan las reservas de los libros y/o revistas en la web, y por tanto, estas funcionalidades serán públicas.
+Funcionalidades:
+* Listar recursos (libros, revistas)
+*Buscar recursos por título, autor, nombre del libro/revista
+*Reservar recursos
+    * El usuario puede realizar un  "préstamo" por la web;  y tendrá '4' días para recogerlo, sino se cancelará el "préstamo".
+*Aplazar fecha de devolución.
+*Listar libros pendientes a devolver
+*Listar libros que prestó con anterioridad
+*Ver multas
+*Darse de alta en la red de servicio de la biblioteca
+    * El usuario podrá "darse de alta" desde la web, pero no podrá ser efectuada como tal, hasta que el administrador no lo habilite. Esto significa que no podrá realizar préstamos, sólo listar los recursos que tenga actualmente la biblioteca.
+
+##### Administrador
+Gestionará los préstamos de los ejemplares. Éstas funcionalidades serán privadas.
+Funcionalidades:
+* Listar productos
+* Gestionar productos: Libros/revistas
+    * Dar de alta a nuevos recursos
+    * Modificar recursos
+    * Eliminar recursos
+* Gestionar ejemplares
+    * Eliminar ejemplares.- sólo podrán ser eliminados ya que se entiende que, al dar de baja a un libro/revista, sus ejemplares serán por consiguientes dados de baja.
+* Gestionar préstamos
+    * Realizar préstamos
+    * Realizar devolución
+    * Buscar préstamos
+    * Enviar "correos de aviso" a los usuarios para informar de la devolución del libro.
+* Gestionar multas
+    * Por cada día de retraso, se impone una multa de 1 día sin posibilidad de prestar más productos.
+* Gestionar Usuarios
+    * Dar de alta a nuevos usuarios
+    * Modificar datos de usuarios ya existentes
+    * Dar de baja a un usuario
+
 
 * [Trello](https://trello.com/b/3hdFhIap/brems).
-
-#### Home page
-
-This is the main page of the library. You can find here the information about all the avaible books, navigate through the site and see your profile data and notifications. If you are an unregistered user, instead of see your profile, you can press *Sing-up* button to join our community. You can't leave a comment or reserve a book if you are unregistered.
-
-// IMAGE
-
-#### User panel
-
-This page allows you to change you private data (avatar, name, address, user ID...). Some data are automatically generated and you won't be able to change it (for example, your library member number, number of reserved books...). Access is restricted to unregistered users.
-
-// IMAGE
-
-#### Administrator panel
-
-The site administrator is able to use this page to manage: users, avaible books (add and remove), comments (delete, if a comment is inappropiate, and edit).
-
-// IMAGE
-
-#### Data page for each book
-
-Each book of the library has its own page, which contains much information about the book: title, short description, large description, author, year of publication, literary genre, reader's feedback... Only administrators of site can manage the page and modify its info.
-
-// IMAGE
