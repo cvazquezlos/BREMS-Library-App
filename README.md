@@ -14,7 +14,7 @@
 * Vázquez Losada, Carlos
  * [Github account](https://github.com/cvazquezlos).
  * Email: c.vazquezlos@alumnos.urjc.es
- 
+
 ### About this web application
 
 This web application allows you to reserve one or several books easily. It contains a *Home page*, an *User panel*, an *Administrator panel* and *one page for each book avaible on the site*.
@@ -44,5 +44,3 @@ The site administrator is able to use this page to manage: users, avaible books 
 #### Data page for each book
 
 Each book of the library has its own page, which contains much information about the book: title, short description, large description, author, year of publication, literary genre, reader's feedback... Only administrators of site can manage the page and modify its info.
-
-// IMAGE
