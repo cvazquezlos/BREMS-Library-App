@@ -14,7 +14,7 @@
 * Vázquez Losada, Carlos
  * [Github account](https://github.com/cvazquezlos).
  * Email: c.vazquezlos@alumnos.urjc.es
- 
+
 ### About this web application
 
 Gestión online de reserva de libros y revistas de una biblioteca.
@@ -69,6 +69,3 @@ Usuario, autor , libro, préstamo y ejemplar
 
 Gestor de tareas:
 [Trello](https://trello.com/b/3hdFhIap/brems).
-
-Base de Datos
-![BaseDatos](BREMS-base de datos.jpg)
