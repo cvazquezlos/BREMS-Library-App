@@ -14,58 +14,47 @@
 * Vázquez Losada, Carlos
  * [Github account](https://github.com/cvazquezlos).
  * Email: c.vazquezlos@alumnos.urjc.es
-
+ 
 ### About this web application
 
-Gestión online de reserva de libros y revistas de una biblioteca.
-Cada recurso (libros y revistas) tendrá un ejemplar que es realmente éste el que el usuario podrá adquirir para realizar el préstamo, y podrá ser prestado por un máximo de 30 días para los libros, y un máximo de 2 días para las revistas.
-Además, habrá un administrador que será quien gestione dichas reservas, gestionará el stock de los libros y las revistas y cada uno con sus ejemplares.
-La funcionalidad de la Web está diferenciada por el tipo de usuario que vaya a utilizarla, siendo estos de dos tipos:
+Online management of resources (books and magazines) in a library. Each resource has a copy which a reader can reserve. This resource will be taken by a reader for 30 days (in case of a books) and for 2 days (in case of magazines).
+An administrator will manage the resource loans, resource stock and resource copies.
+Web functionality deppends on type of user (administrator o reader).
 
-#### Lectores/Usuarios:
-Son los que realizan las reservas de los libros y/o revistas en la web, y por tanto, estas funcionalidades serán públicas.
-Funcionalidades:
-* Listar recursos (libros, revistas)
-*Buscar recursos por título, autor, nombre del libro/revista
-*Reservar recursos
-    * El usuario puede realizar un  "préstamo" por la web;  y tendrá '4' días para recogerlo, sino se cancelará el "préstamo".
-*Aplazar fecha de devolución.
-*Listar libros pendientes a devolver
-*Listar libros que prestó con anterioridad
-*Ver multas
-*Darse de alta en la red de servicio de la biblioteca
-    * El usuario podrá "darse de alta" desde la web, pero no podrá ser efectuada como tal, hasta que el administrador no lo habilite. Esto significa que no podrá realizar préstamos, sólo listar los recursos que tenga actualmente la biblioteca.
+#### Users: Readers
+A reader is an user who can reserve a resource through BREMS app. Those functionalities are public:
+* List of resources.
+* Search resources using a *title*, *author* y/o *resource name*.
+* Reserve a resource.
+* Postpone return date.
+* List of resources to be returned.
+* List of fines.
+* Sing-up.
 
-#### Administrador
-Gestionará los préstamos de los ejemplares. Éstas funcionalidades serán privadas.
-Funcionalidades:
-* Listar productos
-* Gestionar productos: Libros/revistas
-    * Dar de alta a nuevos recursos
-    * Modificar recursos
-    * Eliminar recursos
-* Gestionar ejemplares
-    * Eliminar ejemplares.- sólo podrán ser eliminados ya que se entiende que, al dar de baja a un libro/revista, sus ejemplares serán por consiguientes dados de baja.
-* Gestionar préstamos
-    * Realizar préstamos
-    * Realizar devolución
-    * Buscar préstamos
-    * Enviar "correos de aviso" a los usuarios para informar de la devolución del libro.
-* Gestionar multas
-    * Por cada día de retraso, se impone una multa de 1 día sin posibilidad de prestar más productos.
-* Gestionar Usuarios
-    * Dar de alta a nuevos usuarios
-    * Modificar datos de usuarios ya existentes
-    * Dar de baja a un usuario
+#### Users: Administrator
+An administrator is an user who can manage resource data and the loans. Those functionalities are private:
+* Manage resources (books and magazines).
+ * Modify resources.
+ * Create new resources.
+ * Delete resources.
+* Manage copies.
+* Manage loans.
+* Manage fines.
+* Manage users (readers and others administrators).
+ * Create new users.
+ * Unsubscribe a user.
+ * Modify user's information.
 
-#### Entidades
-Usuario, autor , libro, préstamo y ejemplar
+#### Entities of BREMS' App
+In our App, we use these entities: *User*, *fine*, *resource*, *loan* and *copy*.
 
-* Usuario: Representa cada uno de los individuos presentes en el sistema.
-* Autor: Representa el escritor de un libro determinado.
-* Libro: También puede ser una revista; es el elemento básico de la librería.
-* Préstamo: Representa la acción a través de la cual, un usuario puede alquilar un ejemplar.
-* Ejemplar: Dícese de un libro en específico, susodicho con su género, año de publicación y autor creacional del mismo.
+| Entity   | Description                                                          | Secondary entities     |
+|----------|----------------------------------------------------------------------|------------------------|
+| User     | Reader and Administrator.                                            | -                      |
+| Resource | Book or Magazine which can be reserve by a reader.                   | ResourceType and genre |
+| Fine     | Will be applied if a reader returns a resource out of date.          | -                      |
+| Loan     | Action through a reader can reserve a copy.                          | ActionType and Token   |
+| Copy     | Limited number of resource number which can be reserved by a reader. | -                      |
 
-Gestor de tareas:
-[Trello](https://trello.com/b/3hdFhIap/brems).
+#### Tasks management 
+We use [Trello](https://trello.com/b/3hdFhIap/brems) and SCRUM because we think is the best way to work in a group.
