@@ -22,7 +22,7 @@ Cada recurso (libros y revistas) tendrá un ejemplar que es realmente éste el q
 Además, habrá un administrador que será quien gestione dichas reservas, gestionará el stock de los libros y las revistas y cada uno con sus ejemplares.
 La funcionalidad de la Web está diferenciada por el tipo de usuario que vaya a utilizarla, siendo estos de dos tipos:
 
-##### Lectores/Usuarios:
+#### Lectores/Usuarios:
 Son los que realizan las reservas de los libros y/o revistas en la web, y por tanto, estas funcionalidades serán públicas.
 Funcionalidades:
 * Listar recursos (libros, revistas)
@@ -36,7 +36,7 @@ Funcionalidades:
 *Darse de alta en la red de servicio de la biblioteca
     * El usuario podrá "darse de alta" desde la web, pero no podrá ser efectuada como tal, hasta que el administrador no lo habilite. Esto significa que no podrá realizar préstamos, sólo listar los recursos que tenga actualmente la biblioteca.
 
-##### Administrador
+#### Administrador
 Gestionará los préstamos de los ejemplares. Éstas funcionalidades serán privadas.
 Funcionalidades:
 * Listar productos
@@ -59,4 +59,4 @@ Funcionalidades:
     * Dar de baja a un usuario
 
 
-* [Trello](https://trello.com/b/3hdFhIap/brems).
+Gestor de tareas: [Trello](https://trello.com/b/3hdFhIap/brems).
