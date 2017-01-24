@@ -63,4 +63,4 @@ Gestor de tareas:
 [Trello](https://trello.com/b/3hdFhIap/brems).
 
 Base de Datos
-BREMS-base de datos.jpg
+![BaseDatos](BREMS-base de datos.jpg)
