@@ -102,6 +102,10 @@ header .logo h1 {
     background-color: rgba(10, 78, 77, 0.9);
 }
 
+.menuNav .navbar-collapse {
+    padding: 0;
+}
+
 .menuNav .nav li a {
     text-transform: uppercase;
     text-align: center;
@@ -300,43 +304,32 @@ header .logo h1 {
     font-size: 32px;
 }
 
+
+/* Items */
 .content .listItems {
-    margin-top: 10px;
-    padding: 5px;
+    margin-top: 15px;
 }
 
 .content .item {
-    margin-bottom: 30px;
-}
-
-.content .coverItem {
-    text-align: center;
+    margin: 30px 0;
 }
 
 .content .coverItem img {
-    width: 125px;
-    height: 180px;
-    margin-top: 20px;
+    width: 80%;
+    margin: auto;
 }
 
-.content .coverItem .btn-success {
-    width: 110px;
-    height: 28px;
-    margin-top: 13px;
-    font-size: 13px;
+.content .coverItem .btn-reserve {
     color: #faf9f9;
     background-color: #409D69;
-    border-color: transparent;
-    -webkit-font-smoothing: antialiased;
     border-radius: 0px;
+    margin: auto;
+    width: 80%;
+    display: block;
 }
 
-.content .coverItem .btn-success:hover {
+.content .coverItem .btn-reserve:hover {
     background-color: #3d9363;
-}
-
-.content .informationItem {
-    height: 243px;
 }
 
 .content .authorName {
@@ -378,7 +371,7 @@ header .logo h1 {
 }
 
 .content .informationItem .description p {
-    margin-top: -4px;
+    font-size: 1.20em;
 }
 
 .content .listItems .available {
