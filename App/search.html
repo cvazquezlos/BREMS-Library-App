@@ -7,12 +7,12 @@
 
     <!-- Boostrap Library -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 
     <link type="text/css" href="css/main-style.css" rel="stylesheet" />
+    <link type="text/css" href="css/price-range.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -37,7 +37,7 @@
                     <!-- // main menu -->
                     <nav class="col-lg-7 mainMenuNav">
                         <ul class="nav nav-pills">
-                            <li role="presentation" class="active"><a href="index.html">Home</a></li>
+                            <li role="presentation"><a href="index.html">Home</a></li>
                             <li role="presentation"><a href="profile-user.html">Profile</a></li>
                             <li role="presentation"><a href="#">Contact</a></li>
                             <li role="presentation"><a href="#">Services</a></li>
@@ -111,7 +111,7 @@
         <div class="row contentMain">
             <div class="col-sm-2">
                 <div class="left-sidebar">
-                    <h2>Category</h2>
+                    <h3 class="title">Category</h3>
                     <div class="panel-group category-products" id="accordian">
                         <!--category-productsr-->
                         <div class="panel panel-default">
@@ -223,29 +223,32 @@
 
                     <div class="brands_products">
                         <!--brands_products-->
-                        <h2>Brands</h2>
-                        <div class="brands-name">
+                        <h3 class="title">Genre</h3>
+                        <div class="well">
                             <ul class="nav nav-pills nav-stacked">
                                 <li>
-                                    <a href=""> <span class="pull-right">(50)</span>Acne</a>
+                                    <a href=""> <span class="pull-right">(9)</span>Fiction</a>
                                 </li>
                                 <li>
-                                    <a href=""> <span class="pull-right">(56)</span>Grüne Erde</a>
+                                    <a href=""> <span class="pull-right">(13)</span>Comedy</a>
                                 </li>
                                 <li>
-                                    <a href=""> <span class="pull-right">(27)</span>Albiro</a>
+                                    <a href=""> <span class="pull-right">(10)</span>Drama</a>
                                 </li>
                                 <li>
-                                    <a href=""> <span class="pull-right">(32)</span>Ronhill</a>
+                                    <a href=""> <span class="pull-right">(9)</span>Horror</a>
                                 </li>
                                 <li>
-                                    <a href=""> <span class="pull-right">(5)</span>Oddmolly</a>
+                                    <a href=""> <span class="pull-right">(5)</span>Non-fiction</a>
                                 </li>
                                 <li>
-                                    <a href=""> <span class="pull-right">(9)</span>Boudestijn</a>
+                                    <a href=""> <span class="pull-right">(9)</span>Satire</a>
                                 </li>
                                 <li>
-                                    <a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a>
+                                    <a href=""> <span class="pull-right">(4)</span>Tragedy</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(4)</span>Fantasy</a>
                                 </li>
                             </ul>
                         </div>
@@ -253,22 +256,13 @@
                     <!--/brands_products-->
 
                     <div class="price-range">
-                        <!--price-range-->
-                        <h2>Price Range</h2>
+                        <h3 class="title">Year of publication</h3>
                         <div class="well">
                             <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2">
                             <br />
-                            <b>$ 0</b> <b class="pull-right">$ 600</b>
+                            <b>1800</b> <b class="pull-right">2017</b>
                         </div>
                     </div>
-                    <!--/price-range-->
-
-                    <div class="shipping text-center">
-                        <!--shipping-->
-                        <img src="images/home/shipping.jpg" alt="" />
-                    </div>
-                    <!--/shipping-->
-
                 </div>
             </div>
         </div>
@@ -284,6 +278,11 @@
             </div>
         </footer>
     </div>
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/price-range.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 
