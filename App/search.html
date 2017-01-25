@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BREMS</title>
+
+    <!-- Boostrap Library -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+    <link type="text/css" href="css/main-style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <!-- // header: logo and main options of user-->
+        <header class="row">
+            <div class="col-lg-12">
+
+                <!-- // LOGO & MAIN MENU !-->
+                <div class="row">
+                    <!-- // logo -->
+                    <div class="col-lg-5">
+                        <div class="row logo">
+                            <div class="col-lg-2 logoImg"><span>Logo BREMS</span></div>
+                            <div class="col-lg-9 logoText">
+                                <h2>Book Reserve System Management</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // main menu -->
+                    <nav class="col-lg-7 mainMenuNav">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="active"><a href="index.html">Home</a></li>
+                            <li role="presentation"><a href="profile-user.html">Profile</a></li>
+                            <li role="presentation"><a href="#">Contact</a></li>
+                            <li role="presentation"><a href="#">Services</a></li>
+                            <li role="presentation"><a href="#">About</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+                <!-- // main options of user -->
+                <div class="row mainOptionsUser">
+                    <!-- // search -->
+                    <div class="col-lg-5">
+                        <div class="row">
+                            <div class="col-lg-6 search paddingNone">
+                                <div class="input-group">
+                                    <input type="text" class="form-control inputSearch" placeholder="Buscar aquí..." />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // buttons -->
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-offset-6 paddingNone userDropdownMenu">
+                                <div class="btn-group iconMenu" role="group" aria-label="...">
+                                    <!-- // icon alarm -->
+                                    <button type="button" class="btn btn-default icon icon-alarm">
+                                        <i class="fa fa-bell"></i><span class="badge badgeAlarm">4</span>
+                                    </button>
+                                    <!-- // icon book -->
+                                    <button type="button" class="btn btn-default icon icon-book">
+                                        <i class="fa fa-book"></i><span class="badge badgeBook">2</span>
+                                    </button>
+
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="img/user_undefined_f_40x40.jpg" class="img-circle" />
+                                            <span>Bienvenido, annyCS</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="profile-user.html"> <i class="fa fa-user"></i>Mi perfil</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"> <i class="fa fa-power-off"></i>Cerrar sesi&oacute;n</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- // button sig in
+                            <div class="col-lg-3">
+                                <i class="fa fa-power-off"></i>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="row contentMain">
+            <div class="col-sm-2">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Sportswear
+										</a>
+									</h4>
+                            </div>
+                            <div id="sportswear" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li><a href="">Nike </a></li>
+                                        <li><a href="">Under Armour </a></li>
+                                        <li><a href="">Adidas </a></li>
+                                        <li><a href="">Puma</a></li>
+                                        <li><a href="">ASICS </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Mens
+										</a>
+									</h4>
+                            </div>
+                            <div id="mens" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li><a href="">Fendi</a></li>
+                                        <li><a href="">Guess</a></li>
+                                        <li><a href="">Valentino</a></li>
+                                        <li><a href="">Dior</a></li>
+                                        <li><a href="">Versace</a></li>
+                                        <li><a href="">Armani</a></li>
+                                        <li><a href="">Prada</a></li>
+                                        <li><a href="">Dolce and Gabbana</a></li>
+                                        <li><a href="">Chanel</a></li>
+                                        <li><a href="">Gucci</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#womens">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Womens
+										</a>
+									</h4>
+                            </div>
+                            <div id="womens" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li><a href="">Fendi</a></li>
+                                        <li><a href="">Guess</a></li>
+                                        <li><a href="">Valentino</a></li>
+                                        <li><a href="">Dior</a></li>
+                                        <li><a href="">Versace</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">Kids</a></h4>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">Fashion</a></h4>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">Households</a></h4>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">Interiors</a></h4>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">Clothing</a></h4>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">Bags</a></h4>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="#">Shoes</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/category-productsr-->
+
+                    <div class="brands_products">
+                        <!--brands_products-->
+                        <h2>Brands</h2>
+                        <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    <a href=""> <span class="pull-right">(50)</span>Acne</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(56)</span>Grüne Erde</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(27)</span>Albiro</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(32)</span>Ronhill</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(5)</span>Oddmolly</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(9)</span>Boudestijn</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/brands_products-->
+
+                    <div class="price-range">
+                        <!--price-range-->
+                        <h2>Price Range</h2>
+                        <div class="well">
+                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2">
+                            <br />
+                            <b>$ 0</b> <b class="pull-right">$ 600</b>
+                        </div>
+                    </div>
+                    <!--/price-range-->
+
+                    <div class="shipping text-center">
+                        <!--shipping-->
+                        <img src="images/home/shipping.jpg" alt="" />
+                    </div>
+                    <!--/shipping-->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="row">
+            <div class="col-lg-12">
+                <div class="row copyright">
+                    <div class="col-lg-12">
+                        <span>Copyright © 2017 BREMS | All Rights Reserved</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>
