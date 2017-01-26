@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BREMS</title>
+
+    <!-- Boostrap Library -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+    <link type="text/css" href="css/main-style.css" rel="stylesheet" />
+    <link type="text/css" href="css/price-range.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <!-- // header: logo and main options of user-->
+        <header class="row">
+            <div class="col-lg-12">
+
+                <!-- // LOGO & MAIN MENU !-->
+                <div class="row">
+                    <!-- // logo -->
+                    <div class="col-lg-5">
+                        <div class="row logo">
+                            <div class="col-lg-2 logoImg"><span>Logo BREMS</span></div>
+                            <div class="col-lg-9 logoText">
+                                <h2>Book Reserve System Management</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // main menu -->
+                    <nav class="col-lg-7 mainMenuNav">
+                        <ul class="nav nav-pills">
+                            <li role="presentation"><a href="index.html">Home</a></li>
+                            <li role="presentation"><a href="profile-user.html">Profile</a></li>
+                            <li role="presentation"><a href="#">Contact</a></li>
+                            <li role="presentation"><a href="#">Services</a></li>
+                            <li role="presentation"><a href="#">About</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+                <!-- // main options of user -->
+                <div class="row mainOptionsUser">
+                    <!-- // search -->
+                    <div class="col-lg-5">
+                        <div class="row">
+                            <div class="col-lg-6 search paddingNone">
+                                <div class="input-group">
+                                    <input type="text" class="form-control inputSearch" placeholder="Buscar aquí..." />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- // buttons -->
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-offset-6 paddingNone userDropdownMenu">
+                                <div class="btn-group iconMenu" role="group" aria-label="...">
+                                    <!-- // icon alarm -->
+                                    <button type="button" class="btn btn-default icon icon-alarm">
+                                        <i class="fa fa-bell"></i><span class="badge badgeAlarm">4</span>
+                                    </button>
+                                    <!-- // icon book -->
+                                    <button type="button" class="btn btn-default icon icon-book">
+                                        <i class="fa fa-book"></i><span class="badge badgeBook">2</span>
+                                    </button>
+
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="img/user_undefined_f_40x40.jpg" class="img-circle" />
+                                            <span>Bienvenido, annyCS</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="profile-user.html"> <i class="fa fa-user"></i>Mi perfil</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"> <i class="fa fa-power-off"></i>Cerrar sesi&oacute;n</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- // button sig in
+                            <div class="col-lg-3">
+                                <i class="fa fa-power-off"></i>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="row contentMain">
+            <div class="col-lg-12">
+                <div class="col-lg-2">
+                    <div class="brands_products">
+                        <!--brands_products-->
+                        <h3 class="title">Genre</h3>
+                        <div class="well">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    <a href=""> <span class="pull-right">(9)</span>Fiction</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(13)</span>Comedy</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(10)</span>Drama</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(9)</span>Horror</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(5)</span>Non-fiction</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(9)</span>Satire</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(4)</span>Tragedy</a>
+                                </li>
+                                <li>
+                                    <a href=""> <span class="pull-right">(4)</span>Fantasy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--/brands_products-->
+
+                    <div class="price-range">
+                        <h3 class="title">Year of publication</h3>
+                        <div class="well">
+                            <div class="text-center">
+                                <input type="text" class="span2" value="" data-slider-min="1900" data-slider-max="2017" data-slider-step="1" data-slider-value="[1960,1990]" id="sl2">
+                                <br />
+                            </div>
+                            <b>1900</b> <b class="pull-right">2017</b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <h3 class="title">Results</h3>
+                    <div class="well"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="row">
+            <div class="col-lg-12">
+                <div class="row copyright">
+                    <div class="col-lg-12">
+                        <span>Copyright © 2017 BREMS | All Rights Reserved</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/price-range.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
