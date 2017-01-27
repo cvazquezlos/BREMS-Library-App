@@ -120,6 +120,15 @@ header .logo h1 {
     background-color: #e7e7e7;
 }
 
+/** Login **/
+.modal-footer .btn-primary {
+    background-color: rgba(10,78,77, 0.9);
+}
+
+.modal-footer .btn-primary:hover{
+    background-color: rgba(10,78,77, 1);
+}
+
 
 /************************
         Sub Header
