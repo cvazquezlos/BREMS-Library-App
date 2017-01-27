@@ -114,13 +114,24 @@ header .logo h1 {
 
 .menuNav .nav li.active a,
 .menuNav .nav li a:hover,
-.menuNav .nav li a:focus {
+.menuNav .nav li a:focus,
+.userDropdownMenu .dropdown-toggle[data-toggle]:hover,
+.userDropdownMenu .dropdown-toggle[data-toggle]:focus {
     border-bottom: 4px solid #b1ad27;
     color: #555;
     background-color: #e7e7e7;
 }
 
 /** Login **/
+.userDropdownMenu .dropdown-toggle[data-toggle] {
+    padding-bottom: 4px;
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    border-radius: 0px;
+    margin-left: 149px;
+}
+
 .modal-footer .btn-primary {
     background-color: rgba(10,78,77, 0.9);
 }
