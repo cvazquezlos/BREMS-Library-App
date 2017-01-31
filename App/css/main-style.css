@@ -66,7 +66,7 @@ a:hover .moreInfo {
         HEADER
 *************************/
 
-header .logo {
+header .container {
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -87,6 +87,38 @@ header .logo h1 {
     font-size: 20px;
     color: #3b3a3b;
     display: inline;
+}
+
+#search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#search-input input {
+    border: 0;
+    box-shadow: none;
+}
+
+#search-input button {
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#search-input button:hover {
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#search-input .glyphicon-search {
+    font-size: 23px;
 }
 
 
@@ -122,7 +154,9 @@ header .logo h1 {
     background-color: #e7e7e7;
 }
 
+
 /** Login **/
+
 .userDropdownMenu .dropdown-toggle[data-toggle] {
     padding-bottom: 4px;
     background-color: transparent;
@@ -133,11 +167,11 @@ header .logo h1 {
 }
 
 .modal-footer .btn-primary {
-    background-color: rgba(10,78,77, 0.9);
+    background-color: rgba(10, 78, 77, 0.9);
 }
 
-.modal-footer .btn-primary:hover{
-    background-color: rgba(10,78,77, 1);
+.modal-footer .btn-primary:hover {
+    background-color: rgba(10, 78, 77, 1);
 }
 
 
@@ -304,12 +338,6 @@ header .logo h1 {
     margin-bottom: 10px;
 }
 
-.content .breadcrumb {
-    margin-right: 21px;
-    float: right;
-    background-color: transparent;
-}
-
 .content .breadcrumb li i {
     margin-right: 5px;
 }
@@ -326,6 +354,7 @@ header .logo h1 {
 
 
 /* Items */
+
 .content .listItems {
     margin-top: 15px;
 }
