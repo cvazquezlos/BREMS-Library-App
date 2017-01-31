@@ -464,6 +464,8 @@ footer ul li a:focus {
     word-spacing: 1px;
 }
 
+#success_message{ display: none;}
+
 
 /*
 .content .bookStand {
