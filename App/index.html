@@ -15,11 +15,18 @@
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-5 col-lg-5 logo">
-                    <img src="img/logo.png" alt="logo brems">
-                    <h1>Book Reserve System Management</h1>
+                <div class="col-sm-12 col-md-5 col-lg-5 logo"> <img src="img/logo.png" alt="logo brems">
+                    <h1>Book Reserve System Management</h1> </div>
+                <div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
+                    <div id="search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control input-lg" placeholder="Buscar" /> <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span> </div>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-7 col-lg-7"> </div>
             </div>
         </div>
         <nav class="navbar">
@@ -42,11 +49,7 @@
                                     <div class="btn-group iconMenu" role="group" aria-label="...">
                                         <!-- // buttons -->
                                         <div class="btn-group" role="group">
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#login-modal">
-                                                <img src="img/user_undefined_f_40x40.jpg" class="img-circle" />
-                                                <span>Iniciar sesión</span>
-                                                <span class="fa fa-power-off"></span>
-                                            </button>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#login-modal"> <img src="img/user_undefined_f_40x40.jpg" class="img-circle" /> <span>Iniciar sesión</span> <span class="fa fa-power-off"></span> </button>
                                         </div>
                                     </div>
                                 </div>
@@ -56,31 +59,24 @@
                 </div>
             </div>
         </nav>
-
         <!-- // Login modal -->
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <img id="img_logo" src="img/logo.png">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
+                    <div class="modal-header" align="center"> <img id="img_logo" src="img/logo.png">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>
                     </div>
                     <div id="div-forms">
                         <!-- Login form -->
                         <form id="login-form">
                             <div class="modal-body">
                                 <div id="div-login-msg">
-                                    <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                    <span id="text-login-msg">Escribe tu usuario y contraseña</span>
-                                </div>
+                                    <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-login-msg">Escribe tu usuario y contraseña</span> </div>
                                 <input id="login_username" class="form-control" type="text" placeholder="Usuario" required>
                                 <input id="login_password" class="form-control" type="password" placeholder="Contraseña" required>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox"> Recordar
-                                    </label>
+                                        <input type="checkbox"> Recordar </label>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -98,11 +94,8 @@
                         <form id="lost-form" style="display:none;">
                             <div class="modal-body">
                                 <div id="div-lost-msg">
-                                    <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                    <span id="text-lost-msg">Type your e-mail.</span>
-                                </div>
-                                <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type ERROR for error effect)" required>
-                            </div>
+                                    <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-lost-msg">Type your e-mail.</span> </div>
+                                <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type ERROR for error effect)" required> </div>
                             <div class="modal-footer">
                                 <div>
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
@@ -114,18 +107,14 @@
                             </div>
                         </form>
                         <!-- End | Lost Password Form -->
-
                         <!-- Begin | Register Form -->
                         <form id="register-form" style="display:none;">
                             <div class="modal-body">
                                 <div id="div-register-msg">
-                                    <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                    <span id="text-register-msg">Register an account.</span>
-                                </div>
+                                    <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-register-msg">Register an account.</span> </div>
                                 <input id="register_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
                                 <input id="register_email" class="form-control" type="text" placeholder="E-Mail" required>
-                                <input id="register_password" class="form-control" type="password" placeholder="Password" required>
-                            </div>
+                                <input id="register_password" class="form-control" type="password" placeholder="Password" required> </div>
                             <div class="modal-footer">
                                 <div>
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
@@ -137,13 +126,10 @@
                             </div>
                         </form>
                         <!-- End | Register Form -->
-
                     </div>
                 </div>
             </div>
         </div>
-
-
     </header>
     <div class="container content">
         <div class="row">
@@ -161,8 +147,7 @@
                     <!-- // item 1 -->
                     <div class="row item">
                         <div class="col-sm-12 col-md-4 col-lg-3">
-                            <div class="coverItem">
-                                <img src="resources/books/mocha_dick.jpg" class="img-responsive"/>
+                            <div class="coverItem"> <img src="resources/books/mocha_dick.jpg" class="img-responsive" />
                                 <button type="button" class="btn btn-reserve">Reservar</button>
                             </div>
                         </div>
@@ -177,8 +162,7 @@
                                 <li class="staticStar p0"></li>
                             </ul> <span class="ratingValue">3.66</span>
                             <div class="description">
-                                <p>Al cumplir 15 años Caleb Hienam, hijo de un empresario ballenero, realiza su primer viaje para aprender el oficio familiar. En el barco conoce a Aliro Leraru, uno de los marineros, descendiente del pueblo mapuche. Cuando
-                                    el barco en el que trabajan se tope con un bote ballenero cargado con los sobrevivientes del ataque de una monstruosa ballena blanca, Caleb y Aliro conoc <span>...</span>
+                                <p>Al cumplir 15 años Caleb Hienam, hijo de un empresario ballenero, realiza su primer viaje para aprender el oficio familiar. En el barco conoce a Aliro Leraru, uno de los marineros, descendiente del pueblo mapuche. Cuando el barco en el que trabajan se tope con un bote ballenero cargado con los sobrevivientes del ataque de una monstruosa ballena blanca, Caleb y Aliro conoc <span>...</span>
                                     <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
                                 </p>
                                 <div class="available stockAvailable"> <span class="glyphicon glyphicon-ok-circle"></span> <span class="textAvailable">Disponible</span> </div>
@@ -188,8 +172,7 @@
                     <!-- // item 2 -->
                     <div class="row item">
                         <div class="col-sm-12 col-md-4 col-lg-3">
-                            <div class="coverItem">
-                                <img src="resources/books/el_laberinto_de_la_rosa.jpg" class="img-responsive"/>
+                            <div class="coverItem"> <img src="resources/books/el_laberinto_de_la_rosa.jpg" class="img-responsive" />
                                 <button type="button" class="btn btn-reserve">Reservar</button>
                             </div>
                         </div>
@@ -204,9 +187,7 @@
                                 <li class="staticStar p0"></li>
                             </ul> <span class="ratingValue">2.90</span>
                             <div class="description">
-                                <p>Cuando Lucy Rey recibe un trasplante de corazón, se pone más que un nuevo ticker -se obtiene los recuerdos, los amigos y la búsqueda de donantes Will Stafford, descendiente de consejero espiritual de la reina Elizabeth,
-                                    John Dee. Pronto, Lucy está tras la pista de un secreto protegido por generaciones de herederos de Dee. Por desgracia, los fundamentalistas implacables persiguen, convencido de que el secreto de Dee es la clave para
-                                    <span>...</span>
+                                <p>Cuando Lucy Rey recibe un trasplante de corazón, se pone más que un nuevo ticker -se obtiene los recuerdos, los amigos y la búsqueda de donantes Will Stafford, descendiente de consejero espiritual de la reina Elizabeth, John Dee. Pronto, Lucy está tras la pista de un secreto protegido por generaciones de herederos de Dee. Por desgracia, los fundamentalistas implacables persiguen, convencido de que el secreto de Dee es la clave para <span>...</span>
                                     <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
                                 </p>
                                 <div class="available stockUnavailable"> <span class="glyphicon glyphicon-ban-circle"></span> <span class="textAvailable">No disponible</span> </div>
@@ -216,8 +197,7 @@
                     <!-- // item 3 -->
                     <div class="row item">
                         <div class="col-sm-12 col-md-4 col-lg-3">
-                            <div class="coverItem">
-                                <img src="resources/books/angeles_y_demonios.jpg" class="img-responsive"/>
+                            <div class="coverItem"> <img src="resources/books/angeles_y_demonios.jpg" class="img-responsive" />
                                 <button type="button" class="btn btn-reserve">Reservar</button>
                             </div>
                         </div>
@@ -232,8 +212,7 @@
                                 <li class="staticStar p0"></li>
                             </ul> <span class="ratingValue">3.83</span>
                             <div class="description">
-                                <p>El arma más poderosa creada por el hombre, una organización secreta sedienta de venganza... y apenas unas horas para evitar el desastre. La eterna pugna entre ciencia y religión se ha convertido en una guerra muy real.
-                                    En un laboratorio de máxima seguridad, aparece asesinado un científico con un extraño símbolo <span>...</span>
+                                <p>El arma más poderosa creada por el hombre, una organización secreta sedienta de venganza... y apenas unas horas para evitar el desastre. La eterna pugna entre ciencia y religión se ha convertido en una guerra muy real. En un laboratorio de máxima seguridad, aparece asesinado un científico con un extraño símbolo <span>...</span>
                                     <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
                                 </p>
                                 <div class="available stockAvailable"> <span class="glyphicon glyphicon-ok-circle"></span> <span class="textAvailable">Disponible</span> </div>
