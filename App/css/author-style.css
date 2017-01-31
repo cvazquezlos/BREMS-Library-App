@@ -1,0 +1,30 @@
+.fotoautor{
+    align-items: center;
+}
+
+.titulo{
+    text-align: center;
+}
+
+.desc{
+    text-align: justify;
+}
+
+.infoautor{
+    margin-top: 20px;
+}
+
+#orderby{
+    margin-bottom: 20px;
+}
+
+.listItems{
+    border-radius: 20px;
+    border:1px solid #e9e9e9;
+}
+
+.imagenLibro{
+    width: 50%;
+    margin-left: 35%;
+    margin-top: 5%;
+}
