@@ -122,7 +122,9 @@ header .logo h1 {
     background-color: #e7e7e7;
 }
 
+
 /** Login **/
+
 .userDropdownMenu .dropdown-toggle[data-toggle] {
     padding-bottom: 4px;
     background-color: transparent;
@@ -133,11 +135,11 @@ header .logo h1 {
 }
 
 .modal-footer .btn-primary {
-    background-color: rgba(10,78,77, 0.9);
+    background-color: rgba(10, 78, 77, 0.9);
 }
 
-.modal-footer .btn-primary:hover{
-    background-color: rgba(10,78,77, 1);
+.modal-footer .btn-primary:hover {
+    background-color: rgba(10, 78, 77, 1);
 }
 
 
@@ -304,12 +306,6 @@ header .logo h1 {
     margin-bottom: 10px;
 }
 
-.content .breadcrumb {
-    margin-right: 21px;
-    float: right;
-    background-color: transparent;
-}
-
 .content .breadcrumb li i {
     margin-right: 5px;
 }
@@ -326,6 +322,7 @@ header .logo h1 {
 
 
 /* Items */
+
 .content .listItems {
     margin-top: 15px;
 }
