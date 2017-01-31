@@ -1,11 +1,3 @@
-.fotoautor{
-    align-items: center;
-}
-
-.titulo{
-    text-align: center;
-}
-
 .desc{
     text-align: justify;
 }
@@ -27,4 +19,9 @@
     width: 50%;
     margin-left: 35%;
     margin-top: 5%;
+}
+
+.starsautor{
+    margin-top: 2%;
+    margin-left: 5em;
 }
