@@ -16,15 +16,15 @@
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-5 col-lg-5 logo"> <img src="img/logo.png" alt="logo brems">
-                    <h1>Book Reserve System Management</h1> </div>
+                <div class="col-sm-12 col-md-5 col-lg-5 logo">
+                    <a href="index.html"><img src="img/logo.png" alt="logo brems">
+                        <h1>Book Reserve System Management</h1></a>
+                </div>
                 <div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
                     <div id="search-input">
                         <div class="input-group col-md-12">
                             <input type="text" class="form-control input-lg" placeholder="Buscar" /> <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
+                            <a href="search.html"><i class="glyphicon glyphicon-search"></i></a>
                     </span> </div>
                     </div>
                 </div>
@@ -39,11 +39,11 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="profile-user.html">Profile</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">About</a></li>
+                        <li class="active"><a href="index.html">Inicio</a></li>
+                        <li><a href="profile-user.html">Perfil</a></li>
+                        <li><a href="#">Servicios</a></li>
+                        <li><a href="about.html">Sobre</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
                     </ul>
                     <div class="col-lg-7">
                         <div class="row">
@@ -96,15 +96,15 @@
                     <form id="lost-form" style="display:none;">
                         <div class="modal-body">
                             <div id="div-lost-msg">
-                                <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-lost-msg">Type your e-mail.</span> </div>
+                                <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-lost-msg">Introduce tu dirección email</span> </div>
                             <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type ERROR for error effect)" required> </div>
                         <div class="modal-footer">
                             <div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
                             </div>
                             <div>
-                                <button id="lost_login_btn" type="button" class="btn btn-link">Log In</button>
-                                <button id="lost_register_btn" type="button" class="btn btn-link">Register</button>
+                                <button id="lost_login_btn" type="button" class="btn btn-link">Iniciar sesión</button>
+                                <button id="lost_register_btn" type="button" class="btn btn-link">Registro</button>
                             </div>
                         </div>
                     </form>
@@ -113,17 +113,17 @@
                     <form id="register-form" style="display:none;">
                         <div class="modal-body">
                             <div id="div-register-msg">
-                                <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-register-msg">Register an account.</span> </div>
+                                <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-register-msg">Registrarse</span> </div>
                             <input id="register_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
                             <input id="register_email" class="form-control" type="text" placeholder="E-Mail" required>
                             <input id="register_password" class="form-control" type="password" placeholder="Password" required> </div>
                         <div class="modal-footer">
                             <div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Registro</button>
                             </div>
                             <div>
-                                <button id="register_login_btn" type="button" class="btn btn-link">Log In</button>
-                                <button id="register_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
+                                <button id="register_login_btn" type="button" class="btn btn-link">Iniciar sesión</button>
+                                <button id="register_lost_btn" type="button" class="btn btn-link">Olvidé mi contraseña</button>
                             </div>
                         </div>
                     </form>
@@ -136,9 +136,9 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <ul class="breadcrumb">
-                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
                     <li><a href="books.html">Libros</a></li>
-                    <li class="active">Book Profile</li>
+                    <li class="active">Información</li>
                 </ul>
             </div>
         </div>
@@ -155,7 +155,7 @@
                     <!-- informacion del libro -->
                     <div class="col-lg-9 information">
                         <h5 class="authorName">
-                        <span>by</span> 
+                        <span>por</span>
                         <a href="#" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#autor-modal">Francisco Ortega, Gonzalo Martínez</a></h5>
                         <ul class="stars">
                             <li class="staticStar p10"></li>
@@ -186,11 +186,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>
-                        <h3>About Francisco Ortega</h3> </div>
+                        <h3>Sobre Francisco Ortega</h3> </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12"> <img src="resources/authors/francisco_ortega.jpg" />
                             <p>Periodista, escritor, editor y guionista chileno que, como novelista, se convirtió en superventas con Logia (2014).Es profesor en las universidades Católica y Alberto Hurtado, donde imparte clases de literatura y edición. </p>
-                            <a href="author.html"> <span>More about Francisco Ortega...</span> </a>
+                            <a href="author.html"> <span>Más sobre Francisco Ortega...</span> </a>
                         </div>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <hr>
-                    <h3>Books by Francisco Ortega</h3>
+                    <h3>Libros de Francisco Ortega</h3>
                     <div class="col-xs-6 col-md-3">
                         <a href="#" class="thumbnail"> <img src="resources/books/logia.jpg" alt="..."> </a>
                     </div>
@@ -214,7 +214,7 @@
                     <div class="col-xs-6 col-md-3">
                         <a href="#" class="thumbnail"> <img src="resources/books/logia.jpg" alt="..."> </a>
                     </div>
-                    <a href="author.html"> <span>More...</span> </a>
+                    <a href="author.html"> <span>Más...</span> </a>
                 </div>
             </div>
         </div>
@@ -247,7 +247,7 @@
     <footer class="container-fluid">
         <div class="container">
             <div class="row copyright">
-                <div class="col-lg-12"> <span>Copyright © 2017 BREMS | All Rights Reserved</span> </div>
+                <div class="col-lg-12"> <span>Copyright © 2017 BREMS | Todos los derechos reservados.</span> </div>
             </div>
         </div>
     </footer>
