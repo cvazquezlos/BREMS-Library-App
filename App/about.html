@@ -10,28 +10,30 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link type="text/css" href="css/main-style.css" rel="stylesheet" />
-    <script type="text/javascript"src="js/loginmodal.js"></script>
+    <link type="text/css" href="css/about-style.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/loginmodal.js"></script>
 </head>
 
+
 <body>
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-5 col-lg-5 logo"> <img src="img/logo.png" alt="logo brems">
-                    <h1>Book Reserve System Management</h1> </div>
-                <div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
-                    <div id="search-input">
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Buscar" /> <span class="input-group-btn">
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-5 col-lg-5 logo"> <img src="img/logo.png" alt="logo brems">
+                <h1>Book Reserve System Management</h1> </div>
+            <div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
+                <div id="search-input">
+                    <div class="input-group col-md-12">
+                        <input type="text" class="form-control input-lg" placeholder="Buscar" /> <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" type="button">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span> </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
     <nav class="navbar">
         <div class="container-fluid menuNav">
             <div class="container">
@@ -40,7 +42,7 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="index.html">Home</a></li>
                         <li><a href="profile-user.html">Profile</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#">Services</a></li>
@@ -62,7 +64,7 @@
             </div>
         </div>
     </nav>
-    <!-- // Login modal -->
+<!-- // Login modal -->
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -135,103 +137,51 @@
     </div>
     <div class="container content">
         <div class="row">
-            <div class="col-sm-12">
-                <ul class="nav nav-tabs nav-justified">
-                    <li role="presentation" class="active"><a href="#">Libros</a></li>
-                    <li role="presentation"><a href="#">Revistas</a></li>
-                    <li role="presentation"><a href="#">Toda la estantería</a></li>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+                    <li class="active">Francisco Ortega</li>
                 </ul>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <div class="listItems">
-                    <!-- // item 1 -->
-                    <div class="row item">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <div class="coverItem"> <img src="resources/books/mocha_dick.jpg" class="img-responsive" />
-                                <button type="button" class="btn btn-reserve">Reservar</button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-                            <h3 class="title">Mocha Dick</h3>
-                            <h5 class="authorName">by Francisco Ortega, Gonzalo Martínez</h5>
-                            <ul class="stars">
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p6"></li>
-                                <li class="staticStar p0"></li>
-                            </ul> <span class="ratingValue">3.66</span>
-                            <div class="description">
-                                <p>Al cumplir 15 años Caleb Hienam, hijo de un empresario ballenero, realiza su primer viaje para aprender el oficio familiar. En el barco conoce a Aliro Leraru, uno de los marineros, descendiente del pueblo mapuche. Cuando el barco en el que trabajan se tope con un bote ballenero cargado con los sobrevivientes del ataque de una monstruosa ballena blanca, Caleb y Aliro conoc <span>...</span>
-                                    <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
-                                </p>
-                                <div class="available stockAvailable"> <span class="glyphicon glyphicon-ok-circle"></span> <span class="textAvailable">Disponible</span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- // item 2 -->
-                    <div class="row item">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <div class="coverItem"> <img src="resources/books/el_laberinto_de_la_rosa.jpg" class="img-responsive" />
-                                <button type="button" class="btn btn-reserve">Reservar</button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-                            <h3 class="title">El laberinto de la rosa</h3>
-                            <h5 class="authorName">by Titania Hardie</h5>
-                            <ul class="stars">
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p6"></li>
-                                <li class="staticStar p0"></li>
-                                <li class="staticStar p0"></li>
-                            </ul> <span class="ratingValue">2.90</span>
-                            <div class="description">
-                                <p>Cuando Lucy Rey recibe un trasplante de corazón, se pone más que un nuevo ticker -se obtiene los recuerdos, los amigos y la búsqueda de donantes Will Stafford, descendiente de consejero espiritual de la reina Elizabeth, John Dee. Pronto, Lucy está tras la pista de un secreto protegido por generaciones de herederos de Dee. Por desgracia, los fundamentalistas implacables persiguen, convencido de que el secreto de Dee es la clave para <span>...</span>
-                                    <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
-                                </p>
-                                <div class="available stockUnavailable"> <span class="glyphicon glyphicon-ban-circle"></span> <span class="textAvailable">No disponible</span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- // item 3 -->
-                    <div class="row item">
-                        <div class="col-sm-12 col-md-4 col-lg-3">
-                            <div class="coverItem"> <img src="resources/books/angeles_y_demonios.jpg" class="img-responsive" />
-                                <button type="button" class="btn btn-reserve">Reservar</button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-                            <h3 class="title">Ángeles y Demonios</h3>
-                            <h5 class="authorName">by Dan Brown</h5>
-                            <ul class="stars">
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p10"></li>
-                                <li class="staticStar p6"></li>
-                                <li class="staticStar p0"></li>
-                            </ul> <span class="ratingValue">3.83</span>
-                            <div class="description">
-                                <p>El arma más poderosa creada por el hombre, una organización secreta sedienta de venganza... y apenas unas horas para evitar el desastre. La eterna pugna entre ciencia y religión se ha convertido en una guerra muy real. En un laboratorio de máxima seguridad, aparece asesinado un científico con un extraño símbolo <span>...</span>
-                                    <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
-                                </p>
-                                <div class="available stockAvailable"> <span class="glyphicon glyphicon-ok-circle"></span> <span class="textAvailable">Disponible</span> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-3 titulo">
+                <h2>Sobre nosotros</h2>
             </div>
         </div>
-    </div>
-    <footer class="container-fluid">
-    <div class="container">
-        <div class="row copyright">
-            <div class="col-lg-12"> <span>Copyright © 2017 BREMS | All Rights Reserved</span> </div>
+        <div class="row">
+            <img class="imag" src="resources/others/library.jpg">
+            <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>
+            <p>Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado.</p>
+            <p>Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de Finnibus Bonorum et Malorum" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet..", viene de una linea en la sección 1.10.32</p>
+            <p>Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum, necesitás estar seguro de que no hay nada avergonzante escondido en el medio del texto. Todos los generadores de Lorem Ipsum que se encuentran en Internet tienden a repetir trozos predefinidos cuando sea necesario, haciendo a este el único generador verdadero (válido) en la Internet. Usa un diccionario de mas de 200 palabras provenientes del latín, combinadas con estructuras muy útiles de sentencias, para generar texto de Lorem Ipsum que parezca razonable. Este Lorem Ipsum generado siempre estará libre de repeticiones, humor agregado o palabras no características del lenguaje, etc.</p>
         </div>
-    </div>
-</footer>
+        <hr>
+        <div class="row">
+            <h3> Haz click para agrandar</h3>
+            <br>
+        </div>
+        <div class="row libimages">
+            <div class="col-lg-3">
+                <img class="imag imagmodal" src="resources/others/library2.jpg">
+            </div>
+            <div class="col-lg-3">
+                <img class="imag imagmodal" src="resources/others/library3.jpg">
+            </div>
+            <div class="col-lg-3">
+                <img class="imag imagmodal" src="resources/others/library4.jpg">
+            </div>
+            <div class="col-lg-3">
+                <img class="imag imagmodal" src="resources/others/library2.jpg">
+            </div>
+        </div>
+    </div><br>
+    <footer class="container-fluid">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-lg-12"> <span>Copyright © 2017 BREMS | All Rights Reserved</span> </div>
+            </div>
+        </div>
+    </footer>
 </body>
-
 </html>
