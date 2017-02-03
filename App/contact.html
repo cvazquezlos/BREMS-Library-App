@@ -8,8 +8,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAq7XzgKFazBJqIthS2Ojq5-LjkrAurhG8'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link type="text/css" href="css/main-style.css" rel="stylesheet" /> </head>
+    <link type="text/css" href="css/main-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/google-map.css">
+</head>
 
 <body>
     <header>
@@ -163,6 +166,16 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div id="map_model">
+                        <div id="gmap_canvas"></div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
             <!-- https://codepen.io/jaycbrf/pen/iBszr -->
 
             <form class="well form-horizontal" action=" " method="post" id="contact_form">
@@ -273,6 +286,29 @@
                 <div class="col-lg-12"> <span>Copyright © 2017 BREMS | Todos los derechos reservados.</span> </div>
             </div>
         </div>
+
+        <script type='text/javascript'>
+            function init_map() {
+                var myOptions = {
+                    zoom: 15,
+                    center: new google.maps.LatLng(40.4335419, -3.6472188000000187),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: new google.maps.LatLng(40.4335419, -3.6472188000000187)
+                });
+                infowindow = new google.maps.InfoWindow({
+                    content: '<strong>BREMS</strong><br>C/ Alcalá<br>28939 Madrid<br>'
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+                infowindow.open(map, marker);
+            }
+            google.maps.event.addDomListener(window, 'load', init_map);
+        </script>
     </footer>
 </body>
 

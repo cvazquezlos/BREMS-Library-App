@@ -493,7 +493,13 @@ footer ul li a:focus {
     word-spacing: 1px;
 }
 
-#success_message{ display: none;}
+#success_message {
+    display: none;
+}
+
+#tohide {
+    display: none;
+}
 
 
 /*
