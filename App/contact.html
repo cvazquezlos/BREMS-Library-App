@@ -11,16 +11,14 @@
     <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAq7XzgKFazBJqIthS2Ojq5-LjkrAurhG8'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link type="text/css" href="css/main-style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/google-map.css">
-</head>
+    <link rel="stylesheet" href="css/google-map.css"> </head>
 
 <body>
     <header>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-5 col-lg-5 logo">
-                    <a href="index.html">
-                        <img src="img/logo.png" alt="logo brems">
+                    <a href="index.html"> <img src="img/logo.png" alt="logo brems">
                         <h1>Book Reserve System Management</h1></a>
                 </div>
                 <div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
@@ -34,7 +32,7 @@
             </div>
         </div>
     </header>
-    <nav class="navbar">
+    <nav class="navbar navbar-default">
         <div class="container-fluid menuNav">
             <div class="container">
                 <div class="navbar-header">
@@ -53,11 +51,7 @@
                                 <div class="btn-group iconMenu" role="group" aria-label="...">
                                     <!-- // buttons -->
                                     <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#login-modal">
-                                            <img src="img/user_undefined_f_40x40.jpg" class="img-circle" />
-                                            <span>Iniciar sesión</span>
-                                            <span class="fa fa-power-off"></span>
-                                        </button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#login-modal"> <img src="img/user_undefined_f_40x40.jpg" class="img-circle" /> <span>Iniciar sesión</span> <span class="fa fa-power-off"></span> </button>
                                     </div>
                                 </div>
                             </div>
@@ -67,31 +61,24 @@
             </div>
         </div>
     </nav>
-
     <!-- // Login modal -->
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header" align="center">
-                    <img id="img_logo" src="img/logo.png">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
+                <div class="modal-header" align="center"> <img id="img_logo" src="img/logo.png">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>
                 </div>
                 <div id="div-forms">
                     <!-- Login form -->
                     <form id="login-form">
                         <div class="modal-body">
                             <div id="div-login-msg">
-                                <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                <span id="text-login-msg">Escribe tu usuario y contraseña</span>
-                            </div>
+                                <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-login-msg">Escribe tu usuario y contraseña</span> </div>
                             <input id="login_username" class="form-control" type="text" placeholder="Usuario" required>
                             <input id="login_password" class="form-control" type="password" placeholder="Contraseña" required>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox"> Recordar
-                                </label>
+                                    <input type="checkbox"> Recordar </label>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -109,11 +96,8 @@
                     <form id="lost-form" style="display:none;">
                         <div class="modal-body">
                             <div id="div-lost-msg">
-                                <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                <span id="text-lost-msg">Introduce tu dirección email</span>
-                            </div>
-                            <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type ERROR for error effect)" required>
-                        </div>
+                                <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-lost-msg">Introduce tu dirección email</span> </div>
+                            <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type ERROR for error effect)" required> </div>
                         <div class="modal-footer">
                             <div>
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
@@ -125,18 +109,14 @@
                         </div>
                     </form>
                     <!-- End | Lost Password Form -->
-
                     <!-- Begin | Register Form -->
                     <form id="register-form" style="display:none;">
                         <div class="modal-body">
                             <div id="div-register-msg">
-                                <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div>
-                                <span id="text-register-msg">Registrarse</span>
-                            </div>
+                                <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-register-msg">Registrarse</span> </div>
                             <input id="register_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
                             <input id="register_email" class="form-control" type="text" placeholder="E-Mail" required>
-                            <input id="register_password" class="form-control" type="password" placeholder="Password" required>
-                        </div>
+                            <input id="register_password" class="form-control" type="password" placeholder="Password" required> </div>
                         <div class="modal-footer">
                             <div>
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Registro</button>
@@ -148,14 +128,11 @@
                         </div>
                     </form>
                     <!-- End | Register Form -->
-
                 </div>
             </div>
         </div>
     </div>
-
     <div class="container content">
-
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <ul class="breadcrumb">
@@ -164,7 +141,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div id="map_model">
@@ -173,21 +149,16 @@
             </div>
         </div>
         <br/>
-
         <!-- https://codepen.io/jaycbrf/pen/iBszr -->
-
         <form class="well form-horizontal" action=" " method="post" id="contact_form">
             <fieldset>
-
                 <!-- Form Name -->
                 <legend>¡Contáctanos!</legend>
-
                 <!-- Select Basic -->
                 <div class="form-group">
                     <label class="col-md-4 control-label">Motivo de su consulta</label>
                     <div class="col-md-4 selectContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                             <select name="state" class="form-control selectpicker">
                                 <option value=" ">Selecciona un motivo</option>
                                 <option>Carnet bibliotecario</option>
@@ -199,72 +170,55 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label">Nombre</label>
                     <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input name="first_name" placeholder="Nombre" class="form-control" type="text">
-                        </div>
+                        <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="first_name" placeholder="Nombre" class="form-control" type="text"> </div>
                     </div>
                 </div>
-
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label">E-Mail</label>
                     <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input name="email" placeholder="Dirección de correo electrónico" class="form-control" type="text">
-                        </div>
+                        <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input name="email" placeholder="Dirección de correo electrónico" class="form-control" type="text"> </div>
                     </div>
                 </div>
-
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label">Teléfono de contacto</label>
                     <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                            <input name="phone" placeholder="Ej. 603245678" class="form-control" type="text">
-                        </div>
+                        <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                            <input name="phone" placeholder="Ej. 603245678" class="form-control" type="text"> </div>
                     </div>
                 </div>
-
                 <!-- radio checks -->
                 <div class="form-group">
                     <label class="col-md-4 control-label">¿Eres cliente de BREMS?</label>
                     <div class="col-md-4">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="hosting" value="yes" /> Sí, lo soy.
-                            </label>
+                                <input type="radio" name="hosting" value="yes" /> Sí, lo soy. </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="hosting" value="no" /> No.
-                            </label>
+                                <input type="radio" name="hosting" value="no" /> No. </label>
                         </div>
                     </div>
                 </div>
-
                 <!-- Text area -->
-
                 <div class="form-group">
                     <label class="col-md-4 control-label">Mensaje</label>
                     <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                             <textarea class="form-control" name="comment" placeholder="Mensaje"></textarea>
                         </div>
                     </div>
                 </div>
-
                 <!-- Success message -->
                 <div class="alert alert-success" role="alert" id="success_message">¡Enviado! <i class="glyphicon glyphicon-thumbs-up"></i> Gracias por contactar con nosotros.</div>
-
                 <!-- Button -->
                 <div class="form-group">
                     <label class="col-md-4 control-label"></label>
@@ -272,7 +226,6 @@
                         <button type="submit" class="btn btn-warning">Enviar <span class="glyphicon glyphicon-send"></span></button>
                     </div>
                 </div>
-
             </fieldset>
         </form>
     </div>
@@ -283,18 +236,17 @@
                 <div class="col-lg-12"> <span>Copyright © 2017 BREMS | Todos los derechos reservados.</span> </div>
             </div>
         </div>
-
         <script type='text/javascript'>
             function init_map() {
                 var myOptions = {
-                    zoom: 15,
-                    center: new google.maps.LatLng(40.4335419, -3.6472188000000187),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    zoom: 15
+                    , center: new google.maps.LatLng(40.4335419, -3.6472188000000187)
+                    , mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
                 map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
                 marker = new google.maps.Marker({
-                    map: map,
-                    position: new google.maps.LatLng(40.4335419, -3.6472188000000187)
+                    map: map
+                    , position: new google.maps.LatLng(40.4335419, -3.6472188000000187)
                 });
                 infowindow = new google.maps.InfoWindow({
                     content: '<strong>BREMS</strong><br>C/ Alcalá<br>28939 Madrid<br>'
