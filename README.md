@@ -58,7 +58,7 @@ In our App, we use these entities: *User*, *fine*, *resource*, *loan* and *copy*
 We use [Trello](https://trello.com/b/3hdFhIap/brems) and SCRUM because we think is the best way to work in a group.
 
 #### Views of app
-This app contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible.
+This app contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible. This design is originally made by @annyCS.
 
 | View      | Screenshot                  | View         | Screenshot                    |
 |-----------|-----------------------------|--------------|-------------------------------|
@@ -100,6 +100,10 @@ This is the *navigation diagram*
     administrator -> index;
     index -> about;
     about -> index;
+    about -> contact;
+    about -> profile;
+    contact -> about;
+    contact -> profile;
     index -> contact;
     contact -> index;
     index -> book;
