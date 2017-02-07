@@ -47,13 +47,13 @@
 }
 
 .skin-purple .main-header .logo {
-    background-color: #0a2a2a;
+    background-color: #215E5D;
     color: #fff;
     border-bottom: 0 solid transparent
 }
 
 .skin-purple .main-header .logo:hover {
-    background-color: #0A4E4D
+    background-color: #215E5D
 }
 
 .skin-purple .main-header li.user-header {
