@@ -28,9 +28,9 @@
             <!-- Logo -->
             <a href="home.html" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>BREMS</b></span>
+                <img src="../img/logo.png" width="50" height="50">
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>BREMS</b></span>
+                <span class="logo-mini">BREMS</span>
             </a>
 
             <!-- Header Navbar -->
@@ -143,16 +143,16 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <label>Título del libro</label>
+                                    <label>Título del recurso</label>
                                     <input type="text" class="form-control" placeholder="Título">
                                 </div>
                                 <div class="form-group">
-                                    <label>Sumario del libro</label>
+                                    <label>Sumario del recurso</label>
                                     <input type="text" class="form-control" placeholder="Sumario corto">
                                 </div>
                                 <div class="form-group">
-                                    <label>Autor</label>
-                                    <input type="text" class="form-control" placeholder="Autor">
+                                    <label>Autor o compañía</label>
+                                    <input type="text" class="form-control" placeholder="Autor o compañía">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -164,52 +164,19 @@
                                     <label>Género literario</label>
                                     <input type="text" class="form-control" placeholder="Género">
                                 </div>
-                                <br>
-                                <br>
+                                <div class="form-group">
+                                    <label>Tipo de recurso</label>
+                                    <br>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="book" checked> Libro
+                                    </label>
+                                    <br>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="magazine"> Revista
+                                    </label>
+                                </div>
                                 <div class="pull-right">
-                                    <button type="button" class="btn btn-success">Añadir libro</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Nueva revista</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label>Número de la entrega</label>
-                                    <input type="text" class="form-control" placeholder="Entrega">
-                                </div>
-                                <div class="form-group">
-                                    <label>Sumario de la revista</label>
-                                    <input type="text" class="form-control" placeholder="Sumario corto">
-                                </div>
-                                <div class="form-group">
-                                    <label>Autor o marca</label>
-                                    <input type="text" class="form-control" placeholder="Autor o marca">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label>Año de publicación</label>
-                                    <input type="text" class="form-control" placeholder="Año de publicación">
-                                </div>
-                                <div class="form-group">
-                                    <label>Género literario</label>
-                                    <input type="text" class="form-control" placeholder="Género literario">
-                                </div>
-                                <br>
-                                <br>
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-success">Añador revista</button>
+                                    <button type="button" class="btn btn-success">Añadir recurso</button>
                                 </div>
                             </div>
                         </div>
