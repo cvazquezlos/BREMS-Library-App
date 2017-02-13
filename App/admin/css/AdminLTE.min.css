@@ -1220,10 +1220,13 @@ a:focus {
     text-align: center
 }
 
-.navbar-nav>.user-menu>.dropdown-menu>li.user-header>img {
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header img {
     z-index: 5;
     height: 90px;
     width: 90px;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>div {
     border: 3px solid;
     border-color: transparent;
     border-color: rgba(255, 255, 255, 0.2)

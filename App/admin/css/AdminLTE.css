@@ -1287,9 +1287,6 @@ a:focus {
     z-index: 5;
     height: 90px;
     width: 90px;
-    border: 3px solid;
-    border-color: transparent;
-    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > p {
