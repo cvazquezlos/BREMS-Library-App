@@ -160,3 +160,7 @@ _book
 
 # End of https://www.gitignore.io/api/intellij,webstorm,node,git,gitbook
 .idea/
+
+# Spring
+.metadata
+/RemoteSystemsTempFiles/
