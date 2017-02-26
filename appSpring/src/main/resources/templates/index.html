@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BREMS</title>
+    <!-- Boostrap Library -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link type="text/css" href="css/main-style.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/loginmodal.js"></script>
+</head>
+
+<body>
+    {{> topBar}}
+
+    <div class="container content">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <ul class="breadcrumb">
+                    <li class="active"><i class="fa fa-home" aria-hidden="true"></i>Inicio</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#books" aria-controls="books" role="tab" data-toggle="tab">Libros</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#magazines" aria-controls="magazines" role="tab" data-toggle="tab">Revistas</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#allShelf" aria-controls="allShelf" role="tab" data-toggle="tab">Toda la estantería</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="books">
+
+                        {{> listItems}}
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="magazines"></div>
+                    <div role="tabpanel" class="tab-pane" id="allShelf"></div>
+                    <div role="tabpanel" class="tab-pane" id="settings"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {{> footer}}
+
+</body>
+
+</html>
