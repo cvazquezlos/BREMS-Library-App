@@ -163,4 +163,5 @@ _book
 
 # Spring
 .metadata
+.recommenders
 /RemoteSystemsTempFiles/
