@@ -1,6 +1,4 @@
-package entity;
-
-import java.util.Set;
+package appSpring.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,23 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class ActionType {
+public class Genre {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="genre") 
 	private Integer id;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="actionType") 
-	private Set<Action> actions;
 	
 	private String name;
 	
 	
 	// Constructor
-	public ActionType() {} // Used by SpringData
+	public Genre() {} // Used by SpringData
 	
 	
-	// Métodos getter/setters de los atributos
+	// Métodos getter/setter de los atributos
 	public Integer getId() {
 		return id;
 	}
@@ -35,11 +31,11 @@ public class ActionType {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}

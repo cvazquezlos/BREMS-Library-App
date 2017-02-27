@@ -1,28 +1,29 @@
-package entity;
+package appSpring.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
-public class UserAction{
+public class Token {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@ManyToMany
-	private User user;
+	private String value;
+	
+	@OneToOne(mappedBy = "token")
 	private Action action;
 	
 	
 	// Constructor
-	public UserAction() {} // Used by SpringData
+	public Token() {} // Used by SpringData
 	
 	
-	// Métodos getter/setters de los atributos
+	// Métodos getter/setter de los atributos
 	public Integer getId() {
 		return id;
 	}
@@ -31,12 +32,12 @@ public class UserAction{
 		this.id = id;
 	}
 	
-	public User getUser() {
-		return user;
+	public String getValor() {
+		return value;
 	}
 	
-	public void setUser(User user) {
-		this.user = user;
+	public void setValor(String valor) {
+		this.value = valor;
 	}
 	
 	public Action getAction() {
@@ -45,5 +46,5 @@ public class UserAction{
 	
 	public void setAction(Action action) {
 		this.action = action;
-	} 
+	}
 }

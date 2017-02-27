@@ -1,4 +1,4 @@
-package entity;
+package appSpring.entity;
 
 import java.util.Set;
 
