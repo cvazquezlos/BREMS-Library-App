@@ -16,7 +16,7 @@ public class State {
 	
 	
 	// Constructor
-	public State(){} // Used by SpringData
+	protected State(){} // Used by SpringData
 
 	
 	// Métodos getter/setter de los atributos

@@ -28,7 +28,7 @@ public class ResourceCopy {
 	
 	
 	// Constructor
-	public ResourceCopy() {
+	protected ResourceCopy() {
 		// Used by SpringData
 		locationCode = generatorCode();
 	} 
@@ -62,7 +62,7 @@ public class ResourceCopy {
 	
 	public String generatorCode() {
 		
-		int idGenero = this.getProduct().getGenero().getId();
+		int idGenero = this.getProduct().getGenre().getId();
 		int idEjemplar = this.getId();
 		String tituloProducto = this.getProduct().getTitle();
 		String autorProducto = this.getProduct().getAutor();

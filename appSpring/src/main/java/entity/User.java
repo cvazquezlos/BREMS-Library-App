@@ -35,7 +35,7 @@ public class User{
 	
 	
 	// Constructor
-	public User() {} // Used by SpringData
+	protected User() {} // Used by SpringData
 	
 	
 	// Métodos getter/setters de los atributos

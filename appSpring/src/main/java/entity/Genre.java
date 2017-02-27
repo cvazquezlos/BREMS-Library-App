@@ -16,7 +16,7 @@ public class Genre {
 	
 	
 	// Constructor
-	public Genre() {} // Used by SpringData
+	protected Genre() {} // Used by SpringData
 	
 	
 	// Métodos getter/setter de los atributos

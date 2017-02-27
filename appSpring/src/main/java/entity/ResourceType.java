@@ -16,7 +16,7 @@ public class ResourceType {
 	
 	
 	// Constructor
-	public ResourceType() {} // Used by SpringData
+	protected ResourceType() {} // Used by SpringData
 	
 	
 	// Métodos getter/setter de los atributos

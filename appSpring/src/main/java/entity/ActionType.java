@@ -24,7 +24,7 @@ public class ActionType {
 	
 	
 	// Constructor
-	public ActionType() {} // Used by SpringData
+	protected ActionType() {} // Used by SpringData
 	
 	
 	// Métodos getter/setters de los atributos
