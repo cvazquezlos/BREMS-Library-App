@@ -11,6 +11,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 	List<Resource> findByAuthor(String author);
 
 	List<Resource> findByEditorial(String editorial);
-	// Implementar los métodos para encontrar por género y tipo de recurso
+	// 1. Implementar los métodos para encontrar por género y tipo de recurso
 
 }

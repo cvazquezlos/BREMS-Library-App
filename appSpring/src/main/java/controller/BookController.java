@@ -3,6 +3,8 @@ package controller;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,13 +44,16 @@ public class BookController {
 	}
 
 	@RequestMapping("/")
-	public String books(Model model) {
-		model.addAttribute("libros", resourceRepo.findAll());
+	public String books(Model model, Pageable page) {
+
+		// 2. ¿Esto es correcto?
+		Page<Resource> resources = resourceRepo.findAll(page);
+		model.addAttribute("libros", resources);
 
 		return "index";
 	}
 
-	@RequestMapping(value="/books/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public String bookProfile(Model model) {
 		return "profileBook";
 	}
