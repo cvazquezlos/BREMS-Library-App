@@ -18,6 +18,9 @@ public class Genre {
 	// Constructor
 	protected Genre() {} // Used by SpringData
 	
+	public Genre(String name){
+		this.name = name;
+	}
 	
 	// Métodos getter/setter de los atributos
 	public Integer getId() {

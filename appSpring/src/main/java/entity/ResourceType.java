@@ -13,11 +13,13 @@ public class ResourceType {
 	private Integer id;
 	
 	private String name;
-	
-	
+
 	// Constructor
 	protected ResourceType() {} // Used by SpringData
 	
+	public ResourceType(String name){
+		this.name = name;
+	}
 	
 	// Métodos getter/setter de los atributos
 	public Integer getId() {
@@ -35,6 +37,5 @@ public class ResourceType {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
 }

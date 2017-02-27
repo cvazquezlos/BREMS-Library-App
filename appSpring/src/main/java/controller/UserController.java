@@ -12,4 +12,5 @@ public class UserController {
 		//model.addAttribute();
 		return "userProfile";
 	}
+
 }
