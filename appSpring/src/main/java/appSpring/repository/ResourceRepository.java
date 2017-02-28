@@ -1,7 +1,13 @@
 package appSpring.repository;
 
 import java.util.List;
+
+import entity.Genre;
 import entity.Resource;
+import entity.ResourceType;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ResourceRepository extends JpaRepository<Resource, Integer> {
@@ -11,6 +17,9 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 	List<Resource> findByAuthor(String author);
 
 	List<Resource> findByEditorial(String editorial);
-	// 1. Implementar los métodos para encontrar por género y tipo de recurso
+
+	List<Resource> findByGenre(Genre genre);
+
+	Page<Resource> findByResourceType(ResourceType productType, Pageable page);
 
 }

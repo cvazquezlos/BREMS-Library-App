@@ -16,7 +16,6 @@ public class Resource {
 	private String author;
 	private String editorial;
 	private String description;
-	
 	private ResourceType productType;
 	private Genre genre;
 	
