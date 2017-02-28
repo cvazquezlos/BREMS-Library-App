@@ -2,9 +2,9 @@ package appSpring.repository;
 
 import java.util.List;
 
-import entity.Genre;
-import entity.Resource;
-import entity.ResourceType;
+import appSpring.entity.Genre;
+import appSpring.entity.Resource;
+import appSpring.entity.ResourceType;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
