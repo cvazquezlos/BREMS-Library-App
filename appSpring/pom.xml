@@ -47,6 +47,10 @@
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>3.6.0</version>
-		</dependency>    	
+		</dependency>
+		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+ 			<artifactId>spring-boot-starter-security</artifactId>
+ 		</dependency>    	
 	</dependencies>
 </project>

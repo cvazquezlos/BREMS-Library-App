@@ -33,7 +33,6 @@ public class User{
 	private String telephone;
 	private String address;
 	
-	
 	// Constructor
 	public User() {} // Used by SpringData
 	
