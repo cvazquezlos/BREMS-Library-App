@@ -42,7 +42,6 @@ public class User{
 	 private List<String> roles;
 
 	// Constructor
-<<<<<<< HEAD:appSpring/src/main/java/entity/User.java
 	public User(String nameUser, String password, String dni,
 			String name, String lastName1, String lastName2,
 			String email, String telephone, String address,
@@ -59,10 +58,8 @@ public class User{
 		this.address = address;
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		
-	} // Used by SpringData
-=======
+	} 
 	protected User() {} // Used by SpringData
->>>>>>> carlos:appSpring/src/main/java/appSpring/entity/User.java
 	
 	
 	// Métodos getter/setters de los atributos

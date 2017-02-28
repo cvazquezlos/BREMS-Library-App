@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import entity.User;
+import appSpring.entity.User;
 
 @Component
 public class UserRepositoryAuthenticationProvider implements AuthenticationProvider{
