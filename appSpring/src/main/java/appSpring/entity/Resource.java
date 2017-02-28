@@ -1,11 +1,9 @@
 package appSpring.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -19,10 +17,10 @@ public class Resource {
 	private String autor;
 	private String editorial;
 	
+	@ManyToOne
 	private ResourceType productType;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "genre") 
+
+	@ManyToOne
 	private Genre genre;
 
 	

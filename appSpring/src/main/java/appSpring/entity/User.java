@@ -17,11 +17,11 @@ public class User{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@ManyToMany
+	/*@ManyToMany
 	@JoinTable(name="userActions",
 			   joinColumns={@JoinColumn(name="idUser", nullable=false)},
-			   inverseJoinColumns={@JoinColumn(name="idAction", nullable=false)})
-	private List<Action> userActions;
+			   inverseJoinColumns={@JoinColumn(name="idAction", nullable=false)})*/
+	/*private List<Action> userActions;*/
 	
 	private String nameUser;
 	private String password;
