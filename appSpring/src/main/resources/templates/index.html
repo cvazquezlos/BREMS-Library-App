@@ -46,19 +46,16 @@
             <div class="col-lg-12">
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="books">
-<<<<<<< HEAD
-                        {{books}}
+	                    <div class="listItems">
+	                    {{#books}}
+						  {{> listItems}}
+						{{/books}}
+	                    </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="magazines">
-                    	{{magazines}}
-=======
-
-                        {{> listItems}}
                         
->>>>>>> jherel
                     </div>
                     <div role="tabpanel" class="tab-pane" id="allShelf"></div>
-                    <div role="tabpanel" class="tab-pane" id="settings"></div>
                 </div>
             </div>
         </div>

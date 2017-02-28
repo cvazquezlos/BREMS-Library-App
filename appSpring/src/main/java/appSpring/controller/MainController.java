@@ -1,5 +1,7 @@
 package appSpring.controller;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +39,20 @@ public class MainController {
 		g3 = new Genre("Farándula");
 		genreRepo.save(g1);
 		genreRepo.save(g2);
+		genreRepo.save(g3);
 		
 		rt1 = new ResourceType("Libro");
 		rt2 = new ResourceType("Revista");
 		resourceTypeRepo.save(rt1);
 		resourceTypeRepo.save(rt2);
-		/*
+		
 		book1 = new Resource("Cien años de soledad", "Gabriel García Márquez", "Editorial Sudamericana", "Cien años de soledad es una novela del escritor colombiano Gabriel "
 				+ "García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las "
 				+ "obras más traducidas y leídas en español.");
 		book1.setGenre(g1);
 		book1.setProductType(rt1);
+		
+		resourceRepo.save(book1);
 		
 		
 		book2 = new Resource("El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", "El principito es un cuento poético que viene acompañado de ilustraciones hechas "
@@ -56,15 +61,15 @@ public class MainController {
 				+ "con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.");
 		book2.setGenre(g2);
 		book2.setProductType(rt2);
+
+		resourceRepo.save(book2);
+		
 		
 		book3 = new Resource("Hola.com", "HOLA S.L.", "Hola S.L.", "La revista Hola es una publicación tanto impresa como electrónica, propiedad de la editora 'Hola S. L., que se dedica "
 				+ "a comunicar acontecimientos recientes de la vida de la farándula principalmente, abordando también temas como moda, actualidad, belleza, mujer, hombre, cocina o decoración.");
 		book3.setGenre(g3);
-		book3.setProductType(rt1);
-				
-		resourceRepo.save(book1);
-		resourceRepo.save(book2);
-		resourceRepo.save(book3);*/
+		
+		resourceRepo.save(book3);
 	}
 
 	@RequestMapping("/")
@@ -74,7 +79,9 @@ public class MainController {
 		Page<Resource> resourcesMagazines = resourceRepo.findByResourceType(rt2, new PageRequest(0, 50));
 		model.addAttribute("books", resourcesBooks);
 		model.addAttribute("magazines", resourcesMagazines);*/
-
+		List<Resource> books = resourceRepo.findAll();
+		
+		model.addAttribute("books", books);
 		return "index";
 	}
 
