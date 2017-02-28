@@ -21,7 +21,7 @@ public class Penalty {
 	
 	
 	// Constructor
-	public Penalty() {} // Used by SpringData
+	protected Penalty() {} // Used by SpringData
 	
 	
 	// Métodos getter/setter de los atributos

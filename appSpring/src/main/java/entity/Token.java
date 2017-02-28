@@ -20,7 +20,7 @@ public class Token {
 	
 	
 	// Constructor
-	public Token() {} // Used by SpringData
+	protected Token() {} // Used by SpringData
 	
 	
 	// Métodos getter/setter de los atributos

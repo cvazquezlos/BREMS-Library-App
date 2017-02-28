@@ -46,7 +46,7 @@ public class Action {
 	
 	
 	// Constructor
-	public Action() {} // Used by SpringData
+	protected Action() {} // Used by SpringData
 	
 	
 	// Métodos getter/setters de los atributos

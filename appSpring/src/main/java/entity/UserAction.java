@@ -19,7 +19,7 @@ public class UserAction{
 	
 	
 	// Constructor
-	public UserAction() {} // Used by SpringData
+	protected UserAction() {} // Used by SpringData
 	
 	
 	// Métodos getter/setters de los atributos

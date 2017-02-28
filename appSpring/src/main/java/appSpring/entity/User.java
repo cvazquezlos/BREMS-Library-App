@@ -1,4 +1,4 @@
-package entity;
+package appSpring.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,11 +22,11 @@ public class User{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@ManyToMany
+	/*@ManyToMany
 	@JoinTable(name="userActions",
 			   joinColumns={@JoinColumn(name="idUser", nullable=false)},
-			   inverseJoinColumns={@JoinColumn(name="idAction", nullable=false)})
-	private List<Action> userActions;
+			   inverseJoinColumns={@JoinColumn(name="idAction", nullable=false)})*/
+	/*private List<Action> userActions;*/
 	
 	private String nameUser;
 	private String passwordHash;
@@ -42,6 +42,7 @@ public class User{
 	 private List<String> roles;
 
 	// Constructor
+<<<<<<< HEAD:appSpring/src/main/java/entity/User.java
 	public User(String nameUser, String password, String dni,
 			String name, String lastName1, String lastName2,
 			String email, String telephone, String address,
@@ -59,6 +60,9 @@ public class User{
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		
 	} // Used by SpringData
+=======
+	protected User() {} // Used by SpringData
+>>>>>>> carlos:appSpring/src/main/java/appSpring/entity/User.java
 	
 	
 	// Métodos getter/setters de los atributos
