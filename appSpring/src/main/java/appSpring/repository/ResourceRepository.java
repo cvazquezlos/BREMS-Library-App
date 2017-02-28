@@ -20,6 +20,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 
 	List<Resource> findByGenre(Genre genre);
 
-	Page<Resource> findByResourceType(ResourceType productType, Pageable page);
+	/*Page<Resource> findByResourceType(ResourceType productType, Pageable page);*/
 
 }
