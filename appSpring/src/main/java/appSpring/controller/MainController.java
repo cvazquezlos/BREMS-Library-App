@@ -1,4 +1,4 @@
-package controller;
+package appSpring.controller;
 
 import javax.annotation.PostConstruct;
 

@@ -1,4 +1,4 @@
-package entity;
+package appSpring.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,24 +6,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class State {
+public class ResourceType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
 	private String name;
-	
-	
-	// Constructor
-	protected State(){} // Used by SpringData
 
+	// Constructor
+	protected ResourceType() {} // Used by SpringData
+	
+	public ResourceType(String name){
+		this.name = name;
+	}
 	
 	// Métodos getter/setter de los atributos
 	public Integer getId() {
 		return id;
 	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -35,4 +37,5 @@ public class State {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }

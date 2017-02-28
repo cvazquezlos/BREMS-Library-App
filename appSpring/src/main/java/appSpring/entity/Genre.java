@@ -1,4 +1,4 @@
-package entity;
+package appSpring.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

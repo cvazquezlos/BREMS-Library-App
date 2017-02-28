@@ -1,9 +1,10 @@
-package entity;
+package appSpring.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Resource {
@@ -15,9 +16,19 @@ public class Resource {
 	private String title;
 	private String author;
 	private String editorial;
+<<<<<<< HEAD:appSpring/src/main/java/entity/Resource.java
 	private String description;
 	private ResourceType productType;
 	private Genre genre;
+=======
+	
+	@ManyToOne
+	private ResourceType productType;
+
+	@ManyToOne
+	private Genre genre;
+
+>>>>>>> jherel:appSpring/src/main/java/appSpring/entity/Resource.java
 	
 	// Constructor
 	protected Resource() {} // Used by SpringData
@@ -80,12 +91,21 @@ public class Resource {
 		this.productType = productType;
 	}
 
+<<<<<<< HEAD:appSpring/src/main/java/entity/Resource.java
 	public Genre getGenre() {
 		return genre;
 	}
 
 	public void setGenre(Genre genre) {
 		this.genre = genre;
+=======
+	public Genre getGenero() {
+		return genre;
+	}
+
+	public void setGenero(Genre genero) {
+		this.genre = genero;
+>>>>>>> jherel:appSpring/src/main/java/appSpring/entity/Resource.java
 	}
 
 }
