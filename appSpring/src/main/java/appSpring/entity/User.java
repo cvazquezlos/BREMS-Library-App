@@ -1,9 +1,16 @@
 package appSpring.entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class User{
@@ -18,19 +25,41 @@ public class User{
 			   inverseJoinColumns={@JoinColumn(name="idAction", nullable=false)})*/
 	/*private List<Action> userActions;*/
 	
-	private String nameUser;
-	private String password;
-	private String dni;
 	private String name;
+	private String passwordHash;
+	private String dni;
+	private String firstName;
 	private String lastName1;
 	private String lastName2;
 	private String email;
 	private String telephone;
 	private String address;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	 private List<String> roles;
+
+	
 	
 	// Constructor
-	protected User() {} // Used by SpringData
+	protected User() {
+	}
+	
+	protected User(String name, String password, String dni, 
+			String firstName, String lastName1, String lastName2,
+			String email, String telephone, String address,
+			String... roles) {
+		
+		this.name = name;
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		this.dni = dni;
+		this.firstName = firstName;
+		this.lastName1 = lastName1;
+		this.lastName2 = lastName2;
+		this.email = email;
+		this.telephone = telephone;
+		this.address = address;
+		this.roles = new ArrayList<>(Arrays.asList(roles));
+	} // Used by SpringData
 	
 	
 	// Métodos getter/setters de los atributos
@@ -42,20 +71,20 @@ public class User{
 		this.id = id;
 	}
 	
-	public String getNameUser() {
-		return nameUser;
+	public String getFirstName() {
+		return firstName;
 	}
 	
-	public void setNameUser(String nameUser) {
-		this.nameUser = nameUser;
+	public void setNameUser(String firstName) {
+		this.firstName = firstName;
 	}
 	
-	public String getPassword() {
-		return password;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 	
 	public String getDni() {
@@ -114,4 +143,11 @@ public class User{
 		this.address = address;
 	}
 	
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 }
