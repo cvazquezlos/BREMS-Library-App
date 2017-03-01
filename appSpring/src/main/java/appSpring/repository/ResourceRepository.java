@@ -4,10 +4,7 @@ import java.util.List;
 
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
-import appSpring.entity.ResourceType;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ResourceRepository extends JpaRepository<Resource, Integer> {
