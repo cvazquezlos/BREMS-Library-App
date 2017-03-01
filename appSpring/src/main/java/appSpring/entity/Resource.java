@@ -1,9 +1,11 @@
-package entity;
+package appSpring.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Resource {
@@ -13,16 +15,28 @@ public class Resource {
 	private Integer id;
 	
 	private String title;
-	private String autor;
+	private String author;
 	private String editorial;
 	
+	@Column(length=1024)
+	private String description;
+	
+	@OneToOne
 	private ResourceType productType;
-	private Genre genero;
+
+	@OneToOne
+	private Genre genre;
 
 	
 	// Constructor
-	public Resource() {} // Used by SpringData	
+	protected Resource() {} // Used by SpringData
 	
+	public Resource(String title, String author, String editorial, String description) {
+		this.title = title;
+		this.author = author;
+		this.editorial = editorial;
+		this.description = description;
+	}
 	
 	// Métodos getter/setter de los atributos
 	public Integer getId() {
@@ -42,11 +56,11 @@ public class Resource {
 	}
 	
 	public String getAutor() {
-		return autor;
+		return author;
 	}
 	
 	public void setAutor(String autor) {
-		this.autor = autor;
+		this.author = autor;
 	}
 
 	public String getEditorial() {
@@ -57,6 +71,14 @@ public class Resource {
 		this.editorial = editorial;
 	}
 
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public ResourceType getProductType() {
 		return productType;
 	}
@@ -65,12 +87,12 @@ public class Resource {
 		this.productType = productType;
 	}
 
-	public Genre getGenero() {
-		return genero;
+	public Genre getGenre() {
+		return genre;
 	}
 
-	public void setGenero(Genre genero) {
-		this.genero = genero;
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
 
 }

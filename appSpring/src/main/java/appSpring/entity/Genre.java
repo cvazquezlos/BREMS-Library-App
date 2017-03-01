@@ -1,4 +1,4 @@
-package entity;
+package appSpring.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +16,11 @@ public class Genre {
 	
 	
 	// Constructor
-	public Genre() {} // Used by SpringData
+	protected Genre() {} // Used by SpringData
 	
+	public Genre(String name){
+		this.name = name;
+	}
 	
 	// Métodos getter/setter de los atributos
 	public Integer getId() {
