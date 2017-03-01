@@ -77,9 +77,11 @@ public class MainController {
 		Page<Resource> resourcesMagazines = resourceRepo.findByResourceType(rt2, new PageRequest(0, 50));
 		model.addAttribute("books", resourcesBooks);
 		model.addAttribute("magazines", resourcesMagazines);*/
+
 		List<Resource> books = resourceRepo.findAll();
 		
 		model.addAttribute("books", books);
+
 		return "index";
 	}
 
