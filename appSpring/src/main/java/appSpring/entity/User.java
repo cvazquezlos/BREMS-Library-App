@@ -1,25 +1,9 @@
 package appSpring.entity;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-=======
->>>>>>> carlos
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-<<<<<<< HEAD
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
-=======
->>>>>>> carlos
 
 @Entity
 public class User{
@@ -35,7 +19,7 @@ public class User{
 	/*private List<Action> userActions;*/
 	
 	private String nameUser;
-	private String passwordHash;
+	private String password;
 	private String dni;
 	private String name;
 	private String lastName1;
@@ -44,27 +28,8 @@ public class User{
 	private String telephone;
 	private String address;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
-	 private List<String> roles;
-
+	
 	// Constructor
-	public User(String nameUser, String password, String dni,
-			String name, String lastName1, String lastName2,
-			String email, String telephone, String address,
-			String...roles) {
-		
-		this.nameUser = nameUser;
-		this.passwordHash = new BCryptPasswordEncoder().encode(password);
-		this.dni = dni;
-		this.name = name;
-		this.lastName1 = lastName1;
-		this.lastName2 = lastName2;
-		this.email = email;
-		this.telephone = telephone;
-		this.address = address;
-		this.roles = new ArrayList<>(Arrays.asList(roles));
-		
-	} 
 	protected User() {} // Used by SpringData
 	
 	
@@ -86,11 +51,11 @@ public class User{
 	}
 	
 	public String getPassword() {
-		return passwordHash;
+		return password;
 	}
 	
 	public void setPassword(String password) {
-		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		this.password = password;
 	}
 	
 	public String getDni() {
@@ -147,14 +112,6 @@ public class User{
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	
-	public List<String> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
 	}
 	
 }
