@@ -1,11 +1,8 @@
 package appSpring.controller;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,16 +68,10 @@ public class MainController {
 	}
 
 	@RequestMapping("/")
-	public String books(Model model, Pageable page) {
-
-		/*Page<Resource> resourcesBooks = resourceRepo.findByResourceType(rt1, new PageRequest(0, 50));
-		Page<Resource> resourcesMagazines = resourceRepo.findByResourceType(rt2, new PageRequest(0, 50));
-		model.addAttribute("books", resourcesBooks);
-		model.addAttribute("magazines", resourcesMagazines);*/
+	public String books(Model model) {
 		
-		List<Resource> books = resourceRepo.findAll();
-		
-		model.addAttribute("books", books);
+		model.addAttribute("books", resourceRepo.findByGenre(g1));
+		model.addAttribute("magazines", resourceRepo.findByGenre(g2));
 
 		return "index";
 	}

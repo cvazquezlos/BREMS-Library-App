@@ -4,6 +4,7 @@ import java.util.List;
 
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
+import appSpring.entity.ResourceType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,6 +18,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 
 	List<Resource> findByGenre(Genre genre);
 
-	/*Page<Resource> findByResourceType(ResourceType productType, Pageable page);*/
+	List<Resource> findByResourceType(ResourceType productType);
 
 }
