@@ -18,7 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         
     	//PUBLIC PAGES
-    	http.authorizeRequests().antMatchers("/css/**", "/js/**", "/img/**").permitAll();
+    	http.authorizeRequests().antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**").permitAll();
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/about").permitAll();
@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/topBar").permitAll();
 
         //PRIVATE PAGES
+    	http.authorizeRequests().antMatchers("/admin/css/**", "/admin/js/**", "/admin/img/**", "/admin/fonts/**").hasAnyRole("ADMIN");
         http.authorizeRequests().antMatchers("/user_profile").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/admin/").hasAnyRole("ADMIN");
 
