@@ -56,7 +56,6 @@ public class MainController {
 				+ "con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.");
 		book2.setGenre(g2);
 		book2.setProductType(rt1);
-		
 		resourceRepo.save(book2);
 		
 		
