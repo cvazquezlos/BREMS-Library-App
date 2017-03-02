@@ -18,7 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         
     	//PUBLIC PAGES
-    	http.authorizeRequests().antMatchers("/css/**", "/js/**", "/images/**").permitAll();
+    	http.authorizeRequests().antMatchers("/css/**", "/js/**", "/img/**").permitAll();
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/about").permitAll();
