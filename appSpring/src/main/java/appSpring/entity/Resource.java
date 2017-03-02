@@ -22,7 +22,7 @@ public class Resource {
 	private String description;
 	
 	@OneToOne
-	private ResourceType productType;
+	private ResourceType resourceType;
 
 	@OneToOne
 	private Genre genre;
@@ -80,11 +80,11 @@ public class Resource {
 	}
 
 	public ResourceType getProductType() {
-		return productType;
+		return resourceType;
 	}
 
-	public void setProductType(ResourceType productType) {
-		this.productType = productType;
+	public void setProductType(ResourceType resourceType) {
+		this.resourceType = resourceType;
 	}
 
 	public Genre getGenre() {

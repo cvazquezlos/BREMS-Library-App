@@ -53,9 +53,19 @@
 	                    </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="magazines">
-                        
+	                    <div class="listItems">
+	                    {{#magazines}}
+						  {{> listItems}}
+						{{/magazines}}
+	                    </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="allShelf"></div>
+                    <div role="tabpanel" class="tab-pane" id="allShelf">
+	                    <div class="listItems">
+	                    {{#all}}
+						  {{> listItems}}
+						{{/all}}
+	                    </div>
+	                </div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,6 @@ package appSpring.repository;
 
 import java.util.List;
 
-import appSpring.entity.Genre;
 import appSpring.entity.Resource;
 import appSpring.entity.ResourceType;
 
@@ -16,8 +15,8 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 
 	List<Resource> findByEditorial(String editorial);
 
-	List<Resource> findByGenre(Genre genre);
+	//List<Resource> findByGenre(Genre genre);
 
-	List<Resource> findByResourceType(ResourceType productType);
+	List<Resource> findByResourceType(ResourceType resourceType);
 
 }

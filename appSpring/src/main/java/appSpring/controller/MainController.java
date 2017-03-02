@@ -55,7 +55,7 @@ public class MainController {
 				+ "es allí donde conoce a un pequeño príncipe proveniente de otro planeta. La historia tiene una temática filosófica, donde se incluyen críticas sociales dirigidas a la «extrañeza» "
 				+ "con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.");
 		book2.setGenre(g2);
-		book2.setProductType(rt2);
+		book2.setProductType(rt1);
 		
 		resourceRepo.save(book2);
 		
@@ -63,6 +63,7 @@ public class MainController {
 		book3 = new Resource("Hola.com", "HOLA S.L.", "Hola S.L.", "La revista Hola es una publicación tanto impresa como electrónica, propiedad de la editora 'Hola S. L., que se dedica "
 				+ "a comunicar acontecimientos recientes de la vida de la farándula principalmente, abordando también temas como moda, actualidad, belleza, mujer, hombre, cocina o decoración.");
 		book3.setGenre(g3);
+		book3.setProductType(rt2);
 		
 		resourceRepo.save(book3);
 	}
@@ -70,8 +71,9 @@ public class MainController {
 	@RequestMapping("/")
 	public String books(Model model) {
 		
-		model.addAttribute("books", resourceRepo.findByGenre(g1));
-		model.addAttribute("magazines", resourceRepo.findByGenre(g2));
+		model.addAttribute("books", resourceRepo.findByResourceType(rt1));
+		model.addAttribute("magazines", resourceRepo.findByResourceType(rt2));
+		model.addAttribute("all", resourceRepo.findAll());
 
 		return "index";
 	}
