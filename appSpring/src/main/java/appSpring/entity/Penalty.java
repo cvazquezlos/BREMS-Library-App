@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -14,27 +15,44 @@ public class Penalty {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+	private Date finishDate;
+	private Date initDate;
 	
-	private Date init_date;
-	private Date finish_date;
+	@ManyToOne
+	private User user;
 	
 	
 	// Constructor used by SpringData
 	protected Penalty() {}
 	
-	// - init date for penalty by user
-	public Date getInit_date() {
-		return init_date;
+	public Penalty(Date initDate, Date finishDate, User user) {
+		this.initDate = initDate;
+		this.finishDate = finishDate;
+		this.user = user;
 	}
-	public void setInit_date(Date init_date) {
-		this.init_date = init_date;
+
+	// - init date for penalty by user
+	public Date getInitDate() {
+		return initDate;
+	}
+	public void setInitDate(Date initDate) {
+		this.initDate = initDate;
 	}
 	
 	// - finish date for penalty by user
-	public Date getFinish_date() {
-		return finish_date;
+	public Date getFinishDate() {
+		return finishDate;
 	}
-	public void setFinish_date(Date finish_date) {
-		this.finish_date = finish_date;
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public User getUserr() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

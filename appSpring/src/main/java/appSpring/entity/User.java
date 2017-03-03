@@ -28,7 +28,7 @@ public class User {
 	private List<Action> actions;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Penalty> penalties;
+	private List<Penalty> penalties = new ArrayList<Penalty>();
 
 	private String name;
 	private String passwordHash;
@@ -147,5 +147,13 @@ public class User {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public List<Penalty> getPenalties(){
+		return penalties;
+	}
+
+	public void setPenalty(List<Penalty> penalties){
+		this.penalties = penalties;
 	}
 }
