@@ -16,7 +16,9 @@
     {{> topBar}}
 
     <div class="container content">
-    	{{resource}}
+    	{{#resource}}
+    		{{> resourceInfo}}
+    	{{/resource}}
     </div>
 
     {{> footer}}
