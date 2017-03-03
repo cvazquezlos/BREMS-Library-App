@@ -18,7 +18,7 @@ public class AdminController {
 
 	@RequestMapping("/admin/")
 	public String home(Model model) {
-		// model.addAttribute();
+
 		return "admin/home";
 	}
 
@@ -32,11 +32,13 @@ public class AdminController {
 
 	@RequestMapping("/admin/fines")
 	public String fines(Model model) {
+
 		return "admin/fines_management";
 	}
 
 	@RequestMapping("/admin/loans")
 	public String loans(Model model) {
+
 		return "admin/loans_management";
 	}
 
