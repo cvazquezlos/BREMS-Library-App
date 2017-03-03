@@ -24,14 +24,14 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String books(Model model) {
-
+		
 		model.addAttribute("books", resourceRepository.findByResourceType(resourceTypeRepo.findOneByName("Libro")));
 		model.addAttribute("magazines", resourceRepository.findByResourceType(resourceTypeRepo.findOneByName("Revista")));
 		model.addAttribute("all", resourceRepository.findAll());
 
 		return "index";
 	}
-
+	
 	@RequestMapping("/about")
 	public String aboutPage(Model model) {
 
