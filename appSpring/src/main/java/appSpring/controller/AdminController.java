@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 	@RequestMapping("/admin/")
-	public String home(Model model){
-		//model.addAttribute();
+	public String home(Model model) {
+		// model.addAttribute();
 		return "admin/home";
 	}
 }
