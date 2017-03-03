@@ -35,21 +35,21 @@ public class MainController {
 		genreRepo.save(g1);
 		genreRepo.save(g2);
 		genreRepo.save(g3);
-		
+
 		rt1 = new ResourceType("Libro");
 		rt2 = new ResourceType("Revista");
 		resourceTypeRepo.save(rt1);
 		resourceTypeRepo.save(rt2);
-		
+
 		book1 = new Resource("Cien años de soledad", "Gabriel García Márquez", "Editorial Sudamericana", "Cien años de soledad es una novela del escritor colombiano Gabriel "
 				+ "García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las "
 				+ "obras más traducidas y leídas en español.");
 		book1.setGenre(g1);
 		book1.setProductType(rt1);
-		
+
 		resourceRepo.save(book1);
-		
-		
+
+
 		book2 = new Resource("El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", "El principito es un cuento poético que viene acompañado de ilustraciones hechas "
 				+ "con acuarelas por el mismo Saint-Exupéry. En él, un piloto se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería, pero para su sorpresa, "
 				+ "es allí donde conoce a un pequeño príncipe proveniente de otro planeta. La historia tiene una temática filosófica, donde se incluyen críticas sociales dirigidas a la «extrañeza» "
@@ -57,24 +57,42 @@ public class MainController {
 		book2.setGenre(g2);
 		book2.setProductType(rt1);
 		resourceRepo.save(book2);
-		
-		
+
+
 		book3 = new Resource("Hola.com", "HOLA S.L.", "Hola S.L.", "La revista Hola es una publicación tanto impresa como electrónica, propiedad de la editora 'Hola S. L., que se dedica "
 				+ "a comunicar acontecimientos recientes de la vida de la farándula principalmente, abordando también temas como moda, actualidad, belleza, mujer, hombre, cocina o decoración.");
 		book3.setGenre(g3);
 		book3.setProductType(rt2);
-		
+
 		resourceRepo.save(book3);
 	}
 
 	@RequestMapping("/")
 	public String books(Model model) {
-		
+
 		model.addAttribute("books", resourceRepo.findByResourceType(rt1));
 		model.addAttribute("magazines", resourceRepo.findByResourceType(rt2));
 		model.addAttribute("all", resourceRepo.findAll());
+		
+		model.addAttribute("index", true);
 
 		return "index";
+	}
+
+	@RequestMapping("/about")
+	public String aboutPage(Model model) {
+
+		model.addAttribute("about", true);
+
+		return "about";
+	}
+
+	@RequestMapping("/contact")
+	public String contactPage(Model model) {
+
+		model.addAttribute("contact", true);
+
+		return "contact";
 	}
 
 }
