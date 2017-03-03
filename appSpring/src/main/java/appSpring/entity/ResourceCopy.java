@@ -30,7 +30,7 @@ public class ResourceCopy {
     
     
     // Constructor used by SpringData
-    public ResourceCopy() {}   
+    protected ResourceCopy() {}
     
     /** Getters and setters methods **/
     // ID

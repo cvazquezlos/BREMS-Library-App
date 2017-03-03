@@ -1,5 +1,6 @@
 package appSpring.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ public class Resource {
 	private String title;
 	private String author;
 	private String editorial;
+	private int copiesNumber;
 	
 	@Column(length=1024)
 	private String description;
@@ -32,8 +34,8 @@ public class Resource {
 	@ManyToOne
 	private Genre genre;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="resource")
-	private List<ResourceCopy> copies;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<ResourceCopy> copies = new ArrayList<ResourceCopy>();
 
 
 	// Constructor
@@ -79,6 +81,14 @@ public class Resource {
 		this.editorial = editorial;
 	}
 
+	public int getCopiesNumber() {
+		return copiesNumber;
+	}
+
+	public void setCopiesNumber(int copiesNumber) {
+		this.copiesNumber = copiesNumber;
+	}
+
 	public String getDescription() {
 		return this.description;
 	}
@@ -101,6 +111,14 @@ public class Resource {
 
 	public void setGenre(Genre genre) {
 		this.genre = genre;
+	}
+
+	public List<ResourceCopy> getResourceCopies(){
+		return copies;
+	}
+
+	public void setResourceCopies(List<ResourceCopy> copies){
+		this.copies = copies;
 	}
 
 }

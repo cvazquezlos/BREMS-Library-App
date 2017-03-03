@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import appSpring.repository.UserRepository;
 import appSpring.repository.*;
 
 @Component
@@ -53,6 +52,10 @@ public class DataExamples {
 		res1.setGenre(g1);
 		res1.setProductType(rt1);
 
+		res1.getResourceCopies().add(new ResourceCopy());
+		res1.getResourceCopies().add(new ResourceCopy());
+		res1.getResourceCopies().add(new ResourceCopy());
+		res1.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res1);
 
 		res2 = new Resource("El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", "El principito es un cuento poético que viene acompañado de ilustraciones hechas "
@@ -61,6 +64,10 @@ public class DataExamples {
 				+ "con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.");
 		res2.setGenre(g2);
 		res2.setProductType(rt1);
+
+		res2.getResourceCopies().add(new ResourceCopy());
+		res2.getResourceCopies().add(new ResourceCopy());
+		res2.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res2);
 
 		res3 = new Resource("Hola.com", "HOLA S.L.", "Hola S.L.", "La revista Hola es una publicación tanto impresa como electrónica, propiedad de la editora 'Hola S. L., que se dedica "
@@ -68,12 +75,18 @@ public class DataExamples {
 		res3.setGenre(g3);
 		res3.setProductType(rt2);
 
+		res3.getResourceCopies().add(new ResourceCopy());
+		res3.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res3);
 
 		res4 = new Resource("Muy Interesante", "G+J", "G+J", "Muy interesante es una revista mensual de divulgación y ciencia popular, creada y publicada por el Grupo G+J España.");
 		res4.setGenre(g3);
 		res4.setProductType(rt2);
 
+		res4.getResourceCopies().add(new ResourceCopy());
+		res4.getResourceCopies().add(new ResourceCopy());
+		res4.getResourceCopies().add(new ResourceCopy());
+		res4.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res4);
 
     }
