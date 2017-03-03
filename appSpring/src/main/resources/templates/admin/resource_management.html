@@ -139,55 +139,36 @@
                             <col width="5%">
                                 <col width="8%">
                                     <col width="5%">
-                                        <col width="3%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Título</th>
-                                                    <th>Sumario</th>
-                                                    <th>Ejemplares</th>
-                                                    <th>Autor</th>
-                                                    <th>Tipo</th>
-                                                    <th>Administrar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Book 1</td>
-                                                    <td>Short summary 1</td>
-                                                    <td>999</td>
-                                                    <td>Author</td>
-                                                    <td>Libro</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Book 2</td>
-                                                    <td>Short summary 2</td>
-                                                    <td>999</td>
-                                                    <td>Author</td>
-                                                    <td>Revista</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Book 3</td>
-                                                    <td>Short summary 3</td>
-                                                    <td>999</td>
-                                                    <td>Author</td>
-                                                    <td>Revista</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+	                                    <col width="5%">
+	                                        <col width="3%">
+	                                            <thead>
+	                                                <tr>
+	                                                    <th>Título</th>
+	                                                    <th>Sumario</th>
+	                                                    <th>Ejemplares</th>
+	                                                    <th>Autor</th>
+	                                                    <th>Género</th>
+	                                                    <th>Tipo</th>
+	                                                    <th>Administrar</th>
+	                                                </tr>
+	                                            </thead>
+	                                            <tbody>
+	                                            	{{#resources}}
+		                                                <tr>
+		                                                    <td>{{ title }}</td>
+		                                                    <td>{{ description }}</td>
+		                                                    <td>10</td>
+		                                                    <td>{{ author }}</td>
+		                                                    <td>{{ genre.name }}</td>
+		                                                    <td>{{ resourceType.name }}</td>
+		                                                    <td>
+		                                                        <a class="fa fa-pencil" href="#"></a>
+		                                                        &nbsp;&nbsp;
+		                                                        <a class="fa fa-trash"></a>
+		                                                    </td>
+		                                                </tr>
+	                                                {{/resources}}
+	                                            </tbody>
                 </table>
                 <a href="add_resource.html">
                     <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir recurso</button>

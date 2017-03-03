@@ -1,11 +1,20 @@
 package appSpring.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import appSpring.repository.ResourceRepository;
+import appSpring.repository.UserRepository;
+
 @Controller
 public class AdminController {
+
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private ResourceRepository resourceRepository;
 
 	@RequestMapping("/admin/")
 	public String home(Model model) {
@@ -15,6 +24,9 @@ public class AdminController {
 
 	@RequestMapping("/admin/users")
 	public String users(Model model) {
+
+		model.addAttribute("users", userRepository.findAll());
+
 		return "admin/user_management";
 	}
 
@@ -30,6 +42,9 @@ public class AdminController {
 
 	@RequestMapping("/admin/resources")
 	public String resources(Model model) {
+
+		model.addAttribute("resources", resourceRepository.findAll());
+
 		return "admin/resource_management";
 	}
 
