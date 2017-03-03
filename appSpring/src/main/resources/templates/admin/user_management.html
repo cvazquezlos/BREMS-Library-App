@@ -134,60 +134,41 @@
 
                 <!-- Your Page Content Here -->
                 <table class="table table-bordered table-striped" style="background-color: white !important;">
-                    <col width="15%">
-                        <col width="10%">
-                            <col width="7%">
-                                <col width="7%">
-                                    <col width="7%">
-                                        <col width="7%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre y apellidos</th>
-                                                    <th>Usuario</th>
-                                                    <th>Libros leídos</th>
-                                                    <th>Multas</th>
-                                                    <th>Préstamos</th>
-                                                    <th>Administrar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Name and surname</td>
-                                                    <td>User</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Name and surname</td>
-                                                    <td>User</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Name and surname</td>
-                                                    <td>User</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                    <col width="10%">
+                        <col width="7%">
+	                        <col width="7%">
+	                            <col width="7%">
+	                                <col width="7%">
+	                                    <col width="7%">
+	                                        <col width="7%">
+	                                            <thead>
+	                                                <tr>
+	                                                    <th>Nombre y apellidos</th>
+	                                                    <th>Usuario</th>
+	                                                    <th>Rol(es)</th>
+	                                                    <th>Libros leídos</th>
+	                                                    <th>Multas</th>
+	                                                    <th>Préstamos</th>
+	                                                    <th>Administrar</th>
+	                                                </tr>
+	                                            </thead>
+	                                            <tbody>
+		                                            {{#users}}
+			                                            <tr>
+		                                                    <td>{{ firstName }} {{ lastName1 }} {{ lastName2 }}</td>
+		                                                    <td>{{ name }}</td>
+		                                                    <td>{{ roles }}</td>
+		                                                    <td>0</td>
+		                                                    <td>0</td>
+		                                                    <td>0</td>
+		                                                    <td>
+		                                                        <a class="fa fa-pencil" href="#"></a>
+		                                                        &nbsp;&nbsp;
+		                                                        <a class="fa fa-trash"></a>
+		                                                    </td>
+		                                                </tr>
+		                                            {{/users}}
+	                                            </tbody>
                 </table>
                 <a href="add_user.html">
                     <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir usuario</button>

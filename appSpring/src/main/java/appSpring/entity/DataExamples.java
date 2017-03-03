@@ -23,8 +23,10 @@ public class DataExamples {
     private void initDatabase() {
 
     	// Users creation
-    	userRepository.save(new User("user", "pass", "0000", "Carlos", "Vázquez", "nosequemas", "sdadd@sas.com", "606000000", "Calle sdassdd", "ROLE_USER"));
-    	userRepository.save(new User("admin", "pass", "0001", "Sergio", "Blay", "González", "ssad@sas.com", "606000000", "Calle sdassdd", "ROLE_ADMIN"));
+    	userRepository.save(new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com", "656565066", "Sierra de Guadarrama", "ROLE_USER"));
+    	userRepository.save(new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "Calle de Chueca", "ROLE_ADMIN"));
+    	userRepository.save(new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "Calle de los gangsters", "ROLE_USER"));
+    	userRepository.save(new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "omocracko@gmail.com", "606036123", "Calle de Chueca", "ROLE_USER"));
 
     	// Resources creation
     	Genre g1, g2, g3;

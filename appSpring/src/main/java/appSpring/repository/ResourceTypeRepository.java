@@ -1,6 +1,5 @@
 package appSpring.repository;
 
-import java.util.List;
 import appSpring.entity.ResourceType;
 import org.springframework.data.jpa.repository.JpaRepository;
 

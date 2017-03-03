@@ -7,18 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import appSpring.repository.GenreRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
-import appSpring.entity.*;
 
 @Controller
 public class MainController {
 
 	@Autowired
-	private ResourceRepository resourceRepo;
-	@Autowired
-	private GenreRepository genreRepo;
+	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepo;
 
@@ -29,9 +25,9 @@ public class MainController {
 	@RequestMapping("/")
 	public String books(Model model) {
 		
-		model.addAttribute("books", resourceRepo.findByResourceType(resourceTypeRepo.findOneByName("Libro")));
-		model.addAttribute("magazines", resourceRepo.findByResourceType(resourceTypeRepo.findOneByName("Revista")));
-		model.addAttribute("all", resourceRepo.findAll());
+		model.addAttribute("books", resourceRepository.findByResourceType(resourceTypeRepo.findOneByName("Libro")));
+		model.addAttribute("magazines", resourceRepository.findByResourceType(resourceTypeRepo.findOneByName("Revista")));
+		model.addAttribute("all", resourceRepository.findAll());
 
 		return "index";
 	}
