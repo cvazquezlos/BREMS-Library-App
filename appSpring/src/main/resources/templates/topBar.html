@@ -54,12 +54,12 @@
                 </div>
                 <div id="div-forms">
                     <!-- Login form -->
-                    <form id="login-form">
+                    <form id="login-form" action="/login" method="post">
                         <div class="modal-body">
                             <div id="div-login-msg">
                                 <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-login-msg">Escribe tu usuario y contraseña</span> </div>
-                            <input id="login_username" class="form-control" type="text" placeholder="Usuario" required>
-                            <input id="login_password" class="form-control" type="password" placeholder="Contraseña" required>
+                            <input id="username" class="form-control" name="username" type="text" placeholder="Usuario" required>
+                            <input id="password" class="form-control" name="password" type="password" placeholder="Contrase�a" required>
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox"> Recordar </label>
