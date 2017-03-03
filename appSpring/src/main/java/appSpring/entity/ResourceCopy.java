@@ -27,8 +27,7 @@ public class ResourceCopy {
     private Set<Action> actions;*/
     
     private String locationCode;
-    
-    
+
     // Constructor used by SpringData
     protected ResourceCopy() {}
     
