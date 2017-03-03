@@ -19,8 +19,9 @@ public class UserController {
 	@RequestMapping("/user_profile")
 	public String user(Model model, HttpServletRequest request){
 
-		User usuarioLogeado = userRepository.findByName(request.getUserPrincipal().getName());
-		model.addAttribute("user", usuarioLogeado);
+		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("user", loggedUser);
+		model.addAttribute("profile", true);
 
 		return "userProfile";
 	}
