@@ -36,7 +36,7 @@ public class DataExamples {
     	user1.getPenalties().add(new Penalty(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(), new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1));
     	user1.getPenalties().add(new Penalty(new GregorianCalendar(2015, Calendar.SEPTEMBER, 6).getTime(), new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1));
     	userRepository.save(user1);
-    	user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "Calle de Chueca", "ROLE_ADMIN");
+    	user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "Calle de Chueca", "ROLE_ADMIN", "ROLE_USER");
     	userRepository.save(user2);
     	user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "Calle de los gangsters", "ROLE_USER");
     	user3.getPenalties().add(new Penalty(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(), new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3));
