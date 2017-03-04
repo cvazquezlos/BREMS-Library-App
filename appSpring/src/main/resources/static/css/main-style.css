@@ -87,6 +87,10 @@ header .logo h1 {
     display: inline;
 }
 
+.userdrop{
+    background-color: #215E5D;
+}
+
 #search-input {
     padding: 3px;
     border: solid 1px #E4E4E4;

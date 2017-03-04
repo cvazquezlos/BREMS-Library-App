@@ -43,13 +43,12 @@
 					<div class="row">
 						<div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
 							<div class="btn-group iconMenu" role="group" aria-label="...">
-								<!-- // buttons -->
 								<div class="btn-group" role="group">
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="modal" aria-haspopup="true" aria-expanded="false"
 										data-target="#login-modal">
 										<img src="img/user_undefined_f_40x40.jpg" class="img-circle" />
-										<span>Iniciar sesi&oacuten</span> <span
+										<span>Iniciar sesi&oacute;n</span> <span
 											class="fa fa-power-off"></span>
 									</button>
 								</div>
@@ -62,16 +61,18 @@
 				<div class="col-lg-7">
 					<div class="row">
 						<div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
-							<div class="btn-group iconMenu" role="group" aria-label="...">
-								<!-- // buttons -->
-								<div class="btn-group" role="group">
-									<button type="button" data-target="#login-modal">
-										<img src="img/user_undefined_f_40x40.jpg" class="img-circle" />
-										<span>{{#user}} {{ name }} {{/user}}</span> <span
-											class="fa fa-power-off"></span>
-									</button>
-								</div>
-							</div>
+							<ul class="nav navbar-nav">
+        						<li class="dropdown">
+          							<a data-toggle="dropdown">{{#user}} {{ name }} {{/user}}</a>
+                                    <ul class="dropdown-menu userdrop">
+                                    	<li><a href="/user_profile">Mi perfil <span class="glyphicon glyphicon-user"></span></a></li>
+                                    	{{#admin}}
+                                    	<li><a href="/admin/">Panel administrador <span class="glyphicon glyphicon-cog"></span></a></li>
+                                    	{{/admin}}
+                                        <li><a href="/logout">Cerrar sesi&oacute;n <span class="glyphicon glyphicon-log-out"></span></a></li>
+                                	</ul>
+        						</li>
+   							</ul>
 						</div>
 					</div>
 				</div>

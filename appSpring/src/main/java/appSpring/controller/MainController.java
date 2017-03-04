@@ -34,6 +34,7 @@ public class MainController {
 			model.addAttribute("logged",true);
 		}
 		else model.addAttribute("unlogged",true);
+		if (request.isUserInRole("ADMIN")) model.addAttribute("admin",true);
 
 		ResourceType type;
 
@@ -62,6 +63,7 @@ public class MainController {
 			model.addAttribute("logged",true);
 		}
 		else model.addAttribute("unlogged",true);
+		if (request.isUserInRole("ADMIN")) model.addAttribute("admin",true);
 		model.addAttribute("about", true);
 
 		return "about";
@@ -76,6 +78,7 @@ public class MainController {
 			model.addAttribute("logged",true);
 		}
 		else model.addAttribute("unlogged",true);
+		if (request.isUserInRole("ADMIN")) model.addAttribute("admin",true);
 		model.addAttribute("contact", true);
 
 		return "contact";
