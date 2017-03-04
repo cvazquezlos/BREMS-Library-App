@@ -19,42 +19,47 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified" role="tablist">
-					<li role="presentation" class="active"><a href="#books"
-						aria-controls="books" role="tab" data-toggle="tab">Libros</a></li>
-					<li role="presentation"><a href="#magazines"
-						aria-controls="magazines" role="tab" data-toggle="tab">Revistas</a>
+					<li role="presentation" class="active">
+						<a href="#books" aria-controls="books" role="tab" data-toggle="tab">Libros</a>
 					</li>
-					<li role="presentation"><a href="#allShelf"
-						aria-controls="allShelf" role="tab" data-toggle="tab">Toda la
-							estantería</a></li>
+					<li role="presentation">
+						<a href="#magazines" aria-controls="magazines" role="tab" data-toggle="tab">Revistas</a>
+					</li>
+					<li role="presentation">
+						<a href="#allShelf" aria-controls="allShelf" role="tab" data-toggle="tab">Toda la estantería</a>
+					</li>
 				</ul>
 			</div>
 		</div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="books">
-                        <div class="listItems">
-                            {{#books}} {{> listItems}} {{/books}}
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="magazines">
-                        <div class="listItems">
-                            {{#magazines}} {{> listItems}} {{/magazines}}
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="allShelf">
-                        <div class="listItems">
-                            {{#all}} {{> listItems}} {{/all}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="books">
+						<div class="listItems">
+							{{#books}} {{> listItems}} {{/books}}
+						</div>
+						<button id="moreBooks" type="button" class="btn btn-lg btn-block btn-view-more">Ver más libros</button>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="magazines">
+						<div class="listItems">
+							{{#magazines}} {{> listItems}} {{/magazines}}
+						</div>
+						<button id="moreMagazines" type="button" class="btn btn-lg btn-block btn-view-more">Ver más revistas</button>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="allShelf">
+						<div class="listItems">
+							{{#all}} {{> listItems}} {{/all}}
+						</div>
+						<button id="moreAllShelf" type="button" class="btn btn-lg btn-block btn-view-more">Ver más</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	{{> footer}}
 
 </body>
+
 </html>
