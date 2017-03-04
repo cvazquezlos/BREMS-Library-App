@@ -11,8 +11,10 @@ public class LoginController {
 	
 	@RequestMapping("/login")
 	public String user(Model model,HttpServletRequest request){
-		//model.addAttribute();
+
+		model.addAttribute("profile", true);
 		if(request.isUserInRole("ADMIN")||request.isUserInRole("USER")) return "forward:/";
+
 		return "login";
 	}
 }

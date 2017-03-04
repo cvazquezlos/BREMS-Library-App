@@ -17,8 +17,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 
 	List<Resource> findByEditorial(String editorial);
 
-	//List<Resource> findByGenre(Genre genre);
-
 	List<Resource> findByResourceType(ResourceType resourceType);
 	
 	Page<Resource> findByResourceType(ResourceType resourceType, Pageable page);
