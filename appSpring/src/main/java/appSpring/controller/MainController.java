@@ -31,7 +31,9 @@ public class MainController {
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
 			User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
 			model.addAttribute("user", loggedUser);
+			model.addAttribute("logged",true);
 		}
+		else model.addAttribute("unlogged",true);
 
 		ResourceType type;
 
@@ -57,7 +59,9 @@ public class MainController {
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
 			User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
 			model.addAttribute("user", loggedUser);
+			model.addAttribute("logged",true);
 		}
+		else model.addAttribute("unlogged",true);
 		model.addAttribute("about", true);
 
 		return "about";
@@ -69,7 +73,9 @@ public class MainController {
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
 			User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
 			model.addAttribute("user", loggedUser);
+			model.addAttribute("logged",true);
 		}
+		else model.addAttribute("unlogged",true);
 		model.addAttribute("contact", true);
 
 		return "contact";
