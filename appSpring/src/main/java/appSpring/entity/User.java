@@ -3,14 +3,19 @@ package appSpring.entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Entity
 public class User {
@@ -18,15 +23,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-
-	/*
-	 * @ManyToMany
-	 *
-	 * @JoinTable(name="userActions", joinColumns={@JoinColumn(name="idUser",
-	 * nullable=false)}, inverseJoinColumns={@JoinColumn(name="idAction",
-	 * nullable=false)})
-	 */
-	/* private List<Action> userActions; */
 
 	private String name;
 	private String passwordHash;
@@ -38,15 +34,19 @@ public class User {
 	private String telephone;
 	private String address;
 
+	@ManyToMany(mappedBy = "userActions")
+	private List<Action> actions;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Penalty> penalties = new ArrayList<Penalty>();
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	// Constructor
-	protected User() {
-	}
+	protected User() {}
 
-	protected User(String name, String password, String dni, String firstName, String lastName1, String lastName2,
-			String email, String telephone, String address, String... roles) {
+	public User(String name, String password, String dni, String firstName, String lastName1, String lastName2,
+			String email, String telephone, String... roles) {
 
 		this.name = name;
 		this.passwordHash = new BCryptPasswordEncoder().encode(password);
@@ -56,15 +56,12 @@ public class User {
 		this.lastName2 = lastName2;
 		this.email = email;
 		this.telephone = telephone;
-		this.address = address;
 		this.roles = new ArrayList<>(Arrays.asList(roles));
-	} // Used by SpringData
+	}
 
-	// Métodos getter/setters de los atributos
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -72,7 +69,6 @@ public class User {
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setNameUser(String firstName) {
 		this.firstName = firstName;
 	}
@@ -80,7 +76,6 @@ public class User {
 	public String getPasswordHash() {
 		return passwordHash;
 	}
-
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
@@ -88,7 +83,6 @@ public class User {
 	public String getDni() {
 		return dni;
 	}
-
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
@@ -112,7 +106,6 @@ public class User {
 	public String getLastName2() {
 		return lastName2;
 	}
-
 	public void setLastName2(String lastName2) {
 		this.lastName2 = lastName2;
 	}
@@ -120,7 +113,6 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -128,7 +120,6 @@ public class User {
 	public String getTelephone() {
 		return telephone;
 	}
-
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
@@ -148,4 +139,13 @@ public class User {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
+
+	public List<Penalty> getPenalties(){
+		return penalties;
+	}
+
+	public void setPenalty(List<Penalty> penalties){
+		this.penalties = penalties;
+	}
+
 }
