@@ -24,12 +24,6 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@ManyToMany(mappedBy="userActions")
-	private List<Action> actions;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	private List<Penalty> penalties = new ArrayList<Penalty>();
-
 	private String name;
 	private String passwordHash;
 	private String dni;
@@ -39,16 +33,20 @@ public class User {
 	private String email;
 	private String telephone;
 	private String address;
+
+	@ManyToMany(mappedBy = "userActions")
+	private List<Action> actions;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Penalty> penalties = new ArrayList<Penalty>();
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	// Constructor used by SpringData
 	protected User() {}
 
-	protected User(String name, String password, String dni, String firstName, String lastName1, String lastName2,
-			String email, String telephone, String address, String... roles) {
+	public User(String name, String password, String dni, String firstName, String lastName1, String lastName2,
+			String email, String telephone, String... roles) {
 
 		this.name = name;
 		this.passwordHash = new BCryptPasswordEncoder().encode(password);
@@ -58,13 +56,9 @@ public class User {
 		this.lastName2 = lastName2;
 		this.email = email;
 		this.telephone = telephone;
-		this.address = address;
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 	}
 
-	
-	/** Getters and setters methods **/
-	// - ID
 	public Integer getId() {
 		return id;
 	}
@@ -72,7 +66,6 @@ public class User {
 		this.id = id;
 	}
 
-	// - first name
 	public String getFirstName() {
 		return firstName;
 	}
@@ -80,7 +73,6 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	// - password
 	public String getPasswordHash() {
 		return passwordHash;
 	}
@@ -88,7 +80,6 @@ public class User {
 		this.passwordHash = passwordHash;
 	}
 
-	// - dni user
 	public String getDni() {
 		return dni;
 	}
@@ -96,10 +87,10 @@ public class User {
 		this.dni = dni;
 	}
 
-	// - name user
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -107,6 +98,7 @@ public class User {
 	public String getLastName1() {
 		return lastName1;
 	}
+
 	public void setLastName1(String lastName1) {
 		this.lastName1 = lastName1;
 	}
@@ -118,7 +110,6 @@ public class User {
 		this.lastName2 = lastName2;
 	}
 
-	// - email
 	public String getEmail() {
 		return email;
 	}
@@ -156,4 +147,5 @@ public class User {
 	public void setPenalty(List<Penalty> penalties){
 		this.penalties = penalties;
 	}
+
 }
