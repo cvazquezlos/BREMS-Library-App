@@ -39,7 +39,7 @@
                         <input type="text" class="form-control" name="lastName2" placeholder="Segundo apellido">
                     </div>
                     <div class="form-group">
-                        <label>Usuario</label>
+                        <label>Usuario {{#alreadyReg}} <span class="errorLogin"> &emsp; Nombre de usuario ya registrado </span>{{/alreadyReg}}</label>
                         <input type="text" class="form-control" name="name">
                     </div>
                     <div class="form-group">
