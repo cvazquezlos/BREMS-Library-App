@@ -507,6 +507,10 @@ footer ul li a:hover, footer ul li a:focus {
     display: none;
 }
 
+.errorLogin{
+	color: red;
+}
+
 
 /*
 .content .bookStand {

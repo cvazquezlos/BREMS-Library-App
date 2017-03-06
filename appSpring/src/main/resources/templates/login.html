@@ -37,14 +37,17 @@
                             <label>
                                 <input type="checkbox"> Recordar </label>
                         </div>
+                        {{#loginError}}
+                        <div class="errorLogin">Datos erróneos. Por favor, inténtelo otra vez.</div>
+                        {{/loginError}}
                     </div>
                     <div class="modal-footer">
                         <div>
                             <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar sesión</button>
                         </div>
                         <div>
-                            <button id="login_lost_btn" type="button" class="btn btn-link">Olvidé mi contraseña</button>
-                            <button id="login_register_btn" type="button" class="btn btn-link">Registrarse</button>
+                            <a href="/"><button id="login_lost_btn" type="button" class="btn btn-link">Olvidé mi contraseña</button></a>
+                            <a href="/register"><button id="login_register_btn" type="button" class="btn btn-link">Registrarse</button></a>
                         </div>
                     </div>
                 </form>
