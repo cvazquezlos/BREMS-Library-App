@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{> head}}
+<head>
+    <link type="text/css" href="css/error-style.css" rel="stylesheet" />
+</head>
+
+<body>
+    {{> topBar}}
+    
+    <div class="container content">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+                    <li class="active">Error</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-4 col-lg-4"></div>
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="alert alert-danger fade in errorMessage"> ERROR: P&aacute;GINA NO ENCONTRADA.</div>
+            </div>
+        </div>
+    </div>
+    
+    {{> footer}}
+</body>
+</html>
