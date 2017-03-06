@@ -17,4 +17,11 @@ public class LoginController {
 
 		return "login";
 	}
+	
+	@RequestMapping("/loginError")
+	public String loginError(Model model){
+		model.addAttribute("unlogged",true);
+		model.addAttribute("loginError",true);
+		return "login";
+	}
 }

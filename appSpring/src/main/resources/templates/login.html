@@ -37,6 +37,9 @@
                             <label>
                                 <input type="checkbox"> Recordar </label>
                         </div>
+                        {{#loginError}}
+                        <div class="errorLogin">Datos erróneos. Por favor, inténtelo otra vez.</div>
+                        {{/loginError}}
                     </div>
                     <div class="modal-footer">
                         <div>
