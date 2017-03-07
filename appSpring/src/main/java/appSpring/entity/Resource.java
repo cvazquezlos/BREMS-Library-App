@@ -34,7 +34,7 @@ public class Resource {
 	@ManyToOne
 	private Genre genre;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="resource")
 	private List<ResourceCopy> copies = new ArrayList<ResourceCopy>();
 
 
