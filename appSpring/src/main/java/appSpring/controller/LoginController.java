@@ -39,7 +39,6 @@ public class LoginController {
 
 		if(request.isUserInRole("ADMIN")||request.isUserInRole("USER")) return "redirect:/";
 		model.addAttribute("unlogged",true);
-
 		return "register";
 	}
 	
@@ -49,8 +48,16 @@ public class LoginController {
 		@RequestParam String lastName2, @RequestParam String email, @RequestParam String telephone) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
-		userRepository.save(user);
+		try{userRepository.save(user);}
+		catch(Exception e){return "redirect:/registerError";}
 
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/registerError")
+	public String registerError(Model model){
+		model.addAttribute("unlogged",true);
+		model.addAttribute("alreadyReg",true);
+		return "register";
 	}
 }
