@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +33,7 @@ public class User {
 	private String telephone;
 	private String address;
 
-	@ManyToMany(mappedBy = "userActions")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Action> actions;
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -147,5 +146,15 @@ public class User {
 	public void setPenalty(List<Penalty> penalties){
 		this.penalties = penalties;
 	}
+
+	public List<Action> getActions() {
+		return actions;
+	}
+
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
+	}
+
+
 
 }
