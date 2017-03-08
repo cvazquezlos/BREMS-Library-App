@@ -147,19 +147,19 @@
                             <tbody>
                             	{{#action}}
 	                                <tr>
-	                                    <td>{{ id }}</td>
+	                                    <td>{{id}}</td>
 	                                    <td>{{#user}}{{name}}{{/user}}</td>
-	                                    <td>{{ date }}</td>
+	                                    <td>{{date}}</td>
 	                                    <td>
 	                                        <a class="fa fa-pencil" href="#"></a>
 	                                        &nbsp;&nbsp;
-	                                        <a class="fa fa-trash"></a>
+	                                        <a href="/admin/loans/delete/{{id}}" class="fa fa-trash"></a>
 	                                    </td>
 	                                </tr>
                                 {{/action}}
                             </tbody>
                 </table>
-                <a href="add_loan.html">
+                <a href="/admin/loans/add">
                     <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir préstamo</button>
                 </a>
 

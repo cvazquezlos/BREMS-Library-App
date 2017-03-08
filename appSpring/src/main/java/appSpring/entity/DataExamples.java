@@ -42,9 +42,7 @@ public class DataExamples {
 		// Actions creation
 		a1 = new Action(new GregorianCalendar(2017, Calendar.FEBRUARY, 13).getTime());
 		a2 = new Action(new GregorianCalendar(2016, Calendar.DECEMBER, 22).getTime());
-		actionRepository.save(a2);
 		a3 = new Action(new GregorianCalendar(2016, Calendar.FEBRUARY, 5).getTime());
-		actionRepository.save(a3);
 
     	// Users creation
     	user1 = new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com", "656565066", "ROLE_USER");
