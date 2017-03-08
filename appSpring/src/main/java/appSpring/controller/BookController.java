@@ -37,7 +37,7 @@ public class BookController {
 	public String moreBooks(Model model, @RequestParam int page){
 		
 		ResourceType type = resourceTypeRepo.findOneByName("Libro");
-		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(page,1));
+		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(page,2));
 		
 		model.addAttribute("items", books);
 		
@@ -48,7 +48,7 @@ public class BookController {
 	public String moreMagazines(Model model, @RequestParam int page){
 		
 		ResourceType type = resourceTypeRepo.findOneByName("Revista");
-		Page<Resource> revistas = resourceRepository.findByResourceType(type, new PageRequest(page,1));
+		Page<Resource> revistas = resourceRepository.findByResourceType(type, new PageRequest(page,2));
 		
 		model.addAttribute("items", revistas);
 		
@@ -58,7 +58,7 @@ public class BookController {
 	@RequestMapping(value="/moreAllShelf")
 	public String moreAllShelf(Model model, @RequestParam int page){
 		
-		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(page,1));
+		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(page,2));
 		
 		model.addAttribute("items", allShelf);
 		

@@ -1,11 +1,14 @@
 package appSpring.controller;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
@@ -101,9 +104,11 @@ public class AdminController {
 	@RequestMapping("/admin/resources/add/action")
 	public String addResourceAction(@RequestParam String title, @RequestParam String description,
                                     @RequestParam String author, @RequestParam String genre,
-                                    @RequestParam String editorial, @RequestParam String resourceType) {
+                                    @RequestParam String editorial, @RequestParam String resourceType,
+                                    @RequestParam MultipartFile picture){
 
 		Resource resource = new Resource(title, author, editorial, description);
+		
 		Genre genreFound = genreRepository.findByName(genre);
 		if (genreFound == null) {
 			genreRepository.save(new Genre(genre));
@@ -111,6 +116,7 @@ public class AdminController {
 		} else {
 			resource.setGenre(genreFound);
 		}
+		
 		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
 		if (resourceTypeFound == null) {
 			resourceTypeRepository.save(new ResourceType(resourceType));
@@ -118,7 +124,27 @@ public class AdminController {
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
+		
 		resourceRepository.save(resource);
+		
+		// Add Picture
+		String pictureName = resource.getId().toString() + ".jpg";
+
+		if (!picture.isEmpty()) {
+			try{
+				File filesFolder = new File("src/main/resources/static/img/books");
+				if (!filesFolder.exists()) {
+					filesFolder.mkdirs();
+				}
+
+				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
+				picture.transferTo(uploadedFile);
+			}catch (Exception e) {
+			}
+				
+			resource.setPicture(pictureName);
+			resourceRepository.save(resource);
+		} 
 
 		return "redirect:/admin/resources";
 	}

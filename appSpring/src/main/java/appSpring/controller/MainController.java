@@ -39,12 +39,12 @@ public class MainController {
 		ResourceType type;
 
 		type = resourceTypeRepo.findOneByName("Libro");
-		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(0,1));
+		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(0,2));
 
 		type = resourceTypeRepo.findOneByName("Revista");
-		Page<Resource> magazines = resourceRepository.findByResourceType(type, new PageRequest(0,1));
+		Page<Resource> magazines = resourceRepository.findByResourceType(type, new PageRequest(0,2));
 
-		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(0,1));
+		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(0,2));
 
 		model.addAttribute("books", books);
 		model.addAttribute("magazines", magazines);
