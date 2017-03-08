@@ -69,9 +69,17 @@ public class AdminController {
 							    HttpServletRequest request) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
-		userRepository.save(user);
-
+		
+		try{userRepository.save(user);}
+		catch(Exception e){return "redirect:/admin/users/addError";}
+		
 		return "redirect:/admin/users";
+	}
+	
+	@RequestMapping("/admin/users/addError")
+	public String addError(Model model){
+		model.addAttribute("alreadyReg",true);
+		return "admin/add_user";
 	}
 
 	@RequestMapping("/admin/users/delete/{id}")
