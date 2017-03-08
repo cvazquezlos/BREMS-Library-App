@@ -1,6 +1,7 @@
 package appSpring.controller;
 
 import java.io.File;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,80 +36,113 @@ public class AdminController {
 	private GenreRepository genreRepository;
 
 	@RequestMapping("/admin/")
-	public String home(Model model) {
+	public String home(Model model, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 
 		return "admin/home";
 	}
 
 	@RequestMapping("/admin/users")
-	public String users(Model model) {
+	public String users(Model model, HttpServletRequest request) {
 
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 		model.addAttribute("users", userRepository.findAll());
 
 		return "admin/user_management";
 	}
 
 	@RequestMapping("/admin/users/add")
-	public String addUser(Model model) {
+	public String addUser(Model model, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 
 		return "admin/add_user";
 	}
 
 	@RequestMapping("/admin/users/add/action")
 	public String addUserAction(@RequestParam String name, @RequestParam String password,
-			@RequestParam String dni, @RequestParam String firstName, @RequestParam String lastName1,
-			@RequestParam String lastName2, @RequestParam String email, @RequestParam String telephone) {
+							    @RequestParam String dni, @RequestParam String firstName,
+							    @RequestParam String lastName1, @RequestParam String lastName2,
+							    @RequestParam String email, @RequestParam String telephone,
+							    HttpServletRequest request) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
-		userRepository.save(user);
+
+		try{userRepository.save(user);}
+		catch(Exception e){return "redirect:/admin/users/addError";}
 
 		return "redirect:/admin/users";
 	}
 
-	@RequestMapping("/admin/users/delete/{id}")
-	public String deleteUser(@PathVariable Integer id) {
+	@RequestMapping("/admin/users/addError")
+	public String addError(Model model){
+		model.addAttribute("alreadyReg",true);
+		return "admin/add_user";
+	}
 
+	@RequestMapping("/admin/users/delete/{id}")
+	public String deleteUser(Model model, @PathVariable Integer id, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 		userRepository.delete(id);
 
 		return "redirect:/admin/users";
 	}
 
 	@RequestMapping("/admin/fines")
-	public String fines(Model model) {
+	public String fines(Model model, HttpServletRequest request) {
 
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 		model.addAttribute("fines", penaltyRepository.findAll());
 
 		return "admin/fines_management";
 	}
 
 	@RequestMapping("/admin/loans")
-	public String loans(Model model) {
+	public String loans(Model model, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 
 		return "admin/loans_management";
 	}
 
 	@RequestMapping("/admin/resources")
-	public String resources(Model model) {
+	public String resources(Model model, HttpServletRequest request) {
 
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 		model.addAttribute("resources", resourceRepository.findAll());
 
 		return "admin/resource_management";
 	}
 
 	@RequestMapping("/admin/resources/add")
-	public String addResource(Model model) {
+	public String addResource(Model model, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 
 		return "admin/add_resource";
 	}
 
 	@RequestMapping("/admin/resources/add/action")
-	public String addResourceAction(@RequestParam String title, @RequestParam String description,
+	public String addResourceAction(Model model, @RequestParam String title, @RequestParam String description,
                                     @RequestParam String author, @RequestParam String genre,
                                     @RequestParam String editorial, @RequestParam String resourceType,
-                                    @RequestParam MultipartFile picture){
+                                    @RequestParam MultipartFile picture,
+                                    HttpServletRequest request) {
 
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 		Resource resource = new Resource(title, author, editorial, description);
-		
+
 		Genre genreFound = genreRepository.findByName(genre);
 		if (genreFound == null) {
 			genreRepository.save(new Genre(genre));
@@ -116,7 +150,7 @@ public class AdminController {
 		} else {
 			resource.setGenre(genreFound);
 		}
-		
+
 		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
 		if (resourceTypeFound == null) {
 			resourceTypeRepository.save(new ResourceType(resourceType));
@@ -124,9 +158,9 @@ public class AdminController {
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
-		
+
 		resourceRepository.save(resource);
-		
+
 		// Add Picture
 		String pictureName = resource.getId().toString() + ".jpg";
 
@@ -141,17 +175,19 @@ public class AdminController {
 				picture.transferTo(uploadedFile);
 			}catch (Exception e) {
 			}
-				
+
 			resource.setPicture(pictureName);
 			resourceRepository.save(resource);
-		} 
+		}
 
 		return "redirect:/admin/resources";
 	}
 
 	@RequestMapping("/admin/resources/delete/{id}")
-	public String deleteResource(@PathVariable Integer id) {
+	public String deleteResource(Model model, @PathVariable Integer id, HttpServletRequest request) {
 
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
 		resourceRepository.delete(id);
 
 		return "redirect:/admin/resources";
