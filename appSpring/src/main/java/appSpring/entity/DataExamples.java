@@ -1,6 +1,5 @@
 package appSpring.entity;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -42,7 +41,6 @@ public class DataExamples {
 
 		// Actions creation
 		a1 = new Action(new GregorianCalendar(2017, Calendar.FEBRUARY, 13).getTime());
-		actionRepository.save(a1);
 		a2 = new Action(new GregorianCalendar(2016, Calendar.DECEMBER, 22).getTime());
 		actionRepository.save(a2);
 		a3 = new Action(new GregorianCalendar(2016, Calendar.FEBRUARY, 5).getTime());
@@ -50,8 +48,9 @@ public class DataExamples {
 
     	// Users creation
     	user1 = new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com", "656565066", "ROLE_USER");
-    	user1.getActions().add(a1);
     	userRepository.save(user1);
+    	a1.setUser(user1);
+		actionRepository.save(a1);
     	fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(), new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1);
     	fineRepository.save(fine);
     	fine = new Fine(new GregorianCalendar(2015, Calendar.SEPTEMBER, 6).getTime(), new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1);
@@ -59,13 +58,15 @@ public class DataExamples {
     	user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "ROLE_ADMIN", "ROLE_USER");
     	userRepository.save(user2);
     	user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "ROLE_USER");
-    	user3.getActions().add(a2);
     	userRepository.save(user3);
+    	a2.setUser(user3);
+		actionRepository.save(a2);
     	fine = new Fine(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(), new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3);
     	fineRepository.save(fine);
     	user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "omocracko@gmail.com", "606036123", "ROLE_USER");
-    	user4.getActions().add(a3);
     	userRepository.save(user4);
+    	a3.setUser(user4);
+		actionRepository.save(a3);
     	fine = new Fine(new GregorianCalendar(2014, Calendar.MAY, 17).getTime(), new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4);
     	fineRepository.save(fine);
 
