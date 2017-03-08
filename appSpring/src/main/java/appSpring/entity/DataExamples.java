@@ -2,7 +2,6 @@ package appSpring.entity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,35 +38,6 @@ public class DataExamples {
     	Resource res1, res2, res3, res4, res5;
     	ResourceCopy rc1,rc2,rc3, rc4,rc5, rc6, rc7;
     	User user1, user2, user3, user4;
-
-		// Actions creation
-		a1 = new Action(new GregorianCalendar(2017, Calendar.FEBRUARY, 13).getTime());
-		a2 = new Action(new GregorianCalendar(2016, Calendar.DECEMBER, 22).getTime());
-		a3 = new Action(new GregorianCalendar(2016, Calendar.FEBRUARY, 5).getTime());
-
-    	// Users creation
-    	user1 = new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com", "656565066", "ROLE_USER");
-    	userRepository.save(user1);
-    	a1.setUser(user1);
-		actionRepository.save(a1);
-    	fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(), new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1);
-    	fineRepository.save(fine);
-    	fine = new Fine(new GregorianCalendar(2015, Calendar.SEPTEMBER, 6).getTime(), new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1);
-    	fineRepository.save(fine);
-    	user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "ROLE_ADMIN", "ROLE_USER");
-    	userRepository.save(user2);
-    	user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "ROLE_USER");
-    	userRepository.save(user3);
-    	a2.setUser(user3);
-		actionRepository.save(a2);
-    	fine = new Fine(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(), new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3);
-    	fineRepository.save(fine);
-    	user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123", "ROLE_USER");
-    	userRepository.save(user4);
-    	a3.setUser(user4);
-		actionRepository.save(a3);
-    	fine = new Fine(new GregorianCalendar(2014, Calendar.MAY, 17).getTime(), new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4);
-    	fineRepository.save(fine);
 
     	// Data creation
 		g1 = new Genre("Novela");
@@ -143,10 +113,37 @@ public class DataExamples {
 		rc7.setResource(res4);
 		resourceCopyRepository.save(rc7);
 
-		actionRepository.findByDate(a1.getDate()).setResource(rc1);
-		actionRepository.findByDate(a2.getDate()).setResource(rc3);
-		actionRepository.findByDate(a3.getDate()).setResource(rc5);
+		// Actions creation
+		a1 = new Action(new GregorianCalendar(2017, Calendar.FEBRUARY, 13).getTime());
+		a2 = new Action(new GregorianCalendar(2016, Calendar.DECEMBER, 22).getTime());
+		a3 = new Action(new GregorianCalendar(2016, Calendar.FEBRUARY, 5).getTime());
 
+    	// Users creation
+    	user1 = new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com", "656565066", "ROLE_USER");
+    	userRepository.save(user1);
+    	a1.setUser(user1);
+    	a1.setResource(rc1);
+		actionRepository.save(a1);
+    	fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(), new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1);
+    	fineRepository.save(fine);
+    	fine = new Fine(new GregorianCalendar(2015, Calendar.SEPTEMBER, 6).getTime(), new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1);
+    	fineRepository.save(fine);
+    	user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "ROLE_ADMIN", "ROLE_USER");
+    	userRepository.save(user2);
+    	user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "ROLE_USER");
+    	userRepository.save(user3);
+    	a2.setUser(user3);
+    	a2.setResource(rc3);
+		actionRepository.save(a2);
+    	fine = new Fine(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(), new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3);
+    	fineRepository.save(fine);
+    	user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123", "ROLE_USER");
+    	userRepository.save(user4);
+    	a3.setUser(user4);
+    	a3.setResource(rc5);
+		actionRepository.save(a3);
+    	fine = new Fine(new GregorianCalendar(2014, Calendar.MAY, 17).getTime(), new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4);
+    	fineRepository.save(fine);
     }
 
 }
