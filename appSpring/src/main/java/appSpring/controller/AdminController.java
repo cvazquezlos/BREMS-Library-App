@@ -1,5 +1,7 @@
 package appSpring.controller;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.io.File;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import appSpring.entity.Action;
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
+import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
+import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.FineRepository;
 import appSpring.repository.ResourceRepository;
@@ -32,6 +37,8 @@ public class AdminController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepository;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepository;
 	@Autowired
 	private FineRepository fineRepository;
 	@Autowired
@@ -126,6 +133,52 @@ public class AdminController {
 		model.addAttribute("action", actionRepository.findAll());
 
 		return "admin/loans_management";
+	}
+
+	@RequestMapping("/admin/loans/add")
+	public String addLoan(Model model, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+
+		return "admin/add_loan";
+	}
+
+	@RequestMapping("/admin/loans/add/action")
+	public String addLoanAction(Model model, @RequestParam String title, @RequestParam int day,
+                                    @RequestParam int month, @RequestParam int year,
+                                    @RequestParam String user, HttpServletRequest request) {
+
+		Date date = new GregorianCalendar(year, month-1, day).getTime();
+		User userFound = userRepository.findByName(user);
+		Resource resourceFound = resourceRepository.findByTitleLikeIgnoreCase("%"+title+"%");
+		if (userFound == null) {
+			model.addAttribute("errorUser", true);
+			return "add_loan";
+		} else {
+			if (resourceFound == null) {
+				model.addAttribute("errorTitle", true);
+				return "add_loan";
+			} else {
+				Action action = new Action(date);
+				action.setUser(userFound);
+				/*ResourceCopy resourceCopyFound = resourceCopyRepository.findByResource(resourceFound);
+				action.setResource(resourceCopyFound);*/
+				actionRepository.save(action);
+			}
+		}
+
+		return "redirect:/admin/loans";
+	}
+
+	@RequestMapping("/admin/loans/delete/{id}")
+	public String deleteLoan(Model model, @PathVariable Integer id, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		actionRepository.delete(id);
+
+		return "redirect:/admin/loans";
 	}
 
 	@RequestMapping("/admin/resources")
