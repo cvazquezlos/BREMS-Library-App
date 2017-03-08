@@ -141,7 +141,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <form action="/admin/resources/add/action">
+                            <form action="/admin/resources/add/action" method="post" enctype="multipart/form-data">
                                 <div class="col-lg-8">
                                     <div class="form-group">
                                         <label>Título del recurso</label>
@@ -154,6 +154,10 @@
                                     <div class="form-group">
                                         <label>Autor o compañía</label>
                                         <input type="text" class="form-control" name="author" placeholder="Autor o compañía">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Imagen</label>
+                                        <input for="exampleInputFile" type="file" name="picture">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">

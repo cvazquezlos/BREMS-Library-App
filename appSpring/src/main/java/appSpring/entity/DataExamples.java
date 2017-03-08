@@ -87,10 +87,11 @@ public class DataExamples {
 
 		res1 = new Resource("Cien años de soledad", "Gabriel García Márquez", "Editorial Sudamericana", "Cien años de soledad es una novela del escritor colombiano Gabriel "
 				+ "García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las "
-				+ "obras más traducidas y leídas en español.");
+				+ "obras más traducidas y leídas en español.", "1.jpg");
 		res1.setGenre(g1);
 		res1.setProductType(rt1);
 		resourceRepository.save(res1);
+		
 
 		rc1 = new ResourceCopy("CAS001");
 		rc1.setResource(res1);
@@ -105,7 +106,7 @@ public class DataExamples {
 		res2 = new Resource("El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", "El principito es un cuento poético que viene acompañado de ilustraciones hechas "
 				+ "con acuarelas por el mismo Saint-Exupéry. En él, un piloto se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería, pero para su sorpresa, "
 				+ "es allí donde conoce a un pequeño príncipe proveniente de otro planeta. La historia tiene una temática filosófica, donde se incluyen críticas sociales dirigidas a la «extrañeza» "
-				+ "con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.");
+				+ "con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.", "2.jpg");
 		res2.setGenre(g2);
 		res2.setProductType(rt1);
 		resourceRepository.save(res2);
@@ -118,7 +119,7 @@ public class DataExamples {
 		resourceCopyRepository.save(rc5);
 
 		res3 = new Resource("Hola.com", "HOLA S.L.", "Hola S.L.", "La revista Hola es una publicación tanto impresa como electrónica, propiedad de la editora 'Hola S. L., que se dedica "
-				+ "a comunicar acontecimientos recientes de la vida de la farándula principalmente, abordando también temas como moda, actualidad, belleza, mujer, hombre, cocina o decoración.");
+				+ "a comunicar acontecimientos recientes de la vida de la farándula principalmente, abordando también temas como moda, actualidad, belleza, mujer, hombre, cocina o decoración.", "3.jpg");
 		res3.setGenre(g3);
 		res3.setProductType(rt2);
 		resourceRepository.save(res3);
@@ -128,6 +129,7 @@ public class DataExamples {
 		resourceCopyRepository.save(rc6);
 
 		res4 = new Resource("Muy Interesante", "G+J", "G+J", "Muy interesante es una revista mensual de divulgación y ciencia popular, creada y publicada por el Grupo G+J España.");
+
 		res4.setGenre(g3);
 		res4.setProductType(rt2);
 		resourceRepository.save(res4);

@@ -1,7 +1,7 @@
 package appSpring.controller;
 
 import java.util.List;
-
+import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
@@ -74,13 +75,13 @@ public class AdminController {
 							    HttpServletRequest request) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
-		
+
 		try{userRepository.save(user);}
 		catch(Exception e){return "redirect:/admin/users/addError";}
-		
+
 		return "redirect:/admin/users";
 	}
-	
+
 	@RequestMapping("/admin/users/addError")
 	public String addError(Model model){
 		model.addAttribute("alreadyReg",true);
@@ -150,11 +151,13 @@ public class AdminController {
 	public String addResourceAction(Model model, @RequestParam String title, @RequestParam String description,
                                     @RequestParam String author, @RequestParam String genre,
                                     @RequestParam String editorial, @RequestParam String resourceType,
+                                    @RequestParam MultipartFile picture,
                                     HttpServletRequest request) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		Resource resource = new Resource(title, author, editorial, description);
+
 		Genre genreFound = genreRepository.findByName(genre);
 		if (genreFound == null) {
 			genreRepository.save(new Genre(genre));
@@ -162,6 +165,7 @@ public class AdminController {
 		} else {
 			resource.setGenre(genreFound);
 		}
+
 		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
 		if (resourceTypeFound == null) {
 			resourceTypeRepository.save(new ResourceType(resourceType));
@@ -169,7 +173,27 @@ public class AdminController {
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
+
 		resourceRepository.save(resource);
+
+		// Add Picture
+		String pictureName = resource.getId().toString() + ".jpg";
+
+		if (!picture.isEmpty()) {
+			try{
+				File filesFolder = new File("src/main/resources/static/img/books");
+				if (!filesFolder.exists()) {
+					filesFolder.mkdirs();
+				}
+
+				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
+				picture.transferTo(uploadedFile);
+			}catch (Exception e) {
+			}
+
+			resource.setPicture(pictureName);
+			resourceRepository.save(resource);
+		}
 
 		return "redirect:/admin/resources";
 	}
