@@ -2,6 +2,7 @@ package appSpring.entity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,28 +128,24 @@ public class DataExamples {
 		resourceCopyRepository.save(rc6);
 
 		res4 = new Resource("Muy Interesante", "G+J", "G+J", "Muy interesante es una revista mensual de divulgación y ciencia popular, creada y publicada por el Grupo G+J España.");
-
 		res4.setGenre(g3);
 		res4.setProductType(rt2);
 		resourceRepository.save(res4);
 
-		String title 		= "Logia";
-		String author 		= "Francisco Ortega";
-		String editorial	= "Planeta";
-		String description 	= "La historia narra las aventuras del exitoso novelista chileno Elías Miele (especie de alter ego de Ortega), " +
-							  "un escritor de best seller del tipo conspirativo asentado en Estados Unidos debido a sus serios conflictos " +
-							  "judiciales en Chile que se ve inmerso en una aventura similar a las que suele relatar en sus libros desde el " +
-							  "momento en que dos colegas son asesinados.";
-
-		res5 = new Resource(title, author, editorial, description, "5.jpg");
+		res5 = new Resource("Logia", "Francisco Ortega", "Planeta", "La historia narra las aventuras del exitoso novelista chileno Elías Miele (especie de alter ego de Ortega), un escritor de best seller del tipo conspirativo "
+				+ "asentado en Estados Unidos debido a sus serios conflictos judiciales en Chile que se ve inmerso en una aventura similar a las que suele relatar en sus libros desde el "
+				+ "momento en que dos colegas son asesinados.", "5.jpg");
 		res5.setGenre(g1);
 		res5.setProductType(rt1);
 		resourceRepository.save(res5);
 
-
 		rc7 = new ResourceCopy("MUI001");
 		rc7.setResource(res4);
 		resourceCopyRepository.save(rc7);
+
+		actionRepository.findByDate(a1.getDate()).setResource(rc1);
+		actionRepository.findByDate(a2.getDate()).setResource(rc3);
+		actionRepository.findByDate(a3.getDate()).setResource(rc5);
 
     }
 

@@ -2,7 +2,6 @@ package appSpring.controller;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import appSpring.entity.Action;
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
@@ -37,8 +35,6 @@ public class AdminController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepository;
-	@Autowired
-	private ResourceCopyRepository resourceCopyRepository;
 	@Autowired
 	private FineRepository fineRepository;
 	@Autowired
@@ -75,23 +71,24 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/users/add/action")
-	public String addUserAction(@RequestParam String name, @RequestParam String password,
-							    @RequestParam String dni, @RequestParam String firstName,
-							    @RequestParam String lastName1, @RequestParam String lastName2,
-							    @RequestParam String email, @RequestParam String telephone,
-							    HttpServletRequest request) {
+	public String addUserAction(@RequestParam String name, @RequestParam String password, @RequestParam String dni,
+			@RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
+			@RequestParam String email, @RequestParam String telephone, HttpServletRequest request) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
 
-		try{userRepository.save(user);}
-		catch(Exception e){return "redirect:/admin/users/addError";}
+		try {
+			userRepository.save(user);
+		} catch (Exception e) {
+			return "redirect:/admin/users/addError";
+		}
 
 		return "redirect:/admin/users";
 	}
 
 	@RequestMapping("/admin/users/addError")
-	public String addError(Model model){
-		model.addAttribute("alreadyReg",true);
+	public String addError(Model model) {
+		model.addAttribute("alreadyReg", true);
 		return "admin/add_user";
 	}
 
@@ -145,25 +142,24 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/loans/add/action")
-	public String addLoanAction(Model model, @RequestParam String title, @RequestParam int day,
-                                    @RequestParam int month, @RequestParam int year,
-                                    @RequestParam String user, HttpServletRequest request) {
+	public String addLoanAction(Model model, @RequestParam String title, @RequestParam int day, @RequestParam int month,
+			@RequestParam int year, @RequestParam String user, HttpServletRequest request) {
 
-		Date date = new GregorianCalendar(year, month-1, day).getTime();
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		Date date = new GregorianCalendar(year, month - 1, day).getTime();
 		User userFound = userRepository.findByName(user);
-		Resource resourceFound = resourceRepository.findByTitleLikeIgnoreCase("%"+title+"%");
+		Resource resourceFound = resourceRepository.findByTitleLikeIgnoreCase("%" + title + "%");
 		if (userFound == null) {
 			model.addAttribute("errorUser", true);
-			return "add_loan";
+			return "admin/add_loan";
 		} else {
 			if (resourceFound == null) {
 				model.addAttribute("errorTitle", true);
-				return "add_loan";
+				return "admin/add_loan";
 			} else {
 				Action action = new Action(date);
 				action.setUser(userFound);
-				/*ResourceCopy resourceCopyFound = resourceCopyRepository.findByResource(resourceFound);
-				action.setResource(resourceCopyFound);*/
 				actionRepository.save(action);
 			}
 		}
@@ -202,10 +198,8 @@ public class AdminController {
 
 	@RequestMapping("/admin/resources/add/action")
 	public String addResourceAction(Model model, @RequestParam String title, @RequestParam String description,
-                                    @RequestParam String author, @RequestParam String genre,
-                                    @RequestParam String editorial, @RequestParam String resourceType,
-                                    @RequestParam MultipartFile picture,
-                                    HttpServletRequest request) {
+			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
+			@RequestParam String resourceType, @RequestParam MultipartFile picture, HttpServletRequest request) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
@@ -221,8 +215,8 @@ public class AdminController {
 
 		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
 		if (resourceTypeFound == null) {
-			resourceTypeRepository.save(new ResourceType(resourceType));
-			resource.setProductType(resourceTypeRepository.findOneByName(resourceType));
+			model.addAttribute("errorType", true);
+			return "admin/add_resource";
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
@@ -233,7 +227,7 @@ public class AdminController {
 		String pictureName = resource.getId().toString() + ".jpg";
 
 		if (!picture.isEmpty()) {
-			try{
+			try {
 				File filesFolder = new File("src/main/resources/static/img/books");
 				if (!filesFolder.exists()) {
 					filesFolder.mkdirs();
@@ -241,7 +235,7 @@ public class AdminController {
 
 				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
 				picture.transferTo(uploadedFile);
-			}catch (Exception e) {
+			} catch (Exception e) {
 			}
 
 			resource.setPicture(pictureName);
