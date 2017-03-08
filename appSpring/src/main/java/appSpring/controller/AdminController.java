@@ -1,5 +1,6 @@
 package appSpring.controller;
 
+import java.util.List;
 import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +17,8 @@ import appSpring.entity.Resource;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
-import appSpring.repository.PenaltyRepository;
+import appSpring.repository.ActionRepository;
+import appSpring.repository.FineRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.repository.UserRepository;
@@ -31,9 +33,11 @@ public class AdminController {
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepository;
 	@Autowired
-	private PenaltyRepository penaltyRepository;
+	private FineRepository fineRepository;
 	@Autowired
 	private GenreRepository genreRepository;
+	@Autowired
+	private ActionRepository actionRepository;
 
 	@RequestMapping("/admin/")
 	public String home(Model model, HttpServletRequest request) {
@@ -99,9 +103,19 @@ public class AdminController {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		model.addAttribute("fines", penaltyRepository.findAll());
+		model.addAttribute("fines", fineRepository.findAll());
 
 		return "admin/fines_management";
+	}
+
+	@RequestMapping("/admin/fines/delete/{id}")
+	public String deleteFine(Model model, @PathVariable Integer id, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		fineRepository.delete(id);
+
+		return "redirect:/admin/fines";
 	}
 
 	@RequestMapping("/admin/loans")
@@ -109,6 +123,7 @@ public class AdminController {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
+		model.addAttribute("action", actionRepository.findAll());
 
 		return "admin/loans_management";
 	}
