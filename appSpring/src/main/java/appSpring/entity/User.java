@@ -38,8 +38,8 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Action> actions;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Penalty> penalties = new ArrayList<Penalty>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+	private List<Fine> penalties = new ArrayList<Fine>();
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
@@ -141,11 +141,11 @@ public class User {
 		this.roles = roles;
 	}
 
-	public List<Penalty> getPenalties(){
+	public List<Fine> getPenalties(){
 		return penalties;
 	}
 
-	public void setPenalty(List<Penalty> penalties){
+	public void setPenalty(List<Fine> penalties){
 		this.penalties = penalties;
 	}
 
