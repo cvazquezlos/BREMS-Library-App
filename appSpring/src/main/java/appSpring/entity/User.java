@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 @Entity
 public class User {
 
@@ -35,19 +34,19 @@ public class User {
 	private String telephone;
 	private String address;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
 	private List<Action> actions;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
-	private List<Fine> penalties = new ArrayList<Fine>();
+	private List<Fine> penalties;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
 	protected User() {}
 
-	public User(String name, String password, String dni, String firstName, String lastName1, String lastName2,
-			String email, String telephone, String... roles) {
+	public User(String name, String password, String dni, String firstName, String lastName1,
+				String lastName2, String email, String telephone, String... roles) {
 
 		this.name = name;
 		this.passwordHash = new BCryptPasswordEncoder().encode(password);
@@ -156,7 +155,5 @@ public class User {
 	public void setActions(List<Action> actions) {
 		this.actions = actions;
 	}
-
-
 
 }
