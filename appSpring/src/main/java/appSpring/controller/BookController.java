@@ -24,7 +24,7 @@ public class BookController {
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepo;
 
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/book/{id}", method=RequestMethod.GET)
 	public String bookProfile(Model model, @PathVariable Integer id) {
 
 		Resource resource = resourceRepository.findOne(id);

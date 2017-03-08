@@ -29,8 +29,8 @@ public class DataExamples {
     	// Data declaration
     	Genre g1, g2, g3, g4;
     	ResourceType rt1, rt2;
-    	Resource res1, res2, res3, res4;
-    	ResourceCopy rc1,rc2,rc3, rc4,rc5, rc6;
+    	Resource res1, res2, res3, res4, res5;
+    	ResourceCopy rc1,rc2,rc3, rc4,rc5;
     	User user1, user2, user3, user4;
 
 
@@ -44,7 +44,7 @@ public class DataExamples {
     	user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "ROLE_USER");
     	user3.getPenalties().add(new Penalty(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(), new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3));
     	userRepository.save(user3);
-    	user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "omocracko@gmail.com", "606036123", "ROLE_USER");
+    	user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123", "ROLE_USER");
     	user4.getPenalties().add(new Penalty(new GregorianCalendar(2014, Calendar.MAY, 17).getTime(), new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4));
     	userRepository.save(user4);
 
@@ -106,6 +106,20 @@ public class DataExamples {
 		res4.setGenre(g3);
 		res4.setProductType(rt2);
 		resourceRepository.save(res4);
+		
+		String title 		= "Logia";
+		String author 		= "Francisco Ortega";
+		String editorial	= "Planeta";
+		String description 	= "La historia narra las aventuras del exitoso novelista chileno Elías Miele (especie de alter ego de Ortega), " + 
+							  "un escritor de best seller del tipo conspirativo asentado en Estados Unidos debido a sus serios conflictos " + 
+							  "judiciales en Chile que se ve inmerso en una aventura similar a las que suele relatar en sus libros desde el " + 
+							  "momento en que dos colegas son asesinados.";
+		
+		res5 = new Resource(title, author, editorial, description, "5.jpg");
+		res5.setGenre(g1);
+		res5.setProductType(rt1);
+		resourceRepository.save(res5);
+		
 
     }
 
