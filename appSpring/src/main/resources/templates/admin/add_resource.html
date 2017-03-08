@@ -141,7 +141,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <form action="/admin/loans/add/action" method="post" enctype="multipart/form-data">
+                            <form action="/admin/resources/add/action" method="post" enctype="multipart/form-data">
                                 <div class="col-lg-8">
                                     <div class="form-group">
                                         <label>Título del recurso</label>
@@ -179,8 +179,12 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
+                    {{#errorType}}
+                    <div class="box-body">
+                    	<span class="errorLogin"> &emsp; Tipo incorrecto. Escriba "Libro" o "Revista". </span>
+                    </div>
+                    {{/errorType}}
                     <!-- /.box-body -->
                 </div>
 
