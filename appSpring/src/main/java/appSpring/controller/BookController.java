@@ -24,11 +24,12 @@ public class BookController {
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepo;
 
-	@RequestMapping(value="/book/{id}", method=RequestMethod.GET)
+	@RequestMapping("/{id}")
 	public String bookProfile(Model model, @PathVariable Integer id) {
 
 		Resource resource = resourceRepository.findOne(id);
 		model.addAttribute("resource", resource);
+		model.addAttribute("index", true);
 
 		return "profileBook";
 	}
