@@ -1,5 +1,7 @@
 package appSpring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import appSpring.entity.Resource;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
+import appSpring.repository.ActionRepository;
 import appSpring.repository.FineRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
@@ -32,6 +35,8 @@ public class AdminController {
 	private FineRepository fineRepository;
 	@Autowired
 	private GenreRepository genreRepository;
+	@Autowired
+	private ActionRepository actionRepository;
 
 	@RequestMapping("/admin/")
 	public String home(Model model, HttpServletRequest request) {
@@ -117,6 +122,7 @@ public class AdminController {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
+		model.addAttribute("action", actionRepository.findAll());
 
 		return "admin/loans_management";
 	}
