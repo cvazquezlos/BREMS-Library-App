@@ -20,6 +20,8 @@ public class DataExamples {
 	private GenreRepository genreRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepository;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepository;
 
     @PostConstruct
     private void initDatabase() {
@@ -28,6 +30,7 @@ public class DataExamples {
     	Genre g1, g2, g3, g4;
     	ResourceType rt1, rt2;
     	Resource res1, res2, res3, res4;
+    	ResourceCopy rc1,rc2,rc3, rc4,rc5, rc6;
     	User user1, user2, user3, user4;
 
 
@@ -65,12 +68,17 @@ public class DataExamples {
 				+ "obras más traducidas y leídas en español.");
 		res1.setGenre(g1);
 		res1.setProductType(rt1);
-
-		res1.getResourceCopies().add(new ResourceCopy());
-		res1.getResourceCopies().add(new ResourceCopy());
-		res1.getResourceCopies().add(new ResourceCopy());
-		res1.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res1);
+
+		rc1 = new ResourceCopy("CAS001");
+		rc1.setResource(res1);
+		resourceCopyRepository.save(rc1);
+		rc2 = new ResourceCopy("CAS002");
+		rc2.setResource(res1);
+		resourceCopyRepository.save(rc2);
+		rc3 = new ResourceCopy("CAS003");
+		rc3.setResource(res1);
+		resourceCopyRepository.save(rc3);
 
 		res2 = new Resource("El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", "El principito es un cuento poético que viene acompañado de ilustraciones hechas "
 				+ "con acuarelas por el mismo Saint-Exupéry. En él, un piloto se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería, pero para su sorpresa, "
@@ -78,30 +86,26 @@ public class DataExamples {
 				+ "con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.");
 		res2.setGenre(g2);
 		res2.setProductType(rt1);
-
-		res2.getResourceCopies().add(new ResourceCopy());
-		res2.getResourceCopies().add(new ResourceCopy());
-		res2.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res2);
+
+		rc4 = new ResourceCopy("EPR001");
+		rc4.setResource(res2);
+		resourceCopyRepository.save(rc4);
+		rc5 = new ResourceCopy("EPR002");
+		rc5.setResource(res2);
+		resourceCopyRepository.save(rc5);
 
 		res3 = new Resource("Hola.com", "HOLA S.L.", "Hola S.L.", "La revista Hola es una publicación tanto impresa como electrónica, propiedad de la editora 'Hola S. L., que se dedica "
 				+ "a comunicar acontecimientos recientes de la vida de la farándula principalmente, abordando también temas como moda, actualidad, belleza, mujer, hombre, cocina o decoración.");
 		res3.setGenre(g3);
 		res3.setProductType(rt2);
-
-		res3.getResourceCopies().add(new ResourceCopy());
-		res3.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res3);
 
 		res4 = new Resource("Muy Interesante", "G+J", "G+J", "Muy interesante es una revista mensual de divulgación y ciencia popular, creada y publicada por el Grupo G+J España.");
 		res4.setGenre(g3);
 		res4.setProductType(rt2);
-
-		res4.getResourceCopies().add(new ResourceCopy());
-		res4.getResourceCopies().add(new ResourceCopy());
-		res4.getResourceCopies().add(new ResourceCopy());
-		res4.getResourceCopies().add(new ResourceCopy());
 		resourceRepository.save(res4);
+
     }
 
 }
