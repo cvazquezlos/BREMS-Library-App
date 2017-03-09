@@ -29,7 +29,7 @@ public class BookController {
 	@Autowired
 	private ResourceCopyRepository resourceCopyRepo;
 
-	@RequestMapping("/{id}")
+	@RequestMapping("/book/{id}")
 	public String bookProfile(Model model, @PathVariable Integer id) {
 
 		Resource resource = resourceRepository.findOne(id);
