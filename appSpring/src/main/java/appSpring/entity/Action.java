@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 
 @Entity
 public class Action {
@@ -22,14 +22,16 @@ public class Action {
 	@OneToOne
 	private ResourceCopy copy;
 	
+	@ManyToOne
+	private User user;
+
 	@OneToOne(cascade=CascadeType.ALL)
 	private Token token;
 
 	protected Action() {}
 	
-	public Action(Date date, ResourceCopy copy){
+	public Action(Date date){
 		this.date = date;
-		this.copy = copy;
 	}
 
 	public Integer getID() {
@@ -48,4 +50,16 @@ public class Action {
 		this.date = date;
 	}
 	
+	public void setResource(ResourceCopy copy) {
+		this.copy = copy;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

@@ -49,14 +49,14 @@
                                 <!-- The user image in the navbar-->
                                 <img src="img/icon-profile.png" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Administrador</span>
+                                <span class="hidden-xs">{{#admin}}{{ firstName }} {{ lastName1 }}{{/admin}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
                                     <img src="img/icon-profile.png" class="img-circle" alt="User Image">
                                     <p>
-                                        Administrador de BREMS
+                                        {{#admin}}{{ firstName }} {{ lastName1 }} {{ lastName2 }}{{/admin}}
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -83,7 +83,7 @@
                         <img src="img/icon-profile.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Administrador</p>
+                        <p>{{#admin}}{{ firstName }} {{ lastName1 }}{{/admin}}</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
                     </div>
@@ -156,7 +156,7 @@
 	                                        <td>
 	                                            <a class="fa fa-pencil" href="#"></a>
 	                                            &nbsp;&nbsp;
-	                                            <a class="fa fa-trash"></a>
+	                                            <a href="/admin/fines/delete/{{ id }}" class="fa fa-trash"></a>
 	                                        </td>
 	                                    </tr>
                                     {{/fines}}

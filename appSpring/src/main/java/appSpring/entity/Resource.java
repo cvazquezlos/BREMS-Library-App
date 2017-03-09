@@ -23,6 +23,7 @@ public class Resource {
 	private String title;
 	private String author;
 	private String editorial;
+	private String picture;
 	private int copiesNumber;
 	
 	@Column(length=1024)
@@ -46,6 +47,14 @@ public class Resource {
 		this.author = author;
 		this.editorial = editorial;
 		this.description = description;
+	}
+	
+	public Resource(String title, String author, String editorial, String description, String picture) {
+		this.title = title;
+		this.author = author;
+		this.editorial = editorial;
+		this.description = description;
+		this.picture = picture;
 	}
 	
 	// Métodos getter/setter de los atributos
@@ -119,6 +128,14 @@ public class Resource {
 
 	public void setResourceCopies(List<ResourceCopy> copies){
 		this.copies = copies;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 }
