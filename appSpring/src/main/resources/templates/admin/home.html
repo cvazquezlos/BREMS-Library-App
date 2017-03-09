@@ -92,17 +92,6 @@
                     </div>
                 </div>
 
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                        <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
                     <li class="header">MENÚ</li>
@@ -139,9 +128,9 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>{{resource.size}}</h3>
 
-                                <p>Nuevos comentarios</p>
+                                <p>Recursos</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -153,7 +142,7 @@
                         <!-- small box -->
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3>53</h3>
+                                <h3>{{action.size}}</h3>
 
                                 <p>Recursos reservados</p>
                             </div>
@@ -167,9 +156,9 @@
                         <!-- small box -->
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>{{user.size}}</h3>
 
-                                <p>Nuevos registros</p>
+                                <p>Usuarios registrados</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
@@ -181,9 +170,9 @@
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h3>{{fine.size}}</h3>
 
-                                <p>Visitas</p>
+                                <p>Multas</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>

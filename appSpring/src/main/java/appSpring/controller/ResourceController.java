@@ -20,7 +20,7 @@ import appSpring.entity.ResourceType;
 
 
 @Controller
-public class BookController {
+public class ResourceController {
 
 	@Autowired
 	private ResourceRepository resourceRepository;
