@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.entity.Action;
 import appSpring.entity.Genre;
@@ -244,6 +245,77 @@ public class AdminController {
 
 		return "redirect:/admin/resources";
 	}
+	
+	@RequestMapping("/admin/resources/edit/{id}")
+	public String editResource(Model model, @PathVariable Integer id, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		
+		
+		Resource resource = resourceRepository.findOne(id);
+		
+		model.addAttribute("resource", resource);
+		
+
+		return "admin/edit_resource";
+	}
+	
+	@RequestMapping("/admin/resources/edit/{id}/action")
+	public String editResourceAction(Model model, @PathVariable Integer id, @RequestParam String description,
+			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
+			@RequestParam String resourceType, @RequestParam MultipartFile picture, RedirectAttributes redirectAttrs) {
+
+		
+		Resource resource = resourceRepository.findOne(id);
+		
+		resource.setDescription(description);
+		resource.setAutor(author);
+		resource.setEditorial(editorial);
+		
+		Genre genreFound = genreRepository.findByName(genre);
+		if (genreFound == null) {
+			genreRepository.save(new Genre(genre));
+			resource.setGenre(genreRepository.findByName(genre));
+		} else {
+			resource.setGenre(genreFound);
+		}
+
+		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
+		if (resourceTypeFound == null) {
+			model.addAttribute("errorType", true);
+			return "admin/add_resource";
+		} else {
+			resource.setProductType(resourceTypeFound);
+		}
+		
+		// Add Picture
+		String pictureName = resource.getId().toString() + ".jpg";
+
+		if (!picture.isEmpty()) {
+			try {
+				File filesFolder = new File("src/main/resources/static/img/books");
+				if (!filesFolder.exists()) {
+					filesFolder.mkdirs();
+				}
+
+				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
+				picture.transferTo(uploadedFile);
+			} catch (Exception e) {
+			}
+
+			resource.setPicture(pictureName);
+		}
+		
+		resourceRepository.save(resource);
+		
+		redirectAttrs.addFlashAttribute("messages", resource.getTitle().toString() + " modificado.");
+		
+		return "redirect:/admin/resources";
+	}
+	
+	
+	
 
 	@RequestMapping("/admin/resources/delete/{id}")
 	public String deleteResource(Model model, @PathVariable Integer id, HttpServletRequest request) {
