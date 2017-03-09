@@ -78,9 +78,9 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <hr>
-                    <h3>Libros de {{ author }}</h3> {{#similarResources}}
-                    <div class="col-xs-6 col-md-3">
-                        <a href="#" class="thumbnail"> <img src="/img/books/{{picture}}" alt="..."> </a>
+                    <h3>Similares</h3> {{#similarResources}}
+                    <div class="col-xs-6 col-md-2">
+                        <a href="/book/{{id}}" class="thumbnail"> <img src="/img/books/{{picture}}" alt="..."> </a>
                     </div>
                     {{/similarResources}}
                 </div>
