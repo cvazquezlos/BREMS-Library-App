@@ -39,37 +39,6 @@ public class DataExamples {
     	ResourceCopy rc1,rc2,rc3, rc4,rc5, rc6, rc7;
     	User user1, user2, user3, user4;
 
-		// Actions creation
-		a1 = new Action(new GregorianCalendar(2017, Calendar.FEBRUARY, 13).getTime());
-		a2 = new Action(new GregorianCalendar(2016, Calendar.DECEMBER, 22).getTime());
-		actionRepository.save(a2);
-		a3 = new Action(new GregorianCalendar(2016, Calendar.FEBRUARY, 5).getTime());
-		actionRepository.save(a3);
-
-    	// Users creation
-    	user1 = new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com", "656565066", "ROLE_USER");
-    	userRepository.save(user1);
-    	a1.setUser(user1);
-		actionRepository.save(a1);
-    	fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(), new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1);
-    	fineRepository.save(fine);
-    	fine = new Fine(new GregorianCalendar(2015, Calendar.SEPTEMBER, 6).getTime(), new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1);
-    	fineRepository.save(fine);
-    	user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "ROLE_ADMIN", "ROLE_USER");
-    	userRepository.save(user2);
-    	user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "ROLE_USER");
-    	userRepository.save(user3);
-    	a2.setUser(user3);
-		actionRepository.save(a2);
-    	fine = new Fine(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(), new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3);
-    	fineRepository.save(fine);
-    	user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123", "ROLE_USER");
-    	userRepository.save(user4);
-    	a3.setUser(user4);
-		actionRepository.save(a3);
-    	fine = new Fine(new GregorianCalendar(2014, Calendar.MAY, 17).getTime(), new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4);
-    	fineRepository.save(fine);
-
     	// Data creation
 		g1 = new Genre("Novela");
 		g2 = new Genre("Fantasía");
@@ -129,29 +98,52 @@ public class DataExamples {
 		resourceCopyRepository.save(rc6);
 
 		res4 = new Resource("Muy Interesante", "G+J", "G+J", "Muy interesante es una revista mensual de divulgación y ciencia popular, creada y publicada por el Grupo G+J España.");
-
 		res4.setGenre(g3);
 		res4.setProductType(rt2);
 		resourceRepository.save(res4);
 
-		String title 		= "Logia";
-		String author 		= "Francisco Ortega";
-		String editorial	= "Planeta";
-		String description 	= "La historia narra las aventuras del exitoso novelista chileno Elías Miele (especie de alter ego de Ortega), " +
-							  "un escritor de best seller del tipo conspirativo asentado en Estados Unidos debido a sus serios conflictos " +
-							  "judiciales en Chile que se ve inmerso en una aventura similar a las que suele relatar en sus libros desde el " +
-							  "momento en que dos colegas son asesinados.";
-
-		res5 = new Resource(title, author, editorial, description, "5.jpg");
+		res5 = new Resource("Logia", "Francisco Ortega", "Planeta", "La historia narra las aventuras del exitoso novelista chileno Elías Miele (especie de alter ego de Ortega), un escritor de best seller del tipo conspirativo "
+				+ "asentado en Estados Unidos debido a sus serios conflictos judiciales en Chile que se ve inmerso en una aventura similar a las que suele relatar en sus libros desde el "
+				+ "momento en que dos colegas son asesinados.", "5.jpg");
 		res5.setGenre(g1);
 		res5.setProductType(rt1);
 		resourceRepository.save(res5);
-
 
 		rc7 = new ResourceCopy("MUI001");
 		rc7.setResource(res4);
 		resourceCopyRepository.save(rc7);
 
+		// Actions creation
+		a1 = new Action(new GregorianCalendar(2017, Calendar.FEBRUARY, 13).getTime());
+		a2 = new Action(new GregorianCalendar(2016, Calendar.DECEMBER, 22).getTime());
+		a3 = new Action(new GregorianCalendar(2016, Calendar.FEBRUARY, 5).getTime());
+
+    	// Users creation
+    	user1 = new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com", "656565066", "ROLE_USER");
+    	userRepository.save(user1);
+    	a1.setUser(user1);
+    	a1.setResource(rc1);
+		actionRepository.save(a1);
+    	fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(), new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1);
+    	fineRepository.save(fine);
+    	fine = new Fine(new GregorianCalendar(2015, Calendar.SEPTEMBER, 6).getTime(), new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1);
+    	fineRepository.save(fine);
+    	user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com", "606000000", "ROLE_ADMIN", "ROLE_USER");
+    	userRepository.save(user2);
+    	user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000", "ROLE_USER");
+    	userRepository.save(user3);
+    	a2.setUser(user3);
+    	a2.setResource(rc3);
+		actionRepository.save(a2);
+    	fine = new Fine(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(), new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3);
+    	fineRepository.save(fine);
+    	user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123", "ROLE_USER");
+    	userRepository.save(user4);
+    	a3.setUser(user4);
+    	a3.setResource(rc5);
+		actionRepository.save(a3);
+    	fine = new Fine(new GregorianCalendar(2014, Calendar.MAY, 17).getTime(), new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4);
+    	fineRepository.save(fine);
     }
 
 }

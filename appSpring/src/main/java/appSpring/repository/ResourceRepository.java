@@ -24,4 +24,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 	
 	Page<Resource> findByResourceType(ResourceType resourceType, Pageable page);
 
+	Resource findByTitleLikeIgnoreCase(String title);
+
 }

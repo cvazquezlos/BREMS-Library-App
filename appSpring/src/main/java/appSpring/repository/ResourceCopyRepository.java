@@ -11,4 +11,6 @@ public interface ResourceCopyRepository extends JpaRepository<ResourceCopy, Inte
 	
 	Long countByResource(Resource resource);
 
+	ResourceCopy findByResource(Resource resource);
+
 }
