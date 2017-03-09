@@ -140,41 +140,23 @@
                                 <tr>
                                     <th>Identificador</th>
                                     <th>Usuario</th>
-                                    <th>Tiempo</th>
+                                    <th>Inicio</th>
                                     <th>Administrar</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>ID#1</td>
-                                    <td>User</td>
-                                    <td>0 days</td>
-                                    <td>
-                                        <a class="fa fa-pencil" href="#"></a>
-                                        &nbsp;&nbsp;
-                                        <a class="fa fa-trash"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ID#2</td>
-                                    <td>User</td>
-                                    <td>0 days</td>
-                                    <td>
-                                        <a class="fa fa-pencil" href="#"></a>
-                                        &nbsp;&nbsp;
-                                        <a class="fa fa-trash"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ID#3</td>
-                                    <td>User</td>
-                                    <td>0 days</td>
-                                    <td>
-                                        <a class="fa fa-pencil" href="#"></a>
-                                        &nbsp;&nbsp;
-                                        <a class="fa fa-trash"></a>
-                                    </td>
-                                </tr>
+                            	{{#action}}
+	                                <tr>
+	                                    <td>{{ id }}</td>
+	                                    <td>{{#user}}{{name}}{{/user}}</td>
+	                                    <td>{{ date }}</td>
+	                                    <td>
+	                                        <a class="fa fa-pencil" href="#"></a>
+	                                        &nbsp;&nbsp;
+	                                        <a class="fa fa-trash"></a>
+	                                    </td>
+	                                </tr>
+                                {{/action}}
                             </tbody>
                 </table>
                 <a href="add_loan.html">
