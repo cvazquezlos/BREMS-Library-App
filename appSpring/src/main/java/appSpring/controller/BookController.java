@@ -1,5 +1,7 @@
 package appSpring.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.entity.Resource;
@@ -23,12 +26,19 @@ public class BookController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepo;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepo;
 
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/book/{id}", method=RequestMethod.GET)
 	public String bookProfile(Model model, @PathVariable Integer id) {
 
 		Resource resource = resourceRepository.findOne(id);
+		Long num = resourceCopyRepo.countByResource(resource);
+		List<Resource> similarResources = resourceRepository.findByGenreAndIdNot(resource.getGenre(), resource.getId());
+		
 		model.addAttribute("resource", resource);
+		model.addAttribute("available", (num>0)?1:0);
+		model.addAttribute("similarResources", similarResources);
 
 		return "profileBook";
 	}
