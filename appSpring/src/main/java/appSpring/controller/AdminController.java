@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.entity.Action;
 import appSpring.entity.Genre;
@@ -19,7 +20,6 @@ import appSpring.entity.Resource;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
-import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.FineRepository;
 import appSpring.repository.ResourceRepository;
@@ -47,6 +47,10 @@ public class AdminController {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
+		model.addAttribute("resource", resourceRepository.findAll());
+		model.addAttribute("action", actionRepository.findAll());
+		model.addAttribute("user", userRepository.findAll());
+		model.addAttribute("fine", fineRepository.findAll());
 
 		return "admin/home";
 	}
@@ -82,6 +86,35 @@ public class AdminController {
 		} catch (Exception e) {
 			return "redirect:/admin/users/addError";
 		}
+
+		return "redirect:/admin/users";
+	}
+
+	@RequestMapping("/admin/users/edit/{id}")
+	public String editUser(Model model, @PathVariable Integer id, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		User user = userRepository.findOne(id);
+		model.addAttribute("user", user);
+
+		return "admin/edit_user";
+	}
+
+	@RequestMapping("/admin/users/edit/{id}/action")
+	public String editUserAction(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
+			@RequestParam String email, @RequestParam String dni, RedirectAttributes redirectAttrs) {
+
+		User user = userRepository.findOne(id);
+
+		user.setFirstName(firstName);
+		user.setLastName1(lastName1);
+		user.setLastName2(lastName2);
+		user.setEmail(email);
+		user.setDni(dni);
+
+		userRepository.save(user);
+		redirectAttrs.addFlashAttribute("messages", user.getName().toString() + " modificado.");
 
 		return "redirect:/admin/users";
 	}
@@ -241,6 +274,67 @@ public class AdminController {
 			resource.setPicture(pictureName);
 			resourceRepository.save(resource);
 		}
+
+		return "redirect:/admin/resources";
+	}
+
+	@RequestMapping("/admin/resources/edit/{id}")
+	public String editResource(Model model, @PathVariable Integer id, HttpServletRequest request) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		Resource resource = resourceRepository.findOne(id);
+		model.addAttribute("resource", resource);
+
+		return "admin/edit_resource";
+	}
+
+	@RequestMapping("/admin/resources/edit/{id}/action")
+	public String editResourceAction(Model model, @PathVariable Integer id, @RequestParam String description,
+			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
+			@RequestParam String resourceType, @RequestParam MultipartFile picture, RedirectAttributes redirectAttrs) {
+
+		Resource resource = resourceRepository.findOne(id);
+
+		resource.setDescription(description);
+		resource.setAutor(author);
+		resource.setEditorial(editorial);
+
+		Genre genreFound = genreRepository.findByName(genre);
+		if (genreFound == null) {
+			genreRepository.save(new Genre(genre));
+			resource.setGenre(genreRepository.findByName(genre));
+		} else {
+			resource.setGenre(genreFound);
+		}
+
+		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
+		if (resourceTypeFound == null) {
+			model.addAttribute("errorType", true);
+			return "admin/add_resource";
+		} else {
+			resource.setProductType(resourceTypeFound);
+		}
+
+		// Add Picture
+		String pictureName = resource.getId().toString() + ".jpg";
+
+		if (!picture.isEmpty()) {
+			try {
+				File filesFolder = new File("src/main/resources/static/img/books");
+				if (!filesFolder.exists()) {
+					filesFolder.mkdirs();
+				}
+
+				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
+				picture.transferTo(uploadedFile);
+			} catch (Exception e) {
+			}
+
+			resource.setPicture(pictureName);
+		}
+		resourceRepository.save(resource);
+		redirectAttrs.addFlashAttribute("messages", resource.getTitle().toString() + " modificado.");
 
 		return "redirect:/admin/resources";
 	}

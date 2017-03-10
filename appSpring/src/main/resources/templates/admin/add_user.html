@@ -89,17 +89,6 @@
                     </div>
                 </div>
 
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                        <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
                     <li class="header">MENÚ</li>
@@ -145,9 +134,10 @@
                                 <div class="col-lg-8">
                                     <div class="form-group">
                                         <label>Nombre y apellidos</label>
-                                        <input type="text" class="form-control" name="firstName" placeholder="Nombre">
-                                        <input type="text" class="form-control" name="lastName1" placeholder="Primer apellido">
-                                        <input type="text" class="form-control" name="lastName2" placeholder="Segundo apellido">
+                                        <br>
+                                        <input type="text" class="form-control" name="firstName" style='display: inline; width: 38%;' placeholder="Nombre">
+                                        <input type="text" class="form-control" name="lastName1" style='display: inline; width: 30%;' placeholder="Primer apellido">
+                                        <input type="text" class="form-control" name="lastName2" style='display: inline; width: 30%;' placeholder="Segundo apellido">
                                     </div>
                                     <div class="form-group">
                                         <label>Usuario {{#alreadyReg}} <span class="errorLogin"> &emsp; Nombre de usuario ya registrado </span>{{/alreadyReg}} </label>

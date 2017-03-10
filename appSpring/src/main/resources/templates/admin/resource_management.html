@@ -54,7 +54,7 @@
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
-                                    <img src="img/icon-profile.png" class="img-circle" alt="User Image">
+                                    <img src="/img/icon-profile.png" class="img-circle" alt="User Image">
                                     <p>
                                         {{#admin}}{{ firstName }} {{ lastName1 }} {{ lastName2 }}{{/admin}}
                                     </p>
@@ -89,17 +89,6 @@
                     </div>
                 </div>
 
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                        <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
                     <li class="header">MENÚ</li>
@@ -117,6 +106,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            {{#messages}}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{messages}}
+            </div>
+            {{/messages}}
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -135,40 +130,40 @@
                 <!-- Your Page Content Here -->
                 <table class="table table-bordered table-striped" style="background-color: white !important;">
                     <col width="14%">
-                        <col width="20%">
-                            <col width="5%">
-                                <col width="8%">
-                                    <col width="5%">
-                                        <col width="5%">
-                                            <col width="3%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Título</th>
-                                                        <th>Sumario</th>
-                                                        <th>Ejemplares</th>
-                                                        <th>Autor</th>
-                                                        <th>Género</th>
-                                                        <th>Tipo</th>
-                                                        <th>Administrar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {{#resources}}
-                                                    <tr>
-                                                        <td>{{ title }}</td>
-                                                        <td>{{ description }}</td>
-                                                        <td>{{ copies.size }}</td>
-                                                        <td>{{ author }}</td>
-                                                        <td>{{ genre.name }}</td>
-                                                        <td>{{ resourceType.name }}</td>
-                                                        <td>
-                                                            <a class="fa fa-pencil" href="#"></a>
-                                                            &nbsp;&nbsp;
-                                                            <a href="/admin/resources/delete/{{ id }}" class="fa fa-trash"></a>
-                                                        </td>
-                                                    </tr>
-                                                    {{/resources}}
-                                                </tbody>
+                    <col width="20%">
+                    <col width="5%">
+                    <col width="8%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="3%">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Sumario</th>
+                            <th>Ejemplares</th>
+                            <th>Autor</th>
+                            <th>Género</th>
+                            <th>Tipo</th>
+                            <th>Administrar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#resources}}
+                        <tr>
+                            <td>{{ title }}</td>
+                            <td>{{ description }}</td>
+                            <td>{{ copies.size }}</td>
+                            <td>{{ author }}</td>
+                            <td>{{ genre.name }}</td>
+                            <td>{{ resourceType.name }}</td>
+                            <td>
+                                <a class="fa fa-pencil" href="/admin/resources/edit/{{ id }}"></a>
+                                &nbsp;&nbsp;
+                                <a href="/admin/resources/delete/{{ id }}" class="fa fa-trash"></a>
+                            </td>
+                        </tr>
+                        {{/resources}}
+                    </tbody>
                 </table>
                 <a href="/admin/resources/add">
                     <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir recurso</button>
