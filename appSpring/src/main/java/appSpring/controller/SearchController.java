@@ -34,7 +34,7 @@ public class SearchController {
 		}
 		else model.addAttribute("unlogged",true);
 		
-		Page<Resource> search = resourceRepository.findByTitleLikeIgnoreCase("%"+mySearch+"%",new PageRequest(0,2));
+		Page<Resource> search = resourceRepository.findByTitleLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase("%"+mySearch+"%","%"+mySearch+"%","%"+mySearch+"%",new PageRequest(0,10));
 		model.addAttribute("search", search);
 		return "search";
 	}
