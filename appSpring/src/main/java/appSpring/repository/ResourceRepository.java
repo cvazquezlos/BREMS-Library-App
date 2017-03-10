@@ -24,6 +24,10 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 	
 	Page<Resource> findByResourceType(ResourceType resourceType, Pageable page);
 
+	Page<Resource> findByTitleLikeIgnoreCase(String title, Pageable page);
+	
+	Page<Resource> findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(String title, String genre_name, String author, String editorial, Pageable page);
+	
 	Resource findByTitleLikeIgnoreCase(String title);
 
 }
