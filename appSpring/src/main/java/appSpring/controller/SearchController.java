@@ -1,5 +1,7 @@
 package appSpring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import appSpring.entity.Genre;
 import appSpring.entity.Resource;
 import appSpring.entity.User;
+import appSpring.repository.GenreRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.UserRepository;
 
@@ -25,6 +29,9 @@ public class SearchController {
 	@Autowired
 	private ResourceRepository resourceRepository;
 	
+	@Autowired
+	private GenreRepository genreRepository;
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/search")
 	public String search(Model model, HttpServletRequest request, @RequestParam String mySearch){
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
@@ -33,8 +40,15 @@ public class SearchController {
 			model.addAttribute("logged",true);
 		}
 		else model.addAttribute("unlogged",true);
+		if (request.isUserInRole("ADMIN")) model.addAttribute("admin",true);
 		
-		Page<Resource> search = resourceRepository.findByTitleLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase("%"+mySearch+"%","%"+mySearch+"%","%"+mySearch+"%",new PageRequest(0,10));
+		Page<Resource> search = resourceRepository.findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase("%"+mySearch+"%","%"+mySearch+"%","%"+mySearch+"%","%"+mySearch+"%",new PageRequest(0,10));
+		List<Genre> genres = genreRepository.findAll();
+		
+		if (search.	getTotalElements()!=0)model.addAttribute("isEmpty",false);	
+		else model.addAttribute("isEmpty",true);
+		
+		model.addAttribute("genres", genres);
 		model.addAttribute("search", search);
 		return "search";
 	}
