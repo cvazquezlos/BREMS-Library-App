@@ -2,11 +2,6 @@
 <html lang="en">
 
 	{{> head}}
-    <link type="text/css" href="css/price-range.css" rel="stylesheet" />
-    <script src="js/jquery.js"></script>
-    <script src="js/price-range.js"></script>
-    <script src="js/main.js"></script>
-
 <body>
     {{> topBar}}
 
@@ -28,9 +23,9 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <h3 class="title">Resultados</h3>
-                    <div class="well">
-						<div class="listItems" id="results">
+                    <h3 class="title" id="searchName">Resultados para <span>{{searchName}}</span></h3>
+                    <div class="well" id="results">
+						<div class="listItems">
 							{{#search}} {{> listItems}} {{/search}}
 						</div>
 						{{#isEmpty}}<button type="button" class="btn btn-lg btn-block btn-view-more">No hay resultados</button>{{/isEmpty}}
