@@ -321,8 +321,8 @@ public class AdminController {
 		}
 		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
 		if (resourceTypeFound == null) {
-			model.addAttribute("errorType", true);
-			return "admin/add_resource";
+			redirectAttrs.addFlashAttribute("error", "Tipo incorrecto. Introduzca Libro o Revista.");
+			return "redirect:/admin/resources/edit/{id}";
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
