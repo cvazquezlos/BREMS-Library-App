@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import appSpring.repository.ResourceCopyRepository;
@@ -17,7 +16,6 @@ import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.entity.Resource;
 import appSpring.entity.ResourceType;
-
 
 @Controller
 public class ResourceController {
@@ -37,42 +35,40 @@ public class ResourceController {
 		List<Resource> similarResources = resourceRepository.findByGenreAndIdNot(resource.getGenre(), resource.getId());
 
 		model.addAttribute("resource", resource);
-		model.addAttribute("available", (num>0)?1:0);
+		model.addAttribute("available", (num > 0) ? 1 : 0);
 		model.addAttribute("similarResources", similarResources);
 		model.addAttribute("index", true);
 
 		return "profileBook";
 	}
 
-	@RequestMapping(value="/moreBooks")
-	public String moreBooks(Model model, @RequestParam int page){
+	@RequestMapping(value = "/moreBooks")
+	public String moreBooks(Model model, @RequestParam int page) {
 
 		ResourceType type = resourceTypeRepo.findOneByName("Libro");
-		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(page,2));
-
+		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(page, 2));
 		model.addAttribute("items", books);
 
 		return "listItemsPage";
 	}
 
-	@RequestMapping(value="/moreMagazines")
-	public String moreMagazines(Model model, @RequestParam int page){
+	@RequestMapping(value = "/moreMagazines")
+	public String moreMagazines(Model model, @RequestParam int page) {
 
 		ResourceType type = resourceTypeRepo.findOneByName("Revista");
-		Page<Resource> revistas = resourceRepository.findByResourceType(type, new PageRequest(page,2));
-
+		Page<Resource> revistas = resourceRepository.findByResourceType(type, new PageRequest(page, 2));
 		model.addAttribute("items", revistas);
 
 		return "listItemsPage";
 	}
 
-	@RequestMapping(value="/moreAllShelf")
-	public String moreAllShelf(Model model, @RequestParam int page){
+	@RequestMapping(value = "/moreAllShelf")
+	public String moreAllShelf(Model model, @RequestParam int page) {
 
-		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(page,2));
-
+		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(page, 2));
 		model.addAttribute("items", allShelf);
 
 		return "listItemsPage";
 	}
+
 }

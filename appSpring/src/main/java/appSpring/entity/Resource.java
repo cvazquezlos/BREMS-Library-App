@@ -19,36 +19,35 @@ public class Resource {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	private String title;
 	private String author;
 	private String editorial;
 	private String picture;
 	private int copiesNumber;
-	
-	@Column(length=1024)
+
+	@Column(length = 1024)
 	private String description;
-	
+
 	@OneToOne
 	private ResourceType resourceType;
 
 	@ManyToOne
 	private Genre genre;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="resource")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resource")
 	private List<ResourceCopy> copies = new ArrayList<ResourceCopy>();
 
+	protected Resource() {
+	}
 
-	// Constructor
-	protected Resource() {} // Used by SpringData
-	
 	public Resource(String title, String author, String editorial, String description) {
 		this.title = title;
 		this.author = author;
 		this.editorial = editorial;
 		this.description = description;
 	}
-	
+
 	public Resource(String title, String author, String editorial, String description, String picture) {
 		this.title = title;
 		this.author = author;
@@ -56,28 +55,27 @@ public class Resource {
 		this.description = description;
 		this.picture = picture;
 	}
-	
-	// Métodos getter/setter de los atributos
+
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getAutor() {
 		return author;
 	}
-	
+
 	public void setAutor(String autor) {
 		this.author = autor;
 	}
@@ -122,11 +120,11 @@ public class Resource {
 		this.genre = genre;
 	}
 
-	public List<ResourceCopy> getResourceCopies(){
+	public List<ResourceCopy> getResourceCopies() {
 		return copies;
 	}
 
-	public void setResourceCopies(List<ResourceCopy> copies){
+	public void setResourceCopies(List<ResourceCopy> copies) {
 		this.copies = copies;
 	}
 

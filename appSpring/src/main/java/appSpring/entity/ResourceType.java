@@ -11,21 +11,20 @@ public class ResourceType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	private String name;
 
-	// Constructor
-	protected ResourceType() {} // Used by SpringData
-	
-	public ResourceType(String name){
+	protected ResourceType() {
+	}
+
+	public ResourceType(String name) {
 		this.name = name;
 	}
-	
-	// Métodos getter/setter de los atributos
+
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

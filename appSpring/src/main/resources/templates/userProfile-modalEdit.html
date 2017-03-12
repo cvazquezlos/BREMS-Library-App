@@ -14,10 +14,13 @@
 			<form class="form-editProfile" id="login-form" action="/userProfile/edit/{{id}}" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="form-group">
-						<img class="img-circle avatar" src="img/user_undefined_f.png" alt="userAvatar" />
+					
+					 {{#avatar}}<img src="/img/avatars/{{avatar}}" alt="avatarUser" class="img-responsive img-circle avatar"> {{/avatar}}
+                     {{^avatar}}<img src="/img/avatars/user_undefined_f.png" alt="avatarUser" class="img-responsive img-circle avatar"> {{/avatar}}
+
 						<div class="form-group">
 						  <label for="userAvatar">Modificar</label>
-						  <input type="file" id="userAvatar">
+						  <input type="file" id="userAvatar" name="avatar">
 						  <p class="help-block">Selecciona una imagen</p>
 						</div>
 					</div>	

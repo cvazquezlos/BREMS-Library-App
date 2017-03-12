@@ -50,8 +50,8 @@ public class LoginController {
 
 	@RequestMapping("/register/add")
 	public String addUserAction(@RequestParam String name, @RequestParam String password, @RequestParam String dni,
-								@RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
-								@RequestParam String email, @RequestParam String telephone) {
+			@RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
+			@RequestParam String email, @RequestParam String telephone) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
 		try {

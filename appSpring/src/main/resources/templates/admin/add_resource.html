@@ -106,6 +106,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            {{#messages}}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{messages}}
+            </div>
+            {{/messages}}
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -134,7 +140,7 @@
                                 <div class="col-lg-8">
                                     <div class="form-group">
                                         <label>Título del recurso</label>
-                                        <input type="text" class="form-control" name="title" placeholder="Título">
+                                        <input type="text" class="form-control" name="title" placeholder="Título" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Sumario del recurso</label>
@@ -142,7 +148,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Autor o compañía</label>
-                                        <input type="text" class="form-control" name="author" placeholder="Autor o compañía">
+                                        <input type="text" class="form-control" name="author" placeholder="Autor o compañía" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputFile">Imagen</label>
@@ -152,7 +158,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group">
                                         <label>Género literario</label>
-                                        <input type="text" class="form-control" name="genre" placeholder="Género">
+                                        <input type="text" class="form-control" name="genre" placeholder="Género" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Editorial</label>
@@ -160,7 +166,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Tipo de recurso</label>
-                                        <input type="text" class="form-control" name="resourceType" placeholder="Tipo">
+                                        <input type="text" class="form-control" name="resourceType" placeholder="Tipo" required>
                                     </div>
                                     <div class="pull-right">
                                         <input type="submit" class="btn btn-success">
@@ -169,11 +175,6 @@
                             </form>
                         </div>
                     </div>
-                    {{#errorType}}
-                    <div class="box-body">
-                    	<span class="errorLogin"> &emsp; Tipo incorrecto. Escriba "Libro" o "Revista". </span>
-                    </div>
-                    {{/errorType}}
                     <!-- /.box-body -->
                 </div>
 

@@ -22,7 +22,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@Column(unique = true)
 	private String name;
 	private String passwordHash;
@@ -35,23 +35,25 @@ public class User {
 	private boolean viewTelephone;
 	private String address;
 	private String biography;
+	private String avatar;
 	
 	@ElementCollection
 	private List<String> literaryHobby;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
 	private List<Action> actions;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Fine> penalties;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	protected User() {}
+	protected User() {
+	}
 
-	public User(String name, String password, String dni, String firstName, String lastName1,
-				String lastName2, String email, String telephone, String... roles) {
+	public User(String name, String password, String dni, String firstName, String lastName1, String lastName2,
+			String email, String telephone, String... roles) {
 
 		this.name = name;
 		this.passwordHash = new BCryptPasswordEncoder().encode(password);
@@ -64,6 +66,7 @@ public class User {
 		this.setViewTelephone(false);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		this.biography = "Nací, crecí y vi un barco pasar.";
+		this.avatar = "";
 		
 		this.literaryHobby = new ArrayList<String>();
 		this.literaryHobby.add("Ciencia ficción");
@@ -76,6 +79,7 @@ public class User {
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -83,6 +87,7 @@ public class User {
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -90,6 +95,7 @@ public class User {
 	public String getPasswordHash() {
 		return passwordHash;
 	}
+
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
@@ -97,6 +103,7 @@ public class User {
 	public String getDni() {
 		return dni;
 	}
+
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
@@ -120,6 +127,7 @@ public class User {
 	public String getLastName2() {
 		return lastName2;
 	}
+
 	public void setLastName2(String lastName2) {
 		this.lastName2 = lastName2;
 	}
@@ -127,6 +135,7 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -134,6 +143,7 @@ public class User {
 	public String getTelephone() {
 		return telephone;
 	}
+
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
@@ -154,11 +164,11 @@ public class User {
 		this.roles = roles;
 	}
 
-	public List<Fine> getPenalties(){
+	public List<Fine> getPenalties() {
 		return penalties;
 	}
 
-	public void setPenalty(List<Fine> penalties){
+	public void setPenalty(List<Fine> penalties) {
 		this.penalties = penalties;
 	}
 
@@ -202,6 +212,14 @@ public class User {
 				"\n email: " + this.email +
 				"\n telephone: " + this.telephone +
 				"\n view telephone: " + this.isViewTelephone();
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 }
