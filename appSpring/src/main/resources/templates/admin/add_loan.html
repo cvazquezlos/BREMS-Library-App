@@ -106,6 +106,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            {{#messages}}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{messages}}
+            </div>
+            {{/messages}}
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -134,14 +140,11 @@
 	                            <div class="col-lg-8">
 	                                <div class="form-group">
 	                                    <label>Título del recurso a prestar</label>
-	                                    <input type="text" class="form-control" name="title" placeholder="Título">
+	                                    <input type="text" class="form-control" name="title" placeholder="Título" required>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label>Comienzo</label>
-	                                    <br>
-	                                    <input type="number" class="form-control" style='display: inline; width: 38%;' name="day" placeholder="Día">
-	                                    <input type="number" class="form-control" style='display: inline; width: 30%;' name="month" placeholder="Mes">
-	                                    <input type="number" class="form-control" style='display: inline; width: 30%;' name="year" placeholder="Año">
+	                                    <label>Usuario</label>
+	                                    <input type="text" class="form-control" name="user" placeholder="Usuario" required>
 	                                </div>
 	                                <br>
 	                                <div class="pull-left">
@@ -150,28 +153,18 @@
 	                            </div>
 	                            <div class="col-lg-2">
 	                                <div class="form-group">
-	                                    <label>Usuario</label>
-	                                    <input type="text" class="form-control" name="user" placeholder="Usuario">
+	                                    <label>Comienzo</label>
+	                                    <br>
+	                                    <div id="outer">
+											<div class="inner"><input type="number" class="form-control" min="1" max="31" name="day" placeholder="Día" required></div>
+										  	<div class="inner"><input type="number" class="form-control" min="1" max="12" name="month" placeholder="Mes" required></div>
+										  	<div class="inner"><input type="number" class="form-control" min="2016" max="2018" name="year" placeholder="Año" required></div>
+										</div>
 	                                </div>
 	                            </div>
 	                    	</form>
                         </div>
                     </div>
-                    {{#errorTitle}}
-                    <div class="box-body">
-                    	<span class="errorLogin"> &emsp; El título no se encuentra entre los disponibles. </span>
-                    </div>
-                    {{/errorTitle}}
-                    {{#notEnoughCopies}}
-                    <div class="box-body">
-                    	<span class="errorLogin"> &emsp; No hay una copia del recurso disponible.</span>
-                    </div>
-                    {{/notEnoughCopies}}
-                    {{#errorUser}}
-                    <div class="box-body">
-                    	<span class="errorLogin"> &emsp; No existe el usuario.</span>
-                    </div>
-                    {{/errorUser}}
                     <!-- /.box-body -->
                 </div>
 
