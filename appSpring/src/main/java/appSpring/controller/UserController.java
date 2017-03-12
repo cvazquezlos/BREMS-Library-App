@@ -45,10 +45,9 @@ public class UserController {
 	
 	@RequestMapping("/user_profile/edit/{id}")
 	public String editUserProfile(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
-			@RequestParam String email, @RequestParam boolean viewTelephone, @RequestParam String telephone, @RequestParam MultipartFile avatar) {
+			@RequestParam String email, @RequestParam String telephone, @RequestParam MultipartFile avatar) {
 
 		User user = userRepository.findOne(id);
-		System.out.println(viewTelephone);
 
 		if( user != null ) {
 			user.setFirstName(firstName);
@@ -56,7 +55,6 @@ public class UserController {
 			user.setLastName2(lastName2);
 			user.setEmail(email);
 			user.setTelephone(telephone);
-			user.setViewTelephone(viewTelephone);
 			
 			// avantar del usuario
 			String avatarName = user.getId().toString() + ".jpg";
@@ -79,10 +77,10 @@ public class UserController {
 
 		}			
 
-		return "redirect:/userProfile";
+		return "redirect:/user_profile";
 	}
 	
-	@RequestMapping("/userProfile/edit/biography/{id}")
+	@RequestMapping("/user_profile/edit/biography/{id}")
 	public String editUserBiography(Model model, @PathVariable Integer id, @RequestParam String biography) {
 
 		User user = userRepository.findOne(id);
@@ -94,6 +92,6 @@ public class UserController {
 			System.out.println(user);
 		}			
 
-		return "redirect:/userProfile";
+		return "redirect:/user_profile";
 	}
 }
