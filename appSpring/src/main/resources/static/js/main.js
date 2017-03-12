@@ -25,6 +25,7 @@ $(document).ready(function(){
   var contBooks = 0;
   var contMagazines = 0;
   var coontAll = 0;
+  var contSearch = 0;
   $("#moreBooks").on("click", function() {
     contBooks++;
     $.get("/moreBooks", {
@@ -63,5 +64,19 @@ $(document).ready(function(){
           $("#allShelf .listItems").append(data);
         }
       });
+  });
+  $("#moreSearch").on("click", function() {
+	  contSearch++;
+	    $.get("/moreSearch", {
+	        page: contSearch,
+	        mySearch: $('#searchName span').text()
+	      })
+	      .done(function(data) {
+	        if (!$.trim(data)) {
+	          $("#moreSearch").attr("disabled", "disabled");
+	        } else {
+	          $("#results .listItems").append(data);
+	        }
+	      });
   });
 });
