@@ -14,46 +14,45 @@ public class Genre {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	private String name;
-	
-	@OneToMany(mappedBy="genre")
+
+	@OneToMany(mappedBy = "genre")
 	private List<Resource> resources;
-	
-	
-	// Constructor
-	protected Genre() {} // Used by SpringData
-	
-	public Genre(String name){
+
+	protected Genre() {
+	}
+
+	public Genre(String name) {
 		this.name = name;
 	}
-	
-	/** Métodos getter/setter de los atributos **/
-	// - Id
+
 	public Integer getId() {
 		return this.id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	// - name
 	public String getName() {
 		return this.name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	// - resources list
+
 	public List<Resource> getResources() {
 		return this.resources;
 	}
+
 	public void setResources(List<Resource> resources) {
 		this.resources = resources;
 	}
+
 	public void addResource(Resource resource) {
 		this.resources.add(resource);
 	}
+
 }

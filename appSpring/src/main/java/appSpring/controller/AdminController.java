@@ -2,6 +2,7 @@ package appSpring.controller;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import appSpring.entity.Action;
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
+import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
@@ -77,7 +79,8 @@ public class AdminController {
 	@RequestMapping("/admin/users/add/action")
 	public String addUserAction(@RequestParam String name, @RequestParam String password, @RequestParam String dni,
 			@RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
-			@RequestParam String email, @RequestParam String telephone, HttpServletRequest request) {
+			@RequestParam String email, @RequestParam String telephone, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
 
@@ -86,6 +89,7 @@ public class AdminController {
 		} catch (Exception e) {
 			return "redirect:/admin/users/addError";
 		}
+		redirectAttrs.addFlashAttribute("messages", "Añadido nuevo usuario.");
 
 		return "redirect:/admin/users";
 	}
@@ -102,17 +106,16 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/users/edit/{id}/action")
-	public String editUserAction(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
-			@RequestParam String email, @RequestParam String dni, RedirectAttributes redirectAttrs) {
+	public String editUserAction(Model model, @PathVariable Integer id, @RequestParam String firstName,
+			@RequestParam String lastName1, @RequestParam String lastName2, @RequestParam String email,
+			@RequestParam String dni, RedirectAttributes redirectAttrs) {
 
 		User user = userRepository.findOne(id);
-
 		user.setFirstName(firstName);
 		user.setLastName1(lastName1);
 		user.setLastName2(lastName2);
 		user.setEmail(email);
 		user.setDni(dni);
-
 		userRepository.save(user);
 		redirectAttrs.addFlashAttribute("messages", user.getName().toString() + " modificado.");
 
@@ -122,14 +125,17 @@ public class AdminController {
 	@RequestMapping("/admin/users/addError")
 	public String addError(Model model) {
 		model.addAttribute("alreadyReg", true);
+
 		return "admin/add_user";
 	}
 
 	@RequestMapping("/admin/users/delete/{id}")
-	public String deleteUser(Model model, @PathVariable Integer id, HttpServletRequest request) {
+	public String deleteUser(Model model, @PathVariable Integer id, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
+		redirectAttrs.addFlashAttribute("messages", "Usuario eliminado.");
 		userRepository.delete(id);
 
 		return "redirect:/admin/users";
@@ -146,10 +152,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/fines/delete/{id}")
-	public String deleteFine(Model model, @PathVariable Integer id, HttpServletRequest request) {
+	public String deleteFine(Model model, @PathVariable Integer id, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
+		redirectAttrs.addFlashAttribute("messages",
+				"Multa eliminada al usuario " + fineRepository.findOne(id).getUserr().getName() + ".");
 		fineRepository.delete(id);
 
 		return "redirect:/admin/fines";
@@ -176,7 +185,8 @@ public class AdminController {
 
 	@RequestMapping("/admin/loans/add/action")
 	public String addLoanAction(Model model, @RequestParam String title, @RequestParam int day, @RequestParam int month,
-			@RequestParam int year, @RequestParam String user, HttpServletRequest request) {
+			@RequestParam int year, @RequestParam String user, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
@@ -184,27 +194,33 @@ public class AdminController {
 		User userFound = userRepository.findByName(user);
 		Resource resourceFound = resourceRepository.findByTitleLikeIgnoreCase("%" + title + "%");
 		if (userFound == null) {
-			model.addAttribute("errorUser", true);
+			model.addAttribute("messages", "No existe el usuario.");
 			return "admin/add_loan";
 		} else {
 			if (resourceFound == null) {
-				model.addAttribute("errorTitle", true);
+				model.addAttribute("messages", "El título del recurso es erróneo.");
 				return "admin/add_loan";
 			} else {
+				ResourceCopy avaible = resourceFound.getResourceCopies().get(0);
 				Action action = new Action(date);
 				action.setUser(userFound);
+				action.setResource(avaible);
 				actionRepository.save(action);
 			}
 		}
+		redirectAttrs.addFlashAttribute("messages", "Nuevo péstamo añadido al usuario " + userFound.getName() + ".");
 
 		return "redirect:/admin/loans";
 	}
 
 	@RequestMapping("/admin/loans/delete/{id}")
-	public String deleteLoan(Model model, @PathVariable Integer id, HttpServletRequest request) {
+	public String deleteLoan(Model model, @PathVariable Integer id, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
+		redirectAttrs.addFlashAttribute("messages",
+				"Préstamo del usuario " + actionRepository.findOne(id).getUser().getName() + " eliminado.");
 		actionRepository.delete(id);
 
 		return "redirect:/admin/loans";
@@ -232,7 +248,8 @@ public class AdminController {
 	@RequestMapping("/admin/resources/add/action")
 	public String addResourceAction(Model model, @RequestParam String title, @RequestParam String description,
 			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
-			@RequestParam String resourceType, @RequestParam MultipartFile picture, HttpServletRequest request) {
+			@RequestParam String resourceType, @RequestParam MultipartFile picture, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
@@ -248,32 +265,29 @@ public class AdminController {
 
 		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
 		if (resourceTypeFound == null) {
-			model.addAttribute("errorType", true);
+			model.addAttribute("messages", "El tipo de recurso es incorrecto. Introduce 'Libro' o 'Revista'.");
 			return "admin/add_resource";
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
 
 		resourceRepository.save(resource);
-
-		// Add Picture
 		String pictureName = resource.getId().toString() + ".jpg";
-
 		if (!picture.isEmpty()) {
 			try {
 				File filesFolder = new File("src/main/resources/static/img/books");
 				if (!filesFolder.exists()) {
 					filesFolder.mkdirs();
 				}
-
 				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
 				picture.transferTo(uploadedFile);
 			} catch (Exception e) {
 			}
-
 			resource.setPicture(pictureName);
 			resourceRepository.save(resource);
 		}
+		redirectAttrs.addFlashAttribute("messages",
+				resourceType + " con título " + resource.getTitle().toString() + " añadido.");
 
 		return "redirect:/admin/resources";
 	}
@@ -295,11 +309,9 @@ public class AdminController {
 			@RequestParam String resourceType, @RequestParam MultipartFile picture, RedirectAttributes redirectAttrs) {
 
 		Resource resource = resourceRepository.findOne(id);
-
 		resource.setDescription(description);
 		resource.setAutor(author);
 		resource.setEditorial(editorial);
-
 		Genre genreFound = genreRepository.findByName(genre);
 		if (genreFound == null) {
 			genreRepository.save(new Genre(genre));
@@ -307,7 +319,6 @@ public class AdminController {
 		} else {
 			resource.setGenre(genreFound);
 		}
-
 		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
 		if (resourceTypeFound == null) {
 			model.addAttribute("errorType", true);
@@ -315,22 +326,17 @@ public class AdminController {
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
-
-		// Add Picture
 		String pictureName = resource.getId().toString() + ".jpg";
-
 		if (!picture.isEmpty()) {
 			try {
 				File filesFolder = new File("src/main/resources/static/img/books");
 				if (!filesFolder.exists()) {
 					filesFolder.mkdirs();
 				}
-
 				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
 				picture.transferTo(uploadedFile);
 			} catch (Exception e) {
 			}
-
 			resource.setPicture(pictureName);
 		}
 		resourceRepository.save(resource);
@@ -340,11 +346,19 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/resources/delete/{id}")
-	public String deleteResource(Model model, @PathVariable Integer id, HttpServletRequest request) {
+	public String deleteResource(Model model, @PathVariable Integer id, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		resourceRepository.delete(id);
+		Resource resourceSelected = resourceRepository.findOne(id);
+		List<Action> actions = actionRepository.findAll();
+		for (Action action : actions) {
+			if (action.getResource().getResource().getId() == id)
+				actionRepository.delete(action);
+		}
+		resourceRepository.delete(resourceSelected);
+		redirectAttrs.addFlashAttribute("messages", "Recurso eliminado.");
 
 		return "redirect:/admin/resources";
 	}

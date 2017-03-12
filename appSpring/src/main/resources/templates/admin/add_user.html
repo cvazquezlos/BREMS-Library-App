@@ -135,17 +135,17 @@
                                     <div class="form-group">
                                         <label>Nombre y apellidos</label>
                                         <br>
-                                        <input type="text" class="form-control" name="firstName" style='display: inline; width: 38%;' placeholder="Nombre">
-                                        <input type="text" class="form-control" name="lastName1" style='display: inline; width: 30%;' placeholder="Primer apellido">
-                                        <input type="text" class="form-control" name="lastName2" style='display: inline; width: 30%;' placeholder="Segundo apellido">
+                                        <input type="text" class="form-control" name="firstName" style='display: inline; width: 38%;' placeholder="Nombre" required>
+                                        <input type="text" class="form-control" name="lastName1" style='display: inline; width: 30%;' placeholder="Primer apellido" required>
+                                        <input type="text" class="form-control" name="lastName2" style='display: inline; width: 30%;' placeholder="Segundo apellido" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Usuario {{#alreadyReg}} <span class="errorLogin"> &emsp; Nombre de usuario ya registrado </span>{{/alreadyReg}} </label>
-                                        <input type="text" class="form-control" name="name" placeholder="Usuario">
+                                        <input type="text" class="form-control" name="name" placeholder="Usuario" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="text" class="form-control" name="email" placeholder="Email">
+                                        <input type="text" class="form-control" name="email" placeholder="Email" required>
                                     </div>
                                     <div class="pull-left">
                                         <input type="submit" value="Enviar" class="btn btn-success">
@@ -153,12 +153,8 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label>ID de la biblioteca</label>
-                                        <input type="text" class="form-control" placeholder="ID">
-                                    </div>
-                                    <div class="form-group">
                                         <label>Contraseña</label>
-                                        <input class="form-control" name="password" type="password" placeholder="Contraseña">
+                                        <input class="form-control" name="password" type="password" placeholder="Contraseña" required>
                                     </div>
                                     <div class="form-group">
                                         <label>D.N.I.</label>
