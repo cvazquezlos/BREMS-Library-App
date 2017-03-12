@@ -30,6 +30,14 @@
     height: 250px;
 }
 
+.viewTelephone {
+    display: inline-block;
+}
+
+.biographyEdit{
+	text-align: center;
+}
+
 
 /* Table of content */
 

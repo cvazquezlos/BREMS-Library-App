@@ -3,7 +3,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header" align="center">
-				<h2>Informaci&oacute;n B&aacute;sica</h2>
+				<h3>Informaci&oacute;n B&aacute;sica</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
@@ -47,7 +47,7 @@
 					
 					<div class="form-group">
 					  <label for="telefono">Tel&eacute;fono</label>
-						<div class="checkbox">
+						<div class="checkbox viewTelephone">
 							<label>
 							  <input type="checkbox" name="viewTelephone" value="{{ viewTelephone }}"/> Mostrar en mi perfil
 							</label>
@@ -72,7 +72,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header" align="center">
-				<img id="img_logo" src="img/logo.png">
+				<h3>Mi Biograf&iacute;a</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
@@ -82,9 +82,8 @@
 				<!-- edit form -->
 				<form class="form-editProfile" id="login-form" action="/userProfile/edit/biography/{{id}}" action="/editUserProfile/biography" method="post">
 				<div class="modal-body">
-					<div class="form-group">
-					    <label for="biography">Biograf&iacute;a</label>
-					    <textarea name="biography" rows=5 cols=40>{{biography}}</textarea>
+					<div class="form-group biographyEdit">
+					    <textarea name="biography" rows=5 cols=75>{{biography}}</textarea>
 				  	</div>
 				  <button type="submit" class="btn btn-link">Modificar</button>
 				</div>  
