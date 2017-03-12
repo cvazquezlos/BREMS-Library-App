@@ -31,11 +31,15 @@
 			</div>
 		</div>
 
+		<!--  MENU USER PROFILE -->
 		<div class="row">
 			<div class="col-sm-12">
 				<ul class="nav nav-tabs nav-justified" role="tablist">
 					<li role="presentation" class="active"><a href="#userProfile"
 						aria-controls="userProfile" role="tab" data-toggle="tab">Perfil</a>
+					</li>
+					<li role="presentation"><a href="#historyBookLoans"
+						aria-controls="bookLoans" role="tab" data-toggle="tab">Historial</a>
 					</li>
 					<li role="presentation"><a href="#bookLoans"
 						aria-controls="bookLoans" role="tab" data-toggle="tab">Préstamos</a>
@@ -47,9 +51,13 @@
 			</div>
 		</div>
 
+		{{#user}}
+		<!-- CONTENT USER PROFILE -->
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="tab-content">
+				
+					<!-- USER PROFILE -->
 					<div role="tabpanel" class="tab-pane active" id="userProfile">
 						<div class="row userProfile">
 							<div class="col-lg-3 avatar">
@@ -57,20 +65,17 @@
 							</div>
 							<div class="col-lg-8">
 								<h4>
-									Información Básica <a href="#"><span
-										class="glyphicon glyphicon-pencil"></span>(Editar)</a>
+									Información Básica
+									<a href="#" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#editProfile-modal">
+										<span class="glyphicon glyphicon-pencil"></span >(Editar)
+									</a>
 								</h4>
-								{{#user}}
+								
 								<table class="table">
-									<thead>
-										<tr>
-											<th colspan="2">Información Básica <a href="#">Editar</a></th>
-										</tr>
-									</thead>
 									<tbody>
 										<tr>
 											<th scope="row">Nombre completo</th>
-											<td>{{ firstName }} {{ lastName1 }} {{ lastName2 }}</td>
+											<td>{{ user.firstName }} {{ lastName1 }} {{ lastName2 }}</td>
 										</tr>
 										<tr>
 											<th scope="row">Usuario</th>
@@ -80,9 +85,20 @@
 											<th scope="row">Email</th>
 											<td>{{ email }}</td>
 										</tr>
+										{{#viewTelephone}}
+										<tr>
+											<th scope="row">Tel&eacute;fono</th>
+											<td>{{telephone}}</td>
+										</tr>
+										{{/viewTelephone}}
+										
 										<tr>
 											<th scope="row">Aficiones literarias</th>
-											<td>Ciencia ficción, Terror, Novela, Literatura Egipcia</td>
+											<td>
+											{{#literaryHobby}}
+											  <span>{{.}} | </span>
+											{{/literaryHobby}}
+											</td>
 										</tr>
 										<tr>
 											<th scope="row" class="lastRow">Última vez</th>
@@ -90,16 +106,24 @@
 										</tr>
 									</tbody>
 								</table>
-								{{/user}}
 							</div>
 						</div>
 						<div class="row otherUserProfile">
 							<div class="col-lg-4 biographic">
 								<h4>
-									Mi Biografía <a href="#"><span
-										class="glyphicon glyphicon-pencil"></span>(Editar)</a>
+									Mi Biografía 
+									<a href="#" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#editBiography-modal">
+										<span class="glyphicon glyphicon-pencil"></span >(Editar)
+									</a>
 								</h4>
-								<p>(No hay información para mostrar)</p>
+								{{#biography}}
+								<p>{{biography}}</p>
+								{{/biography}}
+								
+								{{^biography}}
+								 <p>(No hay información para mostrar)</p>
+								{{/biography}}
+								
 							</div>
 							<div class="col-lg-6 favorites">
 								<h4>
@@ -111,6 +135,219 @@
 							</div>
 						</div>
 					</div>
+					
+					
+					<!-- HISTORIAL -->
+					<div role="tabpanel" class="tab-pane" id="historyBookLoans">
+						<div class="row contentBookHistory">
+							<div class="col-lg-12">
+								<div class="listItems">
+									<!-- // item 1 -->
+									<div class="row item">
+										<div class="col-sm-6 col-md-4 col-lg-2">
+											<div class="coverItem">
+												<img src="resources/books/mocha_dick.jpg" /> <br> <a
+													href="profile-book.html" target="_blank"> <span
+													class="glyphicon glyphicon-info-sign"></span>ver libro
+												</a>
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
+											<table class="table">
+												<caption>
+													Nº Ref: <span>N-MD5660213</span>
+												</caption>
+												<tbody>
+													<tr>
+														<th>Título</th>
+														<td>Mocha Dick</td>
+													</tr>
+													<tr>
+														<th>Autor</th>
+														<td>Francisco Ortega, Gonzalo Martínez</td>
+													</tr>
+													<tr>
+														<th>Fecha de préstamo</th>
+														<td>26/04/2016</td>
+													</tr>
+													<tr class="rating">
+														<th>
+															<div class="Tooltip">
+																Valoración <span class="tooltipText">Puntuación total
+																	por parte de todos los usuarios</span>
+															</div>
+														</th>
+														<td>
+															<ul class="stars">
+																<li class="staticStar p10"></li>
+																<li class="staticStar p10"></li>
+																<li class="staticStar p10"></li>
+																<li class="staticStar p6"></li>
+																<li class="staticStar p0"></li>
+															</ul> <span class="ratingValue">3.66</span>
+														</td>
+													</tr>
+													<tr class="myRating">
+														<th>
+															<div class="Tooltip">
+																Mi valoración <span class="tooltipText">Puntuación
+																	personal del usuario</span>
+															</div>
+														</th>
+														<td>
+															<ul class="stars">
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+															</ul> <span class="ratingValue">0</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<!-- // item 2 -->
+									<div class="row item">
+										<div class="col-sm-6 col-md-4 col-lg-2">
+											<div class="coverItem">
+												<img src="resources/books/angeles_y_demonios.jpg" /> <br>
+												<a href="profile-book.html" target="_blank"> <span
+													class="glyphicon glyphicon-info-sign"></span>ver libro
+												</a>
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
+											<table class="table">
+												<caption>
+													Nº Ref: <span>F-AYD5990213</span>
+												</caption>
+												<tbody>
+													<tr>
+														<th>Título</th>
+														<td>Ángeles y Demonios</td>
+													</tr>
+													<tr>
+														<th>Autor</th>
+														<td>Dan Brown</td>
+													</tr>
+													<tr>
+														<th>Fecha de préstamo</th>
+														<td>23/03/2016</td>
+													</tr>
+													<tr class="rating">
+														<th>
+															<div class="Tooltip">
+																Valoración <span class="tooltipText">Puntuación total
+																	por parte de todos los usuarios</span>
+															</div>
+														</th>
+														<td>
+															<ul class="stars">
+																<li class="staticStar p10"></li>
+																<li class="staticStar p10"></li>
+																<li class="staticStar p10"></li>
+																<li class="staticStar p6"></li>
+																<li class="staticStar p0"></li>
+															</ul> <span class="ratingValue">3.66</span>
+														</td>
+													</tr>
+													<tr class="myRating">
+														<th>
+															<div class="Tooltip">
+																Mi valoración <span class="tooltipText">Puntuación
+																	personal del usuario</span>
+															</div>
+														</th>
+														<td>
+															<ul class="stars">
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+															</ul> <span class="ratingValue">0</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<!-- // item 3 -->
+									<div class="row item">
+										<div class="col-sm-6 col-md-4 col-lg-2">
+											<div class="coverItem">
+												<img src="resources/books/diario-ana-frank.jpg" /> <br> <a
+													href="profile-book.html" target="_blank"> <span
+													class="glyphicon glyphicon-info-sign"></span>ver libro
+												</a>
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
+											<table class="table">
+												<caption>
+													Nº Ref: <span>H-DAF5990213</span>
+												</caption>
+												<tbody>
+													<tr>
+														<th>Título</th>
+														<td>El diario de Ana Frank</td>
+													</tr>
+													<tr>
+														<th>Autor</th>
+														<td>Ana Frank</td>
+													</tr>
+													<tr>
+														<th>Fecha de préstamo</th>
+														<td>20/03/2016</td>
+													</tr>
+													<tr class="rating">
+														<th>
+															<div class="Tooltip">
+																Valoración <span class="tooltipText">Puntuación total
+																	por parte de todos los usuarios</span>
+															</div>
+														</th>
+														<td>
+															<ul class="stars">
+																<li class="staticStar p10"></li>
+																<li class="staticStar p10"></li>
+																<li class="staticStar p10"></li>
+																<li class="staticStar p6"></li>
+																<li class="staticStar p0"></li>
+															</ul> <span class="ratingValue">3.66</span>
+														</td>
+													</tr>
+													<tr class="myRating">
+														<th>
+															<div class="Tooltip">
+																Mi valoración <span class="tooltipText">Puntuación
+																	personal del usuario</span>
+															</div>
+														</th>
+														<td>
+															<ul class="stars">
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+																<li class="staticStar p0"></li>
+															</ul> <span class="ratingValue">0</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- listItems -->
+							</div>
+						</div>
+					</div>
+					
+					
+					<!-- PRESTAMOS -->
 					<div role="tabpanel" class="tab-pane" id="bookLoans">
 						<div class="listItems">
 							<!-- // item 1 -->
@@ -145,7 +382,7 @@
 												<th>Fecha de devolución</th>
 												<td>24/05/2016</td>
 											</tr>
-											<tr class="buttonAplazar visibilityHide">
+											<tr class="buttonAplazar">
 												<td colspan="2">
 													<button type="button" class="btn btn-primary btn-sm">Aplazar
 														devolución</button>
@@ -249,221 +486,15 @@
 							</div>
 						</div>
 					</div>
+					
+					<!-- MULTAS -->
 					<div role="tabpanel" class="tab-pane" id="bookFines"></div>
 				</div>
 			</div>
 		</div>
-
-		<div class="row contentProfile">
-			<div class="col-lg-12"></div>
-		</div>
-
-		<!-- historial de prestamos -->
-		<div class="row contentBookHistory">
-			<div class="col-lg-12">
-				<div class="listItems">
-					<!-- // item 1 -->
-					<div class="row item">
-						<div class="col-sm-6 col-md-4 col-lg-2">
-							<div class="coverItem">
-								<img src="resources/books/mocha_dick.jpg" /> <br> <a
-									href="profile-book.html" target="_blank"> <span
-									class="glyphicon glyphicon-info-sign"></span>ver libro
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
-							<table class="table">
-								<caption>
-									Nº Ref: <span>N-MD5660213</span>
-								</caption>
-								<tbody>
-									<tr>
-										<th>Título</th>
-										<td>Mocha Dick</td>
-									</tr>
-									<tr>
-										<th>Autor</th>
-										<td>Francisco Ortega, Gonzalo Martínez</td>
-									</tr>
-									<tr>
-										<th>Fecha de préstamo</th>
-										<td>26/04/2016</td>
-									</tr>
-									<tr class="rating">
-										<th>
-											<div class="Tooltip">
-												Valoración <span class="tooltipText">Puntuación total
-													por parte de todos los usuarios</span>
-											</div>
-										</th>
-										<td>
-											<ul class="stars">
-												<li class="staticStar p10"></li>
-												<li class="staticStar p10"></li>
-												<li class="staticStar p10"></li>
-												<li class="staticStar p6"></li>
-												<li class="staticStar p0"></li>
-											</ul> <span class="ratingValue">3.66</span>
-										</td>
-									</tr>
-									<tr class="myRating">
-										<th>
-											<div class="Tooltip">
-												Mi valoración <span class="tooltipText">Puntuación
-													personal del usuario</span>
-											</div>
-										</th>
-										<td>
-											<ul class="stars">
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-											</ul> <span class="ratingValue">0</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- // item 2 -->
-					<div class="row item">
-						<div class="col-sm-6 col-md-4 col-lg-2">
-							<div class="coverItem">
-								<img src="resources/books/angeles_y_demonios.jpg" /> <br>
-								<a href="profile-book.html" target="_blank"> <span
-									class="glyphicon glyphicon-info-sign"></span>ver libro
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
-							<table class="table">
-								<caption>
-									Nº Ref: <span>F-AYD5990213</span>
-								</caption>
-								<tbody>
-									<tr>
-										<th>Título</th>
-										<td>Ángeles y Demonios</td>
-									</tr>
-									<tr>
-										<th>Autor</th>
-										<td>Dan Brown</td>
-									</tr>
-									<tr>
-										<th>Fecha de préstamo</th>
-										<td>23/03/2016</td>
-									</tr>
-									<tr class="rating">
-										<th>
-											<div class="Tooltip">
-												Valoración <span class="tooltipText">Puntuación total
-													por parte de todos los usuarios</span>
-											</div>
-										</th>
-										<td>
-											<ul class="stars">
-												<li class="staticStar p10"></li>
-												<li class="staticStar p10"></li>
-												<li class="staticStar p10"></li>
-												<li class="staticStar p6"></li>
-												<li class="staticStar p0"></li>
-											</ul> <span class="ratingValue">3.66</span>
-										</td>
-									</tr>
-									<tr class="myRating">
-										<th>
-											<div class="Tooltip">
-												Mi valoración <span class="tooltipText">Puntuación
-													personal del usuario</span>
-											</div>
-										</th>
-										<td>
-											<ul class="stars">
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-											</ul> <span class="ratingValue">0</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- // item 3 -->
-					<div class="row item">
-						<div class="col-sm-6 col-md-4 col-lg-2">
-							<div class="coverItem">
-								<img src="resources/books/diario-ana-frank.jpg" /> <br> <a
-									href="profile-book.html" target="_blank"> <span
-									class="glyphicon glyphicon-info-sign"></span>ver libro
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
-							<table class="table">
-								<caption>
-									Nº Ref: <span>H-DAF5990213</span>
-								</caption>
-								<tbody>
-									<tr>
-										<th>Título</th>
-										<td>El diario de Ana Frank</td>
-									</tr>
-									<tr>
-										<th>Autor</th>
-										<td>Ana Frank</td>
-									</tr>
-									<tr>
-										<th>Fecha de préstamo</th>
-										<td>20/03/2016</td>
-									</tr>
-									<tr class="rating">
-										<th>
-											<div class="Tooltip">
-												Valoración <span class="tooltipText">Puntuación total
-													por parte de todos los usuarios</span>
-											</div>
-										</th>
-										<td>
-											<ul class="stars">
-												<li class="staticStar p10"></li>
-												<li class="staticStar p10"></li>
-												<li class="staticStar p10"></li>
-												<li class="staticStar p6"></li>
-												<li class="staticStar p0"></li>
-											</ul> <span class="ratingValue">3.66</span>
-										</td>
-									</tr>
-									<tr class="myRating">
-										<th>
-											<div class="Tooltip">
-												Mi valoración <span class="tooltipText">Puntuación
-													personal del usuario</span>
-											</div>
-										</th>
-										<td>
-											<ul class="stars">
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-												<li class="staticStar p0"></li>
-											</ul> <span class="ratingValue">0</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- listItems -->
-			</div>
-		</div>
+		
+		{{> userPRofile-modalEdit}}
+		{{/user}}
 	</div>
 
 	{{> footer}}
