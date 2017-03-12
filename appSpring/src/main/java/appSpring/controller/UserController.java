@@ -17,12 +17,13 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@RequestMapping("/user_profile")
-	public String user(Model model, HttpServletRequest request){
+	public String user(Model model, HttpServletRequest request) {
 
 		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("user", loggedUser);
-		if (request.isUserInRole("ADMIN")) model.addAttribute("admin",true);
-		model.addAttribute("logged",true);
+		if (request.isUserInRole("ADMIN"))
+			model.addAttribute("admin", true);
+		model.addAttribute("logged", true);
 		model.addAttribute("profile", true);
 
 		return "userProfile";
