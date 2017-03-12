@@ -32,8 +32,13 @@ public class User {
 	private String lastName2;
 	private String email;
 	private String telephone;
+	private boolean viewTelephone;
 	private String address;
-
+	private String biography;
+	
+	@ElementCollection
+	private List<String> literaryHobby;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
 	private List<Action> actions;
 	
@@ -56,7 +61,16 @@ public class User {
 		this.lastName2 = lastName2;
 		this.email = email;
 		this.telephone = telephone;
+		this.setViewTelephone(false);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
+		this.biography = "Nací, crecí y vi un barco pasar.";
+		
+		this.literaryHobby = new ArrayList<String>();
+		this.literaryHobby.add("Ciencia ficción");
+		this.literaryHobby.add("Terror");
+		this.literaryHobby.add("Novela");
+		this.literaryHobby.add("Literatura");
+		this.literaryHobby.add("Drama");
 	}
 
 	public Integer getId() {
@@ -154,6 +168,40 @@ public class User {
 
 	public void setActions(List<Action> actions) {
 		this.actions = actions;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public boolean isViewTelephone() {
+		return viewTelephone;
+	}
+
+	public void setViewTelephone(boolean viewTelephone) {
+		this.viewTelephone = viewTelephone;
+	}
+
+	public List<String> getLiteraryHobby() {
+		return literaryHobby;
+	}
+
+	public void setLiteraryHobby(List<String> literaryHobby) {
+		this.literaryHobby = literaryHobby;
+	}
+	
+	public String toString() {
+		return "User id: " + this.getId() +
+				"\n firstName: " + this.firstName + 
+				"\n lastName1: " + this.lastName1 +
+				"\n lastName2: " + this.lastName2 +
+				"\n email: " + this.email +
+				"\n telephone: " + this.telephone +
+				"\n view telephone: " + this.isViewTelephone();
 	}
 
 }

@@ -5,7 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.entity.User;
 import appSpring.repository.UserRepository;
@@ -16,16 +19,64 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@RequestMapping("/user_profile")
+	@RequestMapping("/userProfile")
 	public String user(Model model, HttpServletRequest request){
 
 		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("user", loggedUser);
-		if (request.isUserInRole("ADMIN")) model.addAttribute("admin",true);
+		
+		// if the user has biography
+		boolean hasBiography = loggedUser.getBiography().length() > 0;
+		model.addAttribute("biography", hasBiography);
+				
+		
+		// if the user is Admin
+		if (request.isUserInRole("ADMIN")) {
+			model.addAttribute("admin",true);
+		}
+		
 		model.addAttribute("logged",true);
 		model.addAttribute("profile", true);
 
 		return "userProfile";
 	}
+	
+	@RequestMapping("/userProfile/edit/{id}")
+	public String editUserProfile(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
+			@RequestParam String email, @RequestParam boolean viewTelephone, @RequestParam String telephone) {
 
+		User user = userRepository.findOne(id);
+		System.out.println(viewTelephone);
+
+		if( user != null ) {
+			user.setFirstName(firstName);
+			user.setLastName1(lastName1);
+			user.setLastName2(lastName2);
+			user.setEmail(email);
+			user.setTelephone(telephone);
+			user.setViewTelephone(viewTelephone);
+			
+			userRepository.save(user);
+			
+			System.out.println(user);
+
+		}			
+
+		return "redirect:/userProfile";
+	}
+	
+	@RequestMapping("/userProfile/edit/biography/{id}")
+	public String editUserBiography(Model model, @PathVariable Integer id, @RequestParam String biography) {
+
+		User user = userRepository.findOne(id);
+
+		if( user != null ) {
+			user.setBiography(biography);
+			userRepository.save(user);
+			
+			System.out.println(user);
+		}			
+
+		return "redirect:/userProfile";
+	}
 }

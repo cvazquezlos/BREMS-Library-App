@@ -1,6 +1,17 @@
 /************************
        PROFILE USER
 *************************/
+.tab-pane {
+	margin-top: 30px;
+}
+
+.tab-pane h4 {
+	color: #9e9b9b;
+}
+
+.tab-pane .glyphicon-pencil {
+	margin-left: 10px;
+}
 
 .navProfileUser {
     margin-bottom: 30px;
@@ -76,15 +87,15 @@
     border-top: 0px;
 }
 
-.contentProfile .otherUserProfile {
+.otherUserProfile {
     margin-top: 45px;
 }
 
-.contentProfile .otherUserProfile .biographic {
+.otherUserProfile .biographic {
     margin-left: 17px;
 }
 
-.contentProfile .otherUserProfile .favorites {
+.otherUserProfile .favorites {
     margin-left: 23px;
 }
 
