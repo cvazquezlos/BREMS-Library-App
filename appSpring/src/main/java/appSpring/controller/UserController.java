@@ -22,7 +22,7 @@ public class UserController {
 	private UserRepository userRepository;
 
 
-	@RequestMapping("/userProfile")
+	@RequestMapping("/user_profile")
 	public String user(Model model, HttpServletRequest request){
 
 		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
@@ -43,7 +43,7 @@ public class UserController {
 		return "userProfile";
 	}
 	
-	@RequestMapping("/userProfile/edit/{id}")
+	@RequestMapping("/user_profile/edit/{id}")
 	public String editUserProfile(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
 			@RequestParam String email, @RequestParam boolean viewTelephone, @RequestParam String telephone, @RequestParam MultipartFile avatar) {
 
