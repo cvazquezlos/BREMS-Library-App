@@ -21,16 +21,17 @@ public class Action {
 
 	@OneToOne
 	private ResourceCopy copy;
-	
+
 	@ManyToOne
 	private User user;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Token token;
 
-	protected Action() {}
-	
-	public Action(Date date){
+	protected Action() {
+	}
+
+	public Action(Date date) {
 		this.date = date;
 	}
 
@@ -49,7 +50,11 @@ public class Action {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
+	public ResourceCopy getResource() {
+		return copy;
+	}
+
 	public void setResource(ResourceCopy copy) {
 		this.copy = copy;
 	}
