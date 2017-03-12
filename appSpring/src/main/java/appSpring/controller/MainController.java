@@ -108,7 +108,10 @@ public class MainController {
 				return "redirect:/";
 			}
 		}
-		Action reserve = new Action(today.getTime());
+		
+		
+		//Action reserve = new Action(today.getTime());
+		Action reserve = new Action(today.getTime(), Action.RESERVAR);
 		reserve.setUser(loggedUser);
 		Resource resourceSelected = resourceRepository.findOne(id);
 		ResourceCopy copySelected = resourceSelected.getResourceCopies().get(0);
