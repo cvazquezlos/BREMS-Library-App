@@ -106,6 +106,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            {{#messages}}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{messages}}
+            </div>
+            {{/messages}}
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>

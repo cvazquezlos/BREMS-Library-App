@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Fine {
 
@@ -22,9 +21,8 @@ public class Fine {
 	@ManyToOne
 	private User user;
 
-
-	// Constructor used by SpringData
-	protected Fine() {}
+	protected Fine() {
+	}
 
 	public Fine(Date initDate, Date finishDate, User user) {
 		this.initDate = initDate;
@@ -32,18 +30,18 @@ public class Fine {
 		this.user = user;
 	}
 
-	// - init date for penalty by user
 	public Date getInitDate() {
 		return initDate;
 	}
+
 	public void setInitDate(Date initDate) {
 		this.initDate = initDate;
 	}
 
-	// - finish date for penalty by user
 	public Date getFinishDate() {
 		return finishDate;
 	}
+
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}

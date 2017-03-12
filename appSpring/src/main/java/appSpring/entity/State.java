@@ -11,15 +11,12 @@ public class State {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	private String name;
-	
-	
-	// Constructor
-	protected State(){} // Used by SpringData
 
-	
-	// Métodos getter/setter de los atributos
+	private String name;
+
+	protected State() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -35,4 +32,5 @@ public class State {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }
