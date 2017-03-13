@@ -134,14 +134,19 @@ public class DataExamples {
 		a1.setResource(rc1);
 		actionRepository.save(a1);
 		fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(),
-				new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1);
+				new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1, rc1);
+		
 		fineRepository.save(fine);
+		
 		fine = new Fine(new GregorianCalendar(2015, Calendar.SEPTEMBER, 6).getTime(),
-				new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1);
+				new GregorianCalendar(2015, Calendar.SEPTEMBER, 13).getTime(), user1, rc1);
 		fineRepository.save(fine);
+		
+		
 		user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com",
 				"606000000", "ROLE_ADMIN", "ROLE_USER");
 		userRepository.save(user2);
+		
 		user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000",
 				"ROLE_USER");
 		userRepository.save(user3);
@@ -149,8 +154,10 @@ public class DataExamples {
 		a2.setResource(rc3);
 		actionRepository.save(a2);
 		fine = new Fine(new GregorianCalendar(2014, Calendar.JULY, 4).getTime(),
-				new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3);
+				new GregorianCalendar(2014, Calendar.JULY, 11).getTime(), user3, rc3);
 		fineRepository.save(fine);
+		
+		
 		user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123",
 				"ROLE_USER");
 		userRepository.save(user4);
@@ -158,7 +165,7 @@ public class DataExamples {
 		a3.setResource(rc5);
 		actionRepository.save(a3);
 		fine = new Fine(new GregorianCalendar(2014, Calendar.MAY, 17).getTime(),
-				new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4);
+				new GregorianCalendar(2014, Calendar.MAY, 24).getTime(), user4, rc5);
 		fineRepository.save(fine);
 	}
 
