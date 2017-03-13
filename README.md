@@ -112,3 +112,12 @@ This is the *navigation diagram*
     author -> index;
   }
 )
+
+#### Data base entities diagram
+![database-entities][db-e]
+
+#### Components, repositories and templates diagram
+![com-rep-temp][c-r-t]
+
+[db-e]: http://i64.tinypic.com/1zzhop3.jpg
+[c-r-t]: http://i66.tinypic.com/jfyqvl.png
