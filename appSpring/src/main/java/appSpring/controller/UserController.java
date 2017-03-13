@@ -41,7 +41,7 @@ public class UserController {
 			model.addAttribute("admin",true);
 		}
 		
-		//model.addAttribute("logged",true);
+		model.addAttribute("logged",true);
 
 		return "userProfile";
 	}
