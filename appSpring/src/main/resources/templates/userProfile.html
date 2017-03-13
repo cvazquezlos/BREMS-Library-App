@@ -138,13 +138,31 @@
 					<!-- PRESTAMOS -->
 					<div role="tabpanel" class="tab-pane" id="bookLoans">
 						<div class="listItems">
-							{{#actions}} {{#copy.resource}} {{>listActions}} {{/copy.resource}} {{/actions}}
-
+							{{#actions}} {{>listActions}} {{/actions}}
 						</div>
 					</div>
 
 					<!-- MULTAS -->
-					<div role="tabpanel" class="tab-pane" id="bookFines"></div>
+					<div role="tabpanel" class="tab-pane" id="bookFines">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Recurso</th>
+									<th>Fecha inicio</th>
+									<th>Fecha fin</th>
+								</tr>
+							</thead>
+
+							{{#penalties}}
+							<tr class="warning">
+								<td></td>
+								<td>{{initDate}}</td>
+								<td>{{finishDate}}</td>
+							</tr>
+							{{/penalties}}
+						</table>
+
+					</div>
 				</div>
 			</div>
 		</div>
