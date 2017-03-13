@@ -130,30 +130,32 @@
                 <!-- Your Page Content Here -->
                 <table class="table table-bordered table-striped" style="background-color: white !important;">
                     <col width="7%">
-                        <col width="10%">
-                            <col width="20%">
-                                <thead>
-                                    <tr>
-                                        <th>Identificador</th>
-                                        <th>Usuario</th>
-                                        <th>Razón</th>
-                                        <th>Tiempo</th>
-                                        <th>Administrar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-	                                {{#fines}}
-	                                    <tr>
-	                                        <td>{{ id }}</td>
-	                                        <td>{{#user}}{{name}}{{/user}}</td>
-	                                        <td>Default</td>
-	                                        <td>{{ initDate }} - {{ finishDate }}</td>
-	                                        <td>
-	                                            <a href="/admin/fines/delete/{{ id }}" class="fa fa-trash"></a>
-	                                        </td>
-	                                    </tr>
-                                    {{/fines}}
-                                </tbody>
+                    <col width="10%">
+                    <col width="20%">
+                    <thead>
+                        <tr>
+                            <th>Identificador</th>
+                            <th>Usuario</th>
+                            <th>Recurso</th>
+                            <th>Razón</th>
+                            <th>Tiempo</th>
+                            <th>Administrar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#fines}}
+                        <tr>
+                            <td>{{ id }}</td>
+                            <td>{{#user}}{{name}}{{/user}}</td>
+                            <td>{{#resourceCopy}}{{resource.title}}{{/resourceCopy}}</td>
+                            <td>Default</td>
+                            <td>{{ initDate }} - {{ finishDate }}</td>
+                            <td>
+                                <a href="/admin/fines/delete/{{ id }}" class="fa fa-trash"></a>
+                            </td>
+                        </tr>
+                        {{/fines}}
+                    </tbody>
                 </table>
 
             </section>

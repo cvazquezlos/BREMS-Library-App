@@ -165,3 +165,7 @@ _book
 .metadata
 .recommenders
 /RemoteSystemsTempFiles/
+
+appSpring/.classpath
+appSpring/repo.mwb
+appSpring/repo.mwb.bak
