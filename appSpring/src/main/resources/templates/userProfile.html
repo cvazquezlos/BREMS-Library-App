@@ -51,8 +51,10 @@
 					<!-- USER PROFILE -->
 					<div role="tabpanel" class="tab-pane active" id="userProfile">
 						<div class="row userProfile">
-							<div class="col-lg-3 avatar">
-								<img src="img/user_undefined_f.png" />
+							<div class="col-lg-2 avatar">
+								{{#avatar}}<img src="/img/avatars/{{avatar}}" alt="avatarUser" class="img-responsive avatar"> {{/avatar}} {{^avatar}}
+								<img src="/img/avatars/user_undefined_f.png" alt="avatarUser" class="img-responsive avatar"> {{/avatar}}
+
 							</div>
 							<div class="col-lg-8">
 								<h4>
@@ -112,6 +114,7 @@
 								{{/biography}}
 
 							</div>
+							<!--
 							<div class="col-lg-6 favorites">
 								<h4>
 									<span class="glyphicon glyphicon-heart"></span> Mi lista de
@@ -120,6 +123,7 @@
 								</h4>
 								<p>(No hay ninguna lista para mostrar)</p>
 							</div>
+						-->
 						</div>
 					</div>
 
