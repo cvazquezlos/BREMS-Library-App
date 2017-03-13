@@ -1,10 +1,14 @@
 package appSpring.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ResourceCopy {
@@ -15,6 +19,9 @@ public class ResourceCopy {
 
 	@ManyToOne
 	private Resource resource;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resourceCopy")
+	private List<Fine> penalties;
 
 	private String locationCode;
 
@@ -23,6 +30,14 @@ public class ResourceCopy {
 
 	public ResourceCopy(String locationCode) {
 		this.locationCode = locationCode;
+	}
+
+	public List<Fine> getPenalties() {
+		return penalties;
+	}
+
+	public void setPenalties(List<Fine> penalties) {
+		this.penalties = penalties;
 	}
 
 	public Integer getID() {
