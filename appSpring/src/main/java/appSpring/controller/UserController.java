@@ -25,12 +25,15 @@ public class UserController {
 	@RequestMapping("/user_profile")
 	public String user(Model model, HttpServletRequest request){
 
-		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
-		model.addAttribute("user", loggedUser);
+		User user = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("user", user);
 		
 		// if the user has biography
-		boolean hasBiography = loggedUser.getBiography().length() > 0;
+		boolean hasBiography = user.getBiography().length() > 0;
+		
 		model.addAttribute("biography", hasBiography);
+		
+		
 				
 		
 		// if the user is Admin
@@ -38,7 +41,7 @@ public class UserController {
 			model.addAttribute("admin",true);
 		}
 		
-		model.addAttribute("logged",true);
+		//model.addAttribute("logged",true);
 
 		return "userProfile";
 	}
@@ -73,7 +76,6 @@ public class UserController {
 			
 			userRepository.save(user);
 			
-			System.out.println(user);
 
 		}			
 
@@ -89,7 +91,6 @@ public class UserController {
 			user.setBiography(biography);
 			userRepository.save(user);
 			
-			System.out.println(user);
 		}			
 
 		return "redirect:/user_profile";

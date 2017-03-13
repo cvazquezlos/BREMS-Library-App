@@ -1,0 +1,32 @@
+<div class="row item">
+    <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="coverItem">
+            {{#picture}}
+            <img src="img/books/{{picture}}" class="img-responsive" /> {{/picture}} {{^picture}}
+            <img src="img/noPicture.png" class="img-responsive" /> {{/picture}} <br>
+            <a href="/{{ id }}"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
+        <table class="table">
+            <!--<caption>
+                Nº Ref: <span>N-MD5660213</span>
+            </caption>-->
+            <tbody>
+                <tr>
+                    <th>Título</th>
+                    <td>{{title}}</td>
+                </tr>
+                <tr>
+                    <th>Autor</th>
+                    <td>{{author}}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de préstamo</th>
+                    <td>26/04/2016</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
