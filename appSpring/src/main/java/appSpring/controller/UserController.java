@@ -32,15 +32,11 @@ public class UserController {
 		boolean hasBiography = user.getBiography().length() > 0;
 		
 		model.addAttribute("biography", hasBiography);
-		
-		
-				
-		
 		// if the user is Admin
 		if (request.isUserInRole("ADMIN")) {
 			model.addAttribute("admin",true);
 		}
-		
+		model.addAttribute("profile", true);
 		model.addAttribute("logged",true);
 
 		return "userProfile";
@@ -86,12 +82,8 @@ public class UserController {
 	public String editUserBiography(Model model, @PathVariable Integer id, @RequestParam String biography) {
 
 		User user = userRepository.findOne(id);
-
-		if( user != null ) {
-			user.setBiography(biography);
-			userRepository.save(user);
-			
-		}			
+		user.setBiography(biography);
+		userRepository.save(user);
 
 		return "redirect:/user_profile";
 	}
