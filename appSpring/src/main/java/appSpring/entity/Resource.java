@@ -25,6 +25,7 @@ public class Resource {
 	private String editorial;
 	private String picture;
 	private int copiesNumber;
+	private int reservedCopies;
 
 	@Column(length = 1024)
 	private String description;
@@ -54,6 +55,7 @@ public class Resource {
 		this.editorial = editorial;
 		this.description = description;
 		this.picture = picture;
+		reservedCopies = 0;
 	}
 
 	public Integer getId() {
@@ -134,6 +136,14 @@ public class Resource {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+
+	public int getReservedCopies() {
+		return reservedCopies;
+	}
+
+	public void setReservedCopies(int reservedCopies) {
+		this.reservedCopies = reservedCopies;
 	}
 
 }
