@@ -13,10 +13,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Action {
 
-	public static final int RESERVAR	= 0;
-	public static final int PRESTAR		= 1;
-	public static final int DEVOLVER	= 2;
-	public static final int APLAZAR		= 3;
+	public static final int RESERVAR = 0;
+	public static final int PRESTAR	= 1;
+	public static final int DEVOLVER = 2;
+	public static final int APLAZAR	= 3;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +25,7 @@ public class Action {
 	private Date date;
 	private int actionType;
 
-	@OneToOne
+	@ManyToOne
 	private ResourceCopy copy;
 
 	@ManyToOne
@@ -34,7 +34,6 @@ public class Action {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Token token;
 
-	// constructores
 	protected Action() {
 	}
 
@@ -47,9 +46,6 @@ public class Action {
 		this.actionType = actionType;
 	}
 
-
-	
-	// metodos
 	public Integer getID() {
 		return id;
 	}
