@@ -108,8 +108,7 @@ public class MainController {
 				return "redirect:/";
 			}
 		}
-		
-		
+
 		//Action reserve = new Action(today.getTime());
 		Action reserve = new Action(today.getTime(), Action.RESERVAR);
 		reserve.setUser(loggedUser);

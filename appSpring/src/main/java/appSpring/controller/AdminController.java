@@ -249,7 +249,7 @@ public class AdminController {
 	public String addResourceAction(Model model, @RequestParam String title, @RequestParam String description,
 			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
 			@RequestParam String resourceType, @RequestParam MultipartFile picture, HttpServletRequest request,
-			RedirectAttributes redirectAttrs) {
+			RedirectAttributes redirectAttrs, @RequestParam int copiesNumber) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);

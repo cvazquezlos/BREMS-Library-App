@@ -52,8 +52,7 @@
 					<div role="tabpanel" class="tab-pane active" id="userProfile">
 						<div class="row userProfile">
 							<div class="col-lg-2 avatar">
-								{{#avatar}}<img src="/img/avatars/{{avatar}}" alt="avatarUser" class="img-responsive avatar"> {{/avatar}} {{^avatar}}
-								<img src="/img/avatars/user_undefined_f.png" alt="avatarUser" class="img-responsive avatar"> {{/avatar}}
+								<img src="/img/avatars/{{avatar}}" alt="avatarUser" class="img-responsive avatar">
 
 							</div>
 							<div class="col-lg-8">
@@ -68,15 +67,15 @@
 									<tbody>
 										<tr>
 											<th scope="row">Nombre completo</th>
-											<td>{{ firstName }} {{ lastName1 }} {{ lastName2 }}</td>
+											<td>{{firstName}} {{lastName1}} {{lastName2}}</td>
 										</tr>
 										<tr>
 											<th scope="row">Usuario</th>
-											<td>{{ name }}</td>
+											<td>{{name}}</td>
 										</tr>
 										<tr>
 											<th scope="row">Email</th>
-											<td>{{ email }}</td>
+											<td>{{email}}</td>
 										</tr>
 										{{#viewTelephone}}
 										<tr>
