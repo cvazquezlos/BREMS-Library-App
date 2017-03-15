@@ -169,3 +169,4 @@ _book
 appSpring/.classpath
 appSpring/repo.mwb
 appSpring/repo.mwb.bak
+appSpring/src/main/resources/application.properties
