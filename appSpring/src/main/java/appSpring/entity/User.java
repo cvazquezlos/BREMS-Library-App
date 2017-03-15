@@ -66,7 +66,7 @@ public class User {
 		this.setViewTelephone(false);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		this.biography = "Nací, crecí y vi un barco pasar.";
-		this.avatar = "";
+		this.avatar = "user_undefined_f.png";
 		
 		this.literaryHobby = new ArrayList<String>();
 		this.literaryHobby.add("Ciencia ficción");
