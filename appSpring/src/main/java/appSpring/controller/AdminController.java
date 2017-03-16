@@ -23,6 +23,7 @@ import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
+import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.FineRepository;
 import appSpring.repository.ResourceRepository;
@@ -38,6 +39,8 @@ public class AdminController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepository;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepository;
 	@Autowired
 	private FineRepository fineRepository;
 	@Autowired
@@ -271,8 +274,8 @@ public class AdminController {
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
-
 		resourceRepository.save(resource);
+
 		String pictureName = resource.getId().toString() + ".jpg";
 		if (!picture.isEmpty()) {
 			try {
@@ -287,6 +290,18 @@ public class AdminController {
 			resource.setPicture(pictureName);
 			resourceRepository.save(resource);
 		}
+
+		ResourceCopy copy;
+		for (int i = 0; i < copiesNumber; i++) {
+			copy = new ResourceCopy();
+			copy.setResource(resource);
+			copy.generatorCode();
+			resourceCopyRepository.save(copy);
+			copy.setLocationCode(copy.getLocationCode()+copy.getID());
+			resourceCopyRepository.save(copy);
+			resource.getNoReservedCopies().add(copy.getLocationCode());
+		}
+		resourceRepository.save(resource);
 		redirectAttrs.addFlashAttribute("messages",
 				resourceType + " con título " + resource.getTitle().toString() + " añadido.");
 

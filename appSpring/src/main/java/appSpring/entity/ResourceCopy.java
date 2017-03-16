@@ -25,7 +25,7 @@ public class ResourceCopy {
 
 	private String locationCode;
 
-	protected ResourceCopy() {
+	public ResourceCopy() {
 	}
 
 	public List<Fine> getPenalties() {
