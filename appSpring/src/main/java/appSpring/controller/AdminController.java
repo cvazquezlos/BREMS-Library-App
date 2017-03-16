@@ -1,5 +1,6 @@
 package appSpring.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -23,6 +24,7 @@ import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
+import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.FineRepository;
 import appSpring.repository.ResourceRepository;
@@ -38,6 +40,8 @@ public class AdminController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepository;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepository;
 	@Autowired
 	private FineRepository fineRepository;
 	@Autowired
@@ -271,8 +275,8 @@ public class AdminController {
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
-
 		resourceRepository.save(resource);
+
 		String pictureName = resource.getId().toString() + ".jpg";
 		if (!picture.isEmpty()) {
 			try {
@@ -287,6 +291,18 @@ public class AdminController {
 			resource.setPicture(pictureName);
 			resourceRepository.save(resource);
 		}
+
+		ResourceCopy copy;
+		for (int i = 0; i < copiesNumber; i++) {
+			copy = new ResourceCopy();
+			copy.setResource(resource);
+			copy.generatorCode();
+			resourceCopyRepository.save(copy);
+			copy.setLocationCode(copy.getLocationCode()+copy.getID());
+			resourceCopyRepository.save(copy);
+			resource.getNoReservedCopies().add(copy.getLocationCode());
+		}
+		resourceRepository.save(resource);
 		redirectAttrs.addFlashAttribute("messages",
 				resourceType + " con título " + resource.getTitle().toString() + " añadido.");
 
@@ -307,7 +323,8 @@ public class AdminController {
 	@RequestMapping("/admin/resources/edit/{id}/action")
 	public String editResourceAction(Model model, @PathVariable Integer id, @RequestParam String description,
 			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
-			@RequestParam String resourceType, @RequestParam MultipartFile picture, RedirectAttributes redirectAttrs) {
+			@RequestParam String resourceType, @RequestParam MultipartFile picture, RedirectAttributes redirectAttrs,
+			@RequestParam int copyNumber) {
 
 		Resource resource = resourceRepository.findOne(id);
 		resource.setDescription(description);
@@ -341,6 +358,37 @@ public class AdminController {
 			resource.setPicture(pictureName);
 		}
 		resourceRepository.save(resource);
+
+		if (copyNumber < resource.getResourceCopies().size()) {
+			if (copyNumber > resource.getNoReservedCopies().size()) {
+				redirectAttrs.addFlashAttribute("error", "Actualmente hay copias en préstamo. El cambio no es posible.");
+				return "redirect:/admin/resources/edit/{id}";
+			} else {
+				ArrayList<String> avaibleCopies = resource.getNoReservedCopies();
+				List<ResourceCopy> copies = resource.getResourceCopies();
+				for (int i = 0; i < copyNumber; i++) {
+					ResourceCopy copy = resourceCopyRepository.findByLocationCode(avaibleCopies.get(0));
+					copies.remove(copy);
+					resourceCopyRepository.delete(copy);
+					avaibleCopies.remove(0);
+				}
+				resource.setNoReservedCopies(avaibleCopies);
+				resource.setResourceCopies(copies);
+				resourceRepository.save(resource);
+			}
+		} else if (copyNumber > resource.getResourceCopies().size()) {
+			for (int i = 0; i < (copyNumber - resource.getResourceCopies().size()); i++) {
+				ResourceCopy copy = new ResourceCopy();
+				copy.setResource(resource);
+				copy.generatorCode();
+				resourceCopyRepository.save(copy);
+				copy.setLocationCode(copy.getLocationCode()+copy.getID());
+				resourceCopyRepository.save(copy);
+				resource.getNoReservedCopies().add(copy.getLocationCode());
+				resourceRepository.save(resource);
+			}
+		}
+
 		redirectAttrs.addFlashAttribute("messages", resource.getTitle().toString() + " modificado.");
 
 		return "redirect:/admin/resources";
