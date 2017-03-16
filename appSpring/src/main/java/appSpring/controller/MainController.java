@@ -102,18 +102,24 @@ public class MainController {
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		List<Fine> userPenalties = loggedUser.getPenalties();
 		for (Fine penalty : userPenalties) {
-			if ((today.getTime().before(penalty.getInitDate()) && today.getTime().after(penalty.getFinishDate()))) {
+			if ((today.getTime().after(penalty.getInitDate()) && today.getTime().before(penalty.getFinishDate()))) {
 				redirectAttrs.addFlashAttribute("error",
-						"Actualmente tienes una penalización. No es posible hacer la reserva.");
+						"Actualmente tiene una penalización. No es posible hacer la reserva.");
 				return "redirect:/";
 			}
 		}
-
+		Resource resourceSelected = resourceRepository.findOne(id);
+		if (resourceSelected.getReservedCopies()==resourceSelected.getResourceCopies().size()) {
+			redirectAttrs.addFlashAttribute("error",
+					"No existen copias suficientes del recurso. Inténtelo más tarde.");
+			return "redirect:/";
+		}
 		//Action reserve = new Action(today.getTime());
 		Action reserve = new Action(today.getTime(), Action.RESERVAR);
 		reserve.setUser(loggedUser);
-		Resource resourceSelected = resourceRepository.findOne(id);
-		ResourceCopy copySelected = resourceSelected.getResourceCopies().get(0);
+		ResourceCopy copySelected = resourceSelected.getResourceCopies().get(resourceSelected.getReservedCopies());
+		resourceSelected.setReservedCopies(resourceSelected.getReservedCopies()+1);
+		resourceRepository.save(resourceSelected);
 		reserve.setResource(copySelected);
 		actionRepository.save(reserve);
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
