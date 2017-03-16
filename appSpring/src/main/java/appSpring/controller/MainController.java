@@ -1,5 +1,6 @@
 package appSpring.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.ActionRepository;
+import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.repository.UserRepository;
@@ -31,6 +33,8 @@ public class MainController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepo;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepo;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -109,7 +113,7 @@ public class MainController {
 			}
 		}
 		Resource resourceSelected = resourceRepository.findOne(id);
-		if (resourceSelected.getReservedCopies()==resourceSelected.getResourceCopies().size()) {
+		if (resourceSelected.getNoReservedCopies().isEmpty()) {
 			redirectAttrs.addFlashAttribute("error",
 					"No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
@@ -117,11 +121,12 @@ public class MainController {
 		//Action reserve = new Action(today.getTime());
 		Action reserve = new Action(today.getTime(), Action.RESERVAR);
 		reserve.setUser(loggedUser);
-		ResourceCopy copySelected = resourceSelected.getResourceCopies().get(resourceSelected.getReservedCopies());
-		resourceSelected.setReservedCopies(resourceSelected.getReservedCopies()+1);
-		resourceRepository.save(resourceSelected);
-		reserve.setResource(copySelected);
+		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
+		reserve.setResource(resourceCopyRepo.findByLocationCode(avaibleCopies.get(0)));
+		avaibleCopies.remove(0);
 		actionRepository.save(reserve);
+		resourceSelected.setNoReservedCopies(avaibleCopies);
+		resourceRepository.save(resourceSelected);
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
 		return "redirect:/";

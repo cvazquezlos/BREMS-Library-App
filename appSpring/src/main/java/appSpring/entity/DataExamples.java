@@ -1,5 +1,6 @@
 package appSpring.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -82,6 +83,10 @@ public class DataExamples {
 		resourceCopyRepository.save(rc3);
 		rc3.setLocationCode(rc3.getLocationCode()+rc3.getID());
 		resourceCopyRepository.save(rc3);
+		res1.getNoReservedCopies().add(rc1.getLocationCode());
+		res1.getNoReservedCopies().add(rc2.getLocationCode());
+		res1.getNoReservedCopies().add(rc3.getLocationCode());
+		resourceRepository.save(res1);
 
 		res2 = new Resource("El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock",
 				"El principito es un cuento poético que viene acompañado de ilustraciones hechas "
@@ -105,6 +110,9 @@ public class DataExamples {
 		resourceCopyRepository.save(rc5);
 		rc5.setLocationCode(rc5.getLocationCode()+rc5.getID());
 		resourceCopyRepository.save(rc5);
+		res2.getNoReservedCopies().add(rc4.getLocationCode());
+		res2.getNoReservedCopies().add(rc5.getLocationCode());
+		resourceRepository.save(res2);
 
 		res3 = new Resource("Hola.com", "HOLA S.L.", "Hola S.L.",
 				"La revista Hola es una publicación tanto impresa como electrónica, propiedad de la editora 'Hola S. L., que se dedica "
@@ -120,6 +128,8 @@ public class DataExamples {
 		resourceCopyRepository.save(rc6);
 		rc6.setLocationCode(rc6.getLocationCode()+rc6.getID());
 		resourceCopyRepository.save(rc6);
+		res3.getNoReservedCopies().add(rc6.getLocationCode());
+		resourceRepository.save(res3);
 
 		res4 = new Resource("Muy Interesante", "G+J", "G+J",
 				"Muy interesante es una revista mensual de divulgación y ciencia popular, creada y publicada por el Grupo G+J España.");
@@ -134,11 +144,14 @@ public class DataExamples {
 		rc8.setLocationCode(rc8.getLocationCode()+rc8.getID());
 		resourceCopyRepository.save(rc8);
 		rc9 = new ResourceCopy();
-		rc9.setResource(res3);
+		rc9.setResource(res4);
 		rc9.generatorCode();
 		resourceCopyRepository.save(rc9);
 		rc9.setLocationCode(rc9.getLocationCode()+rc9.getID());
 		resourceCopyRepository.save(rc9);
+		res4.getNoReservedCopies().add(rc8.getLocationCode());
+		res4.getNoReservedCopies().add(rc9.getLocationCode());
+		resourceRepository.save(res4);
 
 		res5 = new Resource("Logia", "Francisco Ortega", "Planeta",
 				"La historia narra las aventuras del exitoso novelista chileno Elías Miele (especie de alter ego de Ortega), un escritor de best seller del tipo conspirativo "
@@ -150,11 +163,13 @@ public class DataExamples {
 		resourceRepository.save(res5);
 
 		rc7 = new ResourceCopy();
-		rc7.setResource(res4);
+		rc7.setResource(res5);
 		rc7.generatorCode();
 		resourceCopyRepository.save(rc7);
 		rc7.setLocationCode(rc7.getLocationCode()+rc7.getID());
 		resourceCopyRepository.save(rc7);
+		res5.getNoReservedCopies().add(rc7.getLocationCode());
+		resourceRepository.save(res5);
 
 		// Actions creation
 		a1 = new Action(getDate(2017, 2, 13, 14, 23, 43), 0);
@@ -169,7 +184,9 @@ public class DataExamples {
 		a1.setResource(rc1);
 		actionRepository.save(a1);
 		Resource resourceSelected = resourceRepository.findOne(rc1.getResource().getId());
-		resourceSelected.setReservedCopies(resourceSelected.getReservedCopies()+1);
+		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
+		avaibleCopies.remove(0);
+		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
 		fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(),
 				new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1, rc1);
@@ -191,7 +208,9 @@ public class DataExamples {
 		a2.setResource(rc2);
 		actionRepository.save(a2);
 		resourceSelected = resourceRepository.findOne(rc3.getResource().getId());
-		resourceSelected.setReservedCopies(resourceSelected.getReservedCopies()+1);
+		avaibleCopies = resourceSelected.getNoReservedCopies();
+		avaibleCopies.remove(0);
+		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
 		fine = new Fine(getDate(2016, 7, 4, 22, 15, 35), getDate(2016, 7, 11, 22, 15, 35), user3, rc3);
 		fineRepository.save(fine);
@@ -204,7 +223,9 @@ public class DataExamples {
 		a3.setResource(rc5);
 		actionRepository.save(a3);
 		resourceSelected = resourceRepository.findOne(rc5.getResource().getId());
-		resourceSelected.setReservedCopies(resourceSelected.getReservedCopies()+1);
+		avaibleCopies = resourceSelected.getNoReservedCopies();
+		avaibleCopies.remove(0);
+		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
 		fine = new Fine(getDate(2016, 6, 28, 10, 35, 23), getDate(2016, 7, 5, 10, 35, 23), user4, rc5);
 		fineRepository.save(fine);
