@@ -28,10 +28,6 @@ public class ResourceCopy {
 	protected ResourceCopy() {
 	}
 
-	public ResourceCopy(String locationCode) {
-		this.locationCode = locationCode;
-	}
-
 	public List<Fine> getPenalties() {
 		return penalties;
 	}
@@ -64,24 +60,17 @@ public class ResourceCopy {
 		this.resource = resource;
 	}
 
-	/**
-	 * Genera el código de localización en base al
-	 * idGenero|idEjemplar|Autor(2)|Titulo(2)
-	 *
-	 * @return codigo
-	 */
 	public void generatorCode() {
 
-		int idGenero = this.getResource().getGenre().getId();
-		int idEjemplar = this.getID();
-		String tituloProducto = this.getResource().getTitle();
-		String autorProducto = this.getResource().getAutor();
+		int idResource = this.getResource().getId();
+		String resourceTitle = this.getResource().getTitle();
+		String resourceAuthor = this.getResource().getAutor();
 
 		// El código está comnpuesto por idGenero|idEjemplar|Autor(2)|Titulo(2)
-		String codigo = Integer.toString(idGenero) + Integer.toString(idEjemplar) + autorProducto.charAt(0)
-				+ autorProducto.charAt(1) + tituloProducto.charAt(0) + tituloProducto.charAt(1);
+		String locationCode = Integer.toString(idResource) + resourceAuthor.charAt(0)
+				+ resourceAuthor.charAt(1) + resourceTitle.charAt(0) + resourceTitle.charAt(1);
 
-		this.locationCode = codigo;
+		this.locationCode = locationCode;
 	}
 
 }
