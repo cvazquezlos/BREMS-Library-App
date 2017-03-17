@@ -3,7 +3,6 @@ package appSpring.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.io.File;
 import java.time.LocalDateTime;
@@ -226,7 +225,6 @@ public class AdminController {
 				resourceRepository.save(resourceFound);
 				userFound.setAvaibleLoans(userFound.getAvaibleLoans()-1);
 				userRepository.save(userFound);
-				ResourceCopy avaible = resourceFound.getResourceCopies().get(0);
 			}
 		}
 		redirectAttrs.addFlashAttribute("messages", "Nuevo péstamo añadido al usuario " + userFound.getName() + ".");

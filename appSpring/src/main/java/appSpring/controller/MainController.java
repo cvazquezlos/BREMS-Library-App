@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import appSpring.entity.Action;
 import appSpring.entity.Fine;
 import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.ActionRepository;
