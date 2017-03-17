@@ -1,6 +1,9 @@
 package appSpring.controller;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +23,7 @@ import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.ActionRepository;
+import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.repository.UserRepository;
@@ -31,6 +35,8 @@ public class MainController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepo;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepo;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -102,24 +108,79 @@ public class MainController {
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		List<Fine> userPenalties = loggedUser.getPenalties();
 		for (Fine penalty : userPenalties) {
-			if ((today.getTime().before(penalty.getInitDate()) && today.getTime().after(penalty.getFinishDate()))) {
+			if ((today.getTime().after(penalty.getInitDate()) && today.getTime().before(penalty.getFinishDate()))) {
 				redirectAttrs.addFlashAttribute("error",
-						"Actualmente tienes una penalización. No es posible hacer la reserva.");
+						"Actualmente tiene una penalización. No es posible hacer la reserva.");
 				return "redirect:/";
 			}
 		}
-		
-		
-		//Action reserve = new Action(today.getTime());
-		Action reserve = new Action(today.getTime(), Action.RESERVAR);
-		reserve.setUser(loggedUser);
+		if (loggedUser.getAvaibleLoans()==0) {
+			redirectAttrs.addFlashAttribute("error", "Actualmente no puede reservar más recursos. El límite es de 3.");
+			return "redirect:/";
+		}
 		Resource resourceSelected = resourceRepository.findOne(id);
-		ResourceCopy copySelected = resourceSelected.getResourceCopies().get(0);
-		reserve.setResource(copySelected);
+		if (resourceSelected.getNoReservedCopies().isEmpty()) {
+			redirectAttrs.addFlashAttribute("error",
+					"No existen copias suficientes del recurso. Inténtelo más tarde.");
+			return "redirect:/";
+		}
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Action reserve = new Action(date);
+		reserve.setUser(loggedUser);
+		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
+		reserve.setResource(resourceCopyRepo.findByLocationCode(avaibleCopies.get(0)));
+		avaibleCopies.remove(0);
 		actionRepository.save(reserve);
+		resourceSelected.setNoReservedCopies(avaibleCopies);
+		resourceRepository.save(resourceSelected);
+		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
+		userRepository.save(loggedUser);
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
 		return "redirect:/";
 	}
+
+	@RequestMapping("/{id}/return")
+	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
+			@PathVariable Integer id) {
+
+		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		List<Action> actions = loggedUser.getActions();
+		Resource resourceFound = resourceRepository.findOne(id);
+		for (Action action : actions) {
+			if ((action.getResource().getResource() == resourceFound) && (action.getDateLoanReturn() == null)) {
+				action.setDateLoanReturn(date);
+				ResourceCopy copyNowAvaible = action.getResource();
+				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
+				avaibleCopies.add(copyNowAvaible.getLocationCode());
+				resourceFound.setNoReservedCopies(avaibleCopies);
+				resourceRepository.save(resourceFound);
+				actionRepository.save(action);
+				loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()+1);
+				userRepository.save(loggedUser);
+				redirectAttrs.addFlashAttribute("messages", "El recurso ha sido depositado correctamente.");
+				return "redirect:/";
+			}
+		}
+		redirectAttrs.addFlashAttribute("error",
+				"La petición no ha podido ser completada.");
+
+		return "redirect:/";
+	}
+
+	private static Date getDate(int year, int month, int day, int hour, int minute, int second) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, second);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
 
 }

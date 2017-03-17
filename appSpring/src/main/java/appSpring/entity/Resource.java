@@ -25,6 +25,7 @@ public class Resource {
 	private String editorial;
 	private String picture;
 	private int copiesNumber;
+	private ArrayList<String> noReservedCopies;
 
 	@Column(length = 1024)
 	private String description;
@@ -46,6 +47,7 @@ public class Resource {
 		this.author = author;
 		this.editorial = editorial;
 		this.description = description;
+		noReservedCopies = new ArrayList<String>();
 	}
 
 	public Resource(String title, String author, String editorial, String description, String picture) {
@@ -54,6 +56,7 @@ public class Resource {
 		this.editorial = editorial;
 		this.description = description;
 		this.picture = picture;
+		noReservedCopies = new ArrayList<String>();
 	}
 
 	public Integer getId() {
@@ -134,6 +137,14 @@ public class Resource {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+
+	public ArrayList<String> getNoReservedCopies() {
+		return noReservedCopies;
+	}
+
+	public void setNoReservedCopies(ArrayList<String> noReservedCopies) {
+		this.noReservedCopies = noReservedCopies;
 	}
 
 }

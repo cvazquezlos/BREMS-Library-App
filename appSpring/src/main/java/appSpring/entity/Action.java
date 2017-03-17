@@ -12,20 +12,15 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Action {
-
-	public static final int RESERVAR	= 0;
-	public static final int PRESTAR		= 1;
-	public static final int DEVOLVER	= 2;
-	public static final int APLAZAR		= 3;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	private Date date;
-	private int actionType;
+	private Date dateLoanInit;
+	private Date dateLoanReturn;
 
-	@OneToOne
+	@ManyToOne
 	private ResourceCopy copy;
 
 	@ManyToOne
@@ -34,22 +29,14 @@ public class Action {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Token token;
 
-	// constructores
 	protected Action() {
 	}
 
-	public Action(Date date) {
-		this.date = date;
-	}
-	
-	public Action(Date date, int actionType) {
-		this.date = date;
-		this.actionType = actionType;
+	public Action(Date dateLoanInit) {
+		this.dateLoanInit = dateLoanInit;
+		dateLoanReturn = null;
 	}
 
-
-	
-	// metodos
 	public Integer getID() {
 		return id;
 	}
@@ -58,12 +45,20 @@ public class Action {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDateLoanInit() {
+		return dateLoanInit;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateLoanInit(Date dateLoanInit) {
+		this.dateLoanInit = dateLoanInit;
+	}
+
+	public Date getDateLoanReturn() {
+		return dateLoanReturn;
+	}
+
+	public void setDateLoanReturn(Date dateLoanReturn) {
+		this.dateLoanReturn = dateLoanReturn;
 	}
 
 	public ResourceCopy getResource() {
@@ -80,14 +75,6 @@ public class Action {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public int getTypeAction() {
-		return actionType;
-	}
-
-	public void setTypeAction(int typeAction) {
-		this.actionType = typeAction;
 	}
 
 }
