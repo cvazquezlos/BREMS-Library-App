@@ -172,9 +172,9 @@ public class DataExamples {
 		resourceRepository.save(res5);
 
 		// Actions creation
-		a1 = new Action(getDate(2017, 2, 13, 14, 23, 43), 0);
-		a2 = new Action(getDate(2016, 12, 22, 8, 45, 00), 0);
-		a3 = new Action(getDate(2016, 2, 5, 16, 00, 13), 0);
+		a1 = new Action(getDate(2017, 2, 13, 14, 23, 43));
+		a2 = new Action(getDate(2016, 12, 22, 8, 45, 00));
+		a3 = new Action(getDate(2016, 2, 5, 16, 00, 13));
 
 		// Users creation
 		user1 = new User("carlosv", "passc", "0000", "Carlos", "Vázquez", "Losada", "c.vazquezlosada@gmail.com",
