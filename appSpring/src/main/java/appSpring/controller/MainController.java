@@ -136,4 +136,12 @@ public class MainController {
 		return "redirect:/";
 	}
 
+	@RequestMapping("/{id}/return")
+	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs) {
+
+		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+
+		return "redirect:/";
+	}
+
 }

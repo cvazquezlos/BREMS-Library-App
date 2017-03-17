@@ -49,14 +49,14 @@
                                 <!-- The user image in the navbar-->
                                 <img src="img/icon-profile.png" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">{{#admin}}{{ firstName }} {{ lastName1 }}{{/admin}}</span>
+                                <span class="hidden-xs">{{#admin}}{{firstName}} {{lastName1}}{{/admin}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
                                     <img src="img/icon-profile.png" class="img-circle" alt="User Image">
                                     <p>
-                                        {{#admin}}{{ firstName }} {{ lastName1 }} {{ lastName2 }}{{/admin}}
+                                        {{#admin}}{{firstName}} {{lastName1}} {{lastName2}}{{/admin}}
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -83,7 +83,7 @@
                         <img src="img/icon-profile.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>{{#admin}}{{ firstName }} {{ lastName1 }}{{/admin}}</p>
+                        <p>{{#admin}}{{firstName}} {{lastName1}}{{/admin}}</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
                     </div>
@@ -151,7 +151,7 @@
 	                                    <td>{{#copy}}{{locationCode}}{{/copy}}</td>
 	                                    <td>{{#user}}{{name}}{{/user}}</td>
 	                                    <td>{{#copy}}{{#resource}}{{resource.title}}{{/resource}}{{/copy}}</td>
-	                                    <td>{{date}}</td>
+	                                    <td>{{dateLoanInit}}</td>
 	                                    <td>
 	                                        <a href="/admin/loans/delete/{{id}}" class="fa fa-trash"></a>
 	                                    </td>
