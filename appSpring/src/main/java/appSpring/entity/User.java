@@ -36,6 +36,7 @@ public class User {
 	private String address;
 	private String biography;
 	private String avatar;
+	private int avaibleLoans;
 	
 	@ElementCollection
 	private List<String> literaryHobby;
@@ -67,13 +68,13 @@ public class User {
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		this.biography = "Nací, crecí y vi un barco pasar.";
 		this.avatar = "user_undefined_f.png";
-		
 		this.literaryHobby = new ArrayList<String>();
 		this.literaryHobby.add("Ciencia ficción");
 		this.literaryHobby.add("Terror");
 		this.literaryHobby.add("Novela");
 		this.literaryHobby.add("Literatura");
 		this.literaryHobby.add("Drama");
+		avaibleLoans = 3;
 	}
 
 	public Integer getId() {
@@ -220,6 +221,14 @@ public class User {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public int getAvaibleLoans() {
+		return this.avaibleLoans;
+	}
+
+	public void setAvaibleLoans(int avaibleLoans) {
+		this.avaibleLoans = avaibleLoans;
 	}
 
 }

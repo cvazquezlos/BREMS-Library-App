@@ -112,14 +112,17 @@ public class MainController {
 				return "redirect:/";
 			}
 		}
+		if (loggedUser.getAvaibleLoans()==0) {
+			redirectAttrs.addFlashAttribute("error", "Actualmente no puede reservar más recursos. El límite es de 3.");
+			return "redirect:/";
+		}
 		Resource resourceSelected = resourceRepository.findOne(id);
 		if (resourceSelected.getNoReservedCopies().isEmpty()) {
 			redirectAttrs.addFlashAttribute("error",
 					"No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
 		}
-		//Action reserve = new Action(today.getTime());
-		Action reserve = new Action(today.getTime(), Action.RESERVAR);
+		Action reserve = new Action(today.getTime());
 		reserve.setUser(loggedUser);
 		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
 		reserve.setResource(resourceCopyRepo.findByLocationCode(avaibleCopies.get(0)));
@@ -127,6 +130,8 @@ public class MainController {
 		actionRepository.save(reserve);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
+		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
+		userRepository.save(loggedUser);
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
 		return "redirect:/";

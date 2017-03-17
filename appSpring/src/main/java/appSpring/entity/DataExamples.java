@@ -38,7 +38,7 @@ public class DataExamples {
 		Genre g1, g2, g3, g4;
 		ResourceType rt1, rt2;
 		Resource res1, res2, res3, res4, res5;
-		ResourceCopy rc1, rc2, rc3, rc4, rc5, rc6, rc7, rc8, rc9, rc10;
+		ResourceCopy rc1, rc2, rc3, rc4, rc5, rc6, rc7, rc8, rc9;
 		User user1, user2, user3, user4;
 
 		// Data creation
@@ -183,6 +183,8 @@ public class DataExamples {
 		a1.setUser(user1);
 		a1.setResource(rc1);
 		actionRepository.save(a1);
+		user1.setAvaibleLoans(user1.getAvaibleLoans()-1);
+		userRepository.save(user1);
 		Resource resourceSelected = resourceRepository.findOne(rc1.getResource().getId());
 		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
 		avaibleCopies.remove(0);
@@ -207,6 +209,8 @@ public class DataExamples {
 		a2.setUser(user3);
 		a2.setResource(rc2);
 		actionRepository.save(a2);
+		user3.setAvaibleLoans(user3.getAvaibleLoans()-1);
+		userRepository.save(user3);
 		resourceSelected = resourceRepository.findOne(rc3.getResource().getId());
 		avaibleCopies = resourceSelected.getNoReservedCopies();
 		avaibleCopies.remove(0);
@@ -220,14 +224,16 @@ public class DataExamples {
 				"ROLE_USER");
 		userRepository.save(user4);
 		a3.setUser(user4);
-		a3.setResource(rc5);
+		a3.setResource(rc4);
 		actionRepository.save(a3);
-		resourceSelected = resourceRepository.findOne(rc5.getResource().getId());
+		user4.setAvaibleLoans(user4.getAvaibleLoans()-1);
+		userRepository.save(user4);
+		resourceSelected = resourceRepository.findOne(rc4.getResource().getId());
 		avaibleCopies = resourceSelected.getNoReservedCopies();
 		avaibleCopies.remove(0);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
-		fine = new Fine(getDate(2016, 6, 28, 10, 35, 23), getDate(2016, 7, 5, 10, 35, 23), user4, rc5);
+		fine = new Fine(getDate(2016, 6, 28, 10, 35, 23), getDate(2016, 7, 5, 10, 35, 23), user4, rc4);
 		fineRepository.save(fine);
 	}
 
