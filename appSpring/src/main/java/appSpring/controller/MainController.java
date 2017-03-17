@@ -1,7 +1,9 @@
 package appSpring.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import appSpring.entity.Action;
 import appSpring.entity.Fine;
 import appSpring.entity.Resource;
+import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.ActionRepository;
@@ -121,7 +124,9 @@ public class MainController {
 					"No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
 		}
-		Action reserve = new Action(today.getTime());
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Action reserve = new Action(date);
 		reserve.setUser(loggedUser);
 		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
 		reserve.setResource(resourceCopyRepo.findByLocationCode(avaibleCopies.get(0)));
@@ -137,11 +142,45 @@ public class MainController {
 	}
 
 	@RequestMapping("/{id}/return")
-	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs) {
+	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
+			@PathVariable Integer id) {
 
 		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		List<Action> actions = loggedUser.getActions();
+		Resource resourceFound = resourceRepository.findOne(id);
+		for (Action action : actions) {
+			if ((action.getResource().getResource() == resourceFound) && (action.getDateLoanReturn() == null)) {
+				action.setDateLoanReturn(date);
+				ResourceCopy copyNowAvaible = action.getResource();
+				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
+				avaibleCopies.add(copyNowAvaible.getLocationCode());
+				resourceFound.setNoReservedCopies(avaibleCopies);
+				resourceRepository.save(resourceFound);
+				actionRepository.save(action);
+				loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()+1);
+				userRepository.save(loggedUser);
+				redirectAttrs.addFlashAttribute("messages", "El recurso ha sido depositado correctamente.");
+				return "redirect:/";
+			}
+		}
+		redirectAttrs.addFlashAttribute("error",
+				"La petición no ha podido ser completada.");
 
 		return "redirect:/";
 	}
+
+	private static Date getDate(int year, int month, int day, int hour, int minute, int second) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, second);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
 
 }
