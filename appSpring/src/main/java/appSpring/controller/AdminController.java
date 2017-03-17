@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.io.File;
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,28 +191,42 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/loans/add/action")
-	public String addLoanAction(Model model, @RequestParam String title, @RequestParam int day, @RequestParam int month,
-			@RequestParam int year, @RequestParam String user, HttpServletRequest request,
-			RedirectAttributes redirectAttrs) {
+	public String addLoanAction(Model model, @RequestParam String title, @RequestParam String user,
+			HttpServletRequest request, RedirectAttributes redirectAttrs) {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		Date date = new GregorianCalendar(year, month - 1, day).getTime();
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
 		User userFound = userRepository.findByName(user);
 		Resource resourceFound = resourceRepository.findByTitleLikeIgnoreCase("%" + title + "%");
 		if (userFound == null) {
 			model.addAttribute("messages", "No existe el usuario.");
 			return "admin/add_loan";
 		} else {
+			if (userFound.getAvaibleLoans()==0) {
+				model.addAttribute("messages", "Actualmente no puede reservar más recursos. El límite es de 3.");
+				return "admin/add_loan";
+			}
 			if (resourceFound == null) {
 				model.addAttribute("messages", "El título del recurso es erróneo.");
 				return "admin/add_loan";
 			} else {
+				if (resourceFound.getNoReservedCopies().isEmpty()) {
+					model.addAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
+					return "admin/add_loan";
+				}
+				Action reserve = new Action(date);
+				reserve.setUser(userFound);
+				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
+				reserve.setResource(resourceCopyRepository.findByLocationCode(avaibleCopies.get(0)));
+				avaibleCopies.remove(0);
+				actionRepository.save(reserve);
+				resourceFound.setNoReservedCopies(avaibleCopies);
+				resourceRepository.save(resourceFound);
+				userFound.setAvaibleLoans(userFound.getAvaibleLoans()-1);
+				userRepository.save(userFound);
 				ResourceCopy avaible = resourceFound.getResourceCopies().get(0);
-				Action action = new Action(date);
-				action.setUser(userFound);
-				action.setResource(avaible);
-				actionRepository.save(action);
 			}
 		}
 		redirectAttrs.addFlashAttribute("messages", "Nuevo péstamo añadido al usuario " + userFound.getName() + ".");
