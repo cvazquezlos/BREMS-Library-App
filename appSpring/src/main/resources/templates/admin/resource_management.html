@@ -160,9 +160,13 @@
                             <td>{{genre.name}}</td>
                             <td>{{resourceType.name}}</td>
                             <td>
-                                <a class="fa fa-pencil" href="/admin/resources/edit/{{ id }}"></a>
+                                <a href="/admin/resources/edit/{{id}}">
+	                            	<button type="button"  class="btn btn-success"><span class="fa fa-pencil"></span></button>
+                                </a>
                                 &nbsp;&nbsp;
-                                <a href="/admin/resources/delete/{{ id }}" class="fa fa-trash"></a>
+                                <a href="/admin/resources/delete/{{id}}">
+	                            	<button type="button"  class="btn btn-warning"><span class="fa fa-trash"></span></button>
+                                </a>
                             </td>
                         </tr>
                         {{/resources}}
