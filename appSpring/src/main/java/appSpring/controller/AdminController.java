@@ -212,7 +212,7 @@ public class AdminController {
 				return "admin/add_loan";
 			} else {
 				if (resourceFound.getNoReservedCopies().isEmpty()) {
-					model.addAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
+					model.addAttribute("messages", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 					return "admin/add_loan";
 				}
 				Action reserve = new Action(date);
