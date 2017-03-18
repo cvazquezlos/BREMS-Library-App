@@ -1,6 +1,8 @@
 package appSpring.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import appSpring.entity.Action;
 import appSpring.entity.User;
 import appSpring.repository.UserRepository;
 
@@ -27,12 +30,20 @@ public class UserController {
 
 		User user = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("user", user);
-		
-		// if the user has biography
+		ArrayList<Action> history = new ArrayList<Action>();
+		ArrayList<Action> loans = new ArrayList<Action>();
+		List<Action> actions = user.getActions();
+		for (Action action : actions) {
+			if (action.getDateLoanGiven() == null || action.getDateLoanReturn() == null) {
+				loans.add(action);
+			} else {
+				history.add(action);
+			}
+		}
+		model.addAttribute("history", history);
+		model.addAttribute("loans", loans);
 		boolean hasBiography = user.getBiography().length() > 0;
-		
 		model.addAttribute("biography", hasBiography);
-		// if the user is Admin
 		if (request.isUserInRole("ADMIN")) {
 			model.addAttribute("admin",true);
 		}
@@ -47,15 +58,12 @@ public class UserController {
 			@RequestParam String email, @RequestParam String telephone, @RequestParam MultipartFile avatar) {
 
 		User user = userRepository.findOne(id);
-
 		if( user != null ) {
 			user.setFirstName(firstName);
 			user.setLastName1(lastName1);
 			user.setLastName2(lastName2);
 			user.setEmail(email);
 			user.setTelephone(telephone);
-			
-			// avantar del usuario
 			String avatarName = user.getId().toString() + ".jpg";
 			if (!avatarName.isEmpty()) {
 				try {
@@ -69,10 +77,7 @@ public class UserController {
 				}
 				user.setAvatar(avatarName);
 			}
-			
 			userRepository.save(user);
-			
-
 		}			
 
 		return "redirect:/user_profile";
