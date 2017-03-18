@@ -381,6 +381,19 @@ header .logo h1 {
     background-color: #3d9363;
 }
 
+.content .coverItem .btn-return {
+    color: #faf9f9;
+    background-color: #5bc0de;
+    border-radius: 0px;
+    margin: auto;
+    width: 80%;
+    display: block;
+}
+
+.content .coverItem .btn-return:hover {
+    background-color: rgb(49, 176, 213);
+}
+
 .content .authorName {
     color: #A2A2A2;
 }
@@ -501,7 +514,7 @@ footer ul li a:focus {
     display: none;
 }
 
-.userdrop{
+.userdrop {
     background-color: #215E5D;
 }
 

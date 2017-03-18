@@ -8,6 +8,6 @@ import appSpring.entity.Action;
 
 public interface ActionRepository extends JpaRepository<Action, Integer> {
 
-	Action findByDate(Date date);
+	Action findByDateLoanInit(Date dateLoanInit);
 
 }
