@@ -120,8 +120,10 @@ public class MainController {
 		}
 		Resource resourceSelected = resourceRepository.findOne(id);
 		if (resourceSelected.getNoReservedCopies().isEmpty()) {
-			redirectAttrs.addFlashAttribute("error",
-					"No existen copias suficientes del recurso. Inténtelo más tarde.");
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
+			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
+			redirectAttrs.addFlashAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
 		}
 		LocalDateTime now = LocalDateTime.now();
@@ -136,6 +138,11 @@ public class MainController {
 		resourceRepository.save(resourceSelected);
 		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
 		userRepository.save(loggedUser);
+		if (resourceSelected.getNoReservedCopies().isEmpty()) {
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
+			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
+		}
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
 		return "redirect:/";
@@ -157,6 +164,7 @@ public class MainController {
 				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
 				avaibleCopies.add(copyNowAvaible.getLocationCode());
 				resourceFound.setNoReservedCopies(avaibleCopies);
+				resourceFound.setAvaibleReserve(!resourceFound.getAvaibleReserve());
 				resourceRepository.save(resourceFound);
 				actionRepository.save(action);
 				loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()+1);

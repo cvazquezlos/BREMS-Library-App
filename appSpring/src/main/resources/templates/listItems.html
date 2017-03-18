@@ -4,17 +4,18 @@
             {{#picture}}
             <img src="img/books/{{picture}}" class="img-responsive" /> {{/picture}} {{^picture}}
             <img src="img/noPicture.png" class="img-responsive" /> {{/picture}}
-            <a href="/{{id}}/reserve" class="btn btn-reserve">Reservar</a>
+            {{^avaiblereserve}}<a href="#" class="btn btn-notEnough">No disponible</a>{{/avaiblereserve}} {{#avaiblereserve}}
+            <a href="/{{id}}/reserve" class="btn btn-reserve">Reservar</a>{{/avaiblereserve}}
         </div>
     </div>
     <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-        <h3 class="title">{{ title }}</h3>
-        <h5 class="authorName">por {{ author }}</h5>
+        <h3 class="title">{{title}}</h3>
+        <h5 class="authorName">por {{author}}</h5>
         <div class="description">
             <p>
-                {{ description }}
+                {{description}}
                 <span>...</span>
-                <a href="/{{ id }}"> <span class="moreInfo">+ info</span> </a>
+                <a href="/{{id}}"> <span class="moreInfo">+ info</span> </a>
             </p>
             <div class="available stockAvailable">
                 <span class="glyphicon glyphicon-ok-circle"></span>
