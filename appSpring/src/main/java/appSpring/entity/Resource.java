@@ -26,6 +26,7 @@ public class Resource {
 	private String picture;
 	private int copiesNumber;
 	private ArrayList<String> noReservedCopies;
+	private Boolean avaiblereserve;
 
 	@Column(length = 1024)
 	private String description;
@@ -48,6 +49,7 @@ public class Resource {
 		this.editorial = editorial;
 		this.description = description;
 		noReservedCopies = new ArrayList<String>();
+		avaiblereserve = new Boolean(true);
 	}
 
 	public Resource(String title, String author, String editorial, String description, String picture) {
@@ -57,6 +59,7 @@ public class Resource {
 		this.description = description;
 		this.picture = picture;
 		noReservedCopies = new ArrayList<String>();
+		avaiblereserve = new Boolean(true);
 	}
 
 	public Integer getId() {
@@ -145,6 +148,14 @@ public class Resource {
 
 	public void setNoReservedCopies(ArrayList<String> noReservedCopies) {
 		this.noReservedCopies = noReservedCopies;
+	}
+
+	public Boolean getAvaibleReserve() {
+		return this.avaiblereserve;
+	}
+
+	public void setAvaibleReserve(Boolean avaiblereserve) {
+		this.avaiblereserve = avaiblereserve;
 	}
 
 }

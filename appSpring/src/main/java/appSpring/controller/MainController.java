@@ -120,8 +120,10 @@ public class MainController {
 		}
 		Resource resourceSelected = resourceRepository.findOne(id);
 		if (resourceSelected.getNoReservedCopies().isEmpty()) {
-			redirectAttrs.addFlashAttribute("error",
-					"No existen copias suficientes del recurso. Inténtelo más tarde.");
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
+			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
+			redirectAttrs.addFlashAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
 		}
 		LocalDateTime now = LocalDateTime.now();
@@ -136,37 +138,12 @@ public class MainController {
 		resourceRepository.save(resourceSelected);
 		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
 		userRepository.save(loggedUser);
-		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
-
-		return "redirect:/";
-	}
-
-	@RequestMapping("/{id}/return")
-	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
-			@PathVariable Integer id) {
-
-		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
-		LocalDateTime now = LocalDateTime.now();
-		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
-		List<Action> actions = loggedUser.getActions();
-		Resource resourceFound = resourceRepository.findOne(id);
-		for (Action action : actions) {
-			if ((action.getResource().getResource() == resourceFound) && (action.getDateLoanReturn() == null)) {
-				action.setDateLoanReturn(date);
-				ResourceCopy copyNowAvaible = action.getResource();
-				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
-				avaibleCopies.add(copyNowAvaible.getLocationCode());
-				resourceFound.setNoReservedCopies(avaibleCopies);
-				resourceRepository.save(resourceFound);
-				actionRepository.save(action);
-				loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()+1);
-				userRepository.save(loggedUser);
-				redirectAttrs.addFlashAttribute("messages", "El recurso ha sido depositado correctamente.");
-				return "redirect:/";
-			}
+		if (resourceSelected.getNoReservedCopies().isEmpty()) {
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
+			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
 		}
-		redirectAttrs.addFlashAttribute("error",
-				"La petición no ha podido ser completada.");
+		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
 		return "redirect:/";
 	}
