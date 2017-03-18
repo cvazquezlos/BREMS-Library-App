@@ -148,37 +148,6 @@ public class MainController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("/{id}/return")
-	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
-			@PathVariable Integer id) {
-
-		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
-		LocalDateTime now = LocalDateTime.now();
-		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
-		List<Action> actions = loggedUser.getActions();
-		Resource resourceFound = resourceRepository.findOne(id);
-		for (Action action : actions) {
-			if ((action.getResource().getResource() == resourceFound) && (action.getDateLoanReturn() == null)) {
-				action.setDateLoanReturn(date);
-				ResourceCopy copyNowAvaible = action.getResource();
-				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
-				avaibleCopies.add(copyNowAvaible.getLocationCode());
-				resourceFound.setNoReservedCopies(avaibleCopies);
-				resourceFound.setAvaibleReserve(!resourceFound.getAvaibleReserve());
-				resourceRepository.save(resourceFound);
-				actionRepository.save(action);
-				loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()+1);
-				userRepository.save(loggedUser);
-				redirectAttrs.addFlashAttribute("messages", "El recurso ha sido depositado correctamente.");
-				return "redirect:/";
-			}
-		}
-		redirectAttrs.addFlashAttribute("error",
-				"La petición no ha podido ser completada.");
-
-		return "redirect:/";
-	}
-
 	private static Date getDate(int year, int month, int day, int hour, int minute, int second) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);

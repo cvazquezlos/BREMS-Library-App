@@ -232,6 +232,56 @@ public class AdminController {
 		return "redirect:/admin/loans";
 	}
 
+	@RequestMapping("/admin/{id}/return")
+	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
+			@PathVariable Integer id) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Action action = actionRepository.findOne(id);
+		User userFound = action.getUser();
+		action.setDateLoanReturn(date);
+		ResourceCopy copyNowAvaible = action.getResource();
+		Resource resourceFound = copyNowAvaible.getResource();
+		ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
+		avaibleCopies.add(copyNowAvaible.getLocationCode());
+		resourceFound.setNoReservedCopies(avaibleCopies);
+		resourceFound.setAvaibleReserve(!resourceFound.getAvaibleReserve());
+		resourceRepository.save(resourceFound);
+		userFound.setAvaibleLoans(userFound.getAvaibleLoans()+1);
+		userRepository.save(userFound);
+		redirectAttrs.addFlashAttribute("messages", "El recurso ha sido devuelto correctamente.");
+
+		return "redirect:/admin/loans";
+		/*
+		List<Action> actions = userFound.getActions();
+		Resource resourceFound = resourceRepository.findOne(id);
+		for (Action action : actions) {
+			if ((action.getResource().getResource() == resourceFound) && (action.getDateLoanReturn() == null)) {
+				action.setDateLoanReturn(date);
+				ResourceCopy copyNowAvaible = action.getResource();
+				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
+				avaibleCopies.add(copyNowAvaible.getLocationCode());
+				resourceFound.setNoReservedCopies(avaibleCopies);
+				resourceFound.setAvaibleReserve(!resourceFound.getAvaibleReserve());
+				resourceRepository.save(resourceFound);
+				actionRepository.save(action);
+				userFound.setAvaibleLoans(userFound.getAvaibleLoans()+1);
+				userRepository.save(userFound);
+				redirectAttrs.addFlashAttribute("messages", "El recurso ha sido devuelto correctamente.");
+				return "redirect:/admin/loans";
+			}
+		}
+		redirectAttrs.addFlashAttribute("error",
+				"La petición no ha podido ser completada.");
+
+		return "redirect:/admin/loans";*/
+	}
+
+
+
 	@RequestMapping("/admin/loans/delete/{id}")
 	public String deleteLoan(Model model, @PathVariable Integer id, HttpServletRequest request,
 			RedirectAttributes redirectAttrs) {
