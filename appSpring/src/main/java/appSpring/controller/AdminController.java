@@ -215,6 +215,13 @@ public class AdminController {
 					model.addAttribute("messages", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 					return "admin/add_loan";
 				}
+				List<Action> previousActions = userFound.getActions();
+				for (Action action : previousActions) {
+					if (action.getResource().getResource() == resourceFound && action.getDateLoanReturn() == null) {
+						model.addAttribute("messages", "El usuario ya posee un préstamo de ese recurso.");
+						return "admin/add_loan";
+					}
+				}
 				Action reserve = new Action(date);
 				reserve.setUser(userFound);
 				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
