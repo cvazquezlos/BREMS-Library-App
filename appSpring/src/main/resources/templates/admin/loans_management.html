@@ -155,12 +155,12 @@
 	                                    <td>{{#copy}}{{#resource}}{{resource.title}}{{/resource}}{{/copy}}</td>
 	                                    <td>{{dateLoanInit}}</td>
 	                                    <td>{{^dateLoanGiven}}
-	                                    		<a href="/admin/{{id}}/give">
+	                                    		<a href="/admin/loans/{{id}}/give">
 	                                    			 <button type="button" class="btn btn-primary"><span class="fa fa-bookmark-o"></span> &nbsp; Prestar</button>
 	                                    		</a>
 	                                    	{{/dateLoanGiven}}{{#dateLoanGiven}}{{dateLoanGiven}}{{/dateLoanGiven}}</td>
 	                                    <td>{{^dateLoanReturn}}
-	                                    		<a href="/admin/{{id}}/return">
+	                                    		<a href="/admin/loans/{{id}}/return">
 	                                    			 <button type="button" class="btn btn-primary"><span class="fa fa-bookmark"></span> &nbsp; Devolución</button>
 	                                    		</a>
 	                                    	{{/dateLoanReturn}}{{#dateLoanReturn}}{{dateLoanReturn}}{{/dateLoanReturn}}</td>
