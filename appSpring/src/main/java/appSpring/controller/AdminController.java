@@ -263,22 +263,18 @@ public class AdminController {
 		ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
 		avaibleCopies.add(copyNowAvaible.getLocationCode());
 		resourceFound.setNoReservedCopies(avaibleCopies);
-		resourceFound.setAvaibleReserve(!resourceFound.getAvaibleReserve());
+		resourceFound.setAvaibleReserve(true);
 		resourceRepository.save(resourceFound);
 		userFound.setAvaibleLoans(userFound.getAvaibleLoans()+1);
 		userFound.setBanned(false);
-		
-		Date currentDate = new Date();
-		Date finishDate = new Date();
-		Date loanGivenDate = action.getDateLoanGiven();
-		loanGivenDate.setMinutes(loanGivenDate.getMinutes()+1);
-		if(loanGivenDate.before(currentDate)){
-			finishDate.setMinutes(finishDate.getMinutes()+3);
-			Fine userFine = new Fine(currentDate,finishDate,userFound, copyNowAvaible);
+		Date resourceHaveToBeReturnedDate = action.getDateLoanGiven();
+		resourceHaveToBeReturnedDate.setMinutes(resourceHaveToBeReturnedDate.getMinutes()+1);
+		if(resourceHaveToBeReturnedDate.before(date)){
+			Date banDate = new Date();
+			banDate.setMinutes(banDate.getMinutes()+3);
+			Fine userFine = new Fine(date, banDate, userFound, copyNowAvaible);
 			fineRepository.save(userFine);
 		}
-		
-		
 		List<Action> currentActions = actionRepository.findByUser(action.getUser());
 		for(Action currentAction : currentActions){
 			Date date1 = currentAction.getDateLoanGiven();
