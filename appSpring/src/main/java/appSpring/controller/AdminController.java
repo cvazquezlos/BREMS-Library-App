@@ -265,6 +265,18 @@ public class AdminController {
 		resourceFound.setAvaibleReserve(!resourceFound.getAvaibleReserve());
 		resourceRepository.save(resourceFound);
 		userFound.setAvaibleLoans(userFound.getAvaibleLoans()+1);
+		userFound.setBanned(false);
+		List<Action> currentActions = actionRepository.findByUser(action.getUser());
+		for(Action currentAction : currentActions){
+			Date date1 = currentAction.getDateLoanGiven();
+    		if(date1==null) continue;
+    		Date date3 = currentAction.getDateLoanReturn();
+    		if(date3!=null) continue;
+    		date1.setMinutes(date1.getMinutes()+1);
+    		Date date2 = new Date();
+    		if(date1.before(date2)){userFound.setBanned(true);}
+		}
+		
 		userRepository.save(userFound);
 		redirectAttrs.addFlashAttribute("messages", "El recurso ha sido devuelto correctamente.");
 
