@@ -25,8 +25,6 @@ public class DataExamples {
 	@Autowired
 	private ResourceCopyRepository resourceCopyRepository;
 	@Autowired
-	private FineRepository fineRepository;
-	@Autowired
 	private ActionRepository actionRepository;
 
 	@PostConstruct
@@ -34,7 +32,6 @@ public class DataExamples {
 
 		// Data declaration
 		Action a1, a2, a3;
-		Fine fine;
 		Genre g1, g2, g3, g4;
 		ResourceType rt1, rt2;
 		Resource res1, res2, res3, res4, res5;
@@ -190,13 +187,6 @@ public class DataExamples {
 		avaibleCopies.remove(0);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
-		fine = new Fine(new GregorianCalendar(2015, Calendar.FEBRUARY, 13).getTime(),
-				new GregorianCalendar(2015, Calendar.FEBRUARY, 20).getTime(), user1, rc1);
-		
-		fineRepository.save(fine);
-
-		fine = new Fine(getDate(2016, 8, 6, 9, 20, 14), getDate(2016, 8, 13, 9, 20, 14), user1, rc1);
-		fineRepository.save(fine);
 		
 		
 		user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com",
@@ -216,8 +206,6 @@ public class DataExamples {
 		avaibleCopies.remove(0);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
-		fine = new Fine(getDate(2016, 7, 4, 22, 15, 35), getDate(2016, 7, 11, 22, 15, 35), user3, rc3);
-		fineRepository.save(fine);
 		
 		
 		user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123",
@@ -233,8 +221,6 @@ public class DataExamples {
 		avaibleCopies.remove(0);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
-		fine = new Fine(getDate(2016, 6, 28, 10, 35, 23), getDate(2016, 7, 5, 10, 35, 23), user4, rc4);
-		fineRepository.save(fine);
 	}
 
 	private static Date getDate(int year, int month, int day, int hour, int minute, int second) {

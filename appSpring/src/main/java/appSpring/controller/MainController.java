@@ -108,7 +108,8 @@ public class MainController {
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		List<Fine> userPenalties = loggedUser.getPenalties();
 		for (Fine penalty : userPenalties) {
-			if ((today.getTime().after(penalty.getInitDate()) && today.getTime().before(penalty.getFinishDate()))) {
+			Date currentDate = new Date();
+			if (currentDate.before(penalty.getFinishDate())) {
 				redirectAttrs.addFlashAttribute("error",
 						"Actualmente tiene una penalización. No es posible hacer la reserva.");
 				return "redirect:/";
