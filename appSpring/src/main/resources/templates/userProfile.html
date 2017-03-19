@@ -32,8 +32,8 @@
 				<ul class="nav nav-tabs nav-justified" role="tablist">
 					<li role="presentation" class="active"><a href="#userProfile" aria-controls="userProfile" role="tab" data-toggle="tab">Perfil</a>
 					</li>
-					<!--<li role="presentation"><a href="#historyBookLoans" aria-controls="bookLoans" role="tab" data-toggle="tab">Historial</a>
-					</li>-->
+					<li role="presentation"><a href="#historyBookLoans" aria-controls="bookLoans" role="tab" data-toggle="tab">Historial</a>
+					</li>
 					<li role="presentation"><a href="#bookLoans" aria-controls="bookLoans" role="tab" data-toggle="tab">Préstamos</a>
 					</li>
 					<li role="presentation"><a href="#bookFines" aria-controls="bookFines" role="tab" data-toggle="tab">Multas</a>
@@ -53,7 +53,6 @@
 						<div class="row userProfile">
 							<div class="col-lg-2 avatar">
 								<img src="/img/avatars/{{avatar}}" alt="avatarUser" class="img-responsive avatar">
-
 							</div>
 							<div class="col-lg-8">
 								<h4>
@@ -111,37 +110,29 @@
 								{{/biography}} {{^biography}}
 								<p>(No hay información para mostrar)</p>
 								{{/biography}}
-
 							</div>
-							<!--
-							<div class="col-lg-6 favorites">
-								<h4>
-									<span class="glyphicon glyphicon-heart"></span> Mi lista de
-									favoritos <a href="#"><span
-										class="glyphicon glyphicon-pencil"></span>(Editar)</a>
-								</h4>
-								<p>(No hay ninguna lista para mostrar)</p>
-							</div>
-						-->
 						</div>
 					</div>
 
-					<!-- HISTORIAL
+					<!--  HISTORIAL -->
 					<div role="tabpanel" class="tab-pane" id="historyBookLoans">
 						<div class="row contentBookHistory">
 							<div class="col-lg-12">
 								<div class="listItems">
-
+									{{#history}}
+										{{>listActions}}
+									{{/history}}
 								</div>
 							</div>
 						</div>
 					</div>
-					-->
 
 					<!-- PRESTAMOS -->
 					<div role="tabpanel" class="tab-pane" id="bookLoans">
 						<div class="listItems">
-							{{#actions}} {{>listActions}} {{/actions}}
+							{{#loans}}
+								{{>listActions}}
+							{{/loans}}
 						</div>
 					</div>
 
@@ -155,26 +146,21 @@
 									<th>Fecha fin</th>
 								</tr>
 							</thead>
-
 							{{#penalties}}
-							<tr class="warning">
-								<td>{{#resourceCopy}}{{resource.title}}{{/resourceCopy}}</td>
-								<td>{{initDate}}</td>
-								<td>{{finishDate}}</td>
-							</tr>
+								<tr class="warning">
+									<td>{{#resourceCopy}}{{resource.title}}{{/resourceCopy}}</td>
+									<td>{{initDate}}</td>
+									<td>{{finishDate}}</td>
+								</tr>
 							{{/penalties}}
 						</table>
-
 					</div>
 				</div>
 			</div>
 		</div>
-
 		{{> userProfile-modalEdit}} {{/user}}
 	</div>
-
 	{{> footer}}
-
 </body>
 
 </html>
