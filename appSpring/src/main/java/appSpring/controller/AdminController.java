@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.entity.Action;
+import appSpring.entity.Fine;
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
 import appSpring.entity.ResourceCopy;
@@ -266,6 +267,18 @@ public class AdminController {
 		resourceRepository.save(resourceFound);
 		userFound.setAvaibleLoans(userFound.getAvaibleLoans()+1);
 		userFound.setBanned(false);
+		
+		Date currentDate = new Date();
+		Date finishDate = new Date();
+		Date loanGivenDate = action.getDateLoanGiven();
+		loanGivenDate.setMinutes(loanGivenDate.getMinutes()+1);
+		if(loanGivenDate.before(currentDate)){
+			finishDate.setMinutes(finishDate.getMinutes()+3);
+			Fine userFine = new Fine(currentDate,finishDate,userFound, copyNowAvaible);
+			fineRepository.save(userFine);
+		}
+		
+		
 		List<Action> currentActions = actionRepository.findByUser(action.getUser());
 		for(Action currentAction : currentActions){
 			Date date1 = currentAction.getDateLoanGiven();
