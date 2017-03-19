@@ -126,6 +126,13 @@ public class MainController {
 			redirectAttrs.addFlashAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
 		}
+		List<Action> previousActions = loggedUser.getActions();
+		for (Action action : previousActions) {
+			if (action.getResource().getResource() == resourceSelected && action.getDateLoanReturn() == null) {
+				redirectAttrs.addFlashAttribute("error", "Ya posee un préstamo reciente de este recurso.");
+				return "redirect:/";
+			}
+		}
 		LocalDateTime now = LocalDateTime.now();
 		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
 		Action reserve = new Action(date);
@@ -141,7 +148,6 @@ public class MainController {
 		if (resourceSelected.getNoReservedCopies().isEmpty()) {
 			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
 			resourceRepository.save(resourceSelected);
-			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
 		}
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
