@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.entity.Action;
+import appSpring.entity.Fine;
 import appSpring.entity.Genre;
 import appSpring.entity.Resource;
 import appSpring.entity.ResourceCopy;
@@ -196,7 +197,7 @@ public class AdminController {
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		LocalDateTime now = LocalDateTime.now();
-		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Date date = getDate(now.getYear(), now.getMonthValue()-1, now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
 		User userFound = userRepository.findByName(user);
 		Resource resourceFound = resourceRepository.findByTitleLikeIgnoreCase("%" + title + "%");
 		if (userFound == null) {
@@ -212,8 +213,15 @@ public class AdminController {
 				return "admin/add_loan";
 			} else {
 				if (resourceFound.getNoReservedCopies().isEmpty()) {
-					model.addAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
+					model.addAttribute("messages", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 					return "admin/add_loan";
+				}
+				List<Action> previousActions = userFound.getActions();
+				for (Action action : previousActions) {
+					if (action.getResource().getResource() == resourceFound && action.getDateLoanReturn() == null) {
+						model.addAttribute("messages", "El usuario ya posee un préstamo de ese recurso.");
+						return "admin/add_loan";
+					}
 				}
 				Action reserve = new Action(date);
 				reserve.setUser(userFound);
@@ -228,6 +236,74 @@ public class AdminController {
 			}
 		}
 		redirectAttrs.addFlashAttribute("messages", "Nuevo péstamo añadido al usuario " + userFound.getName() + ".");
+
+		return "redirect:/admin/loans";
+	}
+
+	@RequestMapping("/admin/loans/{id}/return")
+	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
+			@PathVariable Integer id) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue()-1, now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Action action = actionRepository.findOne(id);
+		if (action.getDateLoanGiven() == null) {
+			redirectAttrs.addFlashAttribute("error", "El recurso debe ser entregado primero al usuario.");
+			return "redirect:/admin/loans";
+		} else if (action.getDateLoanReturn() != null) {
+			redirectAttrs.addFlashAttribute("error", "El recurso ya ha sido devuelto con anterioridad.");
+			return "redirect:/admin/loans";
+		}
+		User userFound = action.getUser();
+		action.setDateLoanReturn(date);
+		ResourceCopy copyNowAvaible = action.getResource();
+		Resource resourceFound = copyNowAvaible.getResource();
+		ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
+		avaibleCopies.add(copyNowAvaible.getLocationCode());
+		resourceFound.setNoReservedCopies(avaibleCopies);
+		resourceFound.setAvaibleReserve(true);
+		resourceRepository.save(resourceFound);
+		userFound.setAvaibleLoans(userFound.getAvaibleLoans()+1);
+		userFound.setBanned(false);
+		Date resourceHaveToBeReturnedDate = action.getDateLoanGiven();
+		resourceHaveToBeReturnedDate.setMinutes(resourceHaveToBeReturnedDate.getMinutes()+1);
+		if(resourceHaveToBeReturnedDate.before(date)){
+			Date banDate = new Date();
+			banDate.setMinutes(banDate.getMinutes()+3);
+			Fine userFine = new Fine(date, banDate, userFound, copyNowAvaible);
+			fineRepository.save(userFine);
+		}
+		List<Action> currentActions = actionRepository.findByUser(action.getUser());
+		for(Action currentAction : currentActions){
+			Date date1 = currentAction.getDateLoanGiven();
+    		if(date1==null) continue;
+    		Date date3 = currentAction.getDateLoanReturn();
+    		if(date3!=null) continue;
+    		date1.setMinutes(date1.getMinutes()+1);
+    		Date date2 = new Date();
+    		if(date1.before(date2)){userFound.setBanned(true);}
+		}
+		
+		userRepository.save(userFound);
+		redirectAttrs.addFlashAttribute("messages", "El recurso ha sido devuelto correctamente.");
+
+		return "redirect:/admin/loans";
+	}
+
+	@RequestMapping("/admin/loans/{id}/give")
+	public String giveResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
+			@PathVariable Integer id) {
+
+		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		model.addAttribute("admin", loggedAdmin);
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue()-1, now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Action action = actionRepository.findOne(id);
+		action.setDateLoanGiven(date);
+		actionRepository.save(action);
+		redirectAttrs.addFlashAttribute("messages", "El recurso ha sido entregado al usuario correctamente.");
 
 		return "redirect:/admin/loans";
 	}

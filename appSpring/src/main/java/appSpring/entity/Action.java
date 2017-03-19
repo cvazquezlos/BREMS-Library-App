@@ -18,6 +18,7 @@ public class Action {
 	private Integer id;
 
 	private Date dateLoanInit;
+	private Date dateLoanGiven;
 	private Date dateLoanReturn;
 
 	@ManyToOne
@@ -35,6 +36,7 @@ public class Action {
 	public Action(Date dateLoanInit) {
 		this.dateLoanInit = dateLoanInit;
 		dateLoanReturn = null;
+		dateLoanGiven = null;
 	}
 
 	public Integer getID() {
@@ -53,6 +55,14 @@ public class Action {
 		this.dateLoanInit = dateLoanInit;
 	}
 
+	public Date getDateLoanGiven() {
+		return dateLoanGiven;
+	}
+
+	public void setDateLoanGiven(Date dateLoanGiven) {
+		this.dateLoanGiven = dateLoanGiven;
+	}
+
 	public Date getDateLoanReturn() {
 		return dateLoanReturn;
 	}
@@ -60,6 +70,7 @@ public class Action {
 	public void setDateLoanReturn(Date dateLoanReturn) {
 		this.dateLoanReturn = dateLoanReturn;
 	}
+
 
 	public ResourceCopy getResource() {
 		return copy;

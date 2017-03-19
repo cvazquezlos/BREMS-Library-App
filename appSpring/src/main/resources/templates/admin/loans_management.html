@@ -141,7 +141,9 @@
                                     <th>Identificador</th>
                                     <th>Usuario</th>
                                     <th>Recurso</th>
-                                    <th>Inicio</th>
+                                    <th>Petición</th>
+                                    <th>Préstamo</th>
+                                    <th>Devolución</th>
                                     <th>Administrar</th>
                                 </tr>
                             </thead>
@@ -152,8 +154,20 @@
 	                                    <td>{{#user}}{{name}}{{/user}}</td>
 	                                    <td>{{#copy}}{{#resource}}{{resource.title}}{{/resource}}{{/copy}}</td>
 	                                    <td>{{dateLoanInit}}</td>
+	                                    <td>{{^dateLoanGiven}}
+	                                    		<a href="/admin/loans/{{id}}/give">
+	                                    			 <button type="button" class="btn btn-primary"><span class="fa fa-bookmark-o"></span> &nbsp; Prestar</button>
+	                                    		</a>
+	                                    	{{/dateLoanGiven}}{{#dateLoanGiven}}{{dateLoanGiven}}{{/dateLoanGiven}}</td>
+	                                    <td>{{^dateLoanReturn}}
+	                                    		<a href="/admin/loans/{{id}}/return">
+	                                    			 <button type="button" class="btn btn-primary"><span class="fa fa-bookmark"></span> &nbsp; Devolución</button>
+	                                    		</a>
+	                                    	{{/dateLoanReturn}}{{#dateLoanReturn}}{{dateLoanReturn}}{{/dateLoanReturn}}</td>
 	                                    <td>
-	                                        <a href="/admin/loans/delete/{{id}}" class="fa fa-trash"></a>
+	                                        <a href="/admin/loans/delete/{{id}}">
+	                                        	<button type="button"  class="btn btn-warning"><span class="fa fa-trash"></span></button>
+	                                        </a>
 	                                    </td>
 	                                </tr>
                                 {{/action}}

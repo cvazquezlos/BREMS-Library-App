@@ -108,11 +108,17 @@ public class MainController {
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		List<Fine> userPenalties = loggedUser.getPenalties();
 		for (Fine penalty : userPenalties) {
-			if ((today.getTime().after(penalty.getInitDate()) && today.getTime().before(penalty.getFinishDate()))) {
+			Date currentDate = new Date();
+			if (currentDate.before(penalty.getFinishDate())) {
 				redirectAttrs.addFlashAttribute("error",
 						"Actualmente tiene una penalización. No es posible hacer la reserva.");
 				return "redirect:/";
 			}
+		}
+		if (loggedUser.getisBanned()){
+			redirectAttrs.addFlashAttribute("error",
+					"Actualmente tiene libros sin devolver fuera de plazo. No es posible hacer la reserva.");
+			return "redirect:/";
 		}
 		if (loggedUser.getAvaibleLoans()==0) {
 			redirectAttrs.addFlashAttribute("error", "Actualmente no puede reservar más recursos. El límite es de 3.");
@@ -120,9 +126,18 @@ public class MainController {
 		}
 		Resource resourceSelected = resourceRepository.findOne(id);
 		if (resourceSelected.getNoReservedCopies().isEmpty()) {
-			redirectAttrs.addFlashAttribute("error",
-					"No existen copias suficientes del recurso. Inténtelo más tarde.");
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
+			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
+			redirectAttrs.addFlashAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
+		}
+		List<Action> previousActions = loggedUser.getActions();
+		for (Action action : previousActions) {
+			if (action.getResource().getResource() == resourceSelected && action.getDateLoanReturn() == null) {
+				redirectAttrs.addFlashAttribute("error", "Ya posee un préstamo reciente de este recurso.");
+				return "redirect:/";
+			}
 		}
 		LocalDateTime now = LocalDateTime.now();
 		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
@@ -136,37 +151,11 @@ public class MainController {
 		resourceRepository.save(resourceSelected);
 		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
 		userRepository.save(loggedUser);
-		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
-
-		return "redirect:/";
-	}
-
-	@RequestMapping("/{id}/return")
-	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
-			@PathVariable Integer id) {
-
-		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
-		LocalDateTime now = LocalDateTime.now();
-		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
-		List<Action> actions = loggedUser.getActions();
-		Resource resourceFound = resourceRepository.findOne(id);
-		for (Action action : actions) {
-			if ((action.getResource().getResource() == resourceFound) && (action.getDateLoanReturn() == null)) {
-				action.setDateLoanReturn(date);
-				ResourceCopy copyNowAvaible = action.getResource();
-				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
-				avaibleCopies.add(copyNowAvaible.getLocationCode());
-				resourceFound.setNoReservedCopies(avaibleCopies);
-				resourceRepository.save(resourceFound);
-				actionRepository.save(action);
-				loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()+1);
-				userRepository.save(loggedUser);
-				redirectAttrs.addFlashAttribute("messages", "El recurso ha sido depositado correctamente.");
-				return "redirect:/";
-			}
+		if (resourceSelected.getNoReservedCopies().isEmpty()) {
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
 		}
-		redirectAttrs.addFlashAttribute("error",
-				"La petición no ha podido ser completada.");
+		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
 		return "redirect:/";
 	}

@@ -157,9 +157,13 @@
                                                         <td>{{penalties.size}}</td>
                                                         <td>{{actions.size}}</td>
                                                         <td>
-                                                            <a href="/admin/users/edit/{{id}}" class="fa fa-pencil" href="#"></a>
+                                                            <a href="/admin/users/edit/{{id}}">
+	                                        					<button type="button"  class="btn btn-success"><span class="fa fa-pencil"></span></button>
+                                                            </a>
                                                             &nbsp;&nbsp;
-                                                            <a href="/admin/users/delete/{{id}}" class="fa fa-trash"></a>
+                                                            <a href="/admin/users/delete/{{id}}">
+	                                        					<button type="button"  class="btn btn-warning"><span class="fa fa-trash"></span></button>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                     {{/users}}
