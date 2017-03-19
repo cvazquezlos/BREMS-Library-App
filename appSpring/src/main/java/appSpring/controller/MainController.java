@@ -114,6 +114,11 @@ public class MainController {
 				return "redirect:/";
 			}
 		}
+		if (loggedUser.getisBanned()){
+			redirectAttrs.addFlashAttribute("error",
+					"Actualmente tiene libros sin devolver fuera de plazo. No es posible hacer la reserva.");
+			return "redirect:/";
+		}
 		if (loggedUser.getAvaibleLoans()==0) {
 			redirectAttrs.addFlashAttribute("error", "Actualmente no puede reservar más recursos. El límite es de 3.");
 			return "redirect:/";

@@ -36,10 +36,11 @@ public class ScheduledTasks {
         for(int i=0; i<allUsers.size()+1; i++){        	
         	List<Action> currentActions = actionRepository.findByUserId(i);
         	
-        	for(int j=0; j<currentActions.size(); j++){
-        		Action currentAction = currentActions.get(j);
+        	for(Action currentAction : currentActions){
         		Date date1 = currentAction.getDateLoanGiven();
         		if(date1==null) continue;
+        		Date date3 = currentAction.getDateLoanReturn();
+        		if(date3!=null) continue;
         		date1.setMinutes(date1.getMinutes()+1);
         		Date date2 = new Date();
         		if(date1.before(date2)){
