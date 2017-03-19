@@ -37,6 +37,7 @@ public class User {
 	private String biography;
 	private String avatar;
 	private int avaibleLoans;
+	private boolean isBanned;
 	
 	@ElementCollection
 	private List<String> literaryHobby;
@@ -75,6 +76,7 @@ public class User {
 		this.literaryHobby.add("Literatura");
 		this.literaryHobby.add("Drama");
 		avaibleLoans = 3;
+		this.isBanned = false;
 	}
 
 	public Integer getId() {
@@ -229,6 +231,14 @@ public class User {
 
 	public void setAvaibleLoans(int avaibleLoans) {
 		this.avaibleLoans = avaibleLoans;
+	}
+	
+	public boolean getisBanned() {
+		return this.isBanned;
+	}
+
+	public void setBanned(boolean b) {
+		this.isBanned = b;
 	}
 
 }
