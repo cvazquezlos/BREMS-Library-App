@@ -204,6 +204,18 @@ public class AdminController {
 			model.addAttribute("messages", "No existe el usuario.");
 			return "admin/add_loan";
 		} else {
+			List<Fine> userPenalties = userFound.getPenalties();
+			for (Fine fine : userPenalties) {
+				if (date.before(fine.getFinishDate())) {
+					model.addAttribute("messages", "El usuario actualmente tiene una penalización. No es posible hacer la reserva.");
+					return "admin/add_loan";
+				}
+			}
+			if (userFound.getisBanned()){
+				redirectAttrs.addFlashAttribute("error",
+						"Actualmente tiene libros sin devolver fuera de plazo. No es posible hacer la reserva.");
+				return "redirect:/";
+			}
 			if (userFound.getAvaibleLoans()==0) {
 				model.addAttribute("messages", "Actualmente no puede reservar más recursos. El límite es de 3.");
 				return "admin/add_loan";
@@ -314,6 +326,15 @@ public class AdminController {
 
 		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
+		Action selected = actionRepository.findOne(id);
+		if (selected.getDateLoanGiven() != null && selected.getDateLoanReturn() == null) {
+			redirectAttrs.addFlashAttribute("error", "El préstamo está en trámite. No es posible eliminarlo.");
+			return "redirect:/admin/loans";
+		}
+		ResourceCopy loanCopy = selected.getResource();
+		Resource associatedResource = loanCopy.getResource();
+		associatedResource.getNoReservedCopies().add(loanCopy.getLocationCode());
+		resourceRepository.save(associatedResource);
 		redirectAttrs.addFlashAttribute("messages",
 				"Préstamo del usuario " + actionRepository.findOne(id).getUser().getName() + " eliminado.");
 		actionRepository.delete(id);
@@ -450,13 +471,11 @@ public class AdminController {
 		resourceRepository.save(resource);
 
 		if (copyNumber < resource.getResourceCopies().size()) {
-			if (copyNumber > resource.getNoReservedCopies().size()) {
-				redirectAttrs.addFlashAttribute("error", "Actualmente hay copias en préstamo. El cambio no es posible.");
-				return "redirect:/admin/resources/edit/{id}";
-			} else {
+			if ((resource.getResourceCopies().size() - copyNumber) <= resource.getNoReservedCopies().size()) {
 				ArrayList<String> avaibleCopies = resource.getNoReservedCopies();
 				List<ResourceCopy> copies = resource.getResourceCopies();
-				for (int i = 0; i < copyNumber; i++) {
+				int counter = copies.size() - copyNumber;
+				for (int i = 0; i < counter; i++) {
 					ResourceCopy copy = resourceCopyRepository.findByLocationCode(avaibleCopies.get(0));
 					copies.remove(copy);
 					resourceCopyRepository.delete(copy);
@@ -465,6 +484,21 @@ public class AdminController {
 				resource.setNoReservedCopies(avaibleCopies);
 				resource.setResourceCopies(copies);
 				resourceRepository.save(resource);
+				/*ArrayList<String> avaibleCopies = resource.getNoReservedCopies();
+				List<ResourceCopy> copies = resource.getResourceCopies();
+				for (int i = 0; i < (copyNumber - resource.getNoReservedCopies().size()); i++) {
+					ResourceCopy copy = resourceCopyRepository.findByLocationCode(avaibleCopies.get(0));
+					copies.remove(copy);
+					resourceCopyRepository.delete(copy);
+					avaibleCopies.remove(0);
+				}
+				resource.setNoReservedCopies(avaibleCopies);
+				resource.setResourceCopies(copies);
+				resourceRepository.save(resource);
+			} else if (copyNumber < resource.getNoReservedCopies().size()){*/
+			} else {
+				redirectAttrs.addFlashAttribute("error", "Actualmente hay copias en préstamo. El cambio no es posible.");
+				return "redirect:/admin/resources/edit/{id}";
 			}
 		} else if (copyNumber > resource.getResourceCopies().size()) {
 			for (int i = 0; i < (copyNumber - resource.getResourceCopies().size()); i++) {
