@@ -1,6 +1,9 @@
 package appSpring.controller;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +23,7 @@ import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.ActionRepository;
+import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.repository.UserRepository;
@@ -31,6 +35,8 @@ public class MainController {
 	private ResourceRepository resourceRepository;
 	@Autowired
 	private ResourceTypeRepository resourceTypeRepo;
+	@Autowired
+	private ResourceCopyRepository resourceCopyRepo;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -102,23 +108,68 @@ public class MainController {
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		List<Fine> userPenalties = loggedUser.getPenalties();
 		for (Fine penalty : userPenalties) {
-			if ((today.getTime().before(penalty.getInitDate()) && today.getTime().after(penalty.getFinishDate()))) {
+			Date currentDate = new Date();
+			if (currentDate.before(penalty.getFinishDate())) {
 				redirectAttrs.addFlashAttribute("error",
-						"Actualmente tienes una penalización. No es posible hacer la reserva.");
+						"Actualmente tiene una penalización. No es posible hacer la reserva.");
 				return "redirect:/";
 			}
 		}
-
-		//Action reserve = new Action(today.getTime());
-		Action reserve = new Action(today.getTime(), Action.RESERVAR);
-		reserve.setUser(loggedUser);
+		if (loggedUser.getisBanned()){
+			redirectAttrs.addFlashAttribute("error",
+					"Actualmente tiene libros sin devolver fuera de plazo. No es posible hacer la reserva.");
+			return "redirect:/";
+		}
+		if (loggedUser.getAvaibleLoans()==0) {
+			redirectAttrs.addFlashAttribute("error", "Actualmente no puede reservar más recursos. El límite es de 3.");
+			return "redirect:/";
+		}
 		Resource resourceSelected = resourceRepository.findOne(id);
-		ResourceCopy copySelected = resourceSelected.getResourceCopies().get(0);
-		reserve.setResource(copySelected);
+		if (resourceSelected.getNoReservedCopies().isEmpty()) {
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
+			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
+			redirectAttrs.addFlashAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
+			return "redirect:/";
+		}
+		List<Action> previousActions = loggedUser.getActions();
+		for (Action action : previousActions) {
+			if (action.getResource().getResource() == resourceSelected && action.getDateLoanReturn() == null) {
+				redirectAttrs.addFlashAttribute("error", "Ya posee un préstamo reciente de este recurso.");
+				return "redirect:/";
+			}
+		}
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Action reserve = new Action(date);
+		reserve.setUser(loggedUser);
+		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
+		reserve.setResource(resourceCopyRepo.findByLocationCode(avaibleCopies.get(0)));
+		avaibleCopies.remove(0);
 		actionRepository.save(reserve);
+		resourceSelected.setNoReservedCopies(avaibleCopies);
+		resourceRepository.save(resourceSelected);
+		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
+		userRepository.save(loggedUser);
+		if (resourceSelected.getNoReservedCopies().isEmpty()) {
+			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
+			resourceRepository.save(resourceSelected);
+		}
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
 		return "redirect:/";
 	}
+
+	private static Date getDate(int year, int month, int day, int hour, int minute, int second) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, second);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
 
 }
