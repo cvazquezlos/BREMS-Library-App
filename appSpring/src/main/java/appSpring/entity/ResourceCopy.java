@@ -10,19 +10,31 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import appSpring.entity.Resource.Basic;
+
 @Entity
 public class ResourceCopy {
 
+	public interface Basic {}
+	public interface Fin {}
+	public interface Reso {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private Integer id;
 
 	@ManyToOne
+	@JsonView(Reso.class)
 	private Resource resource;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resourceCopy")
+	@JsonView(Fin.class)
 	private List<Fine> penalties;
 
+	@JsonView(Basic.class)
 	private String locationCode;
 
 	public ResourceCopy() {
