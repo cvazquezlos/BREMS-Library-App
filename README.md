@@ -82,33 +82,12 @@ This app contains views (each page which makes this website useful). As a librar
 
 This is the *navigation diagram*
 
-![Alt text](http://g.gravizo.com/g?
-  digraph G {
-    aize ="6,4";
-    index [shape=box];
-    profile [shape=box];
-    administrator [shape=box];
-    edit [shape=box];
-    index -> profile;
-    profile -> index;
-    profile -> administrator;
-    profile -> edit;
-    administrator -> resources;
-    administrator -> loans;
-    administrator -> fines;
-    administrator -> users;
-    administrator -> index;
-    index -> about;
-    about -> index;
-    about -> contact;
-    about -> profile;
-    contact -> about;
-    contact -> profile;
-    index -> contact;
-    contact -> index;
-    index -> book;
-    book -> author;
-    book -> index;
-    author -> index;
-  }
-)
+
+#### Data base entities diagram
+![database-entities][db-e]
+
+#### Components, repositories and templates diagram
+![com-rep-temp][c-r-t]
+
+[db-e]: http://i64.tinypic.com/1zzhop3.jpg
+[c-r-t]: http://i66.tinypic.com/jfyqvl.png

@@ -8,15 +8,15 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/admin/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/admin/css/AdminLTE.min.css">
 
-    <link rel="stylesheet" href="css/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="/admin/css/skins/skin-purple.min.css">
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -26,9 +26,9 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="home.html" class="logo">
+            <a href="/admin/" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <img src="../img/logo.png" width="50" height="50">
+                <img src="../../img/logo.png" width="50" height="50">
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-mini">BREMS</span>
             </a>
@@ -47,16 +47,16 @@
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                <img src="img/icon-profile.png" class="user-image" alt="User Image">
+                                <img src="/admin/img/icon-profile.png" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Administrador</span>
+                                <span class="hidden-xs">{{#admin}}{{firstName}} {{lastName1}}{{/admin}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
                                     <img src="img/icon-profile.png" class="img-circle" alt="User Image">
                                     <p>
-                                        Administrador de BREMS
+                                        {{#admin}}{{firstName}} {{lastName1}} {{lastName2}}{{/admin}}
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -80,35 +80,24 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="img/icon-profile.png" class="img-circle" alt="User Image">
+                        <img src="/admin/img/icon-profile.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Administrador</p>
+                        <p>{{#admin}}{{firstName}} {{lastName1}}{{/admin}}</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
                     </div>
                 </div>
 
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                        <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
                     <li class="header">MENÚ</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li><a href="home.html"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
-                    <li><a href="resource_management.html"><i class="fa fa-book"></i> <span>Recursos</span></a></li>
-                    <li class="active"><a href="loans_management.html"><i class="fa fa-book"></i> <span>Préstamos</span></a></li>
-                    <li><a href="fines_management.html"><i class="fa fa-book"></i> <span>Multas</span></a></li>
-                    <li><a href="user_management.html"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+                    <li><a href="/admin/"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+                    <li><a href="/admin/resources"><i class="fa fa-book"></i> <span>Recursos</span></a></li>
+                    <li class="active"><a href="/admin/loans"><i class="fa fa-book"></i> <span>Préstamos</span></a></li>
+                    <li><a href="/admin/fines"><i class="fa fa-book"></i> <span>Multas</span></a></li>
+                    <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -117,6 +106,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            {{#messages}}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{messages}}
+            </div>
+            {{/messages}}
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -124,8 +119,8 @@
             <small>Administra los préstamos de los recursos</small>
           </h1>
                 <ol class="breadcrumb">
-                    <li><a href="home.html"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                    <li><a href="loans_management.html">Préstamo</a></li>
+                    <li><a href="/admin/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                    <li><a href="/admin/loans">Préstamo</a></li>
                     <li class="active">Añadir préstamo</li>
                 </ol>
             </section>
@@ -141,28 +136,23 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label>Identificador del préstamo</label>
-                                    <input type="text" class="form-control" placeholder="Identificador">
-                                </div>
-                                <br>
-                                <div class="pull-left">
-                                    <button type="button" class="btn btn-success">Añadir préstamo</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label>Usuario</label>
-                                    <input type="text" class="form-control" placeholder="Usuario">
-                                </div>
-                                <div class="form-group">
-                                    <label>Duración del préstamo</label>
-                                    <input type="text" class="form-control" placeholder="Duración">
-                                </div>
-                            </div>
+                            <form action="/admin/loans/add/action" method="post">
+	                            <div class="col-lg-8">
+	                                <div class="form-group">
+	                                    <label>Título del recurso a prestar</label>
+	                                    <input type="text" class="form-control" name="title" placeholder="Título" required>
+	                                </div>
+	                                <div class="form-group">
+	                                    <label>Usuario</label>
+	                                    <input type="text" class="form-control" name="user" placeholder="Usuario" required>
+	                                </div>
+	                                <br>
+	                                <div class="pull-left">
+	                                    <input type="submit" class="btn btn-success">
+	                                </div>
+	                            </div>
+	                    	</form>
                         </div>
-
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -175,7 +165,7 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2017 <a href="../index.html">BREMS</a>.</strong> Todos los derechos reservados.
+            <strong>Copyright &copy; 2017 <a href="/">BREMS</a>.</strong> Todos los derechos reservados.
         </footer>
     </div>
     <!-- ./wrapper -->
@@ -183,11 +173,11 @@
     <!-- REQUIRED JS SCRIPTS -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="js/jQuery-2.1.4.min.js"></script>
+    <script src="/admin/js/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/admin/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="js/app.min.js"></script>
+    <script src="/admin/js/app.min.js"></script>
 </body>
 
 </html>

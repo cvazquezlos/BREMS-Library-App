@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Panel de Administración | Book Reserve Management System</title>
+    <title>Panel de Administrador | Book Reserve Management System</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -26,7 +26,7 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="home.html" class="logo">
+            <a href="/admin/" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <img src="../img/logo.png" width="50" height="50">
                 <!-- logo for regular state and mobile devices -->
@@ -49,14 +49,14 @@
                                 <!-- The user image in the navbar-->
                                 <img src="img/icon-profile.png" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Administrador</span>
+                                <span class="hidden-xs">{{#admin}}{{firstName}} {{lastName1}}{{/admin}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
                                     <img src="img/icon-profile.png" class="img-circle" alt="User Image">
                                     <p>
-                                        Administrador de BREMS
+                                        {{#admin}}{{firstName}} {{lastName1}} {{lastName2}}{{/admin}}
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -83,32 +83,21 @@
                         <img src="img/icon-profile.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Administrador</p>
+                        <p>{{#admin}}{{firstName}} {{lastName1}}{{/admin}}</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
                     </div>
                 </div>
 
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                        <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
                     <li class="header">MENÚ</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li><a href="home.html"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
-                    <li><a href="resource_management.html"><i class="fa fa-book"></i> <span>Recursos</span></a></li>
-                    <li><a href="loans_management.html"><i class="fa fa-book"></i> <span>Préstamos</span></a></li>
-                    <li><a href="fines_management.html"><i class="fa fa-book"></i> <span>Multas</span></a></li>
-                    <li class="active"><a href="user_management.html"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+                    <li><a href="/admin/"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+                    <li><a href="/admin/resources"><i class="fa fa-book"></i> <span>Recursos</span></a></li>
+                    <li><a href="/admin/loans"><i class="fa fa-book"></i> <span>Préstamos</span></a></li>
+                    <li><a href="/admin/fines"><i class="fa fa-book"></i> <span>Multas</span></a></li>
+                    <li class="active"><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -117,6 +106,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            {{#messages}}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{messages}}
+            </div>
+            {{/messages}}
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -124,7 +119,7 @@
             <small>Administra los usuarios</small>
           </h1>
                 <ol class="breadcrumb">
-                    <li><a href="home.html"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                    <li><a href="/admin/"><i class="fa fa-dashboard"></i> Inicio</a></li>
                     <li class="active">Usuarios</li>
                 </ol>
             </section>
@@ -134,62 +129,47 @@
 
                 <!-- Your Page Content Here -->
                 <table class="table table-bordered table-striped" style="background-color: white !important;">
-                    <col width="15%">
-                        <col width="10%">
+                    <col width="10%">
+                        <col width="7%">
                             <col width="7%">
                                 <col width="7%">
                                     <col width="7%">
                                         <col width="7%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre y apellidos</th>
-                                                    <th>Usuario</th>
-                                                    <th>Libros leídos</th>
-                                                    <th>Multas</th>
-                                                    <th>Préstamos</th>
-                                                    <th>Administrar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Name and surname</td>
-                                                    <td>User</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Name and surname</td>
-                                                    <td>User</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Name and surname</td>
-                                                    <td>User</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>
-                                                        <a class="fa fa-pencil" href="#"></a>
-                                                        &nbsp;&nbsp;
-                                                        <a class="fa fa-trash"></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                            <col width="7%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre y apellidos</th>
+                                                        <th>Usuario</th>
+                                                        <th>Rol(es)</th>
+                                                        <th>Libros leídos</th>
+                                                        <th>Multas</th>
+                                                        <th>Préstamos</th>
+                                                        <th>Administrar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#users}}
+                                                    <tr>
+                                                        <td>{{firstName}} {{lastName1}} {{lastName2}}</td>
+                                                        <td>{{name}}</td>
+                                                        <td>{{roles}}</td>
+                                                        <td>0</td>
+                                                        <td>{{penalties.size}}</td>
+                                                        <td>{{actions.size}}</td>
+                                                        <td>
+                                                            <a href="/admin/users/edit/{{id}}">
+	                                        					<button type="button"  class="btn btn-success"><span class="fa fa-pencil"></span></button>
+                                                            </a>
+                                                            &nbsp;&nbsp;
+                                                            <a href="/admin/users/delete/{{id}}">
+	                                        					<button type="button"  class="btn btn-warning"><span class="fa fa-trash"></span></button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    {{/users}}
+                                                </tbody>
                 </table>
-                <a href="add_user.html">
+                <a href="/admin/users/add">
                     <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir usuario</button>
                 </a>
 
@@ -201,7 +181,7 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2017 <a href="../index.html">BREMS</a>.</strong> Todos los derechos reservados.
+            <strong>Copyright &copy; 2017 <a href="/">BREMS</a>.</strong> Todos los derechos reservados.
         </footer>
     </div>
     <!-- ./wrapper -->
