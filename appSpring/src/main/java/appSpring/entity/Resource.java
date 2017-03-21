@@ -2,6 +2,8 @@ package appSpring.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,28 +18,46 @@ import javax.persistence.OneToOne;
 @Entity
 public class Resource {
 
+	public interface Basic {}
+
+	public interface ResoType {}
+
+	public interface Genr {}
+
+	public interface ResoCopy {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private Integer id;
 
+	@JsonView(Basic.class)
 	private String title;
+	@JsonView(Basic.class)
 	private String author;
+	@JsonView(Basic.class)
 	private String editorial;
+	@JsonView(Basic.class)
 	private String picture;
-	private int copiesNumber;
+	@JsonView(Basic.class)
 	private ArrayList<String> noReservedCopies;
+	@JsonView(Basic.class)
 	private Boolean avaiblereserve;
 
 	@Column(length = 1024)
+	@JsonView(Basic.class)
 	private String description;
 
 	@OneToOne
+	@JsonView(ResoType.class)
 	private ResourceType resourceType;
 
 	@ManyToOne
+	@JsonView(Genr.class)
 	private Genre genre;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resource")
+	@JsonView(ResoCopy.class)
 	private List<ResourceCopy> copies = new ArrayList<ResourceCopy>();
 
 	protected Resource() {
@@ -92,14 +112,6 @@ public class Resource {
 
 	public void setEditorial(String editorial) {
 		this.editorial = editorial;
-	}
-
-	public int getCopiesNumber() {
-		return copiesNumber;
-	}
-
-	public void setCopiesNumber(int copiesNumber) {
-		this.copiesNumber = copiesNumber;
 	}
 
 	public String getDescription() {
