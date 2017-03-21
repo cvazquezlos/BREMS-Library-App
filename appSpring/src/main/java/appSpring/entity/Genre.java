@@ -8,16 +8,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Genre {
 
+	public interface Basic {}
+	public interface Reso {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private Integer id;
 
+	@JsonView(Basic.class)
 	private String name;
 
 	@OneToMany(mappedBy = "genre")
+	@JsonView(Reso.class)
 	private List<Resource> resources;
 
 	protected Genre() {

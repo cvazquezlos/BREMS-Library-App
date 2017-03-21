@@ -10,16 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.entity.Action;
 import appSpring.entity.Fine;
 import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 import appSpring.entity.User;
 import appSpring.repository.ActionRepository;
@@ -28,7 +27,7 @@ import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.repository.UserRepository;
 
-@Controller
+@RestController
 public class MainController {
 
 	@Autowired
@@ -159,6 +158,8 @@ public class MainController {
 
 		return "redirect:/";
 	}
+
+
 
 	private static Date getDate(int year, int month, int day, int hour, int minute, int second) {
         Calendar cal = Calendar.getInstance();
