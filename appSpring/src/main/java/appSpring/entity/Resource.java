@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+
 @Entity
 public class Resource {
 
@@ -34,9 +38,11 @@ public class Resource {
 	@OneToOne
 	private ResourceType resourceType;
 
+	@JsonIgnore
 	@ManyToOne
 	private Genre genre;
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resource")
 	private List<ResourceCopy> copies = new ArrayList<ResourceCopy>();
 

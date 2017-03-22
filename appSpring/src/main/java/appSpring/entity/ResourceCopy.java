@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ResourceCopy {
 
@@ -17,6 +19,7 @@ public class ResourceCopy {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@JsonIgnore
 	@ManyToOne
 	private Resource resource;
 	
