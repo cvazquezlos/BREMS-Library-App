@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Action {
 	
@@ -24,6 +26,7 @@ public class Action {
 	@ManyToOne
 	private ResourceCopy copy;
 
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 
