@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.controller.ResourceController.ResourceDetail;
+import appSpring.entity.Genre;
 import appSpring.entity.Resource;
+import appSpring.entity.ResourceCopy;
+import appSpring.entity.ResourceType;
 import appSpring.repository.ResourceRepository;
 
 @RestController
 @RequestMapping("/api/resources")
 public class ResourceRestController {
+	
+	public interface ResourceDetail extends Resource.Basic, Resource.ResoType, Resource.Genr, Resource.ResoCopy, ResourceCopy.Basic, Genre.Basic, ResourceType.Basic {}
 	
 	@Autowired
 	private ResourceRepository resourceRepository;

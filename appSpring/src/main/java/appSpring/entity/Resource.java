@@ -2,7 +2,6 @@ package appSpring.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.CascadeType;
@@ -15,19 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
 @Entity
 public class Resource {
 
 	public interface Basic {}
-
 	public interface ResoType {}
-
 	public interface Genr {}
-
 	public interface ResoCopy {}
 
 	@Id
@@ -138,8 +130,8 @@ public class Resource {
 		return genre;
 	}
 
-	public void setGenre(Genre genre) {
-		this.genre = genre;
+	public void setGenre(Genre g3) {
+		this.genre = g3;
 	}
 
 	public List<ResourceCopy> getResourceCopies() {

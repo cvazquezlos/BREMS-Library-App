@@ -13,8 +13,6 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.entity.Resource.Basic;
-
 @Entity
 public class ResourceCopy {
 
@@ -29,7 +27,8 @@ public class ResourceCopy {
 
 	@JsonIgnore
 	@ManyToOne
-	@JsonView(Reso.class)
+	//@JsonView(Reso.class)
+	@JsonView(Basic.class)
 	private Resource resource;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resourceCopy")

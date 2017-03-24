@@ -17,16 +17,22 @@ import javax.persistence.OneToMany;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class User {
+	
+	public interface UserLoan {}
 
+	@JsonView(UserLoan.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@JsonView(UserLoan.class)
 	@Column(unique = true)
 	private String name;
+	
 	@JsonIgnore
 	private String passwordHash;
 	private String dni;
