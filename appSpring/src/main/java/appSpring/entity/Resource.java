@@ -130,8 +130,8 @@ public class Resource {
 		return genre;
 	}
 
-	public void setGenre(Genre genre) {
-		this.genre = genre;
+	public void setGenre(Genre g3) {
+		this.genre = g3;
 	}
 
 	public List<ResourceCopy> getResourceCopies() {

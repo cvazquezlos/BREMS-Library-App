@@ -15,11 +15,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Action {
-	
-	public interface Basic {}
-	public interface Usr {}
-	public interface ResoCopy {}
 
+	public interface Basic {}
+
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonView(Basic.class)
@@ -32,18 +31,24 @@ public class Action {
 	@JsonView(Basic.class)
 	private Date dateLoanReturn;
 
+	@JsonView(Basic.class)
 	@ManyToOne
 	@JsonView(ResoCopy.class)
 	private ResourceCopy copy;
 
+	@JsonView(Basic.class)
 	@ManyToOne
 	@JsonView(Usr.class)
 	private User user;
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Token token;
 
+	/*
+	 * Constructor
+	 */
 	protected Action() {
 	}
 
@@ -53,6 +58,9 @@ public class Action {
 		dateLoanGiven = null;
 	}
 
+	/*
+	 * Getters and Setters
+	 */
 	public Integer getID() {
 		return id;
 	}

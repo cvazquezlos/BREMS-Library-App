@@ -22,7 +22,9 @@ import appSpring.repository.ResourceRepository;
 public class ResourceRestController {
 
 	public interface ResourceDetail extends Resource.Basic, Resource.ResoType, Resource.Genr, Resource.ResoCopy, ResourceCopy.Basic, Genre.Basic, ResourceType.Basic {}
-	
+
+	public interface ResourceDetail extends Resource.Basic, Resource.ResoType, Resource.Genr, Resource.ResoCopy, ResourceCopy.Basic, Genre.Basic, ResourceType.Basic {}
+
 	@Autowired
 	private ResourceRepository resourceRepository;
 

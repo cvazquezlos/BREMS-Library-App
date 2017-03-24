@@ -27,7 +27,8 @@ public class ResourceCopy {
 
 	@JsonIgnore
 	@ManyToOne
-	@JsonView(Reso.class)
+	//@JsonView(Reso.class)
+	@JsonView(Basic.class)
 	private Resource resource;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resourceCopy")

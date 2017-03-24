@@ -22,18 +22,24 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class User {
 
+	public interface UserLoan {}
+
 	public interface Basic {}
 	public interface Act {}
 	public interface Penalty {}
 
+	@JsonView(UserLoan.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonView(Basic.class)
 	private Integer id;
 
+	@JsonView(UserLoan.class)
 	@Column(unique = true)
 	@JsonView(Basic.class)
 	private String name;
+
+	@JsonIgnore
 	private String passwordHash;
 	@JsonView(Basic.class)
 	private String dni;
@@ -58,7 +64,7 @@ public class User {
 	private int avaibleLoans;
 	@JsonView(Basic.class)
 	private boolean isBanned;
-	
+
 	@ElementCollection
 	@JsonView(Basic.class)
 	private List<String> literaryHobby;
@@ -231,10 +237,10 @@ public class User {
 	public void setLiteraryHobby(List<String> literaryHobby) {
 		this.literaryHobby = literaryHobby;
 	}
-	
+
 	public String toString() {
 		return "User id: " + this.getId() +
-				"\n firstName: " + this.firstName + 
+				"\n firstName: " + this.firstName +
 				"\n lastName1: " + this.lastName1 +
 				"\n lastName2: " + this.lastName2 +
 				"\n email: " + this.email +
@@ -257,7 +263,7 @@ public class User {
 	public void setAvaibleLoans(int avaibleLoans) {
 		this.avaibleLoans = avaibleLoans;
 	}
-	
+
 	public boolean getisBanned() {
 		return this.isBanned;
 	}
