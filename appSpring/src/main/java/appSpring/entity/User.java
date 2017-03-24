@@ -17,44 +17,63 @@ import javax.persistence.OneToMany;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class User {
 
+	public interface Basic {}
+	public interface Act {}
+	public interface Penalty {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private Integer id;
 
 	@Column(unique = true)
+	@JsonView(Basic.class)
 	private String name;
-	@JsonIgnore
 	private String passwordHash;
+	@JsonView(Basic.class)
 	private String dni;
 	private String firstName;
+	@JsonView(Basic.class)
 	private String lastName1;
+	@JsonView(Basic.class)
 	private String lastName2;
+	@JsonView(Basic.class)
 	private String email;
+	@JsonView(Basic.class)
 	private String telephone;
+	@JsonView(Basic.class)
 	private boolean viewTelephone;
+	@JsonView(Basic.class)
 	private String address;
+	@JsonView(Basic.class)
 	private String biography;
+	@JsonView(Basic.class)
 	private String avatar;
+	@JsonView(Basic.class)
 	private int avaibleLoans;
+	@JsonView(Basic.class)
 	private boolean isBanned;
 	
 	@ElementCollection
+	@JsonView(Basic.class)
 	private List<String> literaryHobby;
-	
-	@JsonIgnore
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+	@JsonView(Act.class)
 	private List<Action> actions;
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@JsonView(Penalty.class)
 	private List<Fine> penalties;
 
-	@JsonIgnore
 	@ElementCollection(fetch = FetchType.EAGER)
+	@JsonView(Basic.class)
 	private List<String> roles;
 
 	protected User() {

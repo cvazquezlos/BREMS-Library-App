@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import appSpring.entity.Action;
+import appSpring.entity.Fine;
 import appSpring.entity.User;
 import appSpring.repository.UserRepository;
 
@@ -17,12 +21,11 @@ import appSpring.repository.UserRepository;
 @RequestMapping("/api/users")
 public class UserRestController {
 
+	public interface UserDetail extends User.Basic, User.Act, User.Penalty, Fine.Basic, Action.Basic {}
+
 	@Autowired
 	private UserRepository userRepository;
-	
-	/*
-	 * Create new user
-	 */
+
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public User newUser(@RequestBody User user) {
@@ -32,9 +35,7 @@ public class UserRestController {
 		return user;
 	}
 
-	/*
-	 * Get existing user
-	 */
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<User> getUser(@PathVariable int id) {
 
@@ -46,10 +47,7 @@ public class UserRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*
-	 * Delete user 
-	 */
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
 
@@ -62,26 +60,19 @@ public class UserRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*
-	 * Modify user
-	 */
+
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public ResponseEntity<User> putUser(@PathVariable Integer id, @RequestBody User userUpdated) {
 
 		User user = userRepository.findOne(id);
 		
 		if (user != null) {
-			
-			user.setAddress(userUpdated.getAddress());
-			user.setAvatar(userUpdated.getAvatar());
-			
-			userRepository.save(user);
-			
-			return new ResponseEntity<>(user, HttpStatus.OK);
+			userRepository.save(userUpdated);
+			return new ResponseEntity<>(userUpdated, HttpStatus.OK);
 			
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 }

@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-
-import appSpring.controller.ResourceController.ResourceDetail;
+import appSpring.entity.Genre;
 import appSpring.entity.Resource;
+import appSpring.entity.ResourceCopy;
+import appSpring.entity.ResourceType;
 import appSpring.repository.ResourceRepository;
 
 @RestController
 @RequestMapping("/api/resources")
 public class ResourceRestController {
+
+	public interface ResourceDetail extends Resource.Basic, Resource.ResoType, Resource.Genr, Resource.ResoCopy, ResourceCopy.Basic, Genre.Basic, ResourceType.Basic {}
 	
 	@Autowired
 	private ResourceRepository resourceRepository;
-	
-	/*
-	 * Create new resource
-	 */
+
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Resource postResource(@RequestBody Resource resource) {
@@ -35,25 +35,18 @@ public class ResourceRestController {
 		return resource;
 	}
 
-	/*
-	 * Get existing resource
-	 */
 	@JsonView(ResourceDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Resource> getResource(@PathVariable int id) {
 
 		Resource resource = resourceRepository.findOne(id);
-		
 		if (resource != null) {
 			return new ResponseEntity<>(resource, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*
-	 * Delete resource 
-	 */
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Resource> deleteResource(@PathVariable Integer id) {
 
@@ -65,28 +58,17 @@ public class ResourceRestController {
 			return new ResponseEntity<>(resourceSelected, HttpStatus.OK);
 		}
 	}
-	
-	/*
-	 * Modify resource
-	 */
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Resource> putResource(@PathVariable Integer id, @RequestBody Resource resourceUpdated) {
 
 		Resource resource = resourceRepository.findOne(id);
-		
 		if (resource != null) {
-			
-			resource.setAutor(resourceUpdated.getAutor());
-			resource.setDescription(resourceUpdated.getDescription());
-			resource.setEditorial(resourceUpdated.getEditorial());
-			resource.setPicture(resourceUpdated.getPicture());
-			
-			resourceRepository.save(resource);
-			
-			return new ResponseEntity<>(resource, HttpStatus.OK);
-			
+			resourceRepository.save(resourceUpdated);
+			return new ResponseEntity<>(resourceUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 }

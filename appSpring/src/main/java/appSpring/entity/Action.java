@@ -11,26 +11,37 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Action {
 	
+	public interface Basic {}
+	public interface Usr {}
+	public interface ResoCopy {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private Integer id;
 
+	@JsonView(Basic.class)
 	private Date dateLoanInit;
+	@JsonView(Basic.class)
 	private Date dateLoanGiven;
+	@JsonView(Basic.class)
 	private Date dateLoanReturn;
 
 	@ManyToOne
+	@JsonView(ResoCopy.class)
 	private ResourceCopy copy;
 
-	@JsonIgnore
 	@ManyToOne
+	@JsonView(Usr.class)
 	private User user;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Token token;
 
 	protected Action() {
