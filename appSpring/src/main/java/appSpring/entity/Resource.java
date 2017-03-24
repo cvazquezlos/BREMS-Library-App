@@ -56,12 +56,10 @@ public class Resource {
 	@JsonView(ResoType.class)
 	private ResourceType resourceType;
 
-	@JsonIgnore
 	@ManyToOne
 	@JsonView(Genr.class)
 	private Genre genre;
 
-	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resource")
 	@JsonView(ResoCopy.class)
 	private List<ResourceCopy> copies = new ArrayList<ResourceCopy>();
