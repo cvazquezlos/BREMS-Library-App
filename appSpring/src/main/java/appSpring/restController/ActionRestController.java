@@ -22,13 +22,13 @@ import appSpring.repository.ActionRepository;
 
 @RestController
 @RequestMapping("/api/loan")
-public class LoanRestController {
-	
+public class ActionRestController {
+
 	public interface LoanDetail extends Action.Basic, User.UserLoan, ResourceCopy.Basic, Resource.Basic {}
-	
+
 	@Autowired
 	private ActionRepository actionRepository;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Action postAction(@RequestBody Action loan) {
@@ -43,7 +43,7 @@ public class LoanRestController {
 	public ResponseEntity<List<Action>> getAllAction() {
 
 		List<Action> loans = actionRepository.findAll();
-		
+
 		if (loans != null) {
 			return new ResponseEntity<>(loans, HttpStatus.OK);
 		} else {
@@ -79,7 +79,7 @@ public class LoanRestController {
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Action> putAction(@PathVariable Integer id, @RequestBody Action loanUpdated) {
-		
+
 		Action loan = actionRepository.findOne(id);
 		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
 			actionRepository.save(loanUpdated);
