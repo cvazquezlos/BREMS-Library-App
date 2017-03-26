@@ -45,6 +45,14 @@ public class Fine {
 		this.resourceCopy = resourceCopy;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public ResourceCopy getResourceCopy() {
 		return resourceCopy;
 	}
