@@ -28,15 +28,13 @@ public class User {
 	public interface Act {}
 	public interface Penalty {}
 
-	@JsonView(UserLoan.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, UserLoan.class})
 	private Integer id;
 
-	@JsonView(UserLoan.class)
 	@Column(unique = true)
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, UserLoan.class})
 	private String name;
 
 	@JsonIgnore

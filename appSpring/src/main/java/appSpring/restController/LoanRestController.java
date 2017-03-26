@@ -21,7 +21,7 @@ import appSpring.entity.User;
 import appSpring.repository.ActionRepository;
 
 @RestController
-@RequestMapping("/api/loans")
+@RequestMapping("/api/loan")
 public class LoanRestController {
 	
 	public interface LoanDetail extends Action.Basic, User.UserLoan, ResourceCopy.Basic, Resource.Basic {}
@@ -101,8 +101,8 @@ public class LoanRestController {
 		
 		if (loan != null) {
 			
-			loan.setDateLoanReturn(loanUpdated.getDateLoanReturn());
-			loan.setDateLoanGiven(loanUpdated.getDateLoanGiven());
+			/*loan.setDateLoanReturn(loanUpdated.getDateLoanReturn());
+			loan.setDateLoanGiven(loanUpdated.getDateLoanGiven());*/
 			
 			actionRepository.save(loan);
 			

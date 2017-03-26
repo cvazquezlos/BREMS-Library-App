@@ -13,12 +13,14 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import appSpring.entity.Fine.Usr;
+import appSpring.entity.Resource.ResoCopy;
+
 @Entity
 public class Action {
 
 	public interface Basic {}
 
-	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonView(Basic.class)
@@ -31,19 +33,16 @@ public class Action {
 	@JsonView(Basic.class)
 	private Date dateLoanReturn;
 
-	@JsonView(Basic.class)
 	@ManyToOne
-	@JsonView(ResoCopy.class)
+	@JsonView({ResoCopy.class, Basic.class})
 	private ResourceCopy copy;
 
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, Usr.class})
 	@ManyToOne
-	@JsonView(Usr.class)
 	private User user;
 
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
 	private Token token;
 
 	/*
