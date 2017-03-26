@@ -484,18 +484,6 @@ public class AdminController {
 				resource.setNoReservedCopies(avaibleCopies);
 				resource.setResourceCopies(copies);
 				resourceRepository.save(resource);
-				/*ArrayList<String> avaibleCopies = resource.getNoReservedCopies();
-				List<ResourceCopy> copies = resource.getResourceCopies();
-				for (int i = 0; i < (copyNumber - resource.getNoReservedCopies().size()); i++) {
-					ResourceCopy copy = resourceCopyRepository.findByLocationCode(avaibleCopies.get(0));
-					copies.remove(copy);
-					resourceCopyRepository.delete(copy);
-					avaibleCopies.remove(0);
-				}
-				resource.setNoReservedCopies(avaibleCopies);
-				resource.setResourceCopies(copies);
-				resourceRepository.save(resource);
-			} else if (copyNumber < resource.getNoReservedCopies().size()){*/
 			} else {
 				redirectAttrs.addFlashAttribute("error", "Actualmente hay copias en préstamo. El cambio no es posible.");
 				return "redirect:/admin/resources/edit/{id}";
@@ -512,7 +500,6 @@ public class AdminController {
 				resourceRepository.save(resource);
 			}
 		}
-
 		redirectAttrs.addFlashAttribute("messages", resource.getTitle().toString() + " modificado.");
 
 		return "redirect:/admin/resources";
