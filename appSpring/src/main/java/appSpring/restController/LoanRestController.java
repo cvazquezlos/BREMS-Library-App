@@ -29,9 +29,15 @@ public class LoanRestController {
 	@Autowired
 	private ActionRepository actionRepository;
 	
-	/*
-	 * Get all loans
-	 */
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public Action postAction(@RequestBody Action loan) {
+
+		actionRepository.save(loan);
+
+		return loan;
+	}
+
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public ResponseEntity<List<Action>> getAllAction() {
@@ -44,44 +50,24 @@ public class LoanRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*
-	 * Create new loan
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Action postAction(@RequestBody Action loan) {
 
-		actionRepository.save(loan);
-
-		return loan;
-	}
-
-	/*
-	 * Get existing loan
-	 */
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Action> getAction(@PathVariable int id) {
 
 		Action loan = actionRepository.findOne(id);
-		
 		if (loan != null) {
 			return new ResponseEntity<>(loan, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*
-	 * Delete loan 
-	 */
+
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Action> deleteAction(@PathVariable Integer id) {
 
 		Action loan = actionRepository.findOne(id);
-		
 		if (loan != null) {
 			actionRepository.delete(loan);
 			return new ResponseEntity<>(loan, HttpStatus.OK);
@@ -89,25 +75,15 @@ public class LoanRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*
-	 * Modify loan
-	 */
+
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Action> putAction(@PathVariable Integer id, @RequestBody Action loanUpdated) {
-
-		Action loan = actionRepository.findOne(id);
 		
-		if (loan != null) {
-			
-			/*loan.setDateLoanReturn(loanUpdated.getDateLoanReturn());
-			loan.setDateLoanGiven(loanUpdated.getDateLoanGiven());*/
-			
-			actionRepository.save(loan);
-			
+		Action loan = actionRepository.findOne(id);
+		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
+			actionRepository.save(loanUpdated);
 			return new ResponseEntity<>(loan, HttpStatus.OK);
-			
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

@@ -25,25 +25,7 @@ public class FineRestController {
 	
 	@Autowired
 	private FineRepository fineRepository;
-	
-	/*
-	 * Get all fines
-	 */
-	@JsonView(FineDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<List<Fine>> getAllFine() {
-		List<Fine> fines = fineRepository.findAll();
-		
-		if (fines != null) {
-			return new ResponseEntity<>(fines, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
 
-	/*
-	 * Create new fine
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Fine postFine(@RequestBody Fine fine) {
@@ -53,9 +35,18 @@ public class FineRestController {
 		return fine;
 	}
 
-	/*
-	 * Get concrete fine
-	 */
+	@JsonView(FineDetail.class)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<List<Fine>> getAllFine() {
+		
+		List<Fine> fines = fineRepository.findAll();
+		if (fines != null) {
+			return new ResponseEntity<>(fines, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@JsonView(FineDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Fine> getFine(@PathVariable int id) {
@@ -67,15 +58,12 @@ public class FineRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*
-	 * Modify fine
-	 */
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Fine> putFine(@PathVariable Integer id, @RequestBody Fine fineUpdated) {
 
 		Fine fine = fineRepository.findOne(id);
-		if (fine != null) {
+		if ((fine != null) && (fine.getId() == fineUpdated.getId())) {
 			fineRepository.save(fineUpdated);
 			return new ResponseEntity<>(fineUpdated, HttpStatus.OK);
 		} else {
@@ -83,9 +71,6 @@ public class FineRestController {
 		}
 	}
 
-	/*
-	 * Delete fine
-	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Fine> deleteFine(@PathVariable Integer id) {
 
