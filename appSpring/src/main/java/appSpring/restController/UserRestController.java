@@ -1,5 +1,7 @@
 package appSpring.restController;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ public class UserRestController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public User newUser(@RequestBody User user) {
+	public User postUser(@RequestBody User user) {
 
 		userRepository.save(user);
 
@@ -36,11 +38,22 @@ public class UserRestController {
 	}
 
 	@JsonView(UserDetail.class)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getUsers() {
+
+		List<User> users = userRepository.findAll();
+		if (users != null) {
+			return new ResponseEntity<>(users, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<User> getUser(@PathVariable int id) {
 
 		User user = userRepository.findOne(id);
-		
 		if (user != null) {
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
@@ -52,7 +65,6 @@ public class UserRestController {
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
 
 		User user = userRepository.findOne(id);
-		
 		if (user != null) {
 			userRepository.delete(user);
 			return new ResponseEntity<>(user, HttpStatus.OK);
@@ -61,15 +73,13 @@ public class UserRestController {
 		}
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<User> putUser(@PathVariable Integer id, @RequestBody User userUpdated) {
 
 		User user = userRepository.findOne(id);
-		
-		if (user != null) {
+		if ((user != null) && (user.getId() == userUpdated.getId())) {
 			userRepository.save(userUpdated);
 			return new ResponseEntity<>(userUpdated, HttpStatus.OK);
-			
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
