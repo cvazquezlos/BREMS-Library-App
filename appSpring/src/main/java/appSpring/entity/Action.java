@@ -10,26 +10,44 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import appSpring.entity.Fine.Usr;
+import appSpring.entity.Resource.ResoCopy;
+
 @Entity
 public class Action {
-	
+
+	public interface Basic {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private Integer id;
 
+	@JsonView(Basic.class)
 	private Date dateLoanInit;
+	@JsonView(Basic.class)
 	private Date dateLoanGiven;
+	@JsonView(Basic.class)
 	private Date dateLoanReturn;
 
 	@ManyToOne
+	@JsonView({ResoCopy.class, Basic.class})
 	private ResourceCopy copy;
 
+	@JsonView({Basic.class, Usr.class})
 	@ManyToOne
 	private User user;
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private Token token;
 
+	/*
+	 * Constructor
+	 */
 	protected Action() {
 	}
 
@@ -39,6 +57,9 @@ public class Action {
 		dateLoanGiven = null;
 	}
 
+	/*
+	 * Getters and Setters
+	 */
 	public Integer getID() {
 		return id;
 	}

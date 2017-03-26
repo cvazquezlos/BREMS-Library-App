@@ -8,19 +8,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Fine {
 
+	public interface Basic {}
+	public interface Usr {}
+	public interface ResoCopy {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private Integer id;
+
+	@JsonView(Basic.class)
 	private Date finishDate;
+	@JsonView(Basic.class)
 	private Date initDate;
 	
 	@ManyToOne
+	@JsonView(ResoCopy.class)
 	private ResourceCopy resourceCopy;
 
 	@ManyToOne
+	@JsonView(Usr.class)
 	private User user;
 
 	protected Fine() {
@@ -33,6 +45,14 @@ public class Fine {
 		this.resourceCopy = resourceCopy;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public ResourceCopy getResourceCopy() {
 		return resourceCopy;
 	}

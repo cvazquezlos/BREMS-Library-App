@@ -14,15 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
-import appSpring.entity.Genre;
 import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
 import appSpring.entity.ResourceType;
 
 @Controller
 public class ResourceController {
-
-	interface ResourceDetail extends Resource.Basic, Resource.ResoType, Resource.Genr, Resource.ResoCopy, ResourceCopy.Basic, Genre.Basic, ResourceType.Basic {}
 
 	@Autowired
 	private ResourceRepository resourceRepository;

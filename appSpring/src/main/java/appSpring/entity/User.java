@@ -16,39 +16,68 @@ import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class User {
 
+	public interface UserLoan {}
+
+	public interface Basic {}
+	public interface Act {}
+	public interface Penalty {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView({Basic.class, UserLoan.class})
 	private Integer id;
 
 	@Column(unique = true)
+	@JsonView({Basic.class, UserLoan.class})
 	private String name;
+
+	@JsonIgnore
 	private String passwordHash;
+	@JsonView(Basic.class)
 	private String dni;
 	private String firstName;
+	@JsonView(Basic.class)
 	private String lastName1;
+	@JsonView(Basic.class)
 	private String lastName2;
+	@JsonView(Basic.class)
 	private String email;
+	@JsonView(Basic.class)
 	private String telephone;
+	@JsonView(Basic.class)
 	private boolean viewTelephone;
+	@JsonView(Basic.class)
 	private String address;
+	@JsonView(Basic.class)
 	private String biography;
+	@JsonView(Basic.class)
 	private String avatar;
+	@JsonView(Basic.class)
 	private int avaibleLoans;
+	@JsonView(Basic.class)
 	private boolean isBanned;
-	
+
 	@ElementCollection
+	@JsonView(Basic.class)
 	private List<String> literaryHobby;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+	@JsonView(Act.class)
 	private List<Action> actions;
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@JsonView(Penalty.class)
 	private List<Fine> penalties;
 
 	@ElementCollection(fetch = FetchType.EAGER)
+	@JsonView(Basic.class)
 	private List<String> roles;
 
 	protected User() {
@@ -206,10 +235,10 @@ public class User {
 	public void setLiteraryHobby(List<String> literaryHobby) {
 		this.literaryHobby = literaryHobby;
 	}
-	
+
 	public String toString() {
 		return "User id: " + this.getId() +
-				"\n firstName: " + this.firstName + 
+				"\n firstName: " + this.firstName +
 				"\n lastName1: " + this.lastName1 +
 				"\n lastName2: " + this.lastName2 +
 				"\n email: " + this.email +
@@ -232,7 +261,7 @@ public class User {
 	public void setAvaibleLoans(int avaibleLoans) {
 		this.avaibleLoans = avaibleLoans;
 	}
-	
+
 	public boolean getisBanned() {
 		return this.isBanned;
 	}
