@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
@@ -25,18 +24,16 @@ public class ResourceCopy {
 	@JsonView(Basic.class)
 	private Integer id;
 
-	@JsonIgnore
-	@ManyToOne
-	//@JsonView(Reso.class)
 	@JsonView(Basic.class)
+	private String locationCode;
+
+	@ManyToOne
+	@JsonView(Reso.class)
 	private Resource resource;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resourceCopy")
 	@JsonView(Fin.class)
 	private List<Fine> penalties;
-
-	@JsonView(Basic.class)
-	private String locationCode;
 
 	public ResourceCopy() {
 	}
