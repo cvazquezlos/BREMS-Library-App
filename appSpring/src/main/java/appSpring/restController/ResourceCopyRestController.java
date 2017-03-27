@@ -21,7 +21,7 @@ import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;
 
 @RestController
-@RequestMapping("/api/resourcecopy")
+@RequestMapping("/api/resourcecopies")
 public class ResourceCopyRestController {
 
 	public interface ResourceCopyDetail extends ResourceCopy.Basic, ResourceCopy.Fin, ResourceCopy.Reso, Fine.Basic, Resource.Basic {}
