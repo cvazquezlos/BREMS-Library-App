@@ -64,7 +64,7 @@ public class User {
 	private boolean isBanned;
 
 	@ElementCollection
-	@JsonView(Basic.class)
+	@JsonView(Act.class)
 	private List<String> literaryHobby;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
