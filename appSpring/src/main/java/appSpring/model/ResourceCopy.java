@@ -1,4 +1,4 @@
-package appSpring.entity;
+package appSpring.model;
 
 import java.util.List;
 

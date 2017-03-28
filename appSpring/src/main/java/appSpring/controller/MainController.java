@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import appSpring.entity.Action;
-import appSpring.entity.Fine;
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceType;
-import appSpring.entity.User;
+import appSpring.model.Action;
+import appSpring.model.Fine;
+import appSpring.model.Resource;
+import appSpring.model.ResourceType;
+import appSpring.model.User;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;

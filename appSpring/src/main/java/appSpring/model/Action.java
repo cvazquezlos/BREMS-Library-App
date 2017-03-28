@@ -1,4 +1,4 @@
-package appSpring.entity;
+package appSpring.model;
 
 import java.util.Date;
 
@@ -13,8 +13,8 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.entity.Fine.Usr;
-import appSpring.entity.Resource.ResoCopy;
+import appSpring.model.Fine.Usr;
+import appSpring.model.Resource.ResoCopy;
 
 @Entity
 public class Action {

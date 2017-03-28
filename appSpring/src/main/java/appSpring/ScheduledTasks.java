@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import appSpring.entity.Action;
-import appSpring.entity.User;
+import appSpring.model.Action;
+import appSpring.model.User;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.UserRepository;
 

@@ -1,20 +1,16 @@
-package appSpring.entity;
-
-import java.util.List;
+package appSpring.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-public class Genre {
+public class ResourceType {
 
 	public interface Basic {}
-	public interface Reso {}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,19 +20,15 @@ public class Genre {
 	@JsonView(Basic.class)
 	private String name;
 
-	@OneToMany(mappedBy = "genre")
-	@JsonView(Reso.class)
-	private List<Resource> resources;
-
-	protected Genre() {
+	protected ResourceType() {
 	}
 
-	public Genre(String name) {
+	public ResourceType(String name) {
 		this.name = name;
 	}
 
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -44,23 +36,11 @@ public class Genre {
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Resource> getResources() {
-		return this.resources;
-	}
-
-	public void setResources(List<Resource> resources) {
-		this.resources = resources;
-	}
-
-	public void addResource(Resource resource) {
-		this.resources.add(resource);
 	}
 
 }

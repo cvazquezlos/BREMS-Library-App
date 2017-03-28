@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.entity.Action;
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
-import appSpring.entity.User;
+import appSpring.model.Action;
+import appSpring.model.Resource;
+import appSpring.model.ResourceCopy;
+import appSpring.model.User;
 import appSpring.repository.ActionRepository;
 
 @RestController

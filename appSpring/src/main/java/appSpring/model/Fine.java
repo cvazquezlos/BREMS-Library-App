@@ -1,4 +1,4 @@
-package appSpring.entity;
+package appSpring.model;
 
 import java.util.Date;
 
@@ -26,7 +26,7 @@ public class Fine {
 	private Date finishDate;
 	@JsonView(Basic.class)
 	private Date initDate;
-	
+
 	@ManyToOne
 	@JsonView(ResoCopy.class)
 	private ResourceCopy resourceCopy;
@@ -44,7 +44,7 @@ public class Fine {
 		this.user = user;
 		this.resourceCopy = resourceCopy;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import appSpring.entity.Action;
-import appSpring.entity.User;
+import appSpring.model.Action;
+import appSpring.model.User;
 import appSpring.repository.UserRepository;
 
 @Controller
