@@ -28,7 +28,8 @@ import appSpring.service.UserService;
 @RequestMapping("/api/loan")
 public class ActionRestController {
 
-	public interface LoanDetail extends Action.Basic, User.UserLoan, ResourceCopy.Basic, Resource.Basic {}
+	public interface LoanDetail extends Action.Basic, Action.ResoCopy, ResourceCopy.Basic, ResourceCopy.Reso, Resource.Basic, 
+										Action.Usr, User.Basic{}
 
 	@Autowired
 	private ActionRepository actionRepository;
