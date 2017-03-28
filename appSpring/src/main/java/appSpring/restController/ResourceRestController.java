@@ -60,7 +60,46 @@ public class ResourceRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/genre/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getResourcesByGenre(@PathVariable String name) {
+	
+		List<Resource> resources = resourceRepository.findByGenreNameLikeIgnoreCase(name);
+		
+		if (resources != null) {
+			return new ResponseEntity<>(resources, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/type/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getResourcesByType(@PathVariable String name) {
+	
+		List<Resource> resources = resourceRepository.findByResourceTypeName(name);
+		
+		if (resources != null) {
+			return new ResponseEntity<>(resources, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/author/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getResourcesByAuthor(@PathVariable String name) {
+	
+		List<Resource> resources = resourceRepository.findByAuthor(name);
+		
+		if (resources != null) {
+			return new ResponseEntity<>(resources, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Resource> deleteResource(@PathVariable Integer id) {
 
