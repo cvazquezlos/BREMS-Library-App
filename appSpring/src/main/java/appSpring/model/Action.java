@@ -13,13 +13,12 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.model.Fine.Usr;
-import appSpring.model.Resource.ResoCopy;
-
 @Entity
 public class Action {
 
 	public interface Basic {}
+	public interface ResoCopy {}
+	public interface Usr {}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,10 +33,10 @@ public class Action {
 	private Date dateLoanReturn;
 
 	@ManyToOne
-	@JsonView({ResoCopy.class, Basic.class})
+	@JsonView(ResoCopy.class)
 	private ResourceCopy copy;
 
-	@JsonView({Basic.class, Usr.class})
+	@JsonView(Usr.class)
 	@ManyToOne
 	private User user;
 
@@ -45,9 +44,6 @@ public class Action {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Token token;
 
-	/*
-	 * Constructor
-	 */
 	protected Action() {
 	}
 
@@ -57,9 +53,6 @@ public class Action {
 		dateLoanGiven = null;
 	}
 
-	/*
-	 * Getters and Setters
-	 */
 	public Integer getID() {
 		return id;
 	}
