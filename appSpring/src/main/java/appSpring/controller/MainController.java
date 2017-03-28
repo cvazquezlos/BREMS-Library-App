@@ -23,21 +23,21 @@ import appSpring.model.ResourceType;
 import appSpring.model.User;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.ResourceCopyRepository;
-import appSpring.repository.ResourceRepository;
-import appSpring.repository.ResourceTypeRepository;
-import appSpring.repository.UserRepository;
+import appSpring.service.ResourceService;
+import appSpring.service.ResourceTypeService;
+import appSpring.service.UserService;
 
 @Controller
 public class MainController {
 
 	@Autowired
-	private ResourceRepository resourceRepository;
+	private UserService userService;
 	@Autowired
-	private ResourceTypeRepository resourceTypeRepo;
+	private ResourceService resourceService;
+	@Autowired
+	private ResourceTypeService resourceTypeService;
 	@Autowired
 	private ResourceCopyRepository resourceCopyRepo;
-	@Autowired
-	private UserRepository userRepository;
 	@Autowired
 	private ActionRepository actionRepository;
 
@@ -45,7 +45,7 @@ public class MainController {
 	public String resources(Model model, HttpServletRequest request) {
 
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
-			User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+			User loggedUser = userService.findByName(request.getUserPrincipal().getName());
 			model.addAttribute("user", loggedUser);
 			model.addAttribute("logged", true);
 		} else
@@ -53,11 +53,11 @@ public class MainController {
 		if (request.isUserInRole("ADMIN"))
 			model.addAttribute("admin", true);
 		ResourceType type;
-		type = resourceTypeRepo.findOneByName("Libro");
-		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(0, 2));
-		type = resourceTypeRepo.findOneByName("Revista");
-		Page<Resource> magazines = resourceRepository.findByResourceType(type, new PageRequest(0, 2));
-		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(0, 2));
+		type = resourceTypeService.findByName("Libro");
+		Page<Resource> books = resourceService.findByResourceType(type, new PageRequest(0, 2));
+		type = resourceTypeService.findByName("Revista");
+		Page<Resource> magazines = resourceService.findByResourceType(type, new PageRequest(0, 2));
+		Page<Resource> allShelf = resourceService.findAll(new PageRequest(0, 2));
 		model.addAttribute("books", books);
 		model.addAttribute("magazines", magazines);
 		model.addAttribute("all", allShelf);
@@ -70,7 +70,7 @@ public class MainController {
 	public String about(Model model, HttpServletRequest request) {
 
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
-			User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+			User loggedUser = userService.findByName(request.getUserPrincipal().getName());
 			model.addAttribute("user", loggedUser);
 			model.addAttribute("logged", true);
 		} else
@@ -86,7 +86,7 @@ public class MainController {
 	public String contact(Model model, HttpServletRequest request) {
 
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
-			User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+			User loggedUser = userService.findByName(request.getUserPrincipal().getName());
 			model.addAttribute("user", loggedUser);
 			model.addAttribute("logged", true);
 		} else
@@ -102,7 +102,7 @@ public class MainController {
 	public String reserveResource(Model model, @PathVariable Integer id, HttpServletRequest request,
 			RedirectAttributes redirectAttrs) {
 
-		User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedUser = userService.findByName(request.getUserPrincipal().getName());
 		Calendar today = Calendar.getInstance();
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		List<Fine> userPenalties = loggedUser.getPenalties();
@@ -123,11 +123,11 @@ public class MainController {
 			redirectAttrs.addFlashAttribute("error", "Actualmente no puede reservar más recursos. El límite es de 3.");
 			return "redirect:/";
 		}
-		Resource resourceSelected = resourceRepository.findOne(id);
+		Resource resourceSelected = resourceService.findOne(id);
 		if (resourceSelected.getNoReservedCopies().isEmpty()) {
 			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
-			resourceRepository.save(resourceSelected);
-			System.out.println(resourceRepository.findOne(resourceSelected.getId()).getAvaibleReserve());
+			resourceService.save(resourceSelected);
+			System.out.println(resourceService.findOne(resourceSelected.getId()).getAvaibleReserve());
 			redirectAttrs.addFlashAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
 		}
@@ -147,12 +147,12 @@ public class MainController {
 		avaibleCopies.remove(0);
 		actionRepository.save(reserve);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
-		resourceRepository.save(resourceSelected);
+		resourceService.save(resourceSelected);
 		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
-		userRepository.save(loggedUser);
+		userService.save(loggedUser);
 		if (resourceSelected.getNoReservedCopies().isEmpty()) {
 			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
-			resourceRepository.save(resourceSelected);
+			resourceService.save(resourceSelected);
 		}
 		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 
