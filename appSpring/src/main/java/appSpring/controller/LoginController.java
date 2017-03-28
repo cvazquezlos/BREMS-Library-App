@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import appSpring.model.User;
 import appSpring.repository.UserRepository;
-import appSpring.entity.User;
 
 @Controller
 public class LoginController {

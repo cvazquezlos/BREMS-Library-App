@@ -1,4 +1,4 @@
-package appSpring.entity;
+package appSpring.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -186,12 +186,12 @@ public class DataExamples {
 		avaibleCopies.remove(0);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
-		
-		
+
+
 		user2 = new User("sergiob", "passs", "0001", "Sergio", "Blay", "González", "blaybleybluy@gmail.com",
 				"606000000", "ROLE_ADMIN", "ROLE_USER");
 		userRepository.save(user2);
-		
+
 		user3 = new User("annyc", "passa", "0002", "Anny", "Saldaña", "Cervera", "annylashula@gmail.com", "606036000",
 				"ROLE_USER");
 		userRepository.save(user3);
@@ -205,8 +205,8 @@ public class DataExamples {
 		avaibleCopies.remove(0);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceRepository.save(resourceSelected);
-		
-		
+
+
 		user4 = new User("jherelj", "passj", "0003", "Jorge Jherel", "Córdoba", "Proaño", "jh9@gmail.com", "606036123",
 				"ROLE_USER");
 		userRepository.save(user4);

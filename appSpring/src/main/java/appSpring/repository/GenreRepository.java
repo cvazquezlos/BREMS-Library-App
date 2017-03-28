@@ -1,8 +1,8 @@
 package appSpring.repository;
 
-import appSpring.entity.Genre;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import appSpring.model.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Integer> {
 

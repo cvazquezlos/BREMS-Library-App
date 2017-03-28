@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import appSpring.entity.Action;
-import appSpring.entity.Fine;
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
+import appSpring.model.Action;
+import appSpring.model.Fine;
+import appSpring.model.Resource;
+import appSpring.model.ResourceCopy;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;

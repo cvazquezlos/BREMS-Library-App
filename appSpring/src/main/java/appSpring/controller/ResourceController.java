@@ -11,28 +11,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import appSpring.model.Resource;
+import appSpring.model.ResourceType;
 import appSpring.repository.ResourceCopyRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceType;
+import appSpring.service.ResourceService;
+import appSpring.service.ResourceTypeService;
 
 @Controller
 public class ResourceController {
 
 	@Autowired
-	private ResourceRepository resourceRepository;
+	private ResourceService resourceService;
 	@Autowired
-	private ResourceTypeRepository resourceTypeRepo;
+	private ResourceTypeService resourceTypeService;
 	@Autowired
 	private ResourceCopyRepository resourceCopyRepo;
 
 	@RequestMapping("/{id}")
 	public String bookProfile(Model model, @PathVariable Integer id) {
 
-		Resource resource = resourceRepository.findOne(id);
+		Resource resource = resourceService.findOne(id);
 		Long num = resourceCopyRepo.countByResource(resource);
-		List<Resource> similarResources = resourceRepository.findByGenreAndIdNot(resource.getGenre(), resource.getId());
+		List<Resource> similarResources = resourceService.findByGenreAndIdNot(resource.getGenre(), resource.getId());
 
 		model.addAttribute("resource", resource);
 		model.addAttribute("available", (num > 0) ? 1 : 0);
@@ -45,8 +47,8 @@ public class ResourceController {
 	@RequestMapping(value = "/moreBooks")
 	public String moreBooks(Model model, @RequestParam int page) {
 
-		ResourceType type = resourceTypeRepo.findOneByName("Libro");
-		Page<Resource> books = resourceRepository.findByResourceType(type, new PageRequest(page, 2));
+		ResourceType type = resourceTypeService.findByName("Libro");
+		Page<Resource> books = resourceService.findByResourceType(type, new PageRequest(page, 2));
 		model.addAttribute("items", books);
 
 		return "listItemsPage";
@@ -55,8 +57,8 @@ public class ResourceController {
 	@RequestMapping(value = "/moreMagazines")
 	public String moreMagazines(Model model, @RequestParam int page) {
 
-		ResourceType type = resourceTypeRepo.findOneByName("Revista");
-		Page<Resource> revistas = resourceRepository.findByResourceType(type, new PageRequest(page, 2));
+		ResourceType type = resourceTypeService.findByName("Revista");
+		Page<Resource> revistas = resourceService.findByResourceType(type, new PageRequest(page, 2));
 		model.addAttribute("items", revistas);
 
 		return "listItemsPage";
@@ -65,7 +67,7 @@ public class ResourceController {
 	@RequestMapping(value = "/moreAllShelf")
 	public String moreAllShelf(Model model, @RequestParam int page) {
 
-		Page<Resource> allShelf = resourceRepository.findAll(new PageRequest(page, 2));
+		Page<Resource> allShelf = resourceService.findAll(new PageRequest(page, 2));
 		model.addAttribute("items", allShelf);
 
 		return "listItemsPage";

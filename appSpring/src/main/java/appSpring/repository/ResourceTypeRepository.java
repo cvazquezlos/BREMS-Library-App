@@ -1,9 +1,10 @@
 package appSpring.repository;
 
-import appSpring.entity.ResourceType;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import appSpring.model.ResourceType;
 
 public interface ResourceTypeRepository extends JpaRepository<ResourceType, Integer>{
 
-	ResourceType findOneByName(String name);
+	ResourceType findByName(String name);
 }

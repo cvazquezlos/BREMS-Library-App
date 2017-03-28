@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import appSpring.entity.Genre;
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
-import appSpring.entity.ResourceType;
+
+import appSpring.model.Genre;
+import appSpring.model.Resource;
+import appSpring.model.ResourceCopy;
+import appSpring.model.ResourceType;
 import appSpring.repository.ResourceRepository;
 
 @RestController
@@ -60,7 +61,46 @@ public class ResourceRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/genre/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getResourcesByGenre(@PathVariable String name) {
+	
+		List<Resource> resources = resourceRepository.findByGenreNameLikeIgnoreCase(name);
+		
+		if (resources != null) {
+			return new ResponseEntity<>(resources, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/type/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getResourcesByType(@PathVariable String name) {
+	
+		List<Resource> resources = resourceRepository.findByResourceTypeName(name);
+		
+		if (resources != null) {
+			return new ResponseEntity<>(resources, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/author/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getResourcesByAuthor(@PathVariable String name) {
+	
+		List<Resource> resources = resourceRepository.findByAuthor(name);
+		
+		if (resources != null) {
+			return new ResponseEntity<>(resources, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Resource> deleteResource(@PathVariable Integer id) {
 

@@ -18,30 +18,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import appSpring.entity.Action;
-import appSpring.entity.Fine;
-import appSpring.entity.Genre;
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
-import appSpring.entity.ResourceType;
-import appSpring.entity.User;
 import appSpring.repository.GenreRepository;
 import appSpring.repository.ResourceCopyRepository;
+import appSpring.model.Action;
+import appSpring.model.Fine;
+import appSpring.model.Genre;
+import appSpring.model.Resource;
+import appSpring.model.ResourceCopy;
+import appSpring.model.ResourceType;
+import appSpring.model.User;
 import appSpring.repository.ActionRepository;
 import appSpring.repository.FineRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.ResourceTypeRepository;
 import appSpring.repository.UserRepository;
+import appSpring.service.ResourceService;
+import appSpring.service.ResourceTypeService;
+import appSpring.service.UserService;
 
 @Controller
 public class AdminController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	@Autowired
-	private ResourceRepository resourceRepository;
+	private ResourceService resourceService;
 	@Autowired
-	private ResourceTypeRepository resourceTypeRepository;
+	private ResourceTypeService resourceTypeService;
 	@Autowired
 	private ResourceCopyRepository resourceCopyRepository;
 	@Autowired
@@ -54,11 +57,11 @@ public class AdminController {
 	@RequestMapping("/admin/")
 	public String home(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		model.addAttribute("resource", resourceRepository.findAll());
+		model.addAttribute("resource", resourceService.findAll());
 		model.addAttribute("action", actionRepository.findAll());
-		model.addAttribute("user", userRepository.findAll());
+		model.addAttribute("user", userService.findAll());
 		model.addAttribute("fine", fineRepository.findAll());
 
 		return "admin/home";
@@ -67,9 +70,9 @@ public class AdminController {
 	@RequestMapping("/admin/users")
 	public String users(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("users", userService.findAll());
 
 		return "admin/user_management";
 	}
@@ -77,7 +80,7 @@ public class AdminController {
 	@RequestMapping("/admin/users/add")
 	public String addUser(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 
 		return "admin/add_user";
@@ -92,7 +95,7 @@ public class AdminController {
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
 
 		try {
-			userRepository.save(user);
+			userService.save(user);
 		} catch (Exception e) {
 			return "redirect:/admin/users/addError";
 		}
@@ -104,9 +107,9 @@ public class AdminController {
 	@RequestMapping("/admin/users/edit/{id}")
 	public String editUser(Model model, @PathVariable Integer id, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		User user = userRepository.findOne(id);
+		User user = userService.findOne(id);
 		model.addAttribute("user", user);
 
 		return "admin/edit_user";
@@ -117,13 +120,13 @@ public class AdminController {
 			@RequestParam String lastName1, @RequestParam String lastName2, @RequestParam String email,
 			@RequestParam String dni, RedirectAttributes redirectAttrs) {
 
-		User user = userRepository.findOne(id);
+		User user = userService.findOne(id);
 		user.setFirstName(firstName);
 		user.setLastName1(lastName1);
 		user.setLastName2(lastName2);
 		user.setEmail(email);
 		user.setDni(dni);
-		userRepository.save(user);
+		userService.save(user);
 		redirectAttrs.addFlashAttribute("messages", user.getName().toString() + " modificado.");
 
 		return "redirect:/admin/users";
@@ -140,10 +143,10 @@ public class AdminController {
 	public String deleteUser(Model model, @PathVariable Integer id, HttpServletRequest request,
 			RedirectAttributes redirectAttrs) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		redirectAttrs.addFlashAttribute("messages", "Usuario eliminado.");
-		userRepository.delete(id);
+		userService.delete(id);
 
 		return "redirect:/admin/users";
 	}
@@ -151,7 +154,7 @@ public class AdminController {
 	@RequestMapping("/admin/fines")
 	public String fines(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		model.addAttribute("fines", fineRepository.findAll());
 
@@ -162,7 +165,7 @@ public class AdminController {
 	public String deleteFine(Model model, @PathVariable Integer id, HttpServletRequest request,
 			RedirectAttributes redirectAttrs) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		redirectAttrs.addFlashAttribute("messages",
 				"Multa eliminada al usuario " + fineRepository.findOne(id).getUserr().getName() + ".");
@@ -174,7 +177,7 @@ public class AdminController {
 	@RequestMapping("/admin/loans")
 	public String loans(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		model.addAttribute("action", actionRepository.findAll());
 
@@ -184,7 +187,7 @@ public class AdminController {
 	@RequestMapping("/admin/loans/add")
 	public String addLoan(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 
 		return "admin/add_loan";
@@ -194,12 +197,12 @@ public class AdminController {
 	public String addLoanAction(Model model, @RequestParam String title, @RequestParam String user,
 			HttpServletRequest request, RedirectAttributes redirectAttrs) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		LocalDateTime now = LocalDateTime.now();
 		Date date = getDate(now.getYear(), now.getMonthValue()-1, now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
-		User userFound = userRepository.findByName(user);
-		Resource resourceFound = resourceRepository.findByTitleLikeIgnoreCase("%" + title + "%");
+		User userFound = userService.findByName(user);
+		Resource resourceFound = resourceService.findByTitleLikeIgnoreCase("%" + title + "%");
 		if (userFound == null) {
 			model.addAttribute("messages", "No existe el usuario.");
 			return "admin/add_loan";
@@ -242,9 +245,9 @@ public class AdminController {
 				avaibleCopies.remove(0);
 				actionRepository.save(reserve);
 				resourceFound.setNoReservedCopies(avaibleCopies);
-				resourceRepository.save(resourceFound);
+				resourceService.save(resourceFound);
 				userFound.setAvaibleLoans(userFound.getAvaibleLoans()-1);
-				userRepository.save(userFound);
+				userService.save(userFound);
 			}
 		}
 		redirectAttrs.addFlashAttribute("messages", "Nuevo péstamo añadido al usuario " + userFound.getName() + ".");
@@ -256,7 +259,7 @@ public class AdminController {
 	public String returnResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
 			@PathVariable Integer id) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		LocalDateTime now = LocalDateTime.now();
 		Date date = getDate(now.getYear(), now.getMonthValue()-1, now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
@@ -276,7 +279,7 @@ public class AdminController {
 		avaibleCopies.add(copyNowAvaible.getLocationCode());
 		resourceFound.setNoReservedCopies(avaibleCopies);
 		resourceFound.setAvaibleReserve(true);
-		resourceRepository.save(resourceFound);
+		resourceService.save(resourceFound);
 		userFound.setAvaibleLoans(userFound.getAvaibleLoans()+1);
 		userFound.setBanned(false);
 		Date resourceHaveToBeReturnedDate = action.getDateLoanGiven();
@@ -298,7 +301,7 @@ public class AdminController {
     		if(date1.before(date2)){userFound.setBanned(true);}
 		}
 		
-		userRepository.save(userFound);
+		userService.save(userFound);
 		redirectAttrs.addFlashAttribute("messages", "El recurso ha sido devuelto correctamente.");
 
 		return "redirect:/admin/loans";
@@ -308,7 +311,7 @@ public class AdminController {
 	public String giveResource(Model model, HttpServletRequest request, RedirectAttributes redirectAttrs,
 			@PathVariable Integer id) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		LocalDateTime now = LocalDateTime.now();
 		Date date = getDate(now.getYear(), now.getMonthValue()-1, now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
@@ -324,7 +327,7 @@ public class AdminController {
 	public String deleteLoan(Model model, @PathVariable Integer id, HttpServletRequest request,
 			RedirectAttributes redirectAttrs) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		Action selected = actionRepository.findOne(id);
 		if (selected.getDateLoanGiven() != null && selected.getDateLoanReturn() == null) {
@@ -334,7 +337,7 @@ public class AdminController {
 		ResourceCopy loanCopy = selected.getResource();
 		Resource associatedResource = loanCopy.getResource();
 		associatedResource.getNoReservedCopies().add(loanCopy.getLocationCode());
-		resourceRepository.save(associatedResource);
+		resourceService.save(associatedResource);
 		redirectAttrs.addFlashAttribute("messages",
 				"Préstamo del usuario " + actionRepository.findOne(id).getUser().getName() + " eliminado.");
 		actionRepository.delete(id);
@@ -345,9 +348,9 @@ public class AdminController {
 	@RequestMapping("/admin/resources")
 	public String resources(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		model.addAttribute("resources", resourceRepository.findAll());
+		model.addAttribute("resources", resourceService.findAll());
 
 		return "admin/resource_management";
 	}
@@ -355,7 +358,7 @@ public class AdminController {
 	@RequestMapping("/admin/resources/add")
 	public String addResource(Model model, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 
 		return "admin/add_resource";
@@ -367,7 +370,7 @@ public class AdminController {
 			@RequestParam String resourceType, @RequestParam MultipartFile picture, HttpServletRequest request,
 			RedirectAttributes redirectAttrs, @RequestParam int copiesNumber) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		Resource resource = new Resource(title, author, editorial, description);
 
@@ -379,14 +382,14 @@ public class AdminController {
 			resource.setGenre(genreFound);
 		}
 
-		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
+		ResourceType resourceTypeFound = resourceTypeService.findByName(resourceType);
 		if (resourceTypeFound == null) {
 			model.addAttribute("messages", "El tipo de recurso es incorrecto. Introduce 'Libro' o 'Revista'.");
 			return "admin/add_resource";
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
-		resourceRepository.save(resource);
+		resourceService.save(resource);
 
 		String pictureName = resource.getId().toString() + ".jpg";
 		if (!picture.isEmpty()) {
@@ -400,7 +403,7 @@ public class AdminController {
 			} catch (Exception e) {
 			}
 			resource.setPicture(pictureName);
-			resourceRepository.save(resource);
+			resourceService.save(resource);
 		}
 
 		ResourceCopy copy;
@@ -413,7 +416,7 @@ public class AdminController {
 			resourceCopyRepository.save(copy);
 			resource.getNoReservedCopies().add(copy.getLocationCode());
 		}
-		resourceRepository.save(resource);
+		resourceService.save(resource);
 		redirectAttrs.addFlashAttribute("messages",
 				resourceType + " con título " + resource.getTitle().toString() + " añadido.");
 
@@ -423,9 +426,9 @@ public class AdminController {
 	@RequestMapping("/admin/resources/edit/{id}")
 	public String editResource(Model model, @PathVariable Integer id, HttpServletRequest request) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		Resource resource = resourceRepository.findOne(id);
+		Resource resource = resourceService.findOne(id);
 		model.addAttribute("resource", resource);
 
 		return "admin/edit_resource";
@@ -437,7 +440,7 @@ public class AdminController {
 			@RequestParam String resourceType, @RequestParam MultipartFile picture, RedirectAttributes redirectAttrs,
 			@RequestParam int copyNumber) {
 
-		Resource resource = resourceRepository.findOne(id);
+		Resource resource = resourceService.findOne(id);
 		resource.setDescription(description);
 		resource.setAutor(author);
 		resource.setEditorial(editorial);
@@ -448,7 +451,7 @@ public class AdminController {
 		} else {
 			resource.setGenre(genreFound);
 		}
-		ResourceType resourceTypeFound = resourceTypeRepository.findOneByName(resourceType);
+		ResourceType resourceTypeFound = resourceTypeService.findByName(resourceType);
 		if (resourceTypeFound == null) {
 			redirectAttrs.addFlashAttribute("error", "Tipo incorrecto. Introduzca Libro o Revista.");
 			return "redirect:/admin/resources/edit/{id}";
@@ -468,7 +471,7 @@ public class AdminController {
 			}
 			resource.setPicture(pictureName);
 		}
-		resourceRepository.save(resource);
+		resourceService.save(resource);
 
 		if (copyNumber < resource.getResourceCopies().size()) {
 			if ((resource.getResourceCopies().size() - copyNumber) <= resource.getNoReservedCopies().size()) {
@@ -483,7 +486,7 @@ public class AdminController {
 				}
 				resource.setNoReservedCopies(avaibleCopies);
 				resource.setResourceCopies(copies);
-				resourceRepository.save(resource);
+				resourceService.save(resource);
 			} else {
 				redirectAttrs.addFlashAttribute("error", "Actualmente hay copias en préstamo. El cambio no es posible.");
 				return "redirect:/admin/resources/edit/{id}";
@@ -497,7 +500,7 @@ public class AdminController {
 				copy.setLocationCode(copy.getLocationCode()+copy.getID());
 				resourceCopyRepository.save(copy);
 				resource.getNoReservedCopies().add(copy.getLocationCode());
-				resourceRepository.save(resource);
+				resourceService.save(resource);
 			}
 		}
 		redirectAttrs.addFlashAttribute("messages", resource.getTitle().toString() + " modificado.");
@@ -509,15 +512,15 @@ public class AdminController {
 	public String deleteResource(Model model, @PathVariable Integer id, HttpServletRequest request,
 			RedirectAttributes redirectAttrs) {
 
-		User loggedAdmin = userRepository.findByName(request.getUserPrincipal().getName());
+		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		Resource resourceSelected = resourceRepository.findOne(id);
+		Resource resourceSelected = resourceService.findOne(id);
 		List<Action> actions = actionRepository.findAll();
 		for (Action action : actions) {
 			if (action.getResource().getResource().getId() == id)
 				actionRepository.delete(action);
 		}
-		resourceRepository.delete(resourceSelected);
+		resourceService.delete(resourceSelected);
 		redirectAttrs.addFlashAttribute("messages", "Recurso eliminado.");
 
 		return "redirect:/admin/resources";

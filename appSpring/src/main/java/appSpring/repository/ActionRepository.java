@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import appSpring.entity.Action;
-import appSpring.entity.User;
+import appSpring.model.Action;
+import appSpring.model.User;
 
 public interface ActionRepository extends JpaRepository<Action, Integer> {
 
