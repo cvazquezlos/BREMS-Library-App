@@ -14,26 +14,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import appSpring.model.Action;
 import appSpring.model.Genre;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.ResourceType;
-import appSpring.repository.ResourceRepository;
+import appSpring.repository.ActionRepository;
+import appSpring.service.ResourceService;
 
 @RestController
-@RequestMapping("/api/resource")
+@RequestMapping("/api/resources")
 public class ResourceRestController {
 
 	public interface ResourceDetail extends Resource.Basic, Resource.ResoType, Resource.Genr, Resource.ResoCopy, ResourceCopy.Basic, Genre.Basic, ResourceType.Basic {}
 	
 	@Autowired
-	private ResourceRepository resourceRepository;
+	private ResourceService resourceService;
+	@Autowired
+	private ActionRepository actionRepository;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Resource postResource(@RequestBody Resource resource) {
 
-		resourceRepository.save(resource);
+		resourceService.save(resource);
 
 		return resource;
 	}
@@ -42,7 +46,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getAllResource() {
 		
-		List<Resource> resources = resourceRepository.findAll();
+		List<Resource> resources = resourceService.findAll();
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
 		} else {
@@ -54,7 +58,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Resource> getResource(@PathVariable int id) {
 
-		Resource resource = resourceRepository.findOne(id);
+		Resource resource = resourceService.findOne(id);
 		if (resource != null) {
 			return new ResponseEntity<>(resource, HttpStatus.OK);
 		} else {
@@ -104,11 +108,17 @@ public class ResourceRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Resource> deleteResource(@PathVariable Integer id) {
 
-		Resource resourceSelected = resourceRepository.findOne(id);
+		Resource resourceSelected = resourceService.findOne(id);
 		if (resourceSelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			resourceRepository.delete(resourceSelected);
+			List<Action> actions = actionRepository.findAll();
+			for (Action action : actions) {
+				if ((action.getDateLoanReturn() == null) && (action.getResource().getResource() == resourceSelected)) {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+			}
+			resourceService.delete(resourceSelected);
 			return new ResponseEntity<>(resourceSelected, HttpStatus.OK);
 		}
 	}
@@ -116,9 +126,9 @@ public class ResourceRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Resource> putResource(@PathVariable Integer id, @RequestBody Resource resourceUpdated) {
 
-		Resource resource = resourceRepository.findOne(id);
+		Resource resource = resourceService.findOne(id);
 		if ((resource != null) && (resource.getId() == resourceUpdated.getId())) {
-			resourceRepository.save(resourceUpdated);
+			resourceService.save(resourceUpdated);
 			return new ResponseEntity<>(resourceUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

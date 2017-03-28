@@ -1,4 +1,4 @@
-package appSpring.restController;
+	package appSpring.restController;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import appSpring.model.Action;
 import appSpring.model.Fine;
 import appSpring.model.User;
+import appSpring.repository.ActionRepository;
 import appSpring.repository.UserRepository;
 
 @RestController
@@ -27,6 +28,8 @@ public class UserRestController {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ActionRepository actionRepository;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -64,10 +67,16 @@ public class UserRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
 
-		User user = userRepository.findOne(id);
-		if (user != null) {
-			userRepository.delete(user);
-			return new ResponseEntity<>(user, HttpStatus.OK);
+		User userSelected = userRepository.findOne(id);
+		if (userSelected != null) {
+			List<Action> actions = actionRepository.findAll();
+			for (Action action : actions) {
+				if ((action.getDateLoanReturn() == null) && (action.getUser() == userSelected)) {
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
+			}
+			userRepository.delete(userSelected);
+			return new ResponseEntity<>(userSelected, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

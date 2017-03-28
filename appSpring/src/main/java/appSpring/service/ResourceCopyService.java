@@ -19,6 +19,10 @@ public class ResourceCopyService {
 		return repository.findOne(id);
 	}
 	
+	public ResourceCopy findByLocationCode(String locationCode) {
+		return repository.findByLocationCode(locationCode);
+	}
+	
 	public List<ResourceCopy> findAll() {
 		return repository.findAll();
 	}
