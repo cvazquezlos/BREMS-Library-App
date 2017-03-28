@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceCopy;
+import appSpring.model.Resource;
+import appSpring.model.ResourceCopy;
 
 public interface ResourceCopyRepository extends JpaRepository<ResourceCopy, Integer> {
 

@@ -2,13 +2,13 @@ package appSpring.repository;
 
 import java.util.List;
 
-import appSpring.entity.Genre;
-import appSpring.entity.Resource;
-import appSpring.entity.ResourceType;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import appSpring.model.Genre;
+import appSpring.model.Resource;
+import appSpring.model.ResourceType;
 
 public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 
