@@ -77,10 +77,8 @@ public class ResourceCopyRestController {
 		} else {
 			List<Action> actions = actionRepository.findAll();
 			for (Action action : actions) {
-				if (action.getResource().getID() == resourceCopySelected.getID()) {
-					if ((action.getDateLoanReturn() == null) || (action.getDateLoanGiven() == null)) {
-						return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
-					}
+				if ((action.getResource() == resourceCopySelected) && (action.getDateLoanReturn() == null)) {
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 			}
 			Resource resource = resourceCopySelected.getResource();
