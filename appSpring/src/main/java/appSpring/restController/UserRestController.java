@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.entity.Action;
-import appSpring.entity.Fine;
-import appSpring.entity.User;
+import appSpring.model.Action;
+import appSpring.model.Fine;
+import appSpring.model.User;
 import appSpring.repository.UserRepository;
 
 @RestController

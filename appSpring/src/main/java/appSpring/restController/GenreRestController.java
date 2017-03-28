@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.entity.Genre;
-import appSpring.entity.Resource;
+import appSpring.model.Genre;
+import appSpring.model.Resource;
 import appSpring.repository.GenreRepository;
 import appSpring.restController.ResourceRestController.ResourceDetail;
 

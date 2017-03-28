@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import appSpring.entity.Genre;
-import appSpring.entity.Resource;
-import appSpring.entity.User;
+import appSpring.model.Genre;
+import appSpring.model.Resource;
+import appSpring.model.User;
 import appSpring.repository.GenreRepository;
 import appSpring.repository.ResourceRepository;
 import appSpring.repository.UserRepository;
