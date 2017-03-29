@@ -16,8 +16,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import appSpring.model.Genre;
 import appSpring.model.Resource;
-import appSpring.repository.GenreRepository;
-import appSpring.restController.ResourceRestController.ResourceDetail;
+import appSpring.service.GenreService;
 
 @RestController
 @RequestMapping("/api/genres")
@@ -26,22 +25,22 @@ public class GenreRestController {
 	public interface GenreDetail extends Genre.Basic, Genre.Reso, Resource.Basic {}
 
 	@Autowired
-	private GenreRepository genreRepository;
+	private GenreService genreService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Genre postGenre(@RequestBody Genre genre) {
 
-		genreRepository.save(genre);
+		genreService.save(genre);
 
 		return genre;
 	}
 
-	@JsonView(ResourceDetail.class)
+	@JsonView(GenreDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Genre>> getAllGenres() {
 
-		List<Genre> genres = genreRepository.findAll();
+		List<Genre> genres = genreService.findAll();
 		if (genres != null) {
 			return new ResponseEntity<>(genres, HttpStatus.OK);
 		} else {
@@ -49,11 +48,11 @@ public class GenreRestController {
 		}
 	}
 
-	@JsonView(ResourceDetail.class)
+	@JsonView(GenreDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Genre> getGenre(@PathVariable int id) {
 
-		Genre genre = genreRepository.findOne(id);
+		Genre genre = genreService.findOne(id);
 		if (genre != null) {
 			return new ResponseEntity<>(genre, HttpStatus.OK);
 		} else {
@@ -64,11 +63,11 @@ public class GenreRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Genre> deleteGenre(@PathVariable Integer id) {
 
-		Genre genreSelected = genreRepository.findOne(id);
+		Genre genreSelected = genreService.findOne(id);
 		if (genreSelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			genreRepository.delete(genreSelected);
+			genreService.delete(genreSelected);
 			return new ResponseEntity<>(genreSelected, HttpStatus.OK);
 		}
 	}
@@ -76,9 +75,9 @@ public class GenreRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Genre> putGenre(@PathVariable Integer id, @RequestBody Genre genreUpdated) {
 
-		Genre genre = genreRepository.findOne(id);
+		Genre genre = genreService.findOne(id);
 		if ((genre != null) && (genre.getId() == genreUpdated.getId())) {
-			genreRepository.save(genreUpdated);
+			genreService.save(genreUpdated);
 			return new ResponseEntity<>(genreUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

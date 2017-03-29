@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import appSpring.model.ResourceType;
-import appSpring.repository.ResourceTypeRepository;
+import appSpring.service.ResourceTypeService;
 
 @RestController
 @RequestMapping("/api/resourcetypes")
 public class ResourceTypeRestController {
 
 	@Autowired
-	private ResourceTypeRepository resourceTypeRepository;
+	private ResourceTypeService resourceTypeService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResourceType postResourceType(@RequestBody ResourceType resourceType) {
 
-		resourceTypeRepository.save(resourceType);
+		resourceTypeService.save(resourceType);
 
 		return resourceType;
 	}
@@ -34,7 +34,7 @@ public class ResourceTypeRestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<ResourceType>> getResourceTypes() {
 
-		List<ResourceType> resourceTypes = resourceTypeRepository.findAll();
+		List<ResourceType> resourceTypes = resourceTypeService.findAll();
 		if (resourceTypes != null) {
 			return new ResponseEntity<>(resourceTypes, HttpStatus.OK);
 		} else {
@@ -45,7 +45,7 @@ public class ResourceTypeRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<ResourceType> getResourceType(@PathVariable Integer id) {
 
-		ResourceType resourceType = resourceTypeRepository.findOne(id);
+		ResourceType resourceType = resourceTypeService.findOne(id);
 		if (resourceType != null) {
 			return new ResponseEntity<>(resourceType, HttpStatus.OK);
 		} else {
@@ -56,11 +56,11 @@ public class ResourceTypeRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<ResourceType> deleteResourceType(@PathVariable Integer id) {
 
-		ResourceType resourceTypeSelected = resourceTypeRepository.findOne(id);
+		ResourceType resourceTypeSelected = resourceTypeService.findOne(id);
 		if (resourceTypeSelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			resourceTypeRepository.delete(resourceTypeSelected);
+			resourceTypeService.delete(resourceTypeSelected);
 			return new ResponseEntity<>(resourceTypeSelected, HttpStatus.OK);
 		}
 	}
@@ -68,9 +68,9 @@ public class ResourceTypeRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<ResourceType> putResourceType(@PathVariable Integer id, @RequestBody ResourceType resourceTypeUpdated) {
 
-		ResourceType resourceType = resourceTypeRepository.findOne(id);
+		ResourceType resourceType = resourceTypeService.findOne(id);
 		if ((resourceType != null) && (resourceType.getId() == resourceTypeUpdated.getId())) {
-			resourceTypeRepository.save(resourceTypeUpdated);
+			resourceTypeService.save(resourceTypeUpdated);
 			return new ResponseEntity<>(resourceTypeUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

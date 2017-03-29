@@ -23,6 +23,10 @@ public class GenreService {
 		return repository.findAll();
 	}
 
+	public Genre findByName(String name) {
+		return repository.findByName(name);
+	}
+
 	public void save(Genre genre) {
 		repository.save(genre);
 	}
@@ -30,4 +34,9 @@ public class GenreService {
 	public void delete(Integer id) {
 		repository.delete(id);
 	}
+
+	public void delete(Genre genre) {
+		repository.delete(genre);
+	}
+
 }

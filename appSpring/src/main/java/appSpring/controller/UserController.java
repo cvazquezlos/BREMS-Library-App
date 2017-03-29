@@ -16,19 +16,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import appSpring.model.Action;
 import appSpring.model.User;
-import appSpring.repository.UserRepository;
+import appSpring.service.UserService;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepository;
-
+	private UserService userService;
 
 	@RequestMapping("/user_profile")
 	public String user(Model model, HttpServletRequest request){
 
-		User user = userRepository.findByName(request.getUserPrincipal().getName());
+		User user = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("user", user);
 		ArrayList<Action> history = new ArrayList<Action>();
 		ArrayList<Action> loans = new ArrayList<Action>();
@@ -57,7 +56,7 @@ public class UserController {
 	public String editUserProfile(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
 			@RequestParam String email, @RequestParam String telephone, @RequestParam MultipartFile avatar) {
 
-		User user = userRepository.findOne(id);
+		User user = userService.findOne(id);
 		if( user != null ) {
 			user.setFirstName(firstName);
 			user.setLastName1(lastName1);
@@ -77,7 +76,7 @@ public class UserController {
 				}
 				user.setAvatar(avatarName);
 			}
-			userRepository.save(user);
+			userService.save(user);
 		}			
 
 		return "redirect:/user_profile";
@@ -86,9 +85,9 @@ public class UserController {
 	@RequestMapping("/user_profile/edit/biography/{id}")
 	public String editUserBiography(Model model, @PathVariable Integer id, @RequestParam String biography) {
 
-		User user = userRepository.findOne(id);
+		User user = userService.findOne(id);
 		user.setBiography(biography);
-		userRepository.save(user);
+		userService.save(user);
 
 		return "redirect:/user_profile";
 	}

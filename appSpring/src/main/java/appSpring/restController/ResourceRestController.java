@@ -19,7 +19,7 @@ import appSpring.model.Genre;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.ResourceType;
-import appSpring.repository.ActionRepository;
+import appSpring.service.ActionService;
 import appSpring.service.ResourceService;
 
 @RestController
@@ -31,7 +31,7 @@ public class ResourceRestController {
 	@Autowired
 	private ResourceService resourceService;
 	@Autowired
-	private ActionRepository actionRepository;
+	private ActionService actionService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -70,7 +70,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/genre/{name}", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getResourcesByGenre(@PathVariable String name) {
 	
-		List<Resource> resources = resourceRepository.findByGenreNameLikeIgnoreCase(name);
+		List<Resource> resources = resourceService.findByGenreNameLikeIgnoreCase(name);
 		
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
@@ -83,7 +83,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/type/{name}", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getResourcesByType(@PathVariable String name) {
 	
-		List<Resource> resources = resourceRepository.findByResourceTypeName(name);
+		List<Resource> resources = resourceService.findByResourceTypeName(name);
 		
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
@@ -96,7 +96,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/author/{name}", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getResourcesByAuthor(@PathVariable String name) {
 	
-		List<Resource> resources = resourceRepository.findByAuthor(name);
+		List<Resource> resources = resourceService.findByAuthor(name);
 		
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
@@ -112,7 +112,7 @@ public class ResourceRestController {
 		if (resourceSelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			List<Action> actions = actionRepository.findAll();
+			List<Action> actions = actionService.findAll();
 			for (Action action : actions) {
 				if ((action.getDateLoanReturn() == null) && (action.getResource().getResource() == resourceSelected)) {
 					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
