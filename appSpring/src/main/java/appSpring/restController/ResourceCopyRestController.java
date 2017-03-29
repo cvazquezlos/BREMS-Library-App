@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import appSpring.model.Action;
 import appSpring.model.Fine;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
-import appSpring.repository.ActionRepository;
-import appSpring.repository.ResourceCopyRepository;
-import appSpring.repository.ResourceRepository;
+import appSpring.service.ActionService;
+import appSpring.service.ResourceCopyService;
+import appSpring.service.ResourceService;
 
 @RestController
 @RequestMapping("/api/resourcecopies")
@@ -27,29 +29,30 @@ public class ResourceCopyRestController {
 	public interface ResourceCopyDetail extends ResourceCopy.Basic, ResourceCopy.Fin, ResourceCopy.Reso, Fine.Basic, Resource.Basic {}
 
 	@Autowired
-	private ResourceCopyRepository resourceCopyRepository;
+	private ResourceCopyService resourceCopyService;
 	@Autowired
-	private ResourceRepository resourceRepository;
+	private ResourceService resourceService;
 	@Autowired
-	private ActionRepository actionRepository;
+	private ActionService actionService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResourceCopy postResourceCopy(@RequestBody ResourceCopy resourceCopy) {
 
 		Resource resource = resourceCopy.getResource();
-		resourceCopyRepository.save(resourceCopy);
+		resourceCopyService.save(resourceCopy);
 		resource.getNoReservedCopies().add(resourceCopy.getLocationCode());
 		resource.getResourceCopies().add(resourceCopy);
-		resourceRepository.save(resource);
+		resourceService.save(resource);
 
 		return resourceCopy;
 	}
 
+	@JsonView(ResourceCopyDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<ResourceCopy>> getResourceCopies() {
 
-		List<ResourceCopy> resourceCopies = resourceCopyRepository.findAll();
+		List<ResourceCopy> resourceCopies = resourceCopyService.findAll();
 		if (resourceCopies != null) {
 			return new ResponseEntity<>(resourceCopies, HttpStatus.OK);
 		} else {
@@ -57,10 +60,11 @@ public class ResourceCopyRestController {
 		}
 	}
 
+	@JsonView(ResourceCopyDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<ResourceCopy> getResourceCopy(@PathVariable Integer id) {
 
-		ResourceCopy resourceCopy = resourceCopyRepository.findOne(id);
+		ResourceCopy resourceCopy = resourceCopyService.findOne(id);
 		if (resourceCopy != null) {
 			return new ResponseEntity<>(resourceCopy, HttpStatus.OK);
 		} else {
@@ -71,11 +75,11 @@ public class ResourceCopyRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<ResourceCopy> deleteResourceCopy(@PathVariable Integer id) {
 
-		ResourceCopy resourceCopySelected = resourceCopyRepository.findOne(id);
+		ResourceCopy resourceCopySelected = resourceCopyService.findOne(id);
 		if (resourceCopySelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			List<Action> actions = actionRepository.findAll();
+			List<Action> actions = actionService.findAll();
 			for (Action action : actions) {
 				if ((action.getResource() == resourceCopySelected) && (action.getDateLoanReturn() == null)) {
 					return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -84,8 +88,8 @@ public class ResourceCopyRestController {
 			Resource resource = resourceCopySelected.getResource();
 			resource.getResourceCopies().remove(resourceCopySelected);
 			resource.getNoReservedCopies().remove(resourceCopySelected.getLocationCode());
-			resourceCopyRepository.delete(resourceCopySelected);
-			resourceRepository.save(resource);
+			resourceCopyService.delete(resourceCopySelected);
+			resourceService.save(resource);
 			return new ResponseEntity<>(resourceCopySelected, HttpStatus.OK);
 		}
 	}
@@ -93,9 +97,9 @@ public class ResourceCopyRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<ResourceCopy> putResourceCopy(@PathVariable Integer id, @RequestBody ResourceCopy resourceCopyUpdated) {
 
-		ResourceCopy resourceCopy = resourceCopyRepository.findOne(id);
+		ResourceCopy resourceCopy = resourceCopyService.findOne(id);
 		if ((resourceCopy != null) && (resourceCopy.getID() == resourceCopyUpdated.getID())) {
-			resourceCopyRepository.save(resourceCopyUpdated);
+			resourceCopyService.save(resourceCopyUpdated);
 			return new ResponseEntity<>(resourceCopyUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

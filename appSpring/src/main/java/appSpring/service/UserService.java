@@ -34,4 +34,8 @@ public class UserService {
 		repository.delete(id);
 	}
 
+	public void delete(User user) {
+		repository.delete(user);
+	}
+
 }

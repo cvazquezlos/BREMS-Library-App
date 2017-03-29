@@ -16,37 +16,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import appSpring.model.Genre;
 import appSpring.model.Resource;
 import appSpring.model.User;
-import appSpring.repository.GenreRepository;
-import appSpring.repository.ResourceRepository;
-import appSpring.repository.UserRepository;
+import appSpring.service.GenreService;
+import appSpring.service.ResourceService;
+import appSpring.service.UserService;
 
 @Controller
 public class SearchController {
 
 	@Autowired
-	private UserRepository userRepository;
-
+	private UserService userService;
 	@Autowired
-	private ResourceRepository resourceRepository;
-
+	private ResourceService resourceService;
 	@Autowired
-	private GenreRepository genreRepository;
+	private GenreService genreService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/search")
 	public String search(Model model, HttpServletRequest request, @RequestParam String mySearch) {
 		if (request.isUserInRole("ADMIN") || request.isUserInRole("USER")) {
-			User loggedUser = userRepository.findByName(request.getUserPrincipal().getName());
+			User loggedUser = userService.findByName(request.getUserPrincipal().getName());
 			model.addAttribute("user", loggedUser);
 			model.addAttribute("logged", true);
 		} else
 			model.addAttribute("unlogged", true);
 		if (request.isUserInRole("ADMIN"))
 			model.addAttribute("admin", true);
-		Page<Resource> search = resourceRepository
+		Page<Resource> search = resourceService
 				.findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(
 						"%" + mySearch + "%", "%" + mySearch + "%", "%" + mySearch + "%", "%" + mySearch + "%",
 						new PageRequest(0, 2));
-		List<Genre> genres = genreRepository.findAll();
+		List<Genre> genres = genreService.findAll();
 		if (search.getTotalElements() != 0)
 			model.addAttribute("isEmpty", false);
 		else
@@ -61,7 +59,7 @@ public class SearchController {
 	@RequestMapping(method = RequestMethod.GET, value = "/moreSearch")
 	public String moreSearch(Model model, @RequestParam int page, @RequestParam String mySearch) {
 
-		Page<Resource> search = resourceRepository
+		Page<Resource> search = resourceService
 				.findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(
 						"%" + mySearch + "%", "%" + mySearch + "%", "%" + mySearch + "%", "%" + mySearch + "%",
 						new PageRequest(page, 2));

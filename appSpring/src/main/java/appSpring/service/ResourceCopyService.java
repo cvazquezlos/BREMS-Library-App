@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.repository.ResourceCopyRepository;
 
@@ -27,6 +28,10 @@ public class ResourceCopyService {
 		return repository.findAll();
 	}
 
+	public Long countByResource(Resource resource) {
+		return repository.countByResource(resource);
+	}
+
 	public void save(ResourceCopy res_copy) {
 		repository.save(res_copy);
 	}
@@ -34,4 +39,9 @@ public class ResourceCopyService {
 	public void delete(Integer id) {
 		repository.delete(id);
 	}
+
+	public void delete(ResourceCopy copy) {
+		repository.delete(copy);
+	}
+
 }

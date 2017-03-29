@@ -34,4 +34,8 @@ public class ResourceTypeService {
 		repository.delete(id);
 	}
 
+	public void delete(ResourceType resourceType) {
+		repository.delete(resourceType);
+	}
+
 }

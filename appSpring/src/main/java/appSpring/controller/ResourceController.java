@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import appSpring.model.Resource;
 import appSpring.model.ResourceType;
-import appSpring.repository.ResourceCopyRepository;
-import appSpring.repository.ResourceRepository;
-import appSpring.repository.ResourceTypeRepository;
+import appSpring.service.ResourceCopyService;
 import appSpring.service.ResourceService;
 import appSpring.service.ResourceTypeService;
 
@@ -27,13 +25,13 @@ public class ResourceController {
 	@Autowired
 	private ResourceTypeService resourceTypeService;
 	@Autowired
-	private ResourceCopyRepository resourceCopyRepo;
+	private ResourceCopyService resourceCopyService;
 
 	@RequestMapping("/{id}")
 	public String bookProfile(Model model, @PathVariable Integer id) {
 
 		Resource resource = resourceService.findOne(id);
-		Long num = resourceCopyRepo.countByResource(resource);
+		Long num = resourceCopyService.countByResource(resource);
 		List<Resource> similarResources = resourceService.findByGenreAndIdNot(resource.getGenre(), resource.getId());
 
 		model.addAttribute("resource", resource);

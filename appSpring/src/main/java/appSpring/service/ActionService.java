@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import appSpring.model.Action;
+import appSpring.model.User;
 import appSpring.repository.ActionRepository;
 
 
@@ -23,6 +24,10 @@ public class ActionService {
 		return repository.findAll();
 	}
 
+	public List<Action> findByUser(User user) {
+		return repository.findByUser(user);
+	}
+
 	public void save(Action action) {
 		repository.save(action);
 	}
@@ -30,4 +35,9 @@ public class ActionService {
 	public void delete(Integer id) {
 		repository.delete(id);
 	}
+
+	public void delete(Action action) {
+		repository.delete(action);
+	}
+
 }

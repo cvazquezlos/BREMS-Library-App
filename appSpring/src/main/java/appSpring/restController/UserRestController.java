@@ -17,25 +17,25 @@ import com.fasterxml.jackson.annotation.JsonView;
 import appSpring.model.Action;
 import appSpring.model.Fine;
 import appSpring.model.User;
-import appSpring.repository.ActionRepository;
-import appSpring.repository.UserRepository;
+import appSpring.service.ActionService;
+import appSpring.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
 
-	public interface UserDetail extends User.Basic, User.Act, User.Penalty, Fine.Basic, Action.Basic {}
+	public interface UserDetail extends User.Basic, User.Act, User.Fin, Fine.Basic, Action.Basic {}
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	@Autowired
-	private ActionRepository actionRepository;
+	private ActionService actionService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public User postUser(@RequestBody User user) {
 
-		userRepository.save(user);
+		userService.save(user);
 
 		return user;
 	}
@@ -44,7 +44,7 @@ public class UserRestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getUsers() {
 
-		List<User> users = userRepository.findAll();
+		List<User> users = userService.findAll();
 		if (users != null) {
 			return new ResponseEntity<>(users, HttpStatus.OK);
 		} else {
@@ -56,7 +56,7 @@ public class UserRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<User> getUser(@PathVariable int id) {
 
-		User user = userRepository.findOne(id);
+		User user = userService.findOne(id);
 		if (user != null) {
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		} else {
@@ -67,15 +67,15 @@ public class UserRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
 
-		User userSelected = userRepository.findOne(id);
+		User userSelected = userService.findOne(id);
 		if (userSelected != null) {
-			List<Action> actions = actionRepository.findAll();
+			List<Action> actions = actionService.findAll();
 			for (Action action : actions) {
 				if ((action.getDateLoanReturn() == null) && (action.getUser() == userSelected)) {
 					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 			}
-			userRepository.delete(userSelected);
+			userService.delete(userSelected);
 			return new ResponseEntity<>(userSelected, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -85,9 +85,9 @@ public class UserRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<User> putUser(@PathVariable Integer id, @RequestBody User userUpdated) {
 
-		User user = userRepository.findOne(id);
+		User user = userService.findOne(id);
 		if ((user != null) && (user.getId() == userUpdated.getId())) {
-			userRepository.save(userUpdated);
+			userService.save(userUpdated);
 			return new ResponseEntity<>(userUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -22,19 +22,20 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class User {
 
-	public interface UserLoan {}
-
 	public interface Basic {}
 	public interface Act {}
-	public interface Penalty {}
+	public interface Fin {}
+	public interface ActionInt {}
+	public interface FineInt {}
+	public interface LoginInt {}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonView({Basic.class, UserLoan.class})
+	@JsonView({Basic.class, ActionInt.class, FineInt.class, LoginInt.class})
 	private Integer id;
 
 	@Column(unique = true)
-	@JsonView({Basic.class, UserLoan.class})
+	@JsonView({Basic.class, ActionInt.class, FineInt.class, LoginInt.class})
 	private String name;
 
 	@JsonIgnore
@@ -46,7 +47,7 @@ public class User {
 	private String lastName1;
 	@JsonView(Basic.class)
 	private String lastName2;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, LoginInt.class})
 	private String email;
 	@JsonView(Basic.class)
 	private String telephone;
@@ -58,7 +59,7 @@ public class User {
 	private String biography;
 	@JsonView(Basic.class)
 	private String avatar;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, LoginInt.class})
 	private int avaibleLoans;
 	@JsonView(Basic.class)
 	private boolean isBanned;
@@ -71,9 +72,8 @@ public class User {
 	@JsonView(Act.class)
 	private List<Action> actions;
 
-	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	@JsonView(Penalty.class)
+	@JsonView(Fin.class)
 	private List<Fine> penalties;
 
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -196,7 +196,7 @@ public class User {
 		this.roles = roles;
 	}
 
-	public List<Fine> getPenalties() {
+	public List<Fine> getFines() {
 		return penalties;
 	}
 
