@@ -25,11 +25,11 @@ import appSpring.service.ResourceService;
 import appSpring.service.UserService;
 
 @RestController
-@RequestMapping("/api/loan")
+@RequestMapping("/api/actions")
 public class ActionRestController {
 
 	public interface LoanDetail extends Action.Basic, Action.ResoCopy, ResourceCopy.Basic, ResourceCopy.Reso, Resource.Basic, 
-										Action.Usr, User.Basic{}
+										Action.Usr, User.ActionInt {}
 
 	@Autowired
 	private ActionRepository actionRepository;
@@ -44,7 +44,7 @@ public class ActionRestController {
 		Calendar today = Calendar.getInstance();
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		User user = loan.getUser();
-		List<Fine> fines = user.getPenalties();
+		List<Fine> fines = user.getFines();
 		for (Fine fine : fines) {
 			Date currentDate = new Date();
 			if (currentDate.before(fine.getFinishDate()) || (user.getisBanned()) || (user.getAvaibleLoans() == 0)) {

@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.model.Action;
-import appSpring.model.Fine;
+import appSpring.component.UserComponent;
 import appSpring.model.User;
-import appSpring.model.UserComponent;
 
 @RestController
 public class LoginRestController {
 
+	public interface UserDetail extends User.LoginInt {}
+
 	@Autowired
 	private UserComponent userComponent;
 
-	@JsonView(User.Basic.class)
+	@JsonView(UserDetail.class)
 	@RequestMapping(value="/api/logIn")
 	public ResponseEntity<User> logIn() {
 

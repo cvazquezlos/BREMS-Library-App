@@ -70,7 +70,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/genre/{name}", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getResourcesByGenre(@PathVariable String name) {
 	
-		List<Resource> resources = resourceRepository.findByGenreNameLikeIgnoreCase(name);
+		List<Resource> resources = resourceService.findByGenreNameLikeIgnoreCase(name);
 		
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
@@ -83,7 +83,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/type/{name}", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getResourcesByType(@PathVariable String name) {
 	
-		List<Resource> resources = resourceRepository.findByResourceTypeName(name);
+		List<Resource> resources = resourceService.findByResourceTypeName(name);
 		
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
@@ -96,7 +96,7 @@ public class ResourceRestController {
 	@RequestMapping(value = "/author/{name}", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getResourcesByAuthor(@PathVariable String name) {
 	
-		List<Resource> resources = resourceRepository.findByAuthor(name);
+		List<Resource> resources = resourceService.findByAuthor(name);
 		
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);

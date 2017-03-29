@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import appSpring.model.Action;
 import appSpring.model.Fine;
 import appSpring.model.Resource;
@@ -46,6 +48,7 @@ public class ResourceCopyRestController {
 		return resourceCopy;
 	}
 
+	@JsonView(ResourceCopyDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<ResourceCopy>> getResourceCopies() {
 
@@ -57,6 +60,7 @@ public class ResourceCopyRestController {
 		}
 	}
 
+	@JsonView(ResourceCopyDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<ResourceCopy> getResourceCopy(@PathVariable Integer id) {
 

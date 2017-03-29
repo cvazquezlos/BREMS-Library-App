@@ -207,7 +207,7 @@ public class AdminController {
 			model.addAttribute("messages", "No existe el usuario.");
 			return "admin/add_loan";
 		} else {
-			List<Fine> userPenalties = userFound.getPenalties();
+			List<Fine> userPenalties = userFound.getFines();
 			for (Fine fine : userPenalties) {
 				if (date.before(fine.getFinishDate())) {
 					model.addAttribute("messages", "El usuario actualmente tiene una penalización. No es posible hacer la reserva.");

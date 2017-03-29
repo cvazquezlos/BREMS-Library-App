@@ -46,6 +46,18 @@ public class ResourceService {
 		return repository.findByGenreAndIdNot(genre, id);
 	}
 
+	public List<Resource> findByGenreNameLikeIgnoreCase(String genreName) {
+		return repository.findByGenreNameLikeIgnoreCase(genreName);
+	}
+
+	public List<Resource> findByResourceTypeName(String resourceTypeName) {
+		return repository.findByResourceTypeName(resourceTypeName);
+	}
+
+	public List<Resource> findByAuthor(String author) {
+		return repository.findByAuthor(author);
+	}
+
 	public void save(Resource resource) {
 		repository.save(resource);
 	}

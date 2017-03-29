@@ -24,7 +24,7 @@ import appSpring.repository.UserRepository;
 @RequestMapping("/api/users")
 public class UserRestController {
 
-	public interface UserDetail extends User.Basic, User.Act, User.Penalty, Fine.Basic, Action.Basic {}
+	public interface UserDetail extends User.Basic, User.Act, User.Fin, Fine.Basic, Action.Basic {}
 
 	@Autowired
 	private UserRepository userRepository;

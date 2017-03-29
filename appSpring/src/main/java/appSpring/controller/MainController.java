@@ -114,7 +114,7 @@ public class MainController {
 		User loggedUser = userService.findByName(request.getUserPrincipal().getName());
 		Calendar today = Calendar.getInstance();
 		today.set(Calendar.HOUR_OF_DAY, 0);
-		List<Fine> userPenalties = loggedUser.getPenalties();
+		List<Fine> userPenalties = loggedUser.getFines();
 		for (Fine penalty : userPenalties) {
 			Date currentDate = new Date();
 			if (currentDate.before(penalty.getFinishDate())) {
