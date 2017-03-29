@@ -1,10 +1,8 @@
 package appSpring.controller;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import appSpring.model.Action;
-import appSpring.model.Fine;
 import appSpring.model.Resource;
 import appSpring.model.ResourceType;
 import appSpring.model.User;
 
-import appSpring.service.ActionService;
-import appSpring.service.ResourceCopyService;
+import appSpring.service.LogicService;
 import appSpring.service.ResourceService;
 import appSpring.service.ResourceTypeService;
 import appSpring.service.UserService;
@@ -34,13 +29,11 @@ public class MainController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private ResourceCopyService resourceCopyService;
-	@Autowired
 	private ResourceService resourceService;
 	@Autowired
 	private ResourceTypeService resourceTypeService;
 	@Autowired
-	private ActionService actionService;
+	private LogicService logicService;
 
 	@RequestMapping("/")
 	public String resources(Model model, HttpServletRequest request) {
@@ -104,62 +97,34 @@ public class MainController {
 			RedirectAttributes redirectAttrs) {
 
 		User loggedUser = userService.findByName(request.getUserPrincipal().getName());
-		Calendar today = Calendar.getInstance();
-		today.set(Calendar.HOUR_OF_DAY, 0);
-		List<Fine> userPenalties = loggedUser.getFines();
-		for (Fine penalty : userPenalties) {
-			Date currentDate = new Date();
-			if (currentDate.before(penalty.getFinishDate())) {
-				redirectAttrs.addFlashAttribute("error",
-						"Actualmente tiene una penalización. No es posible hacer la reserva.");
-				return "redirect:/";
-			}
-		}
-		if (loggedUser.getisBanned()){
+		LocalDateTime now = LocalDateTime.now();
+		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Resource resourceSelected = resourceService.findOne(id);
+		switch (logicService.reserveAResource(loggedUser, date, resourceSelected, null)) {
+		case 0:
+			redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
+			return "redirect:/";
+		case 3:
+			redirectAttrs.addFlashAttribute("error",
+					"Actualmente tiene una penalización. No es posible hacer la reserva.");
+			return "redirect:/";
+		case 4:
 			redirectAttrs.addFlashAttribute("error",
 					"Actualmente tiene libros sin devolver fuera de plazo. No es posible hacer la reserva.");
 			return "redirect:/";
-		}
-		if (loggedUser.getAvaibleLoans()==0) {
+		case 5:
 			redirectAttrs.addFlashAttribute("error", "Actualmente no puede reservar más recursos. El límite es de 3.");
 			return "redirect:/";
-		}
-		Resource resourceSelected = resourceService.findOne(id);
-		if (resourceSelected.getNoReservedCopies().isEmpty()) {
-			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
-			resourceService.save(resourceSelected);
-			System.out.println(resourceService.findOne(resourceSelected.getId()).getAvaibleReserve());
+		case 6:
 			redirectAttrs.addFlashAttribute("error", "No existen copias suficientes del recurso. Inténtelo más tarde.");
 			return "redirect:/";
+		case 7:
+			redirectAttrs.addFlashAttribute("error", "Ya posee un préstamo reciente de este recurso.");
+			return "redirect:/";
+		default:
+			model.addAttribute("messages", "Error interno.");
+			return "admin/add_loan";
 		}
-		List<Action> previousActions = loggedUser.getActions();
-		for (Action action : previousActions) {
-			if (action.getResource().getResource() == resourceSelected && action.getDateLoanReturn() == null) {
-				redirectAttrs.addFlashAttribute("error", "Ya posee un préstamo reciente de este recurso.");
-				return "redirect:/";
-			}
-		}
-		LocalDateTime now = LocalDateTime.now();
-		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
-		
-		Action reserve = new Action(date);
-		reserve.setUser(loggedUser);
-		
-		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
-		reserve.setResource(resourceCopyService.findByLocationCode(avaibleCopies.get(0)));
-		avaibleCopies.remove(0);
-		actionService.save(reserve);
-		resourceSelected.setNoReservedCopies(avaibleCopies);
-		resourceService.save(resourceSelected);
-		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);
-		userService.save(loggedUser);
-		if (resourceSelected.getNoReservedCopies().isEmpty()) {
-			resourceSelected.setAvaibleReserve(!resourceSelected.getAvaibleReserve());
-			resourceService.save(resourceSelected);
-		}
-		redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
-
-		return "redirect:/";
 	}
 
 

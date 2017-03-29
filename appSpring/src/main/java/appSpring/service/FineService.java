@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import appSpring.model.Fine;
+import appSpring.model.User;
 import appSpring.repository.FineRepository;
 
 
@@ -21,6 +22,10 @@ public class FineService {
 	
 	public List<Fine> findAll() {
 		return repository.findAll();
+	}
+
+	public List<Fine> findByUser(User user) {
+		return repository.findByUser(user);
 	}
 
 	public void save(Fine fine) {
