@@ -85,6 +85,8 @@ public class LogicService {
 			avaibleCopies.remove(0);
 			resource.setNoReservedCopies(avaibleCopies);
 		}
+		if (resource.getNoReservedCopies().isEmpty())
+			resource.setAvaibleReserve(false);
 		actionService.save(reserve);
 		resourceService.save(resource);
 		user.setAvaibleLoans(user.getAvaibleLoans() - 1);

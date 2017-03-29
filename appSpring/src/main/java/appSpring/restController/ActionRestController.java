@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import appSpring.component.UserComponent;
 import appSpring.model.Action;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
@@ -31,13 +32,19 @@ public class ActionRestController {
 	private ActionService actionService;
 	@Autowired
 	private LogicService logicService;
+	@Autowired
+	private UserComponent userComponent;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Action> postAction(@RequestBody Action loan) {
 
-		int status = logicService.reserveAResource(loan.getUser(), loan.getDateLoanInit(), loan.getResource().getResource(), loan.getResource());
-		if (status == 0) {
-			return new ResponseEntity<>(loan, HttpStatus.CREATED);
+		if (userComponent.getLoggedUser() == loan.getUser()) {
+			int status = logicService.reserveAResource(loan.getUser(), loan.getDateLoanInit(), loan.getResource().getResource(), loan.getResource());
+			if (status == 0) {
+				return new ResponseEntity<>(loan, HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}

@@ -14,17 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import appSpring.component.UserComponent;
 import appSpring.model.Fine;
 import appSpring.service.FineService;
 
 @RestController
-@RequestMapping("/api/fine")
+@RequestMapping("/api/fines")
 public class FineRestController {
 
 	public interface FineDetail extends Fine.Basic, Fine.ResoCopy, Fine.Usr {}
 	
 	@Autowired
 	private FineService fineService;
+	@Autowired
+	private UserComponent userComponent;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -39,7 +42,7 @@ public class FineRestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Fine>> getAllFine() {
 		
-		List<Fine> fines = fineService.findAll();
+		List<Fine> fines = fineService.findByUser(userComponent.getLoggedUser());
 		if (fines != null) {
 			return new ResponseEntity<>(fines, HttpStatus.OK);
 		} else {
@@ -53,7 +56,10 @@ public class FineRestController {
 
 		Fine fine = fineService.findOne(id);
 		if (fine != null) {
-			return new ResponseEntity<>(fine, HttpStatus.OK);
+			if (userComponent.getLoggedUser() == fine.getUser())
+				return new ResponseEntity<>(fine, HttpStatus.OK);
+			else
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

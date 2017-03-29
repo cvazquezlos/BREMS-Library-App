@@ -104,7 +104,8 @@ public class ResourceRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
+	@JsonView(ResourceDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Resource> deleteResource(@PathVariable Integer id) {
 
@@ -123,6 +124,7 @@ public class ResourceRestController {
 		}
 	}
 
+	@JsonView(ResourceDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Resource> putResource(@PathVariable Integer id, @RequestBody Resource resourceUpdated) {
 
