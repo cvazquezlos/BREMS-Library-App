@@ -58,6 +58,10 @@ public class ResourceService {
 		return repository.findByAuthor(author);
 	}
 
+	public Page<Resource> findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(String title, String genreName, String author, String editorial, Pageable page) {
+		return repository.findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(title, genreName, author, editorial, page);
+	}
+
 	public void save(Resource resource) {
 		repository.save(resource);
 	}

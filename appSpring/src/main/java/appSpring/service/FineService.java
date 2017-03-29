@@ -30,4 +30,9 @@ public class FineService {
 	public void delete(Integer id) {
 		repository.delete(id);
 	}
+
+	public void delete(Fine fine) {
+		repository.delete(fine);
+	}
+
 }

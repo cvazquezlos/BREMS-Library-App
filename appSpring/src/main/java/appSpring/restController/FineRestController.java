@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import appSpring.model.Fine;
-import appSpring.repository.FineRepository;
+import appSpring.service.FineService;
 
 @RestController
 @RequestMapping("/api/fine")
@@ -24,13 +24,13 @@ public class FineRestController {
 	public interface FineDetail extends Fine.Basic, Fine.ResoCopy, Fine.Usr {}
 	
 	@Autowired
-	private FineRepository fineRepository;
+	private FineService fineService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Fine postFine(@RequestBody Fine fine) {
 
-		fineRepository.save(fine);
+		fineService.save(fine);
 
 		return fine;
 	}
@@ -39,7 +39,7 @@ public class FineRestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<Fine>> getAllFine() {
 		
-		List<Fine> fines = fineRepository.findAll();
+		List<Fine> fines = fineService.findAll();
 		if (fines != null) {
 			return new ResponseEntity<>(fines, HttpStatus.OK);
 		} else {
@@ -51,7 +51,7 @@ public class FineRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Fine> getFine(@PathVariable int id) {
 
-		Fine fine = fineRepository.findOne(id);
+		Fine fine = fineService.findOne(id);
 		if (fine != null) {
 			return new ResponseEntity<>(fine, HttpStatus.OK);
 		} else {
@@ -62,9 +62,9 @@ public class FineRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Fine> putFine(@PathVariable Integer id, @RequestBody Fine fineUpdated) {
 
-		Fine fine = fineRepository.findOne(id);
+		Fine fine = fineService.findOne(id);
 		if ((fine != null) && (fine.getId() == fineUpdated.getId())) {
-			fineRepository.save(fineUpdated);
+			fineService.save(fineUpdated);
 			return new ResponseEntity<>(fineUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -74,9 +74,9 @@ public class FineRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Fine> deleteFine(@PathVariable Integer id) {
 
-		Fine fine = fineRepository.findOne(id);
+		Fine fine = fineService.findOne(id);
 		if (fine != null) {
-			fineRepository.delete(fine);
+			fineService.delete(fine);
 			return new ResponseEntity<>(fine, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

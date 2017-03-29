@@ -21,13 +21,9 @@ import appSpring.model.Fine;
 import appSpring.model.Resource;
 import appSpring.model.ResourceType;
 import appSpring.model.User;
-import appSpring.repository.ResourceCopyRepository;
 
-import appSpring.repository.ResourceTypeRepository;
-import appSpring.repository.UserRepository;
 import appSpring.service.ActionService;
 import appSpring.service.ResourceCopyService;
-
 import appSpring.service.ResourceService;
 import appSpring.service.ResourceTypeService;
 import appSpring.service.UserService;
@@ -37,18 +33,14 @@ public class MainController {
 
 	@Autowired
 	private UserService userService;
-
 	@Autowired
-	private ResourceCopyService resourceCopyServ;
-	
+	private ResourceCopyService resourceCopyService;
 	@Autowired
 	private ResourceService resourceService;
-	
 	@Autowired
 	private ResourceTypeService resourceTypeService;
-
 	@Autowired
-	private ActionService actionServ;
+	private ActionService actionService;
 
 	@RequestMapping("/")
 	public String resources(Model model, HttpServletRequest request) {
@@ -154,9 +146,9 @@ public class MainController {
 		reserve.setUser(loggedUser);
 		
 		ArrayList<String> avaibleCopies = resourceSelected.getNoReservedCopies();
-		reserve.setResource(resourceCopyServ.findByLocationCode(avaibleCopies.get(0)));
+		reserve.setResource(resourceCopyService.findByLocationCode(avaibleCopies.get(0)));
 		avaibleCopies.remove(0);
-		actionServ.save(reserve);
+		actionService.save(reserve);
 		resourceSelected.setNoReservedCopies(avaibleCopies);
 		resourceService.save(resourceSelected);
 		loggedUser.setAvaibleLoans(loggedUser.getAvaibleLoans()-1);

@@ -20,7 +20,7 @@ import appSpring.model.Fine;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.User;
-import appSpring.repository.ActionRepository;
+import appSpring.service.ActionService;
 import appSpring.service.ResourceService;
 import appSpring.service.UserService;
 
@@ -32,7 +32,7 @@ public class ActionRestController {
 										Action.Usr, User.ActionInt {}
 
 	@Autowired
-	private ActionRepository actionRepository;
+	private ActionService actionService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -60,7 +60,7 @@ public class ActionRestController {
 			}
 			userService.save(user);
 			resourceService.save(resource);
-			actionRepository.save(loan);
+			actionService.save(loan);
 			return new ResponseEntity<>(loan, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -71,7 +71,7 @@ public class ActionRestController {
 	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public ResponseEntity<List<Action>> getAllAction() {
 
-		List<Action> loans = actionRepository.findAll();
+		List<Action> loans = actionService.findAll();
 
 		if (loans != null) {
 			return new ResponseEntity<>(loans, HttpStatus.OK);
@@ -84,7 +84,7 @@ public class ActionRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Action> getAction(@PathVariable int id) {
 
-		Action loan = actionRepository.findOne(id);
+		Action loan = actionService.findOne(id);
 		if (loan != null) {
 			return new ResponseEntity<>(loan, HttpStatus.OK);
 		} else {
@@ -96,12 +96,12 @@ public class ActionRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Action> deleteAction(@PathVariable Integer id) {
 
-		Action loan = actionRepository.findOne(id);
+		Action loan = actionService.findOne(id);
 		if (loan != null) {
 			if (loan.getDateLoanReturn() == null) {
 				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
-			actionRepository.delete(loan);
+			actionService.delete(loan);
 			return new ResponseEntity<>(loan, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -112,9 +112,9 @@ public class ActionRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Action> putAction(@PathVariable Integer id, @RequestBody Action loanUpdated) {
 
-		Action loan = actionRepository.findOne(id);
+		Action loan = actionService.findOne(id);
 		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
-			actionRepository.save(loanUpdated);
+			actionService.save(loanUpdated);
 			return new ResponseEntity<>(loan, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

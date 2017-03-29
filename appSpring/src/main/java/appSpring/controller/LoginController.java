@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import appSpring.model.User;
-import appSpring.repository.UserRepository;
+import appSpring.service.UserService;
 
 @Controller
 public class LoginController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
@@ -55,7 +55,7 @@ public class LoginController {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
 		try {
-			userRepository.save(user);
+			userService.save(user);
 		} catch (Exception e) {
 			return "redirect:/registerError";
 		}
