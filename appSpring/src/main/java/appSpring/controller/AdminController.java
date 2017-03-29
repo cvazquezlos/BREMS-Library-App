@@ -28,6 +28,7 @@ import appSpring.model.User;
 import appSpring.service.ActionService;
 import appSpring.service.FineService;
 import appSpring.service.GenreService;
+import appSpring.service.LogicService;
 import appSpring.service.ResourceCopyService;
 import appSpring.service.ResourceService;
 import appSpring.service.ResourceTypeService;
@@ -50,6 +51,8 @@ public class AdminController {
 	private GenreService genreService;
 	@Autowired
 	private ActionService actionService;
+	@Autowired
+	private LogicService logicService;
 
 	@RequestMapping("/admin/")
 	public String home(Model model, HttpServletRequest request) {
@@ -201,57 +204,36 @@ public class AdminController {
 				now.getSecond());
 		User userFound = userService.findByName(user);
 		Resource resourceFound = resourceService.findByTitleLikeIgnoreCase("%" + title + "%");
-		if (userFound == null) {
+		switch (logicService.reserveAResource(userFound, date, resourceFound, null)) {
+		case 0:
+			redirectAttrs.addFlashAttribute("messages", "Nuevo péstamo añadido al usuario " + userFound.getName() + ".");
+			return "redirect:/admin/loans";
+		case 1:
 			model.addAttribute("messages", "No existe el usuario.");
 			return "admin/add_loan";
-		} else {
-			List<Fine> userPenalties = userFound.getFines();
-			for (Fine fine : userPenalties) {
-				if (date.before(fine.getFinishDate())) {
-					model.addAttribute("messages",
-							"El usuario actualmente tiene una penalización. No es posible hacer la reserva.");
-					return "admin/add_loan";
-				}
-			}
-			if (userFound.getisBanned()) {
-				redirectAttrs.addFlashAttribute("error",
-						"Actualmente tiene libros sin devolver fuera de plazo. No es posible hacer la reserva.");
-				return "redirect:/";
-			}
-			if (userFound.getAvaibleLoans() == 0) {
-				model.addAttribute("messages", "Actualmente no puede reservar más recursos. El límite es de 3.");
-				return "admin/add_loan";
-			}
-			if (resourceFound == null) {
-				model.addAttribute("messages", "El título del recurso es erróneo.");
-				return "admin/add_loan";
-			} else {
-				if (resourceFound.getNoReservedCopies().isEmpty()) {
-					model.addAttribute("messages", "No existen copias suficientes del recurso. Inténtelo más tarde.");
-					return "admin/add_loan";
-				}
-				List<Action> previousActions = userFound.getActions();
-				for (Action action : previousActions) {
-					if (action.getResource().getResource() == resourceFound && action.getDateLoanReturn() == null) {
-						model.addAttribute("messages", "El usuario ya posee un préstamo de ese recurso.");
-						return "admin/add_loan";
-					}
-				}
-				Action reserve = new Action(date);
-				reserve.setUser(userFound);
-				ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
-				reserve.setResource(resourceCopyService.findByLocationCode(avaibleCopies.get(0)));
-				avaibleCopies.remove(0);
-				actionService.save(reserve);
-				resourceFound.setNoReservedCopies(avaibleCopies);
-				resourceService.save(resourceFound);
-				userFound.setAvaibleLoans(userFound.getAvaibleLoans() - 1);
-				userService.save(userFound);
-			}
+		case 2:
+			model.addAttribute("messages", "El título del recurso es erróneo.");
+			return "admin/add_loan";
+		case 3:
+			model.addAttribute("messages",
+					"El usuario actualmente tiene una penalización. No es posible hacer la reserva.");
+			return "admin/add_loan";
+		case 4:
+			model.addAttribute("messages", "Actualmente tiene libros sin devolver fuera de plazo. No es posible hacer la reserva.");
+			return "admin/add_loan";
+		case 5:
+			model.addAttribute("messages", "Actualmente no puede reservar más recursos. El límite es de 3.");
+			return "admin/add_loan";
+		case 6:
+			model.addAttribute("messages", "No existen copias suficientes del recurso. Inténtelo más tarde.");
+			return "admin/add_loan";
+		case 7:
+			model.addAttribute("messages", "El usuario ya posee un préstamo de ese recurso.");
+			return "admin/add_loan";
+		default:
+			model.addAttribute("messages", "Error interno.");
+			return "admin/add_loan";
 		}
-		redirectAttrs.addFlashAttribute("messages", "Nuevo péstamo añadido al usuario " + userFound.getName() + ".");
-
-		return "redirect:/admin/loans";
 	}
 
 	@RequestMapping("/admin/loans/{id}/return")

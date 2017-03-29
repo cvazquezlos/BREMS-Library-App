@@ -1,7 +1,5 @@
 package appSpring.restController;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import appSpring.model.Action;
-import appSpring.model.Fine;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.User;
 import appSpring.service.ActionService;
-import appSpring.service.ResourceService;
-import appSpring.service.UserService;
+import appSpring.service.LogicService;
 
 @RestController
 @RequestMapping("/api/actions")
@@ -34,36 +30,16 @@ public class ActionRestController {
 	@Autowired
 	private ActionService actionService;
 	@Autowired
-	private UserService userService;
-	@Autowired
-	private ResourceService resourceService;
+	private LogicService logicService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Action> postAction(@RequestBody Action loan) {
 
-		Calendar today = Calendar.getInstance();
-		today.set(Calendar.HOUR_OF_DAY, 0);
-		User user = loan.getUser();
-		List<Fine> fines = user.getFines();
-		for (Fine fine : fines) {
-			Date currentDate = new Date();
-			if (currentDate.before(fine.getFinishDate()) || (user.getisBanned()) || (user.getAvaibleLoans() == 0)) {
-				return new ResponseEntity<>(HttpStatus.CONFLICT);
-			}
-		}
-		if (loan.getResource().getResource().getNoReservedCopies().contains(loan.getResource().getLocationCode())) {
-			Resource resource = loan.getResource().getResource();
-			resource.getNoReservedCopies().remove(loan.getResource().getLocationCode());
-			user.setAvaibleLoans(user.getAvaibleLoans()-1);
-			if (resource.getNoReservedCopies().isEmpty()) {
-				resource.setAvaibleReserve(!resource.getAvaibleReserve());
-			}
-			userService.save(user);
-			resourceService.save(resource);
-			actionService.save(loan);
+		int status = logicService.reserveAResource(loan.getUser(), loan.getDateLoanInit(), loan.getResource().getResource(), loan.getResource());
+		if (status == 0) {
 			return new ResponseEntity<>(loan, HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 
