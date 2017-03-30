@@ -23,12 +23,13 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
 		
 		// URLs that need authentication to access to it
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/fines/**").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/fines/**", "/api/resourcetypes/**", "/api/resourcecopies/**", "/api/genres/**", "/api/loans/**").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users/all").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**/**").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**/**").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/fines/", "/api/genres/", "/api/resourcecopies/", "/api/resourcetypes/", "/api/resources/").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/**/**").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**/**").hasAnyRole("ADMIN");
 		
 		//PUBLIC PAGES
 		http.authorizeRequests().anyRequest().permitAll();

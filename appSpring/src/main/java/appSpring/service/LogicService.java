@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import appSpring.model.Action;
@@ -114,8 +115,8 @@ public class LogicService {
 		return (userService.findByEmail(email) != null);
 	}
 
-	private boolean hasNotPassword(User user) {
-		return (user.getPasswordHash() == null);
+	private boolean hasNotPassword(String password) {
+		return (password == null);
 	}
 
 	public int createAnUser(User user) {
@@ -123,8 +124,11 @@ public class LogicService {
 			return 1;
 		if (existsSameEmail(user.getEmail()))
 			return 2;
-		if (hasNotPassword(user))
+		if (hasNotPassword(user.getPasswordHash()))
 			return 3;
+		user.setAvaibleLoans(3);
+		user.setActions(new ArrayList<Action>());
+		user.setPasswordHash(new BCryptPasswordEncoder().encode(user.getPasswordHash()));
 		userService.save(user);
 		return 0;
 	}
