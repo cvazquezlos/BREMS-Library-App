@@ -94,4 +94,39 @@ public class LogicService {
 		return 0;
 	}
 
+	private boolean deleteLoanAvaible(Action loan) {
+		return (loan.getDateLoanReturn() == null);
+	}
+
+	public int deleteALoan(Action loan) {
+		if (deleteLoanAvaible(loan)) {
+			return 1;
+		}
+		actionService.delete(loan);
+		return 0;
+	}
+
+	private boolean existsSameNick(String name) {
+		return (userService.findByName(name) != null);
+	}
+
+	private boolean existsSameEmail(String email) {
+		return (userService.findByEmail(email) != null);
+	}
+
+	private boolean hasNotPassword(User user) {
+		return (user.getPasswordHash() == null);
+	}
+
+	public int createAnUser(User user) {
+		if (existsSameNick(user.getName()))
+			return 1;
+		if (existsSameEmail(user.getEmail()))
+			return 2;
+		if (hasNotPassword(user))
+			return 3;
+		userService.save(user);
+		return 0;
+	}
+
 }

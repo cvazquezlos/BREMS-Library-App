@@ -37,7 +37,6 @@ public class User {
 	@Column(unique = true)
 	@JsonView({Basic.class, ActionInt.class, FineInt.class, LoginInt.class})
 	private String name;
-
 	@JsonIgnore
 	private String passwordHash;
 	@JsonView(Basic.class)

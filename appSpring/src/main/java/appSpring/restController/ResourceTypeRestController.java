@@ -31,7 +31,7 @@ public class ResourceTypeRestController {
 		return resourceType;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<ResourceType>> getResourceTypes() {
 
 		List<ResourceType> resourceTypes = resourceTypeService.findAll();

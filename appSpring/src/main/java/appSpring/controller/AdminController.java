@@ -90,18 +90,26 @@ public class AdminController {
 	public String addUserAction(@RequestParam String name, @RequestParam String password, @RequestParam String dni,
 			@RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
 			@RequestParam String email, @RequestParam String telephone, HttpServletRequest request,
-			RedirectAttributes redirectAttrs) {
+			RedirectAttributes redirectAttrs, Model model) {
 
 		User user = new User(name, password, dni, firstName, lastName1, lastName2, email, telephone, "ROLE_USER");
-
-		try {
-			userService.save(user);
-		} catch (Exception e) {
-			return "redirect:/admin/users/addError";
+		switch (logicService.createAnUser(user)) {
+		case 1:
+			model.addAttribute("messages", "Ya existe un usuario con el mismo nick.");
+			return "admin/add_user";
+		case 2:
+			model.addAttribute("messages", "Ya existe un usuario con el mismo correo electrónico.");
+			return "admin/add_user";
+		case 3:
+			model.addAttribute("messages", "Es necesario introducir una contraseña.");
+			return "admin/add_user";
+		case 0:
+			redirectAttrs.addFlashAttribute("messages", "Añadido nuevo usuario.");
+			return "redirect:/admin/users";
+		default:
+			model.addAttribute("messages", "Error interno.");
+			return "admin/add_user";
 		}
-		redirectAttrs.addFlashAttribute("messages", "Añadido nuevo usuario.");
-
-		return "redirect:/admin/users";
 	}
 
 	@RequestMapping("/admin/users/edit/{id}")
@@ -145,8 +153,8 @@ public class AdminController {
 
 		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
-		redirectAttrs.addFlashAttribute("messages", "Usuario eliminado.");
 		userService.delete(id);
+		redirectAttrs.addFlashAttribute("messages", "Usuario eliminado.");
 
 		return "redirect:/admin/users";
 	}
@@ -317,19 +325,18 @@ public class AdminController {
 		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		Action selected = actionService.findOne(id);
-		if (selected.getDateLoanGiven() != null && selected.getDateLoanReturn() == null) {
+		switch(logicService.deleteALoan(selected)) {
+		case 0:
+			redirectAttrs.addFlashAttribute("messages",
+					"Préstamo del usuario " + actionService.findOne(id).getUser().getName() + " eliminado.");
+			return "redirect:/admin/loans";
+		case 1:
 			redirectAttrs.addFlashAttribute("error", "El préstamo está en trámite. No es posible eliminarlo.");
 			return "redirect:/admin/loans";
+		default:
+			redirectAttrs.addFlashAttribute("error", "Error interno.");
+			return "redirect:/admin/loans";
 		}
-		ResourceCopy loanCopy = selected.getResource();
-		Resource associatedResource = loanCopy.getResource();
-		associatedResource.getNoReservedCopies().add(loanCopy.getLocationCode());
-		resourceService.save(associatedResource);
-		redirectAttrs.addFlashAttribute("messages",
-				"Préstamo del usuario " + actionService.findOne(id).getUser().getName() + " eliminado.");
-		actionService.delete(id);
-
-		return "redirect:/admin/loans";
 	}
 
 	@RequestMapping("/admin/resources")

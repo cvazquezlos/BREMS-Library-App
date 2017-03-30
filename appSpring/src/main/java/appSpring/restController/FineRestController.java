@@ -39,7 +39,7 @@ public class FineRestController {
 	}
 
 	@JsonView(FineDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<Fine>> getAllFine() {
 		
 		List<Fine> fines = fineService.findByUser(userComponent.getLoggedUser());

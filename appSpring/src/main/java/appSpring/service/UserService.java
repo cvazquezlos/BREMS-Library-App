@@ -26,6 +26,10 @@ public class UserService {
 		return repository.findByName(name);
 	}
 
+	public User findByEmail(String email) {
+		return repository.findByEmail(email);
+	}
+
 	public void save(User user) {
 		repository.save(user);
 	}

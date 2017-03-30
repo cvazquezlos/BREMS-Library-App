@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import appSpring.component.UserComponent;
 import appSpring.model.Action;
 import appSpring.model.Fine;
 import appSpring.model.User;
 import appSpring.service.ActionService;
+import appSpring.service.LogicService;
 import appSpring.service.UserService;
 
 @RestController
@@ -30,18 +31,25 @@ public class UserRestController {
 	private UserService userService;
 	@Autowired
 	private ActionService actionService;
+	@Autowired
+	private LogicService logicService;
+	@Autowired
+	private UserComponent userComponent;
 
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public User postUser(@RequestBody User user) {
+	public ResponseEntity<User> postUser(@RequestBody User user) {
 
-		userService.save(user);
-
-		return user;
+		int status = logicService.createAnUser(user);
+		if (status == 0) {
+			return new ResponseEntity<>(user, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 
 	@JsonView(UserDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getUsers() {
 
 		List<User> users = userService.findAll();
@@ -64,6 +72,7 @@ public class UserRestController {
 		}
 	}
 
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
 
@@ -82,13 +91,18 @@ public class UserRestController {
 		}
 	}
 
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<User> putUser(@PathVariable Integer id, @RequestBody User userUpdated) {
 
 		User user = userService.findOne(id);
 		if ((user != null) && (user.getId() == userUpdated.getId())) {
-			userService.save(userUpdated);
-			return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+			if (userComponent.getLoggedUser() == user) {
+				userService.save(userUpdated);
+				return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
