@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -123,39 +121,28 @@ public class ActionRestController {
 			@RequestParam(value = "action", required = false) String action) {
 
 		Action loan = actionService.findOne(id);
+		Date date = new Date();
 		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
 			int status;
 			switch(action) {
-			case "return":
-				status = 0;
-				return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
 			case "give":
-				status = 0;
-				return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+				status = logicService.addGiveDate(loan, date);
+				if (status == 0)
+					return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+				else
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			case "return":
+				status = logicService.addReturnDate(loan, date);
+				if (status == 0)
+					return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+				else
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			default:
-				actionService.save(loanUpdated);
-				return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}/*
-		Action loan = actionService.findOne(id);
-		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
-			Date date = new Date();
-			if ((!requestDate) && (!returnDate)) {
-			} else if ((requestDate) && (!returnDate)) {
-				loanUpdated.setDateLoanGiven(date);
-			} else if ((!requestDate) && (returnDate)) {
-				loanUpdated.setDateLoanReturn(date);
-			} else {
-				loanUpdated.setDateLoanGiven(date);
-				loanUpdated.setDateLoanReturn(date);
-			}
-			actionService.save(loanUpdated);
-			return new ResponseEntity<>(loan, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}*/
+		}
 	}
 
 }
