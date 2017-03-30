@@ -127,8 +127,6 @@ public class MainController {
 		}
 	}
 
-
-
 	private static Date getDate(int year, int month, int day, int hour, int minute, int second) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);

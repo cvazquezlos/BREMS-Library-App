@@ -38,13 +38,12 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 		if (!new BCryptPasswordEncoder().matches(password, user.getPasswordHash())) {
 			throw new BadCredentialsException("Wrong password");
 		}
-		
-		userComponent.setLoggedUser(user);
 
 		List<GrantedAuthority> roles = new ArrayList<>();
 		for (String role : user.getRoles()) {
 			roles.add(new SimpleGrantedAuthority(role));
 		}
+		userComponent.setLoggedUser(user);
 
 		return new UsernamePasswordAuthenticationToken(user.getName(), password, roles);
 	}
