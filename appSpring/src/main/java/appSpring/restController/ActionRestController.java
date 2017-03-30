@@ -22,7 +22,7 @@ import appSpring.service.ActionService;
 import appSpring.service.LogicService;
 
 @RestController
-@RequestMapping("/api/actions")
+@RequestMapping("/api/loans")
 public class ActionRestController {
 
 	public interface LoanDetail extends Action.Basic, Action.ResoCopy, ResourceCopy.Basic, ResourceCopy.Reso, Resource.Basic, 
@@ -35,6 +35,7 @@ public class ActionRestController {
 	@Autowired
 	private UserComponent userComponent;
 
+	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Action> postAction(@RequestBody Action loan) {
 
@@ -43,7 +44,7 @@ public class ActionRestController {
 			if (status == 0) {
 				return new ResponseEntity<>(loan, HttpStatus.CREATED);
 			} else {
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -54,8 +55,7 @@ public class ActionRestController {
 	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public ResponseEntity<List<Action>> getAllAction() {
 
-		List<Action> loans = actionService.findAll();
-
+		List<Action> loans = actionService.findByUser(userComponent.getLoggedUser());
 		if (loans != null) {
 			return new ResponseEntity<>(loans, HttpStatus.OK);
 		} else {
@@ -69,7 +69,11 @@ public class ActionRestController {
 
 		Action loan = actionService.findOne(id);
 		if (loan != null) {
-			return new ResponseEntity<>(loan, HttpStatus.OK);
+			if (userComponent.getLoggedUser() == loan.getUser()) {
+				return new ResponseEntity<>(loan, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -81,11 +85,12 @@ public class ActionRestController {
 
 		Action loan = actionService.findOne(id);
 		if (loan != null) {
-			if (loan.getDateLoanReturn() == null) {
-				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			int status = logicService.deleteALoan(loan);
+			if (status == 0) {
+				return new ResponseEntity<>(loan, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
-			actionService.delete(loan);
-			return new ResponseEntity<>(loan, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

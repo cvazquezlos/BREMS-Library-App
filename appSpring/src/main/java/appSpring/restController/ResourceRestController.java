@@ -43,7 +43,7 @@ public class ResourceRestController {
 	}
 
 	@JsonView(ResourceDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<Resource>> getAllResource() {
 		
 		List<Resource> resources = resourceService.findAll();

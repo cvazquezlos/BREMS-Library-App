@@ -49,7 +49,7 @@ public class ResourceCopyRestController {
 	}
 
 	@JsonView(ResourceCopyDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<ResourceCopy>> getResourceCopies() {
 
 		List<ResourceCopy> resourceCopies = resourceCopyService.findAll();

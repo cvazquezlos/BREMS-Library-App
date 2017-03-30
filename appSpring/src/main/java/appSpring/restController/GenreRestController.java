@@ -37,7 +37,7 @@ public class GenreRestController {
 	}
 
 	@JsonView(GenreDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ResponseEntity<List<Genre>> getAllGenres() {
 
 		List<Genre> genres = genreService.findAll();
