@@ -129,4 +129,9 @@ public class LogicService {
 		return 0;
 	}
 
+	public Date getNowDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
