@@ -11,12 +11,15 @@ import appSpring.model.Genre;
 import appSpring.model.Resource;
 import appSpring.model.ResourceType;
 import appSpring.repository.ResourceRepository;
+import appSpring.repository.ResourceTypeRepository;
 
 @Service
 public class ResourceService {
 
 	@Autowired
 	private ResourceRepository repository;
+	@Autowired
+	private ResourceTypeRepository rtrepository;
 
 	public Resource findOne(Integer id) {
 		return repository.findOne(id);
@@ -58,8 +61,25 @@ public class ResourceService {
 		return repository.findByAuthor(author);
 	}
 
-	public Page<Resource> findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(String title, String genreName, String author, String editorial, Pageable page) {
-		return repository.findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(title, genreName, author, editorial, page);
+	public Page<Resource> findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(
+			String title, String genreName, String author, String editorial, Pageable page) {
+		return repository
+				.findByTitleLikeIgnoreCaseOrGenreNameLikeIgnoreCaseOrAuthorLikeIgnoreCaseOrEditorialLikeIgnoreCase(
+						title, genreName, author, editorial, page);
+	}
+
+	public List<Resource> findByGenreAndTypeAllIgnoreCase(String genre, String type) {
+		if (genre != null && type == null) {
+			return repository.findByGenreNameLikeIgnoreCase(genre);
+		} else if (genre != null && type != null) {
+			ResourceType resourceType = rtrepository.findByNameLikeIgnoreCase(type);
+			return repository.findByGenreNameLikeIgnoreCaseAndResourceType(genre, resourceType);
+		} else if (genre == null && type == null) {
+			return repository.findAll();
+		} else {
+			ResourceType resourceType = rtrepository.findByNameLikeIgnoreCase(type);
+			return repository.findByResourceType(resourceType);
+		}
 	}
 
 	public void save(Resource resource) {

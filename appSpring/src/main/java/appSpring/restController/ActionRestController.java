@@ -1,49 +1,62 @@
 package appSpring.restController;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import appSpring.component.UserComponent;
 import appSpring.model.Action;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.User;
 import appSpring.service.ActionService;
 import appSpring.service.LogicService;
+import appSpring.service.UserService;
 
 @RestController
-@RequestMapping("/api/actions")
+@RequestMapping("/api/loans")
 public class ActionRestController {
 
-	public interface LoanDetail extends Action.Basic, Action.ResoCopy, ResourceCopy.Basic, ResourceCopy.Reso, Resource.Basic, 
-										Action.Usr, User.ActionInt {}
+	public interface LoanDetail extends Action.Basic, Action.ResoCopy, ResourceCopy.Basic, ResourceCopy.Reso,
+			Resource.Basic, Action.Usr, User.ActionInt {
+	}
 
 	@Autowired
 	private ActionService actionService;
 	@Autowired
-	private LogicService logicService;
+	private UserService userService;
 	@Autowired
-	private UserComponent userComponent;
+	private LogicService logicService;
 
+	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<Action> postAction(@RequestBody Action loan) {
+	public ResponseEntity<Action> postAction(@RequestBody Action loan, Authentication authentication,
+			HttpSession session, HttpServletRequest request) {
 
-		if (userComponent.getLoggedUser() == loan.getUser()) {
-			int status = logicService.reserveAResource(loan.getUser(), loan.getDateLoanInit(), loan.getResource().getResource(), loan.getResource());
+		session.setMaxInactiveInterval(-1);
+		if ((authentication.getName().contains(loan.getUser().getName())) || (request.isUserInRole("ADMIN"))) {
+			int status = logicService.reserveAResource(loan.getUser(), loan.getDateLoanInit(),
+					loan.getResource().getResource(), loan.getResource());
 			if (status == 0) {
 				return new ResponseEntity<>(loan, HttpStatus.CREATED);
 			} else {
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -51,25 +64,37 @@ public class ActionRestController {
 	}
 
 	@JsonView(LoanDetail.class)
-	@RequestMapping(value="/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Action>> getAllAction() {
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ResponseEntity<List<Action>> getAllAction(Authentication authentication, HttpSession session,
+			HttpServletRequest request) {
 
-		List<Action> loans = actionService.findAll();
-
-		if (loans != null) {
+		session.setMaxInactiveInterval(-1);
+		if (request.isUserInRole("ADMIN")) {
+			List<Action> loans = actionService.findAll();
 			return new ResponseEntity<>(loans, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			List<Action> loans = actionService.findByUser(userService.findByName(authentication.getName()));
+			if (loans != null) {
+				return new ResponseEntity<>(loans, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
 		}
 	}
 
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Action> getAction(@PathVariable int id) {
+	public ResponseEntity<Action> getAction(@PathVariable int id, Authentication authentication, HttpSession session,
+			HttpServletRequest request) {
 
+		session.setMaxInactiveInterval(-1);
 		Action loan = actionService.findOne(id);
 		if (loan != null) {
-			return new ResponseEntity<>(loan, HttpStatus.OK);
+			if ((authentication.getName().contains(loan.getUser().getName())) || (request.isUserInRole("ADMIN"))) {
+				return new ResponseEntity<>(loan, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -81,11 +106,12 @@ public class ActionRestController {
 
 		Action loan = actionService.findOne(id);
 		if (loan != null) {
-			if (loan.getDateLoanReturn() == null) {
-				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			int status = logicService.deleteALoan(loan);
+			if (status == 0) {
+				return new ResponseEntity<>(loan, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
-			actionService.delete(loan);
-			return new ResponseEntity<>(loan, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -93,15 +119,43 @@ public class ActionRestController {
 
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Action> putAction(@PathVariable Integer id, @RequestBody Action loanUpdated) {
+	public ResponseEntity<Action> putAction(@PathVariable Integer id, @RequestBody Action loanUpdated,
+			@RequestParam(value = "action", required = false) String action) {
 
 		Action loan = actionService.findOne(id);
 		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
+			int status;
+			switch(action) {
+			case "return":
+				status = 0;
+				return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+			case "give":
+				status = 0;
+				return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+			default:
+				actionService.save(loanUpdated);
+				return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}/*
+		Action loan = actionService.findOne(id);
+		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
+			Date date = new Date();
+			if ((!requestDate) && (!returnDate)) {
+			} else if ((requestDate) && (!returnDate)) {
+				loanUpdated.setDateLoanGiven(date);
+			} else if ((!requestDate) && (returnDate)) {
+				loanUpdated.setDateLoanReturn(date);
+			} else {
+				loanUpdated.setDateLoanGiven(date);
+				loanUpdated.setDateLoanReturn(date);
+			}
 			actionService.save(loanUpdated);
 			return new ResponseEntity<>(loan, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		}*/
 	}
 
 }

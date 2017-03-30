@@ -2,6 +2,8 @@ package appSpring.restController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,21 +39,22 @@ public class ResourceCopyRestController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResourceCopy postResourceCopy(@RequestBody ResourceCopy resourceCopy) {
+	public ResourceCopy postResourceCopy(@RequestBody ResourceCopy resourceCopy, HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		Resource resource = resourceCopy.getResource();
 		resourceCopyService.save(resourceCopy);
 		resource.getNoReservedCopies().add(resourceCopy.getLocationCode());
 		resource.getResourceCopies().add(resourceCopy);
 		resourceService.save(resource);
-
 		return resourceCopy;
 	}
 
 	@JsonView(ResourceCopyDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<List<ResourceCopy>> getResourceCopies() {
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ResponseEntity<List<ResourceCopy>> getResourceCopies(HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		List<ResourceCopy> resourceCopies = resourceCopyService.findAll();
 		if (resourceCopies != null) {
 			return new ResponseEntity<>(resourceCopies, HttpStatus.OK);
@@ -62,8 +65,9 @@ public class ResourceCopyRestController {
 
 	@JsonView(ResourceCopyDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<ResourceCopy> getResourceCopy(@PathVariable Integer id) {
+	public ResponseEntity<ResourceCopy> getResourceCopy(@PathVariable Integer id, HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		ResourceCopy resourceCopy = resourceCopyService.findOne(id);
 		if (resourceCopy != null) {
 			return new ResponseEntity<>(resourceCopy, HttpStatus.OK);
@@ -73,8 +77,9 @@ public class ResourceCopyRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<ResourceCopy> deleteResourceCopy(@PathVariable Integer id) {
+	public ResponseEntity<ResourceCopy> deleteResourceCopy(@PathVariable Integer id, HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		ResourceCopy resourceCopySelected = resourceCopyService.findOne(id);
 		if (resourceCopySelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -95,8 +100,10 @@ public class ResourceCopyRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<ResourceCopy> putResourceCopy(@PathVariable Integer id, @RequestBody ResourceCopy resourceCopyUpdated) {
+	public ResponseEntity<ResourceCopy> putResourceCopy(@PathVariable Integer id, @RequestBody ResourceCopy resourceCopyUpdated,
+			HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		ResourceCopy resourceCopy = resourceCopyService.findOne(id);
 		if ((resourceCopy != null) && (resourceCopy.getID() == resourceCopyUpdated.getID())) {
 			resourceCopyService.save(resourceCopyUpdated);

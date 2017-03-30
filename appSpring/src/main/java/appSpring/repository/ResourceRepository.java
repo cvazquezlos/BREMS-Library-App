@@ -34,4 +34,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 	
 	Resource findByTitleLikeIgnoreCase(String title);
 
+	List<Resource> findByGenreNameLikeIgnoreCaseAndResourceType(String name, ResourceType resourceType);
+
 }

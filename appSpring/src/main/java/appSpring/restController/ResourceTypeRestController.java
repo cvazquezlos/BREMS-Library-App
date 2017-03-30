@@ -2,6 +2,8 @@ package appSpring.restController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +33,10 @@ public class ResourceTypeRestController {
 		return resourceType;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<List<ResourceType>> getResourceTypes() {
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ResponseEntity<List<ResourceType>> getResourceTypes(HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		List<ResourceType> resourceTypes = resourceTypeService.findAll();
 		if (resourceTypes != null) {
 			return new ResponseEntity<>(resourceTypes, HttpStatus.OK);
@@ -43,8 +46,9 @@ public class ResourceTypeRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<ResourceType> getResourceType(@PathVariable Integer id) {
+	public ResponseEntity<ResourceType> getResourceType(@PathVariable Integer id, HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		ResourceType resourceType = resourceTypeService.findOne(id);
 		if (resourceType != null) {
 			return new ResponseEntity<>(resourceType, HttpStatus.OK);
@@ -54,8 +58,9 @@ public class ResourceTypeRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<ResourceType> deleteResourceType(@PathVariable Integer id) {
+	public ResponseEntity<ResourceType> deleteResourceType(@PathVariable Integer id, HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		ResourceType resourceTypeSelected = resourceTypeService.findOne(id);
 		if (resourceTypeSelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -66,8 +71,10 @@ public class ResourceTypeRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<ResourceType> putResourceType(@PathVariable Integer id, @RequestBody ResourceType resourceTypeUpdated) {
+	public ResponseEntity<ResourceType> putResourceType(@PathVariable Integer id, @RequestBody ResourceType resourceTypeUpdated,
+			HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		ResourceType resourceType = resourceTypeService.findOne(id);
 		if ((resourceType != null) && (resourceType.getId() == resourceTypeUpdated.getId())) {
 			resourceTypeService.save(resourceTypeUpdated);

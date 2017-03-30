@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import appSpring.model.Action;
@@ -92,6 +93,49 @@ public class LogicService {
 		user.setAvaibleLoans(user.getAvaibleLoans() - 1);
 		userService.save(user);
 		return 0;
+	}
+
+	private boolean deleteLoanAvaible(Action loan) {
+		return (loan.getDateLoanReturn() == null);
+	}
+
+	public int deleteALoan(Action loan) {
+		if (deleteLoanAvaible(loan)) {
+			return 1;
+		}
+		actionService.delete(loan);
+		return 0;
+	}
+
+	private boolean existsSameNick(String name) {
+		return (userService.findByName(name) != null);
+	}
+
+	private boolean existsSameEmail(String email) {
+		return (userService.findByEmail(email) != null);
+	}
+
+	private boolean hasNotPassword(String password) {
+		return (password == null);
+	}
+
+	public int createAnUser(User user) {
+		if (existsSameNick(user.getName()))
+			return 1;
+		if (existsSameEmail(user.getEmail()))
+			return 2;
+		if (hasNotPassword(user.getPasswordHash()))
+			return 3;
+		user.setAvaibleLoans(3);
+		user.setActions(new ArrayList<Action>());
+		user.setPasswordHash(new BCryptPasswordEncoder().encode(user.getPasswordHash()));
+		userService.save(user);
+		return 0;
+	}
+
+	public Date getNowDate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

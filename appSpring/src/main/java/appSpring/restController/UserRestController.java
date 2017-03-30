@@ -2,14 +2,17 @@
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -18,6 +21,7 @@ import appSpring.model.Action;
 import appSpring.model.Fine;
 import appSpring.model.User;
 import appSpring.service.ActionService;
+import appSpring.service.LogicService;
 import appSpring.service.UserService;
 
 @RestController
@@ -30,20 +34,26 @@ public class UserRestController {
 	private UserService userService;
 	@Autowired
 	private ActionService actionService;
+	@Autowired
+	private LogicService logicService;
 
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public User postUser(@RequestBody User user) {
+	public ResponseEntity<User> postUser(@RequestBody User user) {
 
-		userService.save(user);
-
-		return user;
+		int status = logicService.createAnUser(user);
+		if (status == 0) {
+			return new ResponseEntity<>(user, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 
 	@JsonView(UserDetail.class)
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getUsers() {
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getUsers(HttpSession session) {
 
+		session.setMaxInactiveInterval(-1);
 		List<User> users = userService.findAll();
 		if (users != null) {
 			return new ResponseEntity<>(users, HttpStatus.OK);
@@ -54,25 +64,36 @@ public class UserRestController {
 
 	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<User> getUser(@PathVariable int id) {
+	public ResponseEntity<User> getUser(@PathVariable int id, Authentication authentication, HttpSession session,
+			HttpServletRequest request) {
 
+		session.setMaxInactiveInterval(-1);
 		User user = userService.findOne(id);
 		if (user != null) {
-			return new ResponseEntity<>(user, HttpStatus.OK);
+			if ((authentication.getName().contains(user.getName())) || (request.isUserInRole("ADMIN")))
+				return new ResponseEntity<>(user, HttpStatus.OK);
+			else
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
+	public ResponseEntity<User> deleteUser(@PathVariable Integer id, HttpSession session,
+			Authentication authentication) {
 
+		session.setMaxInactiveInterval(-1);
 		User userSelected = userService.findOne(id);
 		if (userSelected != null) {
+			if (authentication.getName().contains(userSelected.getName())) {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
 			List<Action> actions = actionService.findAll();
 			for (Action action : actions) {
 				if ((action.getDateLoanReturn() == null) && (action.getUser() == userSelected)) {
-					return new ResponseEntity<>(HttpStatus.CONFLICT);
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 				}
 			}
 			userService.delete(userSelected);
@@ -82,13 +103,20 @@ public class UserRestController {
 		}
 	}
 
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<User> putUser(@PathVariable Integer id, @RequestBody User userUpdated) {
+	public ResponseEntity<User> putUser(@PathVariable Integer id, @RequestBody User userUpdated,
+			HttpSession session, HttpServletRequest request, Authentication authentication) {
 
+		session.setMaxInactiveInterval(-1);
 		User user = userService.findOne(id);
 		if ((user != null) && (user.getId() == userUpdated.getId())) {
-			userService.save(userUpdated);
-			return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+			if ((authentication.getName().contains(user.getName())) || (request.isUserInRole("ADMIN"))) {
+				userService.save(userUpdated);
+				return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
