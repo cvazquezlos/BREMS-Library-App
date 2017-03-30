@@ -25,6 +25,8 @@ public class LogicService {
 	private ResourceService resourceService;
 	@Autowired
 	private ResourceCopyService resourceCopyService;
+	@Autowired
+	private FineService fineService;
 
 	private boolean hasActiveFines(User user, Date date) {
 		List<Fine> fines = user.getFines();
@@ -41,7 +43,7 @@ public class LogicService {
 	}
 
 	private boolean hasEnoughAvaibleActions(User user) {
-		return (user.getAvaibleLoans()==0);
+		return (user.getAvaibleLoans() == 0);
 	}
 
 	private boolean hasEnoughCopies(Resource resource) {
@@ -133,9 +135,61 @@ public class LogicService {
 		return 0;
 	}
 
-	public Date getNowDate() {
-		// TODO Auto-generated method stub
-		return null;
+	private boolean itIsPossibleToReturn(Action action) {
+		return ((action.getDateLoanGiven() != null) && (action.getDateLoanReturn() == null));
+	}
+
+	private boolean itIsPossibleToGive(Action action) {
+		return ((action.getDateLoanGiven() == null) && (action.getDateLoanReturn() == null));
+	}
+
+	public int addGiveDate(Action action, Date date) {
+		if (!itIsPossibleToGive(action))
+			return 1;
+		action.setDateLoanGiven(date);
+		actionService.save(action);
+		return 0;
+	}
+
+	@SuppressWarnings("deprecation")
+	public int addReturnDate(Action action, Date date) {
+		if (!itIsPossibleToReturn(action))
+			return 1;
+		User userFound = action.getUser();
+		action.setDateLoanReturn(date);
+		ResourceCopy copyNowAvaible = action.getResource();
+		Resource resourceFound = copyNowAvaible.getResource();
+		ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
+		avaibleCopies.add(copyNowAvaible.getLocationCode());
+		resourceFound.setNoReservedCopies(avaibleCopies);
+		resourceFound.setAvaibleReserve(true);
+		resourceService.save(resourceFound);
+		userFound.setAvaibleLoans(userFound.getAvaibleLoans() + 1);
+		userFound.setBanned(false);
+		Date resourceHaveToBeReturnedDate = action.getDateLoanGiven();
+		resourceHaveToBeReturnedDate.setMinutes(resourceHaveToBeReturnedDate.getMinutes() + 1);
+		if (resourceHaveToBeReturnedDate.before(date)) {
+			Date banDate = new Date();
+			banDate.setMinutes(banDate.getMinutes() + 3);
+			Fine userFine = new Fine(date, banDate, userFound, copyNowAvaible);
+			fineService.save(userFine);
+		}
+		List<Action> currentActions = actionService.findByUser(action.getUser());
+		for (Action currentAction : currentActions) {
+			Date date1 = currentAction.getDateLoanGiven();
+			if (date1 == null)
+				continue;
+			Date date3 = currentAction.getDateLoanReturn();
+			if (date3 != null)
+				continue;
+			date1.setMinutes(date1.getMinutes() + 1);
+			Date date2 = new Date();
+			if (date1.before(date2)) {
+				userFound.setBanned(true);
+			}
+		}
+		userService.save(userFound);
+		return 0;
 	}
 
 }

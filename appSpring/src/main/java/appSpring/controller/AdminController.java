@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.model.Action;
-import appSpring.model.Fine;
 import appSpring.model.Genre;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
@@ -254,51 +253,17 @@ public class AdminController {
 		Date date = getDate(now.getYear(), now.getMonthValue() - 1, now.getDayOfMonth(), now.getHour(), now.getMinute(),
 				now.getSecond());
 		Action action = actionService.findOne(id);
-		if (action.getDateLoanGiven() == null) {
-			redirectAttrs.addFlashAttribute("error", "El recurso debe ser entregado primero al usuario.");
+		switch(logicService.addReturnDate(action, date)){
+		case 1:
+			redirectAttrs.addFlashAttribute("error", "Realice primero la entrega o no vuelva a realizar la devolución.");
 			return "redirect:/admin/loans";
-		} else if (action.getDateLoanReturn() != null) {
-			redirectAttrs.addFlashAttribute("error", "El recurso ya ha sido devuelto con anterioridad.");
+		case 0:
+			redirectAttrs.addFlashAttribute("messages", "El recurso ha sido devuelto correctamente.");
+			return "redirect:/admin/loans";
+		default:
+			redirectAttrs.addFlashAttribute("error", "Error interno.");
 			return "redirect:/admin/loans";
 		}
-		User userFound = action.getUser();
-		action.setDateLoanReturn(date);
-		ResourceCopy copyNowAvaible = action.getResource();
-		Resource resourceFound = copyNowAvaible.getResource();
-		ArrayList<String> avaibleCopies = resourceFound.getNoReservedCopies();
-		avaibleCopies.add(copyNowAvaible.getLocationCode());
-		resourceFound.setNoReservedCopies(avaibleCopies);
-		resourceFound.setAvaibleReserve(true);
-		resourceService.save(resourceFound);
-		userFound.setAvaibleLoans(userFound.getAvaibleLoans() + 1);
-		userFound.setBanned(false);
-		Date resourceHaveToBeReturnedDate = action.getDateLoanGiven();
-		resourceHaveToBeReturnedDate.setMinutes(resourceHaveToBeReturnedDate.getMinutes() + 1);
-		if (resourceHaveToBeReturnedDate.before(date)) {
-			Date banDate = new Date();
-			banDate.setMinutes(banDate.getMinutes() + 3);
-			Fine userFine = new Fine(date, banDate, userFound, copyNowAvaible);
-			fineService.save(userFine);
-		}
-		List<Action> currentActions = actionService.findByUser(action.getUser());
-		for (Action currentAction : currentActions) {
-			Date date1 = currentAction.getDateLoanGiven();
-			if (date1 == null)
-				continue;
-			Date date3 = currentAction.getDateLoanReturn();
-			if (date3 != null)
-				continue;
-			date1.setMinutes(date1.getMinutes() + 1);
-			Date date2 = new Date();
-			if (date1.before(date2)) {
-				userFound.setBanned(true);
-			}
-		}
-
-		userService.save(userFound);
-		redirectAttrs.addFlashAttribute("messages", "El recurso ha sido devuelto correctamente.");
-
-		return "redirect:/admin/loans";
 	}
 
 	@RequestMapping("/admin/loans/{id}/give")
@@ -311,11 +276,17 @@ public class AdminController {
 		Date date = getDate(now.getYear(), now.getMonthValue() - 1, now.getDayOfMonth(), now.getHour(), now.getMinute(),
 				now.getSecond());
 		Action action = actionService.findOne(id);
-		action.setDateLoanGiven(date);
-		actionService.save(action);
-		redirectAttrs.addFlashAttribute("messages", "El recurso ha sido entregado al usuario correctamente.");
-
-		return "redirect:/admin/loans";
+		switch(logicService.addGiveDate(action, date)){
+		case 1:
+			redirectAttrs.addFlashAttribute("error", "No es posible entregar este recurso.");
+			return "redirect:/admin/loans";
+		case 0:
+			redirectAttrs.addFlashAttribute("messages", "El recurso ha sido entregado al usuario correctamente.");
+			return "redirect:/admin/loans";
+		default:
+			redirectAttrs.addFlashAttribute("error", "Error interno.");
+			return "redirect:/admin/loans";
+		}
 	}
 
 	@RequestMapping("/admin/loans/delete/{id}")
