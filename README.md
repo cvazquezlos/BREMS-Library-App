@@ -60,25 +60,61 @@ We use [Trello](https://trello.com/b/3hdFhIap/brems) and SCRUM because we think 
 #### Views of app
 This app contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible. This design is originally made by @annyCS.
 
-| View      | Screenshot                  | View         | Screenshot                    |
-|-----------|-----------------------------|--------------|-------------------------------|
-| Index     | ![index][index]             | User profile | ![profile-user][profile-user] |
-| About     | ![about][about]             | Admin. panel | ![admin-index][admin-index]   |
-| Author    | ![author][author]           | Resources    | ![resources][resources]       |
-| Contact   | ![contact][contact]         | Loans        | ![loans][loans]               |
-| Book info | ![book-info][profile-book]  | Fines        | ![fines][fines]               |
+##### Index page
+![index][index]
 
-[index]: http://i65.tinypic.com/ayo9ip.png
-[about]: http://i65.tinypic.com/2a62gxz.png
-[author]: http://i67.tinypic.com/2qats7a.png
-[contact]: http://i68.tinypic.com/33c2m1y.png
-[profile-book]: http://i64.tinypic.com/fm8dbb.png
-[profile-user]: http://i65.tinypic.com/sloio2.png
-[admin-index]: http://i67.tinypic.com/ms0fo6.png
-[resources]: http://i66.tinypic.com/dmzd6c.png
-[loans]: http://i63.tinypic.com/2e3q1pj.png
-[fines]: http://i67.tinypic.com/1499zt0.png
-[users]: http://i64.tinypic.com/awt6zd.png
+##### About page
+![about][about]
+
+##### Contact page
+![contact][contact]
+
+##### Search page
+![search][search]
+
+##### Profile page
+![profile][profile]
+
+##### Admin page
+![admin][admin]
+
+##### Admin resources page
+###### Resources general view
+![admin-resources][admin-resources]
+
+###### Edit resource page
+![admin-resources-edit][admin-resources-edit]
+
+###### Add resource page
+![admin-resources-add][admin-resources-add]
+
+##### Admin loans page
+###### Loans general view
+![admin-loans][admin-loans]
+
+###### Add loans page
+![admin-loans-add][admin-loans-add]
+
+##### Admin users page
+###### Users general view
+![admin-users][admin-users]
+
+###### Add user page
+![admin-users-add][admin-users-add]
+
+[index]: /media/README/01-homePage.png
+[about]: /media/README/02-aboutPage.png
+[contact]: /media/README/03-contactPage.png
+[search]: /media/README/04-searchPage.png
+[profile]: /media/README/05-profilePage.png
+[admin]: /media/README/06-adminPage.png
+[admin-resources]: /media/README/07-adminResourcesPage.png
+[admin-resources-edit]: /media/README/08-adminResourcesEditPage.png
+[admin-resources-add]: /media/README/09-adminResourcesAddPage.png
+[admin-loans]: /media/README/10-adminLoansPage.png
+[admin-loans-add]: /media/README/11-adminLoansAddPage.png
+[admin-users]: /media/README/12-adminUsersPage.png
+[admin-users-add]: /media/README/13-adminUsersAddPage.png
 
 This is the *navigation diagram*
 
