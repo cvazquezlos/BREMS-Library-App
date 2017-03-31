@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import appSpring.model.Genre;
 import appSpring.model.Resource;
 import appSpring.service.GenreService;
+import appSpring.service.ResourceService;
 
 @RestController
 @RequestMapping("/api/genres")
@@ -28,6 +29,8 @@ public class GenreRestController {
 
 	@Autowired
 	private GenreService genreService;
+	@Autowired
+	private ResourceService resourceService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -72,8 +75,18 @@ public class GenreRestController {
 		if (genreSelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			genreService.delete(genreSelected);
-			return new ResponseEntity<>(genreSelected, HttpStatus.OK);
+			if (genreSelected.getName().equals("Defecto"))
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			else {
+				Genre genre = genreService.findByName("Defecto");
+				List<Resource> resources = resourceService.findByGenreNameLikeIgnoreCase(genreSelected.getName());
+				for (Resource resource : resources) {
+					resource.setGenre(genre);
+					resourceService.save(resource);
+				}
+				genreService.delete(genreSelected);
+				return new ResponseEntity<>(genreSelected, HttpStatus.OK);
+			}
 		}
 	}
 

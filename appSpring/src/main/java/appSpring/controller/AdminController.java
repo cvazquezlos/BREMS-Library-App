@@ -175,7 +175,7 @@ public class AdminController {
 		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
 		redirectAttrs.addFlashAttribute("messages",
-				"Multa eliminada al usuario " + fineService.findOne(id).getUserr().getName() + ".");
+				"Multa eliminada al usuario " + fineService.findOne(id).getUser().getName() + ".");
 		fineService.delete(id);
 
 		return "redirect:/admin/fines";
@@ -380,6 +380,7 @@ public class AdminController {
 			copy.setLocationCode(copy.getLocationCode() + copy.getID());
 			resourceCopyService.save(copy);
 			resource.getNoReservedCopies().add(copy.getLocationCode());
+			resource.getResourceCopies().add(copy);
 		}
 		resourceService.save(resource);
 		redirectAttrs.addFlashAttribute("messages",

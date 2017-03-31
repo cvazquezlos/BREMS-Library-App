@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import appSpring.model.Resource;
 import appSpring.model.ResourceType;
+import appSpring.service.ResourceService;
 import appSpring.service.ResourceTypeService;
 
 @RestController
@@ -23,6 +25,8 @@ public class ResourceTypeRestController {
 
 	@Autowired
 	private ResourceTypeService resourceTypeService;
+	@Autowired
+	private ResourceService resourceService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -65,8 +69,18 @@ public class ResourceTypeRestController {
 		if (resourceTypeSelected == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			resourceTypeService.delete(resourceTypeSelected);
-			return new ResponseEntity<>(resourceTypeSelected, HttpStatus.OK);
+			if (resourceTypeSelected.getName().equals("Defecto"))
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			else {
+				ResourceType resourceType = resourceTypeService.findByName("Defecto");
+				List<Resource> resources = resourceService.findByResourceTypeName(resourceType.getName());
+				for (Resource resource : resources) {
+					resource.setProductType(resourceType);
+					resourceService.save(resource);
+				}
+				resourceTypeService.delete(resourceTypeSelected);
+				return new ResponseEntity<>(resourceTypeSelected, HttpStatus.OK);
+			}
 		}
 	}
 

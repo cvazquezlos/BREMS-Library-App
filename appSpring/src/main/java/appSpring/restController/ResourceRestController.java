@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -23,6 +22,7 @@ import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.ResourceType;
 import appSpring.service.ActionService;
+import appSpring.service.ResourceCopyService;
 import appSpring.service.ResourceService;
 
 @RestController
@@ -35,14 +35,24 @@ public class ResourceRestController {
 	private ResourceService resourceService;
 	@Autowired
 	private ActionService actionService;
+	@Autowired
+	private ResourceCopyService resourceCopyService;
 
+	@JsonView(ResourceDetail.class)
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Resource postResource(@RequestBody Resource resource, HttpSession session) {
+	public ResponseEntity<Resource> postResource(@RequestBody Resource resource, HttpSession session) {
 
 		session.setMaxInactiveInterval(-1);
+		for (ResourceCopy resourceCopy : resource.getResourceCopies()) {
+			if (resourceCopyService.findOne(resourceCopy.getID()) == null) {
+				resourceCopy.setResource(resource);
+				resourceCopyService.save(resourceCopy);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+		}
 		resourceService.save(resource);
-		return resource;
+		return new ResponseEntity<>(resource, HttpStatus.OK);
 	}
 
 	@JsonView(ResourceDetail.class)
