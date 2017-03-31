@@ -106,7 +106,8 @@ public class ResourceCopyRestController {
 		session.setMaxInactiveInterval(-1);
 		ResourceCopy resourceCopy = resourceCopyService.findOne(id);
 		if ((resourceCopy != null) && (resourceCopy.getID() == resourceCopyUpdated.getID())) {
-			resourceCopyService.save(resourceCopyUpdated);
+			resourceCopy.setLocationCode(resourceCopyUpdated.getLocationCode());
+			resourceCopyService.save(resourceCopy);
 			return new ResponseEntity<>(resourceCopyUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

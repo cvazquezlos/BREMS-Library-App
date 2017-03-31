@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -33,16 +32,6 @@ public class FineRestController {
 	private FineService fineService;
 	@Autowired
 	private UserService userService;
-
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Fine postFine(@RequestBody Fine fine) {
-
-		// Check logic
-		fineService.save(fine);
-
-		return fine;
-	}
 
 	@JsonView(FineDetail.class)
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -97,8 +86,7 @@ public class FineRestController {
 
 		Fine fine = fineService.findOne(id);
 		if ((fine != null) && (fine.getId() == fineUpdated.getId())) {
-			fineService.save(fineUpdated);
-			return new ResponseEntity<>(fineUpdated, HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

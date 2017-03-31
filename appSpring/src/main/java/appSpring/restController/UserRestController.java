@@ -112,7 +112,16 @@ public class UserRestController {
 		User user = userService.findOne(id);
 		if ((user != null) && (user.getId() == userUpdated.getId())) {
 			if ((authentication.getName().contains(user.getName())) || (request.isUserInRole("ADMIN"))) {
-				userService.save(userUpdated);
+				user.setEmail(userUpdated.getEmail());
+				user.setFirstName(userUpdated.getFirstName());
+				user.setLastName1(userUpdated.getLastName1());
+				user.setLastName2(userUpdated.getLastName2());
+				user.setTelephone(userUpdated.getTelephone());
+				user.setBiography(userUpdated.getBiography());
+				user.setAvatar(userUpdated.getAvatar());
+				user.setAddress(userUpdated.getAddress());
+				user.setDni(userUpdated.getDni());
+				userService.save(user);
 				return new ResponseEntity<>(userUpdated, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.FORBIDDEN);

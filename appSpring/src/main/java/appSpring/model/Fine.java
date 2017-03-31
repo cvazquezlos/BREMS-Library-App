@@ -65,7 +65,6 @@ public class Fine {
 		return user;
 	}
 
-
 	public Date getInitDate() {
 		return initDate;
 	}
@@ -82,11 +81,8 @@ public class Fine {
 		this.finishDate = finishDate;
 	}
 
-	public User getUserr() {
-		return user;
-	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 }
