@@ -31,8 +31,8 @@ public class DataExamples {
 
 		// Data declaration
 		Action a1, a2, a3;
-		Genre g1, g2, g3, g4;
-		ResourceType rt1, rt2;
+		Genre g1, g2, g3, g4, g5;
+		ResourceType rt1, rt2, rt3;
 		Resource res1, res2, res3, res4, res5;
 		ResourceCopy rc1, rc2, rc3, rc4, rc5, rc6, rc7, rc8, rc9;
 		User user1, user2, user3, user4;
@@ -42,15 +42,19 @@ public class DataExamples {
 		g2 = new Genre("Fantasía");
 		g3 = new Genre("Farándula");
 		g4 = new Genre("Divulgación");
+		g5 = new Genre("Defecto");
 		genreRepository.save(g1);
 		genreRepository.save(g2);
 		genreRepository.save(g3);
 		genreRepository.save(g4);
+		genreRepository.save(g5);
 
 		rt1 = new ResourceType("Libro");
 		rt2 = new ResourceType("Revista");
+		rt3 = new ResourceType("Defecto");
 		resourceTypeRepository.save(rt1);
 		resourceTypeRepository.save(rt2);
+		resourceTypeRepository.save(rt3);
 
 		res1 = new Resource("Cien años de soledad", "Gabriel García Márquez", "Editorial Sudamericana",
 				"Cien años de soledad es una novela del escritor colombiano Gabriel "
