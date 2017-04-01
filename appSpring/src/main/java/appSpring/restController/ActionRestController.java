@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -63,15 +64,16 @@ public class ActionRestController {
 
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Action>> getAllAction(Authentication authentication, HttpSession session,
-			HttpServletRequest request) {
+	public ResponseEntity<Page<Action>> getAllAction(Authentication authentication, HttpSession session,
+			HttpServletRequest request, @RequestParam (required=false) Integer page) {
 
 		session.setMaxInactiveInterval(-1);
+		if(page==null) page = 0;
 		if (request.isUserInRole("ADMIN")) {
-			List<Action> loans = actionService.findAll();
+			Page<Action> loans = actionService.findAll(page);
 			return new ResponseEntity<>(loans, HttpStatus.OK);
 		} else {
-			List<Action> loans = actionService.findByUser(userService.findByName(authentication.getName()));
+			Page<Action> loans = actionService.findByUser(userService.findByName(authentication.getName()), page);
 			if (loans != null) {
 				return new ResponseEntity<>(loans, HttpStatus.OK);
 			} else {

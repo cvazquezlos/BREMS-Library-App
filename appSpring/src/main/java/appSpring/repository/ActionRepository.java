@@ -3,6 +3,8 @@ package appSpring.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import appSpring.model.Action;
@@ -15,5 +17,9 @@ public interface ActionRepository extends JpaRepository<Action, Integer> {
 	List <Action> findByUserId (Integer id);
 	
 	List <Action> findByUser (User user);
+	
+	Page <Action> findAll (Pageable page);
+	
+	Page <Action> findByUser (User user, Pageable page);
 
 }
