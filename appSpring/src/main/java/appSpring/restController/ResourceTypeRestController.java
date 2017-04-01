@@ -70,10 +70,10 @@ public class ResourceTypeRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			if (resourceTypeSelected.getName().equals("Defecto"))
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			else {
 				ResourceType resourceType = resourceTypeService.findByName("Defecto");
-				List<Resource> resources = resourceService.findByResourceTypeName(resourceType.getName());
+				List<Resource> resources = resourceService.findByResourceTypeName(resourceTypeSelected.getName());
 				for (Resource resource : resources) {
 					resource.setProductType(resourceType);
 					resourceService.save(resource);

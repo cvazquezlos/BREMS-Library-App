@@ -30,7 +30,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 ##### Type 1 method Request body:
 ```json
- {
+{
   "title": newTitle,
   "author": newAuthor,
   "editorial": newEditorial,
@@ -39,14 +39,15 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
      "id": typeId
   },
   "genre": {
-     "id": genreId
+    "id": genreId
   },
   "copies": [
-  {
-     "id": newAndUniqueCopyId,
-     "locationCode": newAndUniqueResourceId+FirstThreeLettersOfTitle+newAndUniqueCopyId
-  }]
- }
+    {
+      "id": newAndUniqueCopyId,
+      "locationCode": newAndUniqueResourceId+FirstThreeLettersOfTitle+newAndUniqueCopyId
+    }
+  ]
+}
 ```
 #### DELETE method
 
@@ -62,38 +63,38 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 ##### Type 1 method Request body (example using id 1)
 ```json
- {
+{
   "id": 1,
   "title": modifiedTitle,
   "author": modifiedAuthor,
   "editorial": modifiedEditorial,
   "picture": "1.jpg",
   "noReservedCopies": [
-     "1GaCi3"
+    "1GaCi3"
   ],
   "avaiblereserve": true,
   "description": modifiedDescription,
   "resourceType": {
-     "id": modifiedResourceTypeId
+    "id": modifiedResourceTypeId
   },
   "genre": {
-     "id": modifiedGenreId
+    "id": modifiedGenreId
   },
   "copies": [
-     {
-       "id": 1,
-       "locationCode": "1GaCi1"
-     },
-     {
-       "id": 2,
-       "locationCode": "1GaCi2"
-     },
-     {
-       "id": 3,
-       "locationCode": "1GaCi3"
-     }
+    {
+      "id": 1,
+      "locationCode": "1GaCi1"
+    },
+    {
+      "id": 2,
+      "locationCode": "1GaCi2"
+    },
+    {
+      "id": 3,
+      "locationCode": "1GaCi3"
+    }
   ]
- }
+}
 ```
 
 ### Users
@@ -116,7 +117,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 ##### Type 1 method Request body:
 ```json
- {
+{
   "name": newName,
   "dni": newDni,
   "firstName": newFirstName,
@@ -137,7 +138,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
     "ROLE_USER",
     "ROLE_ADMIN"
   ]
- }
+}
 ```
 #### DELETE method
 
@@ -153,7 +154,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 ##### Type 1 method Request body (example using id 1)
 ```json
- {
+{
   "id": 1,
   "name": "carlosv",
   "dni": modifiedDni,
@@ -187,7 +188,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
   "roles": [
     "ROLE_USER"
   ]
- }
+}
 ```
 
 ### Loans
@@ -211,18 +212,18 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 ##### Type 1 method Request body:
 ```json
- {
-   "copy": {
-     "id": idCopy,
-     "locationCode": locationCode,
-     "resource": {
-       "id": idResource
-     }
-   },
-   "user": {
-     "id": idUser
-   }
- }
+{
+  "copy": {
+    "id": idCopy,
+    "locationCode": locationCode,
+    "resource": {
+      "id": idResource
+    }
+  },
+  "user": {
+    "id": idUser
+  }
+}
 ```
 #### DELETE method
 
@@ -324,7 +325,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 ```json
 {
   "id": 1,
-  "name": modifiedGenre,
+  "name": modifiedGenreName,
   "resources": [
     {
       "id": 1,
@@ -351,6 +352,49 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
       "description": "La historia narra las..."
     }
   ]
+}
+```
+
+### Resource types
+Resource types API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you only are allowed to send GET requests. Like a registered user, you only are allowed to send GET requests too. Like an administrator user, you are allowed to send any request.
+All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
+
+#### GET methods
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|---------------|-----------|----------------|--------------|
+|1|Shows all resource types.|/api/resourcetypes/all|Resource types list and *OK* (200).|*NOT_FOUND* (404)|
+|2|Shows a determinated resource type.|/api/resourcetypes/id|Resource type and *OK* (200).|*NOT_FOUND* (404)|
+
+#### POST method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|G
+|1|Creates a new resource type.|/api/resourcetypes/|See below|New resourcetype and *CREATED* (201)|*BAD_REQUEST* (406)|
+
+##### Type 1 method Request body:
+```json
+{
+  "name": newResourceTypeName
+}
+```
+#### DELETE method
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|-------------------|-----------|----------------|--------------|
+|1|Deletes a resource type.|/api/resourcetypes/id|Deleted resource type and *OK* (200)|*CONFLICT* (409) or *NOT_FOUND* (404)|
+
+#### PUT method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Modifies an existing resource type.|/api/resourcetypes/id|See below|Modified resource type and *OK* (200)|*NOT_FOUND* (404)|
+
+##### Type 1 method Request body (example using id 1)
+```json
+{
+  "id": 1,
+  "name": modifiedResourceTypeName
 }
 ```
 [Postman link]: https://www.getpostman.com/
