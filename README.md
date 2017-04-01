@@ -102,6 +102,43 @@ This app contains views (each page which makes this website useful). As a librar
 ###### Add user page
 ![admin-users-add][admin-users-add]
 
+This is the *navigation diagram*
+
+#### App controllers class diagrams
+##### AdminController and services relationships
+![admin-controller-and-services][admin-controller-and-services]
+
+##### MainController and services relationships
+![main-controller-and-services][main-controller-and-services]
+
+##### ResourceController and services relationships
+![resource-controller-and-services][resource-controller-and-services]
+
+##### SearchController and services relationships
+![search-controller-and-services][search-controller-and-services]
+
+##### UserController and services relationships
+![user-controller-and-services][user-controller-and-services]
+
+#### App services class diagrams
+##### LogicService class diagrams
+###### LogicService and services relationships
+![logic-service-and-services][logic-service-and-services]
+
+###### LogicService and controllers relationships
+![logic-service-and-controllers][logic-service-and-controllers]
+
+
+
+#### Data base entities diagram
+![database-entities][db-e]
+
+
+[db-e]: http://i64.tinypic.com/1zzhop3.jpg
+[c-r-t]: http://i66.tinypic.com/jfyqvl.png
+
+
+
 [index]: /media/README/01-homePage.png
 [about]: /media/README/02-aboutPage.png
 [contact]: /media/README/03-contactPage.png
@@ -115,15 +152,10 @@ This app contains views (each page which makes this website useful). As a librar
 [admin-loans-add]: /media/README/11-adminLoansAddPage.png
 [admin-users]: /media/README/12-adminUsersPage.png
 [admin-users-add]: /media/README/13-adminUsersAddPage.png
-
-This is the *navigation diagram*
-
-
-#### Data base entities diagram
-![database-entities][db-e]
-
-#### Components, repositories and templates diagram
-![com-rep-temp][c-r-t]
-
-[db-e]: http://i64.tinypic.com/1zzhop3.jpg
-[c-r-t]: http://i66.tinypic.com/jfyqvl.png
+[admin-controller-and-services]: /media/README/14-AdminControllerBasicServices.png
+[main-controller-and-services]: /media/README/15-MainControllerBasicServices.png
+[resource-controller-and-services]: /media/README/16-ResourceControllerBasicServices.png
+[search-controller-and-services]: /media/README/17-SearchControllerBasicServices.png
+[user-controller-and-services]: /media/README/18-UserControllerBasicServices.png
+[logic-service-and-services]: /media/README/19-LogicServiceRelationshipsOtherServices.png
+[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
