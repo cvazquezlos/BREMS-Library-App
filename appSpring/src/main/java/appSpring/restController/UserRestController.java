@@ -91,12 +91,12 @@ public class UserRestController {
 		User userSelected = userService.findOne(id);
 		if (userSelected != null) {
 			if (authentication.getName().contains(userSelected.getName())) {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 			List<Action> actions = actionService.findAll();
 			for (Action action : actions) {
 				if ((action.getDateLoanReturn() == null) && (action.getUser() == userSelected)) {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 			}
 			userService.delete(userSelected);
