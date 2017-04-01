@@ -44,7 +44,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
   "copies": [
     {
       "id": newAndUniqueCopyId,
-      "locationCode": newAndUniqueResourceId+FirstThreeLettersOfTitle+newAndUniqueCopyId
+      "locationCode": newLocationCode
     }
   ]
 }
@@ -363,14 +363,14 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 |Type|Request description|Request URL|Success response|Error response|
 |----|---------------|-----------|----------------|--------------|
-|1|Shows all resource types.|/api/resourcetypes/all|Resource types list and *OK* (200).|*NOT_FOUND* (404)|
+|1|Shows all resource types.|/api/resourcetypes/all|Resource type list and *OK* (200).|*NOT_FOUND* (404)|
 |2|Shows a determinated resource type.|/api/resourcetypes/id|Resource type and *OK* (200).|*NOT_FOUND* (404)|
 
 #### POST method
 
 |Type|Request description|Request URL|Request body|Success response|Error response|
-|----|-------------------|-----------|------------|----------------|--------------|G
-|1|Creates a new resource type.|/api/resourcetypes/|See below|New resourcetype and *CREATED* (201)|*BAD_REQUEST* (406)|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Creates a new resource type.|/api/resourcetypes/|See below|New resource type and *CREATED* (201)|*BAD_REQUEST* (406)|
 
 ##### Type 1 method Request body:
 ```json
@@ -397,4 +397,66 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
   "name": modifiedResourceTypeName
 }
 ```
+
+### Resource copies
+Resource copies API has GET(2), POST(1), PUT(1) and DELETE(1) methods. you are not allowed to send requests. Like a registered user, you only are allowed to send GET requests. Like an administrator user, you are allowed to send any request.
+All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
+
+#### GET methods
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|---------------|-----------|----------------|--------------|
+|1|Shows all resource copies.|/api/resourcecopies/all|Resource copy list and *OK* (200).|*NOT_FOUND* (404)|
+|2|Shows a determinated resource copy.|/api/resourcecopies/id|Resource copy and *OK* (200).|*NOT_FOUND* (404)|
+
+#### POST method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Creates a new resource copy.|/api/resourcecopies/|See below|New resource copy and *CREATED* (201)|*BAD_REQUEST* (406)|
+
+##### Type 1 method Request body:
+```json
+{
+  "locationCode": newLocationCode,
+  "resource": {
+    "id": 1
+  },
+  "penalties": []
+}
+```
+#### DELETE method
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|-------------------|-----------|----------------|--------------|
+|1|Deletes a resource copy if the copy has been returned.|/api/resourcecopies/id|Deleted resource copy and *OK* (200)|*CONFLICT* (409) or *NOT_FOUND* (404)|
+
+#### PUT method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Modifies an existing resource copy.|/api/resourcecopies/id|See below|Modified resource copy and *OK* (200)|*NOT_FOUND* (404)|
+
+##### Type 1 method Request body (example using id 1)
+```json
+{
+  "id": 1,
+  "locationCode": modifiedLocationCode,
+  "resource": {
+    "id": 1,
+    "title": "Cien años de soledad",
+    "author": "Gabriel García Márquez",
+    "editorial": "Editorial Sudamericana",
+    "picture": "1.jpg",
+    "noReservedCopies": [
+      "1GaCi3",
+      "1GaCi10"
+    ],
+    "avaiblereserve": true,
+    "description": "Cien años de soledad es..."
+  },
+  "penalties": []
+}
+```
+
 [Postman link]: https://www.getpostman.com/
