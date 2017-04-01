@@ -76,7 +76,7 @@ public class GenreRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			if (genreSelected.getName().equals("Defecto"))
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			else {
 				Genre genre = genreService.findByName("Defecto");
 				List<Resource> resources = resourceService.findByGenreNameLikeIgnoreCase(genreSelected.getName());
@@ -97,7 +97,8 @@ public class GenreRestController {
 		session.setMaxInactiveInterval(-1);
 		Genre genre = genreService.findOne(id);
 		if ((genre != null) && (genre.getId() == genreUpdated.getId())) {
-			genreService.save(genreUpdated);
+			genre.setName(genreUpdated.getName());
+			genreService.save(genre);
 			return new ResponseEntity<>(genreUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -97,7 +97,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 ```
 
 ### Users
-Users API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you only are not allowed to send requests. Like a registered user, you only are allowed to send an unique GET request which shows to you information about your account. Like an administrator user, you are allowed to send any request.
+Users API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you are not allowed to send requests. Like a registered user, you only are allowed to send an unique GET request which shows to you information about your account. Like an administrator user, you are allowed to send any request.
 All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
 
 #### GET methods
@@ -191,7 +191,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 ```
 
 ### Loans
-Loans API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you only are not allowed to send requests. Like a registered user, you only are allowed to send GET requests which shows to you information about your loans. Like an administrator user, you are allowed to send any request.
+Loans API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you are not allowed to send requests. Like a registered user, you only are allowed to send GET requests which shows to you information about your loans. Like an administrator user, you are allowed to send any request.
 All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
 
 #### GET methods
@@ -263,6 +263,94 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
     "id": 1,
     "name": "carlosv"
   }
+}
+```
+
+### Fines
+Fines API has GET(2) and DELETE(1) methods. Like an unregistered user, you are not allowed to send requests. Like a registered user, you only are allowed to send GET requests which shows to you information about your fines. Like an administrator user, you are allowed to send any request.
+All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
+
+#### GET methods
+
+|Type|Permissions|Request description|Request URL|Success response|Error response|
+|----|----|---------------|-----------|----------------|--------------|
+|1|Admin|Shows all fines.|/api/fines/all|Fine list and *OK* (200).|*NOT_FOUND* (404)|
+|2|Admin|Shows a determinated fine.|/api/fines/id|Fine and *OK* (200).|*NOT_FOUND* (404)|
+|3|User|Shows all user's fines.|/api/fines/all|Fine list and *OK* (200).|*NOT_FOUND* (404)|
+|4|User|Shows information about your fine.|/api/fines/id|Fine and *OK* (200).|*NOT_FOUND* (404)|
+
+#### DELETE method
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|-------------------|-----------|----------------|--------------|
+|1|Deletes a fine.|/api/fines/id|Deleted fine and *OK* (200)|*CONFLICT* (409) or *NOT_FOUND* (404)|
+
+### Genres
+Genres API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you only are allowed to send GET requests. Like a registered user, you only are allowed to send GET requests too. Like an administrator user, you are allowed to send any request.
+All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
+
+#### GET methods
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|---------------|-----------|----------------|--------------|
+|1|Shows all genres.|/api/genres/all|Genre list and *OK* (200).|*NOT_FOUND* (404)|
+|2|Shows a determinated genre.|/api/genres/id|Genre and *OK* (200).|*NOT_FOUND* (404)|
+
+#### POST method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Creates a new genre.|/api/genres/|See below|New genre and *CREATED* (201)|*BAD_REQUEST* (406)|
+
+##### Type 1 method Request body:
+```json
+{
+  "name": newGenreName
+}
+```
+#### DELETE method
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|-------------------|-----------|----------------|--------------|
+|1|Deletes a genre.|/api/genre/id|Deleted genre and *OK* (200)|*CONFLICT* (409) or *NOT_FOUND* (404)|
+
+#### PUT method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Modifies an existing genre.|/api/genres/id|See below|Modified genre and *OK* (200)|*NOT_FOUND* (404)|
+
+##### Type 1 method Request body (example using id 1)
+```json
+{
+  "id": 1,
+  "name": modifiedGenre,
+  "resources": [
+    {
+      "id": 1,
+      "title": "Cien años de soledad",
+      "author": "Gabriel García Márquez",
+      "editorial": "Editorial Sudamericana",
+      "picture": "1.jpg",
+      "noReservedCopies": [
+        "1GaCi3"
+      ],
+      "avaiblereserve": true,
+      "description": "Cien años de soledad es..."
+    },
+    {
+      "id": 5,
+      "title": "Logia",
+      "author": "Francisco Ortega",
+      "editorial": "Planeta",
+      "picture": "5.jpg",
+      "noReservedCopies": [
+        "5FrLo9"
+      ],
+      "avaiblereserve": true,
+      "description": "La historia narra las..."
+    }
+  ]
 }
 ```
 [Postman link]: https://www.getpostman.com/
