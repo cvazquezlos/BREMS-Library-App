@@ -47,7 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// LOGOUT
 		http.logout().logoutUrl("/logout");
 		http.logout().logoutSuccessUrl("/");
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> refs/remotes/origin/dev
 		http.csrf().disable();
 	}
 
