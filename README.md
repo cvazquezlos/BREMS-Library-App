@@ -134,30 +134,19 @@ This app contains views (each page which makes this website useful). As a librar
 ![fine-rest-controller][fine-rest-controller]
 
 ##### GenreRestController and services relationships
-![resource-controller-and-services][resource-controller-and-services]
+![genre-rest-controller][genre-rest-controller]
 
 ##### ResourceCopyRestController and services relationships
-![search-controller-and-services][search-controller-and-services]
+![resource-copy-rest-controller][resource-copy-rest-controller]
 
 ##### ResourceRestController and services relationships
-![user-controller-and-services][user-controller-and-services]
+![resource-rest-controller][resource-rest-controller]
 
 ##### ResourceTypeRestController and services relationships
-![user-controller-and-services][user-controller-and-services]
+![resource-type-rest-controller][resource-type-rest-controller]
 
 ##### UserRestController and services relationships
-![user-controller-and-services][user-controller-and-services]
-
-
-
-#### Data base entities diagram
-![database-entities][db-e]
-
-
-[db-e]: http://i64.tinypic.com/1zzhop3.jpg
-[c-r-t]: http://i66.tinypic.com/jfyqvl.png
-
-
+![user-rest-controller][user-rest-controller]
 
 [index]: /media/README/01-homePage.png
 [about]: /media/README/02-aboutPage.png
@@ -181,8 +170,8 @@ This app contains views (each page which makes this website useful). As a librar
 [logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
 [action-rest-controller]: /media/README/21-ActionRestControllerRelationships.png
 [fine-rest-controller]: /media/README/22-FineRestControllerRelationships.png
-[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
-[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
-[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
-[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
-[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
+[genre-rest-controller]: /media/README/23-GenreRestControllerRelationships.png
+[resource-copy-rest-controller]: /media/README/24-ResourceCopyRestControllerRelationships.png
+[resource-rest-controller]: /media/README/25-ResourceRestControllerRelationships.png
+[resource-type-rest-controller]: /media/README/26-ResourceTypeRestControllerRelationships.png
+[user-rest-controller]: /media/README/27-UserRestControllerRelationships.png
