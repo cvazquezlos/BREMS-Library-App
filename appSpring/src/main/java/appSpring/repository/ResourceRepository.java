@@ -13,6 +13,8 @@ import appSpring.model.ResourceType;
 public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 
 	Resource findByTitle(String title);
+	
+	Page<Resource> findAll (Pageable page);
 
 	List<Resource> findByAuthor(String author);
 
@@ -23,6 +25,8 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 	List<Resource> findByResourceTypeName(String name);
 	
 	List<Resource> findByGenreNameLikeIgnoreCase(String name);
+	
+	Page<Resource> findByGenreNameLikeIgnoreCase(String name, Pageable page);
 	
 	List<Resource> findByGenreAndIdNot(Genre genre, Integer id);
 	
@@ -35,5 +39,7 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
 	Resource findByTitleLikeIgnoreCase(String title);
 
 	List<Resource> findByGenreNameLikeIgnoreCaseAndResourceType(String name, ResourceType resourceType);
+	
+	Page<Resource> findByGenreNameLikeIgnoreCaseAndResourceType(String name, ResourceType resourceType, Pageable page);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,12 +58,14 @@ public class ResourceRestController {
 
 	@JsonView(ResourceDetail.class)
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Resource>> getAllResource(HttpSession session,
+	public ResponseEntity<Page<Resource>> getAllResource(HttpSession session,
 			@RequestParam(value = "genre", required = false) String genre,
-			@RequestParam(value = "type", required = false) String type) {
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam (required=false) Integer page) {
 		
 		session.setMaxInactiveInterval(-1);
-		List<Resource> resources = resourceService.findByGenreAndTypeAllIgnoreCase(genre, type);
+		if(page==null) page=0;
+		Page<Resource> resources = resourceService.findByGenreAndTypeAllIgnoreCase(genre, type, page);
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
 		} else {
