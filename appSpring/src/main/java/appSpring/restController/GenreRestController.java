@@ -5,12 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,10 +45,11 @@ public class GenreRestController {
 
 	@JsonView(GenreDetail.class)
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Genre>> getAllGenres(HttpSession session) {
+	public ResponseEntity<Page<Genre>> getAllGenres(HttpSession session, @RequestParam (required=false) Integer page) {
 
 		session.setMaxInactiveInterval(-1);
-		List<Genre> genres = genreService.findAll();
+		if(page==null) page = 0;
+		Page<Genre> genres = genreService.findAll(page);
 		if (genres != null) {
 			return new ResponseEntity<>(genres, HttpStatus.OK);
 		} else {
@@ -76,7 +79,7 @@ public class GenreRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			if (genreSelected.getName().equals("Defecto"))
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			else {
 				Genre genre = genreService.findByName("Defecto");
 				List<Resource> resources = resourceService.findByGenreNameLikeIgnoreCase(genreSelected.getName());
@@ -97,7 +100,8 @@ public class GenreRestController {
 		session.setMaxInactiveInterval(-1);
 		Genre genre = genreService.findOne(id);
 		if ((genre != null) && (genre.getId() == genreUpdated.getId())) {
-			genreService.save(genreUpdated);
+			genre.setName(genreUpdated.getName());
+			genreService.save(genre);
 			return new ResponseEntity<>(genreUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

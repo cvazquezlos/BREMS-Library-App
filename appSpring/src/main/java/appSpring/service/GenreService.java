@@ -3,6 +3,8 @@ package appSpring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import appSpring.model.Genre;
@@ -21,6 +23,10 @@ public class GenreService {
 	
 	public List<Genre> findAll() {
 		return repository.findAll();
+	}
+	
+	public Page<Genre> findAll(int page){
+		return repository.findAll(new PageRequest(page,3));
 	}
 
 	public Genre findByName(String name) {

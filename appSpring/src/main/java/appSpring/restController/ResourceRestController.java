@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,26 +44,33 @@ public class ResourceRestController {
 	public ResponseEntity<Resource> postResource(@RequestBody Resource resource, HttpSession session) {
 
 		session.setMaxInactiveInterval(-1);
+		Resource newResource = new Resource(resource.getTitle(), resource.getAutor(), resource.getEditorial(), resource.getDescription());
+		newResource.setGenre(resource.getGenre());
+		newResource.setProductType(resource.getProductType());
+		resourceService.save(newResource);
 		for (ResourceCopy resourceCopy : resource.getResourceCopies()) {
 			if (resourceCopyService.findOne(resourceCopy.getID()) == null) {
-				resourceCopy.setResource(resource);
+				resourceCopy.setResource(newResource);
 				resourceCopyService.save(resourceCopy);
+				newResource.getNoReservedCopies().add(resourceCopy.getLocationCode());
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
-		resourceService.save(resource);
+		resourceService.save(newResource);
 		return new ResponseEntity<>(resource, HttpStatus.OK);
 	}
 
 	@JsonView(ResourceDetail.class)
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Resource>> getAllResource(HttpSession session,
+	public ResponseEntity<Page<Resource>> getAllResource(HttpSession session,
 			@RequestParam(value = "genre", required = false) String genre,
-			@RequestParam(value = "type", required = false) String type) {
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam (required=false) Integer page) {
 		
 		session.setMaxInactiveInterval(-1);
-		List<Resource> resources = resourceService.findByGenreAndTypeAllIgnoreCase(genre, type);
+		if(page==null) page=0;
+		Page<Resource> resources = resourceService.findByGenreAndTypeAllIgnoreCase(genre, type, page);
 		if (resources != null) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
 		} else {
@@ -95,7 +103,7 @@ public class ResourceRestController {
 			List<Action> actions = actionService.findAll();
 			for (Action action : actions) {
 				if ((action.getDateLoanReturn() == null) && (action.getResource().getResource() == resourceSelected)) {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 			}
 			resourceService.delete(resourceSelected);
@@ -111,7 +119,13 @@ public class ResourceRestController {
 		session.setMaxInactiveInterval(-1);
 		Resource resource = resourceService.findOne(id);
 		if ((resource != null) && (resource.getId() == resourceUpdated.getId())) {
-			resourceService.save(resourceUpdated);
+			resource.setTitle(resourceUpdated.getTitle());
+			resource.setAutor(resourceUpdated.getAutor());
+			resource.setEditorial(resourceUpdated.getEditorial());
+			resource.setDescription(resourceUpdated.getDescription());
+			resource.setGenre(resourceUpdated.getGenre());
+			resource.setProductType(resourceUpdated.getProductType());
+			resourceService.save(resource);
 			return new ResponseEntity<>(resourceUpdated, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -5,12 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,10 +40,11 @@ public class ResourceTypeRestController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<ResourceType>> getResourceTypes(HttpSession session) {
+	public ResponseEntity<Page<ResourceType>> getResourceTypes(HttpSession session, @RequestParam (required=false) Integer page) {
 
 		session.setMaxInactiveInterval(-1);
-		List<ResourceType> resourceTypes = resourceTypeService.findAll();
+		if(page==null) page=0;
+		Page<ResourceType> resourceTypes = resourceTypeService.findAll(page);
 		if (resourceTypes != null) {
 			return new ResponseEntity<>(resourceTypes, HttpStatus.OK);
 		} else {
@@ -70,10 +73,10 @@ public class ResourceTypeRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			if (resourceTypeSelected.getName().equals("Defecto"))
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			else {
 				ResourceType resourceType = resourceTypeService.findByName("Defecto");
-				List<Resource> resources = resourceService.findByResourceTypeName(resourceType.getName());
+				List<Resource> resources = resourceService.findByResourceTypeName(resourceTypeSelected.getName());
 				for (Resource resource : resources) {
 					resource.setProductType(resourceType);
 					resourceService.save(resource);

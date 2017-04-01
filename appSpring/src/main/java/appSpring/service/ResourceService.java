@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -79,6 +80,20 @@ public class ResourceService {
 		} else {
 			ResourceType resourceType = rtrepository.findByNameLikeIgnoreCase(type);
 			return repository.findByResourceType(resourceType);
+		}
+	}
+	
+	public Page<Resource> findByGenreAndTypeAllIgnoreCase(String genre, String type, int page) {
+		if (genre != null && type == null) {
+			return repository.findByGenreNameLikeIgnoreCase(genre, new PageRequest(page,3));
+		} else if (genre != null && type != null) {
+			ResourceType resourceType = rtrepository.findByNameLikeIgnoreCase(type);
+			return repository.findByGenreNameLikeIgnoreCaseAndResourceType(genre, resourceType, new PageRequest(page,3));
+		} else if (genre == null && type == null) {
+			return repository.findAll(new PageRequest(page,3));
+		} else {
+			ResourceType resourceType = rtrepository.findByNameLikeIgnoreCase(type);
+			return repository.findByResourceType(resourceType, new PageRequest(page,3));
 		}
 	}
 

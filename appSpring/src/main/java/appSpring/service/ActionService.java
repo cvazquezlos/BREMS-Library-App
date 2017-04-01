@@ -3,6 +3,8 @@ package appSpring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import appSpring.model.Action;
@@ -23,9 +25,17 @@ public class ActionService {
 	public List<Action> findAll() {
 		return repository.findAll();
 	}
+	
+	public Page<Action> findAll(int page) {
+		return repository.findAll(new PageRequest(page,3));
+	}
 
 	public List<Action> findByUser(User user) {
 		return repository.findByUser(user);
+	}
+	
+	public Page<Action> findByUser(User user, int page){
+		return repository.findByUser(user, new PageRequest(page,3));
 	}
 
 	public void save(Action action) {

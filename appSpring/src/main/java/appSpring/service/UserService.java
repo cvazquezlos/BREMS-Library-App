@@ -3,6 +3,8 @@ package appSpring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import appSpring.model.User;
@@ -20,6 +22,10 @@ public class UserService {
 
 	public List<User> findAll() {
 		return repository.findAll();
+	}
+	
+	public Page<User> findAll(int page) {
+		return repository.findAll(new PageRequest(page,3));
 	}
 
 	public User findByName(String name) {

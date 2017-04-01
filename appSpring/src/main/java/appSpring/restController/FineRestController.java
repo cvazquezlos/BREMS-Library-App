@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -35,15 +37,16 @@ public class FineRestController {
 
 	@JsonView(FineDetail.class)
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<Fine>> getAllFine(Authentication authentication, HttpSession session,
-			HttpServletRequest request) {
+	public ResponseEntity<Page<Fine>> getAllFine(Authentication authentication, HttpSession session,
+			HttpServletRequest request, @RequestParam (required=false) Integer page) {
 
 		session.setMaxInactiveInterval(-1);
+		if(page==null) page=0;
 		if (request.isUserInRole("ADMIN")) {
-			List<Fine> fines = fineService.findAll();
+			Page<Fine> fines = fineService.findAll(page);
 			return new ResponseEntity<>(fines, HttpStatus.OK);
 		} else {
-			List<Fine> fines = fineService.findByUser(userService.findByName(authentication.getName()));
+			Page<Fine> fines = fineService.findByUser(userService.findByName(authentication.getName()), page);
 			if (fines != null) {
 				return new ResponseEntity<>(fines, HttpStatus.OK);
 			} else {
