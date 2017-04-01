@@ -19,7 +19,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 |Type|Request description|Request URL|Success response|Error response|
 |----|-------------------|-----------|----------------|--------------|
-|1|Shows all resources (you can apply optional filters like genre and type).|/api/resources/all?genre=genre&type=type|Resources list and *OK* (200).|*NOT_FOUND* (404)|
+|1|Shows all resources (you can apply optional filters like genre and type).|/api/resources/all?genre=genre&type=type|Resource list and *OK* (200).|*NOT_FOUND* (404)|
 |2|Shows a determinated resource|/api/resources/id|Resource and *OK* (200).|*NOT_FOUND* (404)|
 
 #### POST method
@@ -104,7 +104,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 
 |Type|Permissions|Request description|Request URL|Success response|Error response|
 |----|----|---------------|-----------|----------------|--------------|
-|1|Admin|Shows all users.|/api/users/all|Users list and *OK* (200).|*NOT_FOUND* (404)|
+|1|Admin|Shows all users.|/api/users/all|User list and *OK* (200).|*NOT_FOUND* (404)|
 |2|Admin|Shows a determinated user.|/api/users/id|User and *OK* (200).|*NOT_FOUND* (404)|
 |3|User|Shows information about your account.|/api/users/id|User and *OK* (200).|*NOT_FOUND* (404)|
 
@@ -190,4 +190,79 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
  }
 ```
 
+### Loans
+Loans API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you only are not allowed to send requests. Like a registered user, you only are allowed to send GET requests which shows to you information about your loans. Like an administrator user, you are allowed to send any request.
+All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
+
+#### GET methods
+
+|Type|Permissions|Request description|Request URL|Success response|Error response|
+|----|----|---------------|-----------|----------------|--------------|
+|1|Admin|Shows all loans.|/api/loans/all|Action list and *OK* (200).|*NOT_FOUND* (404)|
+|2|Admin|Shows a determinated loan.|/api/loans/id|Action and *OK* (200).|*NOT_FOUND* (404)|
+|3|User|Shows all user's loans.|/api/loans/all|Action list and *OK* (200).|*NOT_FOUND* (404)|
+|4|User|Shows information about your loan.|/api/loans/id|Action and *OK* (200).|*NOT_FOUND* (404)|
+
+#### POST method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Creates a new loan (if user doesn't have a fine).|/api/loans/|See below|New loan and *CREATED* (201)|*BAD_REQUEST* (406)|
+
+##### Type 1 method Request body:
+```json
+ {
+   "copy": {
+     "id": idCopy,
+     "locationCode": locationCode,
+     "resource": {
+       "id": idResource
+     }
+   },
+   "user": {
+     "id": idUser
+   }
+ }
+```
+#### DELETE method
+
+|Type|Request description|Request URL|Success response|Error response|
+|----|-------------------|-----------|----------------|--------------|
+|1|Deletes a loan if the resource has been returned.|/api/loans/id|Deleted loan and *OK* (200)|*CONFLICT* (409) or *NOT_FOUND* (404)|
+
+#### PUT method
+
+|Type|Request description|Request URL|Request body|Success response|Error response|
+|----|-------------------|-----------|------------|----------------|--------------|
+|1|Gives or returnes a resource (you can't modify anything).|/api/loans/id?action=action|See below|Modified user and *OK* (200)|*NOT_FOUND* (404)|
+
+##### Type 1 method Request body (example using id 1)
+```json
+{
+  "id": 1,
+  "dateLoanInit": 1489411423000,
+  "dateLoanGiven": null,
+  "dateLoanReturn": null,
+  "copy": {
+    "id": 1,
+    "locationCode": "1GaCi1",
+    "resource": {
+      "id": 1,
+      "title": "Cien años de soledad",
+      "author": "Gabriel García Márquez",
+      "editorial": "Editorial Sudamericana",
+      "picture": "1.jpg",
+      "noReservedCopies": [
+        "1GaCi3"
+      ],
+      "avaiblereserve": true,
+      "description": "Cien años de soledad es..."
+    }
+  },
+  "user": {
+    "id": 1,
+    "name": "carlosv"
+  }
+}
+```
 [Postman link]: https://www.getpostman.com/
