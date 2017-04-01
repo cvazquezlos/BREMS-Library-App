@@ -102,8 +102,6 @@ This app contains views (each page which makes this website useful). As a librar
 ###### Add user page
 ![admin-users-add][admin-users-add]
 
-This is the *navigation diagram*
-
 #### App controllers class diagrams
 ##### AdminController and services relationships
 ![admin-controller-and-services][admin-controller-and-services]
@@ -127,6 +125,28 @@ This is the *navigation diagram*
 
 ###### LogicService and controllers relationships
 ![logic-service-and-controllers][logic-service-and-controllers]
+
+#### App rest controllers class diagrams
+##### ActionRestController and services relationships
+![action-rest-controller][action-rest-controller]
+
+##### FineRestController and services relationships
+![fine-rest-controller][fine-rest-controller]
+
+##### GenreRestController and services relationships
+![resource-controller-and-services][resource-controller-and-services]
+
+##### ResourceCopyRestController and services relationships
+![search-controller-and-services][search-controller-and-services]
+
+##### ResourceRestController and services relationships
+![user-controller-and-services][user-controller-and-services]
+
+##### ResourceTypeRestController and services relationships
+![user-controller-and-services][user-controller-and-services]
+
+##### UserRestController and services relationships
+![user-controller-and-services][user-controller-and-services]
 
 
 
@@ -158,4 +178,11 @@ This is the *navigation diagram*
 [search-controller-and-services]: /media/README/17-SearchControllerBasicServices.png
 [user-controller-and-services]: /media/README/18-UserControllerBasicServices.png
 [logic-service-and-services]: /media/README/19-LogicServiceRelationshipsOtherServices.png
+[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
+[action-rest-controller]: /media/README/21-ActionRestControllerRelationships.png
+[fine-rest-controller]: /media/README/22-FineRestControllerRelationships.png
+[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
+[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
+[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
+[logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
 [logic-service-and-controllers]: /media/README/20-LogicServiceRelationships.png
