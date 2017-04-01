@@ -5,12 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,10 +54,11 @@ public class ResourceCopyRestController {
 
 	@JsonView(ResourceCopyDetail.class)
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ResponseEntity<List<ResourceCopy>> getResourceCopies(HttpSession session) {
+	public ResponseEntity<Page<ResourceCopy>> getResourceCopies(HttpSession session, @RequestParam (required=false) Integer page) {
 
 		session.setMaxInactiveInterval(-1);
-		List<ResourceCopy> resourceCopies = resourceCopyService.findAll();
+		if(page==null) page=0;
+		Page<ResourceCopy> resourceCopies = resourceCopyService.findAll(page);
 		if (resourceCopies != null) {
 			return new ResponseEntity<>(resourceCopies, HttpStatus.OK);
 		} else {
