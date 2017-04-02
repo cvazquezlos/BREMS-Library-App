@@ -71,7 +71,7 @@ public class ResourceRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<Resource> resources = resourceService.findByGenreAndTypeAllIgnoreCase(genre, type, page);
-		if (resources != null) {
+		if (resources.getNumberOfElements() >0) {
 			return new ResponseEntity<>(resources, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

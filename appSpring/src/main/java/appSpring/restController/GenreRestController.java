@@ -50,7 +50,7 @@ public class GenreRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page = 0;
 		Page<Genre> genres = genreService.findAll(page);
-		if (genres != null) {
+		if (genres.getNumberOfElements() > 0) {
 			return new ResponseEntity<>(genres, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
