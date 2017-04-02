@@ -59,7 +59,7 @@ public class ResourceCopyRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<ResourceCopy> resourceCopies = resourceCopyService.findAll(page);
-		if (resourceCopies != null) {
+		if (resourceCopies.getNumberOfElements() > 0) {
 			return new ResponseEntity<>(resourceCopies, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
