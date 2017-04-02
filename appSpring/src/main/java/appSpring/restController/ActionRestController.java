@@ -82,7 +82,7 @@ public class ActionRestController {
 			return new ResponseEntity<>(loans, HttpStatus.OK);
 		} else {
 			Page<Action> loans = actionService.findByUser(userService.findByName(authentication.getName()), page);
-			if (loans != null) {
+			if (loans.getNumberOfElements()>0) {
 				return new ResponseEntity<>(loans, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
