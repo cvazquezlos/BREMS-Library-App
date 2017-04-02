@@ -26,6 +26,8 @@ import appSpring.model.ResourceCopy;
 import appSpring.model.User;
 import appSpring.service.ActionService;
 import appSpring.service.LogicService;
+import appSpring.service.ResourceCopyService;
+import appSpring.service.ResourceService;
 import appSpring.service.UserService;
 
 @RestController
@@ -41,6 +43,10 @@ public class ActionRestController {
 	@Autowired
 	private UserService userService;
 	@Autowired
+	private ResourceService resourceService;
+	@Autowired
+	private ResourceCopyService resourceCopyService;
+	@Autowired
 	private LogicService logicService;
 
 	@JsonView(LoanDetail.class)
@@ -50,12 +56,14 @@ public class ActionRestController {
 
 		session.setMaxInactiveInterval(-1);
 		if ((authentication.getName().contains(loan.getUser().getName())) || (request.isUserInRole("ADMIN"))) {
-			int status = logicService.reserveAResource(loan.getUser(), loan.getDateLoanInit(),
-					loan.getResource().getResource(), loan.getResource());
+			Resource resource = resourceService.findOne(loan.getResource().getResource().getId());
+			ResourceCopy resourceCopy = resourceCopyService.findOne(loan.getResource().getID());
+			int status = logicService.reserveAResource(userService.findOne(loan.getUser().getId()), new Date(),
+					resource, resourceCopy);
 			if (status == 0) {
 				return new ResponseEntity<>(loan, HttpStatus.CREATED);
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -126,21 +134,25 @@ public class ActionRestController {
 		Date date = new Date();
 		if ((loan != null) && (loan.getID() == loanUpdated.getID())) {
 			int status;
-			switch(action) {
-			case "give":
-				status = logicService.addGiveDate(loan, date);
-				if (status == 0)
-					return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
-				else
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-			case "return":
-				status = logicService.addReturnDate(loan, date);
-				if (status == 0)
-					return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
-				else
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-			default:
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			if (action!=null) {
+				switch(action) {
+				case "give":
+					status = logicService.addGiveDate(loan, date);
+					if (status == 0)
+						return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+					else
+						return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				case "return":
+					status = logicService.addReturnDate(loan, date);
+					if (status == 0)
+						return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+					else
+						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				default:
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -44,7 +44,7 @@ public class ResourceCopyRestController {
 	public ResourceCopy postResourceCopy(@RequestBody ResourceCopy resourceCopy, HttpSession session) {
 
 		session.setMaxInactiveInterval(-1);
-		Resource resource = resourceCopy.getResource();
+		Resource resource = resourceService.findOne(resourceCopy.getResource().getId());
 		resourceCopyService.save(resourceCopy);
 		resource.getNoReservedCopies().add(resourceCopy.getLocationCode());
 		resource.getResourceCopies().add(resourceCopy);
