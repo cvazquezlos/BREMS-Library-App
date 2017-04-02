@@ -1,7 +1,6 @@
 package appSpring.restController;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,13 +54,14 @@ public class ActionRestController {
 			HttpSession session, HttpServletRequest request) {
 
 		session.setMaxInactiveInterval(-1);
-		if ((authentication.getName().contains(loan.getUser().getName())) || (request.isUserInRole("ADMIN"))) {
+		if ((authentication.getName().equals(userService.findOne(loan.getUser().getId()).getName())) || (request.isUserInRole("ADMIN"))) {
+			Date date = new Date();
 			Resource resource = resourceService.findOne(loan.getResource().getResource().getId());
 			ResourceCopy resourceCopy = resourceCopyService.findOne(loan.getResource().getID());
-			int status = logicService.reserveAResource(userService.findOne(loan.getUser().getId()), new Date(),
+			int status = logicService.reserveAResource(userService.findOne(loan.getUser().getId()), date,
 					resource, resourceCopy);
 			if (status == 0) {
-				return new ResponseEntity<>(loan, HttpStatus.CREATED);
+				return new ResponseEntity<>(logicService.getAction(), HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
@@ -98,7 +98,7 @@ public class ActionRestController {
 		session.setMaxInactiveInterval(-1);
 		Action loan = actionService.findOne(id);
 		if (loan != null) {
-			if ((authentication.getName().contains(loan.getUser().getName())) || (request.isUserInRole("ADMIN"))) {
+			if ((authentication.getName().equals(loan.getUser().getName())) || (request.isUserInRole("ADMIN"))) {
 				return new ResponseEntity<>(loan, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -139,13 +139,13 @@ public class ActionRestController {
 				case "give":
 					status = logicService.addGiveDate(loan, date);
 					if (status == 0)
-						return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+						return new ResponseEntity<>(loan, HttpStatus.OK);
 					else
 						return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 				case "return":
 					status = logicService.addReturnDate(loan, date);
 					if (status == 0)
-						return new ResponseEntity<>(loanUpdated, HttpStatus.OK);
+						return new ResponseEntity<>(loan, HttpStatus.OK);
 					else
 						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 				default:

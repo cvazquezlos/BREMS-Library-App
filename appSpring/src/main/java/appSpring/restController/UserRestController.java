@@ -73,7 +73,7 @@ public class UserRestController {
 		session.setMaxInactiveInterval(-1);
 		User user = userService.findOne(id);
 		if (user != null) {
-			if ((authentication.getName().contains(user.getName())) || (request.isUserInRole("ADMIN")))
+			if ((authentication.getName().equals(user.getName())) || (request.isUserInRole("ADMIN")))
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			else
 				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -90,7 +90,7 @@ public class UserRestController {
 		session.setMaxInactiveInterval(-1);
 		User userSelected = userService.findOne(id);
 		if (userSelected != null) {
-			if (authentication.getName().contains(userSelected.getName())) {
+			if (authentication.getName().equals(userSelected.getName())) {
 				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 			List<Action> actions = actionService.findAll();
@@ -114,7 +114,7 @@ public class UserRestController {
 		session.setMaxInactiveInterval(-1);
 		User user = userService.findOne(id);
 		if ((user != null) && (user.getId() == userUpdated.getId())) {
-			if ((authentication.getName().contains(user.getName())) || (request.isUserInRole("ADMIN"))) {
+			if ((authentication.getName().equals(user.getName())) || (request.isUserInRole("ADMIN"))) {
 				user.setEmail(userUpdated.getEmail());
 				user.setFirstName(userUpdated.getFirstName());
 				user.setLastName1(userUpdated.getLastName1());
@@ -125,7 +125,7 @@ public class UserRestController {
 				user.setAddress(userUpdated.getAddress());
 				user.setDni(userUpdated.getDni());
 				userService.save(user);
-				return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+				return new ResponseEntity<>(user, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 			}

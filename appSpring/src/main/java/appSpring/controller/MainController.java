@@ -98,12 +98,18 @@ public class MainController {
 
 		User loggedUser = userService.findByName(request.getUserPrincipal().getName());
 		LocalDateTime now = LocalDateTime.now();
-		Date date = getDate(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
+		Date date = getDate(now.getYear(), now.getMonthValue() -1, now.getDayOfMonth(), now.getHour(), now.getMinute(), now.getSecond());
 		Resource resourceSelected = resourceService.findOne(id);
 		switch (logicService.reserveAResource(loggedUser, date, resourceSelected, null)) {
 		case 0:
 			redirectAttrs.addFlashAttribute("messages", "La reserva se ha realizado correctamente.");
 			return "redirect:/";
+		case 1:
+			model.addAttribute("messages", "No existe el usuario.");
+			return "admin/add_loan";
+		case 2:
+			model.addAttribute("messages", "El título del recurso es erróneo.");
+			return "admin/add_loan";
 		case 3:
 			redirectAttrs.addFlashAttribute("error",
 					"Actualmente tiene una penalización. No es posible hacer la reserva.");

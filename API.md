@@ -98,7 +98,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
 ```
 
 ### Users
-Users API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you are not allowed to send requests. Like a registered user, you only are allowed to send an unique GET request which shows to you information about your account. Like an administrator user, you are allowed to send any request.
+Users API has GET(2), POST(1), PUT(1) and DELETE(1) methods. Like an unregistered user, you are allowed to send POST requests. Like a registered user, you only are allowed to send an unique GET request which shows to you information about your account. Like an administrator user, you are allowed to send any request.
 All Request URLs can be send by typing http://localhost:8443 followed by the request URL containt in the following tables.
 
 #### GET methods
@@ -458,5 +458,7 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
   "penalties": []
 }
 ```
+
+Inside appSpring folder you have two Postman collections. Use them and try this out!
 
 [Postman link]: https://www.getpostman.com/

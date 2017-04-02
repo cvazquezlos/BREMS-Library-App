@@ -1,7 +1,5 @@
 package appSpring.restController;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import appSpring.model.Fine;
+import appSpring.model.ResourceCopy;
+import appSpring.model.User;
 import appSpring.service.FineService;
 import appSpring.service.UserService;
 
@@ -27,7 +27,7 @@ import appSpring.service.UserService;
 @RequestMapping("/api/fines")
 public class FineRestController {
 
-	public interface FineDetail extends Fine.Basic, Fine.ResoCopy, Fine.Usr {
+	public interface FineDetail extends Fine.Basic, Fine.ResoCopy, Fine.Usr, ResourceCopy.Basic, User.Basic {
 	}
 
 	@Autowired

@@ -28,6 +28,8 @@ public class LogicService {
 	@Autowired
 	private FineService fineService;
 
+	public Action action;
+
 	private boolean hasActiveFines(User user, Date date) {
 		List<Fine> fines = user.getFines();
 		for (Fine fine : fines) {
@@ -91,10 +93,15 @@ public class LogicService {
 		if (resource.getNoReservedCopies().isEmpty())
 			resource.setAvaibleReserve(false);
 		actionService.save(reserve);
+		this.action = reserve;
 		resourceService.save(resource);
 		user.setAvaibleLoans(user.getAvaibleLoans() - 1);
 		userService.save(user);
 		return 0;
+	}
+
+	public Action getAction() {
+		return this.action;
 	}
 
 	private boolean deleteLoanAvaible(Action loan) {
@@ -188,6 +195,7 @@ public class LogicService {
 				userFound.setBanned(true);
 			}
 		}
+		actionService.save(action);
 		userService.save(userFound);
 		return 0;
 	}

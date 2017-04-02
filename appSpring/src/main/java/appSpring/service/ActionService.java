@@ -1,5 +1,6 @@
 package appSpring.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,12 @@ public class ActionService {
 		return repository.findByUser(user);
 	}
 	
-	public Page<Action> findByUser(User user, int page){
+	public Page<Action> findByUser(User user, int page) {
 		return repository.findByUser(user, new PageRequest(page,3));
+	}
+
+	public Action findByDateLoanInit(Date dateLoanInit) {
+		return repository.findByDateLoanInit(dateLoanInit);
 	}
 
 	public void save(Action action) {
