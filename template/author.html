@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BREMS</title>
+    <!-- Boostrap Library -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link type="text/css" href="css/main-style.css" rel="stylesheet" />
+    <link type="text/css" href="css/profileBook-style.css" rel="stylesheet" />
+    <link type="text/css" href="css/author-style.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/loginmodal.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-5 col-lg-5 logo">
+                    <a href="index.html"><img src="img/logo.png" alt="logo brems">
+                        <h1>Book Reserve System Management</h1></a>
+                </div>
+                <div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
+                    <div id="search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control input-lg" placeholder="Buscar" /> <span class="input-group-btn">
+                            <a href="search.html"><i class="glyphicon glyphicon-search"></i></a></span> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid menuNav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false"> <span class="sr-only">Navegación</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">Inicio</a></li>
+                        <li><a href="profile-user.html">Perfil</a></li>
+                        <li><a href="about.html">Sobre</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                    </ul>
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
+                                <div class="btn-group iconMenu" role="group" aria-label="...">
+                                    <!-- // buttons -->
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#login-modal"> <img src="img/user_undefined_f_40x40.jpg" class="img-circle" /> <span>Iniciar sesión</span> <span class="fa fa-power-off"></span> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- // Login modal -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" align="center"> <img id="img_logo" src="img/logo.png">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>
+                </div>
+                <div id="div-forms">
+                    <!-- Login form -->
+                    <form id="login-form">
+                        <div class="modal-body">
+                            <div id="div-login-msg">
+                                <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-login-msg">Escribe tu usuario y contraseña</span> </div>
+                            <input id="login_username" class="form-control" type="text" placeholder="Usuario" required>
+                            <input id="login_password" class="form-control" type="password" placeholder="Contraseña" required>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Recordar </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar sesión</button>
+                            </div>
+                            <div>
+                                <button id="login_lost_btn" type="button" class="btn btn-link">Olvidé mi contraseña</button>
+                                <button id="login_register_btn" type="button" class="btn btn-link">Registrarse</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End Login Form -->
+                    <!-- Begin | Lost Password Form -->
+                    <form id="lost-form" style="display:none;">
+                        <div class="modal-body">
+                            <div id="div-lost-msg">
+                                <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-lost-msg">Introduce tu dirección email</span> </div>
+                            <input id="lost_email" class="form-control" type="text" placeholder="E-Mail (type ERROR for error effect)" required> </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+                            </div>
+                            <div>
+                                <button id="lost_login_btn" type="button" class="btn btn-link">Iniciar sesión</button>
+                                <button id="lost_register_btn" type="button" class="btn btn-link">Registro</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End | Lost Password Form -->
+                    <!-- Begin | Register Form -->
+                    <form id="register-form" style="display:none;">
+                        <div class="modal-body">
+                            <div id="div-register-msg">
+                                <div id="icon-register-msg" class="glyphicon glyphicon-chevron-right"></div> <span id="text-register-msg">Registrarse</span> </div>
+                            <input id="register_username" class="form-control" type="text" placeholder="Username (type ERROR for error effect)" required>
+                            <input id="register_email" class="form-control" type="text" placeholder="E-Mail" required>
+                            <input id="register_password" class="form-control" type="password" placeholder="Password" required> </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Registro</button>
+                            </div>
+                            <div>
+                                <button id="register_login_btn" type="button" class="btn btn-link">Iniciar sesión</button>
+                                <button id="register_lost_btn" type="button" class="btn btn-link">Olvidé mi contraseña</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End | Register Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container content">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+                    <li class="active">Francisco Ortega</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 nombreautor titulo">
+                <h2>Francisco Ortega</h2> </div>
+        </div>
+        <div class="row infoautor">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-lg-3">
+                    <div class="row">
+                        <div class="coverItem fotoautor"> <img src="resources/authors/francisco_ortega.jpg" class="img-responsive" /> </div>
+                    </div>
+                    <div class="row">
+                        <ul class="stars starsautor">
+                            <li class="staticStar p10"></li>
+                            <li class="staticStar p10"></li>
+                            <li class="staticStar p0"></li>
+                            <li class="staticStar p0"></li>
+                            <li class="staticStar p0"></li>
+                        </ul> <span class="ratingValue">2.05</span> </div>
+                </div>
+                <div class="col-lg-9 desc">
+                    <p>Fanático de la ciencia ficción, cultura popular y música progresiva, ha trabajado desde 1999 como editor de no ficción, asesor de contenidos y colaborador para revistas como Rolling Stone y VIVE ; como guionista ha escrito para diversas productoras y estaciones de TV (¿Se arrienda?, Santos, Adiós al 7º de Línea, Mala Onda, entre otros programas y películas). Además, es co-creador del sitio Ucronía Chile y del podcast Desde el fin del Mundo, ambos junto a su amigo, el también escritor Jorge Baradit.</p>
+                    <p>Debutó en la novela con 60 kilómetros (1995), a la que siguió en 2006 El número Kaifman (reeditada en 2015, como una versión corregida y ampliada bajo el título El verbo Kaifman): «...en la línea de Dan Brown, Ken Follett, Stephen King o Tom Clancy. Un cóctel que incluye al Vaticano, la orden de los Templarios, atentados terroristas en Santiago de Chile, nazis perdidos en la Antártica y ciudades ocultas», según la describe una reseña.</p>
+                    <p>Este libro, encomendado a Ortega por Gabriel Sandoval -editor del sello Planeta- mientras Brown triunfaba con una novela cargada de conspiraciones,2 es el primer volumen de la Trilogía de los Césares, al que sigue Logia (2014, ilustrada por Marcelo Pérez Dalannays), novela iniciada en 2008 y que tras publicarse alcanzó el rango de best seller, figurando entre los libros más vendidos en Chile por espacio superior a 25 semanas.3 Además fue publicado en México4 y en 2015 se adjudicó un fondo de financiamiento CORFO para adaptarlo a televisión5 . Cierra esta saga Andinia, la catedral antártica (lanzada a fines de julio de 2016), año en que también se propone publicar la secuela de 1899, novela gráfica donde comparte autoría con el dibujante Nelson Dániel.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+            <br> </div>
+        <div class="row">
+            <div class="col-lg-3 titulo">
+                <h2> Bibliografía</h2> </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-3">
+                <label for="orderby">Ordenar por:</label>
+                <select id="orderby" class="form-control selectpicker">
+                    <option value="1">Nombre</option>
+                    <option value="2">Valoración</option>
+                    <option value="3">Fecha de publicación asdendente</option>
+                    <option value="4">Fecha de publicación descendente</option>
+                </select>
+            </div>
+        </div>
+        <div class="row listItems">
+            <div class="row item">
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <div class="coverItem imagenLibro"> <img src="resources/books/mocha_dick.jpg" class="img-responsive" />
+                        <button type="button" class="btn btn-reserve">Reservar</button>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+                    <h3 class="title">Mocha Dick</h3>
+                    <h5 class="authorName">por Francisco Ortega, Gonzalo Martínez</h5>
+                    <ul class="stars">
+                        <li class="staticStar p10"></li>
+                        <li class="staticStar p10"></li>
+                        <li class="staticStar p10"></li>
+                        <li class="staticStar p6"></li>
+                        <li class="staticStar p0"></li>
+                    </ul> <span class="ratingValue">3.66</span>
+                    <div class="desc">
+                        <p>Al cumplir 15 años Caleb Hienam, hijo de un empresario ballenero, realiza su primer viaje para aprender el oficio familiar. En el barco conoce a Aliro Leraru, uno de los marineros, descendiente del pueblo mapuche. Cuando el barco en el que trabajan se tope con un bote ballenero cargado con los sobrevivientes del ataque de una monstruosa ballena blanca, Caleb y Aliro conoc <span>...</span>
+                            <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
+                        </p>
+                        <div class="available stockAvailable"> <span class="glyphicon glyphicon-ok-circle"></span> <span class="textAvailable">Disponible</span> </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row item">
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <div class="coverItem imagenLibro"> <img src="resources/books/logia.jpg" class="img-responsive" />
+                        <button type="button" class="btn btn-reserve">Reservar</button>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+                    <h3 class="title">Logia</h3>
+                    <h5 class="authorName">por Francisco Ortega, Gonzalo Martínez</h5>
+                    <ul class="stars">
+                        <li class="staticStar p10"></li>
+                        <li class="staticStar p10"></li>
+                        <li class="staticStar p10"></li>
+                        <li class="staticStar p10"></li>
+                        <li class="staticStar p0"></li>
+                    </ul> <span class="ratingValue">4.01</span>
+                    <div class="desc">
+                        <p>Sin saberlo, tres famosos escritores de best sellers conspirativos trabajan en el mismo libro: el estadounidense Bane Barrow (inspirado en el autor Dan Brown), el español Javier Salvo-Otazo (inspirado aparentemente en el autor español Javier Sierra, cuya reseña sobre Logia <span>...</span>
+                            <a href="profile-book.html"> <span class="moreInfo">+ info</span> </a>
+                        </p>
+                        <div class="available stockUnavailable"> <span class="glyphicon glyphicon-ban-circle"></span> <span class="textAvailable">No disponible</span> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Comments -->
+        <div class="comments">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <hr>
+                    <h3>Comentarios</h3>
+                    <div class="media">
+                        <div class="media-left media-middle">
+                            <a href="#"> <img class="media-object" src="img/user_undefined_f_40x40.jpg" alt="..."> </a>
+                        </div>
+                        <div class="media-body"> <span class="media-heading">Middle aligned media</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem quis quam quasi harum saepe consequuntur ea quod odit veniam sunt. Fugiat voluptate aspernatur, voluptates corrupti consequatur rem inventore quibusdam iure.</p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left media-middle">
+                            <a href="#"> <img class="media-object" src="img/user_undefined_m_40x40.jpg" alt="..."> </a>
+                        </div>
+                        <div class="media-body"> <span class="media-heading">Middle aligned media</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem quis quam quasi harum saepe consequuntur ea quod odit veniam sunt. Fugiat voluptate aspernatur, voluptates corrupti consequatur rem inventore quibusdam iure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr> </div>
+    <footer class="container-fluid">
+        <div class="container">
+            <div class="row copyright">
+                <div class="col-lg-12"> <span>Copyright © 2017 BREMS | Todos los derechos reservados.</span> </div>
+            </div>
+        </div>
+    </footer>
+</body>
