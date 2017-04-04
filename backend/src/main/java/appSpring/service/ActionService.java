@@ -18,15 +18,15 @@ public class ActionService {
 
 	@Autowired
 	private ActionRepository repository;
-
+	
 	public Action findOne(Integer id) {
 		return repository.findOne(id);
 	}
-
+	
 	public List<Action> findAll() {
 		return repository.findAll();
 	}
-
+	
 	public Page<Action> findAll(int page) {
 		return repository.findAll(new PageRequest(page,3));
 	}
@@ -34,7 +34,7 @@ public class ActionService {
 	public List<Action> findByUser(User user) {
 		return repository.findByUser(user);
 	}
-
+	
 	public Page<Action> findByUser(User user, int page) {
 		return repository.findByUser(user, new PageRequest(page,3));
 	}

@@ -82,7 +82,7 @@ public class ResourceService {
 			return repository.findByResourceType(resourceType);
 		}
 	}
-
+	
 	public Page<Resource> findByGenreAndTypeAllIgnoreCase(String genre, String type, int page) {
 		if (genre != null && type == null) {
 			return repository.findByGenreNameLikeIgnoreCase(genre, new PageRequest(page,3));

@@ -23,7 +23,7 @@ public class ResourceTypeService {
 	public List<ResourceType> findAll() {
 		return repository.findAll();
 	}
-
+	
 	public Page<ResourceType> findAll(int page) {
 		return repository.findAll(new PageRequest(page,3));
 	}

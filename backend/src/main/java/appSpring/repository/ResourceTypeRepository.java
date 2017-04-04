@@ -11,6 +11,6 @@ public interface ResourceTypeRepository extends JpaRepository<ResourceType, Inte
 	ResourceType findByName(String name);
 
 	ResourceType findByNameLikeIgnoreCase(String type);
-
+	
 	Page<ResourceType> findAll (Pageable page);
 }

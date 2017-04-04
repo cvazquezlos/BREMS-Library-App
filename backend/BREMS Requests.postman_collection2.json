@@ -1,0 +1,821 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BREMS Requests",
+		"_postman_id": "5d60d309-c1cd-76ab-11ea-98f2f377df83",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:8443/api/users/",
+			"request": {
+				"url": "https://localhost:8443/api/users/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"vazquezlos\",\r\n\t\"passwordHash\": \"1234\",\r\n\t\"dni\": 1234,\r\n\t\"firstName\": \"José\",\r\n\t\"lastName1\": \"Quintana\",\r\n\t\"lastName2\": \"Pepe\",\r\n\t\"email\": \"pepito@gmail.com\",\r\n\t\"telephone\": 656565066,\r\n\t\"avatar\": \"user_undefined_f.png\",\r\n\t\"literaryHobby\": [\r\n    \t\"leer\",\r\n    \t\"deporte\",\r\n    \t\"escribir\"\r\n\t],\r\n\t\"actions\": [],\r\n\t\"penalties\": [],\r\n\t\"roles\": [\r\n    \t\"ROLE_USER\"\r\n\t]\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - New user.\n\nRequest status: 201 (CREATED).\nRequest content: New user."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dmF6cXVlemxvczoxMjM0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"vazquezlos\",\r\n\t\"passwordHash\": \"1234\",\r\n\t\"dni\": 1234,\r\n\t\"firstName\": \"José\",\r\n\t\"lastName1\": \"Quintana\",\r\n\t\"lastName2\": \"Pepe\",\r\n\t\"email\": \"pepito@gmail.com\",\r\n\t\"telephone\": 656565066,\r\n\t\"avatar\": \"user_undefined_f.png\",\r\n\t\"literaryHobby\": [\r\n    \t\"leer\",\r\n    \t\"deporte\",\r\n    \t\"escribir\"\r\n\t],\r\n\t\"actions\": [],\r\n\t\"penalties\": [],\r\n\t\"roles\": [\r\n    \t\"ROLE_USER\"\r\n\t]\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resources/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (normal priviledges) - Resource list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Resource list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/all?type=Libro&page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resources/all?type=Libro&page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (normal priviledges) - Resource list, first page and filter applied.\n\nResponse status: 200 (OK).\nResponse contains: Resource list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 5,\r\n    \"locationCode\": \"2AnEl5\",\r\n    \"resource\": {\r\n      \"id\": 2\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Loan list, first page.\n\nResponse status: 404 (NOT_FOUND).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/fines/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/fines/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 5,\r\n    \"locationCode\": \"2AnEl5\",\r\n    \"resource\": {\r\n      \"id\": 2\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Fine list, first page.\n\nResponse status: 404 (NOT_FOUND).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/genres/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/genres/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Genre list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Genre list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/genres/1",
+			"request": {
+				"url": "https://localhost:8443/api/genres/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Genre id 1.\n\nResponse status: 200 (OK).\nResponse contains: Genre."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resourcetypes/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resourcetypes/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Resource type list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Resource type list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resourcetypes/2",
+			"request": {
+				"url": "https://localhost:8443/api/resourcetypes/2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Resource type id 2.\n\nResponse status: 200 (OK).\nResponse contains: Resource type."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resourcecopies/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resourcecopies/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Resource copy list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Resource copy list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resourcecopies/5",
+			"request": {
+				"url": "https://localhost:8443/api/resourcecopies/5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Resource copy id 5.\n\nResponse status: 200 (OK).\nResponse contains: Resource copy."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/1",
+			"request": {
+				"url": "https://localhost:8443/api/resources/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Cien sadsadasdsadsadaños de soledad\",\n    \"author\": \"Gabriel García Márquez\",\n    \"editorial\": \"Editorial Sudamericana\",\n    \"picture\": \"1.jpg\",\n    \"noReservedCopies\": [\n    \t\"1GaCi3\"\n    ],\n    \"avaiblereserve\": true,\n    \"description\": \"Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las obras más traducidas y leídas en español.\",\n    \"resourceType\": {\n    \t\"id\": 1,\n        \"name\": \"Libro\"\n    },\n    \"genre\": {\n        \"id\": 1,\n        \"name\": \"Novela\"\n    },\n    \"copies\": [\n        {\n        \t\"id\": 1,\n        \t\"locationCode\": \"1GaCi1\"\n        },\n        {\n        \t\"id\": 2,\n        \t\"locationCode\": \"1GaCi2\"\n        },\n        {\n        \t\"id\": 3,\n        \t\"locationCode\": \"1GaCi3\"\n        }\n    ]\n}"
+				},
+				"description": "Registered user (normal priviledges) - Modify resource id 1.\n\nResponse status: 403 (FORBIDDEN).\nResponse containt: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/5",
+			"request": {
+				"url": "https://localhost:8443/api/users/5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": null,\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - User id 5 (same than user).\n\nResponse status: 200 (OK).\nResponse contains: User."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/5",
+			"request": {
+				"url": "https://localhost:8443/api/users/5",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 5,\n\t\"name\": \"vazquezlosada\",\n\t\"dni\": \"1234567\",\n\t\"firstName\": \"Pepe\",\n\t\"lastName1\": \"Juanito\",\n\t\"lastName2\": \"Pepe\",\n\t\"email\": \"pepito@gmail.com\",\n\t\"telephone\": \"656565066\",\n\t\"viewTelephone\": false,\n\t\"address\": null,\n\t\"biography\": null,\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"avaibleLoans\": 3,\n\t\"isBanned\": false,\n\t\"literaryHobby\": [\n    \t\"leer\",\n    \t\"deporte\",\n    \t\"escribir\"\n\t],\n\t\"actions\": [],\n\t\"penalties\": [],\n\t\"roles\": [\n    \t\"ROLE_USER\"\n\t]\n}"
+				},
+				"description": "Registered user (normal priviledges) - Modify user id 5 (same than user).\n\nRequest status: 200 (OK).\nRequest return: Modified user."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/5",
+			"request": {
+				"url": "https://localhost:8443/api/users/5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": null,\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - User id 5 (same than user).\n\nResponse status: 200 (OK).\nResponse contains: User."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/",
+			"request": {
+				"url": "https://localhost:8443/api/loans/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 3,\r\n    \"locationCode\": \"1GaCi3\",\r\n    \"resource\": {\r\n      \"id\": 1\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Reserve resource.\n\nResponse status: 401 (UNAUTHORIZED).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/",
+			"request": {
+				"url": "https://localhost:8443/api/loans/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 3,\r\n    \"locationCode\": \"1GaCi3\",\r\n    \"resource\": {\r\n      \"id\": 1\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 5\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Reserve resource.\n\nResponse status: 200 (OK).\nResponse contains: Action."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 5,\r\n    \"locationCode\": \"2AnEl5\",\r\n    \"resource\": {\r\n      \"id\": 2\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Loan list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logOut",
+			"request": {
+				"url": "https://localhost:8443/api/logOut",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Log out.\n\nRequest status: 200 (OK).\nRequest content: true."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Loan list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Action list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/all?page=1",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all?page=1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Loan list, second page.\n\nResponse status: 200 (OK).\nResponse contains: Action list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/4?action=give",
+			"request": {
+				"url": "https://localhost:8443/api/loans/4?action=give",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 4,\n  \"dateLoanInit\": 1491250818000,\n  \"dateLoanGiven\": null,\n  \"dateLoanReturn\": null,\n  \"copy\": {\n    \"id\": 3,\n    \"locationCode\": \"1GaCi3\",\n    \"resource\": {\n      \"id\": 1,\n      \"title\": \"Cien años de soledad\",\n      \"author\": \"Gabriel García Márquez\",\n      \"editorial\": \"Editorial Sudamericana\",\n      \"picture\": \"1.jpg\",\n      \"noReservedCopies\": [],\n      \"avaiblereserve\": false,\n      \"description\": \"Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las obras más traducidas y leídas en español.\"\n    }\n  },\n  \"user\": {\n    \"id\": 5,\n    \"name\": \"vazquezlos\"\n  }\n}"
+				},
+				"description": "Registered user (admin priviledges) - Give action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/4?action=return",
+			"request": {
+				"url": "https://localhost:8443/api/loans/4?action=return",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 4,\n  \"dateLoanInit\": 1491250818000,\n  \"dateLoanGiven\": 1491250997057,\n  \"dateLoanReturn\": null,\n  \"copy\": {\n    \"id\": 3,\n    \"locationCode\": \"1GaCi3\",\n    \"resource\": {\n      \"id\": 1,\n      \"title\": \"Cien años de soledad\",\n      \"author\": \"Gabriel García Márquez\",\n      \"editorial\": \"Editorial Sudamericana\",\n      \"picture\": \"1.jpg\",\n      \"noReservedCopies\": [],\n      \"avaiblereserve\": false,\n      \"description\": \"Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las obras más traducidas y leídas en español.\"\n    }\n  },\n  \"user\": {\n    \"id\": 5,\n    \"name\": \"vazquezlos\"\n  }\n}"
+				},
+				"description": "Registered user (admin priviledges) - Return action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/1?action=give",
+			"request": {
+				"url": "https://localhost:8443/api/loans/1?action=give",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"id\": 1,\n      \"dateLoanInit\": 1489411423000,\n      \"dateLoanGiven\": null,\n      \"dateLoanReturn\": null,\n      \"copy\": {\n        \"id\": 1,\n        \"locationCode\": \"1GaCi1\",\n        \"resource\": {\n          \"id\": 1,\n          \"title\": \"Cien años de soledad\",\n          \"author\": \"Gabriel García Márquez\",\n          \"editorial\": \"Editorial Sudamericana\",\n          \"picture\": \"1.jpg\",\n          \"noReservedCopies\": [\n            \"1GaCi3\"\n          ],\n          \"avaiblereserve\": true,\n          \"description\": \"Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las obras más traducidas y leídas en español.\"\n        }\n      },\n      \"user\": {\n        \"id\": 1,\n        \"name\": \"carlosv\"\n      }\n    }"
+				},
+				"description": "Registered user (admin priviledges) - Give action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/1?action=return",
+			"request": {
+				"url": "https://localhost:8443/api/loans/1?action=return",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"id\": 1,\n      \"dateLoanInit\": 1489411423000,\n      \"dateLoanGiven\": 1491246942000,\n      \"dateLoanReturn\": null,\n      \"copy\": {\n        \"id\": 1,\n        \"locationCode\": \"1GaCi1\",\n        \"resource\": {\n          \"id\": 1,\n          \"title\": \"Cien años de soledad\",\n          \"author\": \"Gabriel García Márquez\",\n          \"editorial\": \"Editorial Sudamericana\",\n          \"picture\": \"1.jpg\",\n          \"noReservedCopies\": [\n            \"1GaCi3\"\n          ],\n          \"avaiblereserve\": true,\n          \"description\": \"Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las obras más traducidas y leídas en español.\"\n        }\n      },\n      \"user\": {\n        \"id\": 1,\n        \"name\": \"carlosv\"\n      }\n    }"
+				},
+				"description": "Registered user (admin priviledges) - Return action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/fines/all",
+			"request": {
+				"url": "https://localhost:8443/api/fines/all",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"id\": 1,\n      \"dateLoanInit\": 1489411423000,\n      \"dateLoanGiven\": 1491246942000,\n      \"dateLoanReturn\": null,\n      \"copy\": {\n        \"id\": 1,\n        \"locationCode\": \"1GaCi1\",\n        \"resource\": {\n          \"id\": 1,\n          \"title\": \"Cien años de soledad\",\n          \"author\": \"Gabriel García Márquez\",\n          \"editorial\": \"Editorial Sudamericana\",\n          \"picture\": \"1.jpg\",\n          \"noReservedCopies\": [\n            \"1GaCi3\"\n          ],\n          \"avaiblereserve\": true,\n          \"description\": \"Cien años de soledad es una novela del escritor colombiano Gabriel García Márquez, ganador del Premio Nobel de Literatura en 1982. Es considerada una obra maestra de la literatura hispanoamericana y universal, así como una de las obras más traducidas y leídas en español.\"\n        }\n      },\n      \"user\": {\n        \"id\": 1,\n        \"name\": \"carlosv\"\n      }\n    }"
+				},
+				"description": "Registered user (admin priviledges) - Fine list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Fine list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logOut",
+			"request": {
+				"url": "https://localhost:8443/api/logOut",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Log out.\n\nRequest status: 200 (OK).\nRequest content: true."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic Y2FybG9zdjpwYXNzYw==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (normal priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/",
+			"request": {
+				"url": "https://localhost:8443/api/loans/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 5,\r\n    \"locationCode\": \"2AnEl5\",\r\n    \"resource\": {\r\n      \"id\": 2\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Reserve resource.\n\nRequest status: 400 (BAD_REQUEST).\nRequest containt: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logOut",
+			"request": {
+				"url": "https://localhost:8443/api/logOut",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Log out.\n\nRequest status: 200 (OK).\nRequest content: true."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resourcetypes/1",
+			"request": {
+				"url": "https://localhost:8443/api/resourcetypes/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (admin priviledges) - Delete resource type id 1.\n\nRequest status: 200 (OK).\nRequest containt: Deleted resource type."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resourcetypes/all",
+			"request": {
+				"url": "https://localhost:8443/api/resourcetypes/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Resource type list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Resource type list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resources/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (normal priviledges) - Resource list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Resource list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/1",
+			"request": {
+				"url": "https://localhost:8443/api/resources/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (admin priviledges) - Delete resource.\n\nRequest status: 409 (CONFLICT).\nRequest containt: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/2",
+			"request": {
+				"url": "https://localhost:8443/api/users/2",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (admin priviledges) - Delete user id 2.\n\nRequest status: 409 (CONFLICT).\nRequest containt: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/5",
+			"request": {
+				"url": "https://localhost:8443/api/users/5",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (admin priviledges) - Delete user id 5\n\nRequest status: 200 (OK).\nRequest content: Deleted user."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/5",
+			"request": {
+				"url": "https://localhost:8443/api/resources/5",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (admin priviledges) - Delete resource id 5.\n\nRequest status: 200 (OK).\nRequest containt: Deleted resource."
+			},
+			"response": []
+		}
+	]
+}

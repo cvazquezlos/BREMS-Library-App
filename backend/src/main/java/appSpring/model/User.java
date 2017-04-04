@@ -37,29 +37,29 @@ public class User {
 	@JsonView({Basic.class, ActionInt.class, FineInt.class, LoginInt.class})
 	private String name;
 	private String passwordHash;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String dni;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String firstName;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String lastName1;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String lastName2;
-	@JsonView({Basic.class, LoginInt.class})
+	@JsonView({Basic.class, LoginInt.class, ActionInt.class})
 	private String email;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String telephone;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private boolean viewTelephone;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String address;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String biography;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private String avatar;
-	@JsonView({Basic.class, LoginInt.class})
+	@JsonView({Basic.class, LoginInt.class, ActionInt.class})
 	private int avaibleLoans;
-	@JsonView(Basic.class)
+	@JsonView({Basic.class, ActionInt.class})
 	private boolean isBanned;
 
 	@ElementCollection

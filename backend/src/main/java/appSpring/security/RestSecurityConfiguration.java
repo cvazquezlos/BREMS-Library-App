@@ -23,7 +23,7 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.antMatcher("/api/**");
-
+		
 		// URLs that need authentication to access to it
 		http.authorizeRequests().antMatchers(HttpMethod.GET,
 				"/api/resources/all",
