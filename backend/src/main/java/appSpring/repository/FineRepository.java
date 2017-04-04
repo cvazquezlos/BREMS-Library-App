@@ -15,9 +15,9 @@ public interface FineRepository extends JpaRepository<Fine, Integer> {
 	List<Fine> findByInitDate(Date initDate);
 
 	List<Fine> findByUser(User user);
-
+	
 	Page<Fine> findAll(Pageable page);
-
+	
 	Page<Fine> findByUser (User user, Pageable page);
 
 }

@@ -21,7 +21,7 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	@Autowired
 	private UserComponent userComponent;
 
