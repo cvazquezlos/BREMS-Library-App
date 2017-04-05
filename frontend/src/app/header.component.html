@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-5 col-lg-5 logo">
-        <a href="/"> <img src="../assets/img/logo.png" alt="logo brems">
+        <a [routerLink]="['']"> <img src="../assets/img/logo.png" alt="logo brems">
           <h1>Book Reserve System Management</h1>
         </a>
       </div>
@@ -11,7 +11,7 @@
           <div id="search-input">
             <div class="input-group col-md-12">
               <input type="text" class="form-control input-lg" name="mySearch" placeholder="Buscar" />
-              <span class="input-group-btn"><button class="glyphicon glyphicon-search" type="submit"></button></span>
+              <span class="input-group-btn"><button (click)="gotoSearch()" class="glyphicon glyphicon-search" type="submit"></button></span>
             </div>
           </div>
         </form>
@@ -32,10 +32,10 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li [class.active]="indexActive"><a href="/">Inicio</a></li>
-          <li [class.active]="profileActive"><a href="/user_profile">Perfil</a></li>
-          <li [class.active]="aboutActive"><a href="/about">Sobre</a></li>
-          <li [class.active]="contactActive"><a href="/contact">Contacto</a></li>
+          <li [class.active]="indexActive"><a [routerLink]="['']">Inicio</a></li>
+          <li [class.active]="profileActive"><a [routerLink]="['/profile']">Perfil</a></li>
+          <li [class.active]="aboutActive"><a [routerLink]="['/about']">Sobre</a></li>
+          <li [class.active]="contactActive"><a [routerLink]="['/contact']">Contacto</a></li>
         </ul>
         <div class="col-lg-7">
           <div class="row">
@@ -85,7 +85,7 @@
                 sesi&oacute;n</button>
             </div>
             <div>
-              <a href="/"><button id="login_lost_btn" type="button" class="btn btn-link">Olvid&eacute; mi contrase&ntilde;a</button></a>
+              <a [routerLink]="['']"><button id="login_lost_btn" type="button" class="btn btn-link">Olvid&eacute; mi contrase&ntilde;a</button></a>
               <a href="/register"><button id="login_register_btn" type="button"class="btn btn-link">Registrarse</button></a>
             </div>
           </div>
