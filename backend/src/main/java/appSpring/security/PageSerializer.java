@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 public class PageSerializer extends StdSerializer<PageImpl> {
-
+	
 	public PageSerializer() {
 		super(PageImpl.class);
 	}

@@ -17,15 +17,15 @@ public class FineService {
 
 	@Autowired
 	private FineRepository repository;
-
+	
 	public Fine findOne(Integer id) {
 		return repository.findOne(id);
 	}
-
+	
 	public List<Fine> findAll() {
 		return repository.findAll();
 	}
-
+	
 	public Page<Fine> findAll(int page){
 		return repository.findAll(new PageRequest(page,3));
 	}
@@ -33,7 +33,7 @@ public class FineService {
 	public List<Fine> findByUser(User user) {
 		return repository.findByUser(user);
 	}
-
+	
 	public Page<Fine> findByUser(User user, int page){
 		return repository.findByUser(user,new PageRequest(page,3));
 	}

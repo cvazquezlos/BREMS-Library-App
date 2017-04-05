@@ -16,15 +16,15 @@ public class GenreService {
 
 	@Autowired
 	private GenreRepository repository;
-
+	
 	public Genre findOne(Integer id) {
 		return repository.findOne(id);
 	}
-
+	
 	public List<Genre> findAll() {
 		return repository.findAll();
 	}
-
+	
 	public Page<Genre> findAll(int page){
 		return repository.findAll(new PageRequest(page,3));
 	}

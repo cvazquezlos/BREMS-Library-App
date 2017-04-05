@@ -31,7 +31,7 @@ import appSpring.service.ResourceService;
 public class ResourceRestController {
 
 	public interface ResourceDetail extends Resource.Basic, Resource.ResoType, Resource.Genr, Resource.ResoCopy, ResourceCopy.Basic, Genre.Basic, ResourceType.Basic {}
-
+	
 	@Autowired
 	private ResourceService resourceService;
 	@Autowired
@@ -67,7 +67,7 @@ public class ResourceRestController {
 			@RequestParam(value = "genre", required = false) String genre,
 			@RequestParam(value = "type", required = false) String type,
 			@RequestParam (required=false) Integer page) {
-
+		
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<Resource> resources = resourceService.findByGenreAndTypeAllIgnoreCase(genre, type, page);

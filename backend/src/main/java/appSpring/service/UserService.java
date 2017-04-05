@@ -23,7 +23,7 @@ public class UserService {
 	public List<User> findAll() {
 		return repository.findAll();
 	}
-
+	
 	public Page<User> findAll(int page) {
 		return repository.findAll(new PageRequest(page,3));
 	}

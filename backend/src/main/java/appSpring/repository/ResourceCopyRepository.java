@@ -12,11 +12,11 @@ import appSpring.model.ResourceCopy;
 public interface ResourceCopyRepository extends JpaRepository<ResourceCopy, Integer> {
 
 	ResourceCopy findByLocationCode(String locationCode);
-
+	
 	Long countByResource(Resource resource);
 
 	List<ResourceCopy> findByResource(Resource resource);
-
+	
 	Page<ResourceCopy> findAll(Pageable page);
 
 }

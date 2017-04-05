@@ -51,7 +51,7 @@ public class UserController {
 
 		return "userProfile";
 	}
-
+	
 	@RequestMapping("/user_profile/edit/{id}")
 	public String editUserProfile(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
 			@RequestParam String email, @RequestParam String telephone, @RequestParam MultipartFile avatar) {
@@ -77,11 +77,11 @@ public class UserController {
 				user.setAvatar(avatarName);
 			}
 			userService.save(user);
-		}
+		}			
 
 		return "redirect:/user_profile";
 	}
-
+	
 	@RequestMapping("/user_profile/edit/biography/{id}")
 	public String editUserBiography(Model model, @PathVariable Integer id, @RequestParam String biography) {
 

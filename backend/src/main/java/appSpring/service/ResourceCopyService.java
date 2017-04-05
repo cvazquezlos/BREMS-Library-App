@@ -17,19 +17,19 @@ public class ResourceCopyService {
 
 	@Autowired
 	private ResourceCopyRepository repository;
-
+	
 	public ResourceCopy findOne(Integer id) {
 		return repository.findOne(id);
 	}
-
+	
 	public ResourceCopy findByLocationCode(String locationCode) {
 		return repository.findByLocationCode(locationCode);
 	}
-
+	
 	public List<ResourceCopy> findAll() {
 		return repository.findAll();
 	}
-
+	
 	public Page<ResourceCopy> findAll(int page){
 		return repository.findAll(new PageRequest(page,3));
 	}
