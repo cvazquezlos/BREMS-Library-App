@@ -1,0 +1,110 @@
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+@Component({
+  template: `
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <ul class="breadcrumb">
+          <li><a [routerLink]="['']"><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+          <li class="active">Contacto</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div id="map_model">
+          <div id="gmap_canvas"></div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <!-- https://codepen.io/jaycbrf/pen/iBszr -->
+    <form class="well form-horizontal" action=" " method="post" id="contact_form">
+      <fieldset>
+        <!-- Form Name -->
+        <legend>¡Contáctanos!</legend>
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Motivo de su consulta</label>
+          <div class="col-md-4 selectContainer">
+            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+              <select name="state" class="form-control selectpicker">
+                <option value=" ">Selecciona un motivo</option>
+                <option>Carnet bibliotecario</option>
+                <option>Sugerencia</option>
+                <option>Queja</option>
+                <option>Problema con un préstamo</option>
+                <option>Otro</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Nombre</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input name="first_name" placeholder="Nombre" class="form-control" type="text"></div>
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label">E-Mail</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+              <input name="email" placeholder="Dirección de correo electrónico" class="form-control" type="text"></div>
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Teléfono de contacto</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+              <input name="phone" placeholder="Ej. 603245678" class="form-control" type="text"></div>
+          </div>
+        </div>
+        <!-- radio checks -->
+        <div class="form-group">
+          <label class="col-md-4 control-label">¿Eres cliente de BREMS?</label>
+          <div class="col-md-4">
+            <div class="radio">
+              <label>
+                <input type="radio" name="hosting" value="yes"/> Sí, lo soy. </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="hosting" value="no"/> No. </label>
+            </div>
+          </div>
+        </div>
+        <!-- Text area -->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Mensaje</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+              <textarea class="form-control" name="comment" placeholder="Mensaje"></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- Success message -->
+        <div class="alert alert-success" role="alert" id="success_message">¡Enviado! <i
+          class="glyphicon glyphicon-thumbs-up"></i> Gracias por contactar con nosotros.
+        </div>
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"></label>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-warning">Enviar <span class="glyphicon glyphicon-send"></span></button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  `
+})
+
+export class ContactComponent {
+
+  constructor(private router: Router, activatedRoute: ActivatedRoute) {}
+
+}
