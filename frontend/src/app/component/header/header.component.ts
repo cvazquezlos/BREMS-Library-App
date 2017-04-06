@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  templateUrl: '../templates/header.component.html'
+  templateUrl: 'header.component.html'
 })
 
 export class HeaderComponent {

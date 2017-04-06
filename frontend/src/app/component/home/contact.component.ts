@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  templateUrl: '../templates/search.component.html'
+  templateUrl: 'contact.component.html'
 })
 
-export class SearchComponent {
+export class ContactComponent {
 
   constructor(private router: Router, activatedRoute: ActivatedRoute) {}
 

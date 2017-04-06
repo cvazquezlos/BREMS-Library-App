@@ -3,15 +3,21 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
-import { AboutComponent } from './about.component';
-import { AppComponent } from './app.component';
-import { ContactComponent } from './contact.component';
-import { FooterComponent } from './footer.component';
-import { HeaderComponent } from './header.component';
-import { MainComponent } from './main.component';
-import { ProfileComponent } from './profile.component';
-import { SearchComponent } from './search.component';
 import { routing } from './app.routing';
+
+import {AppComponent} from "./app.component";
+
+import {FooterComponent} from "./component/footer/footer.component";
+import {HeaderComponent} from "./component/header/header.component";
+
+import {AboutComponent} from "./component/home/about.component";
+import {ContactComponent} from "./component/home/contact.component";
+
+import {HomeComponent} from "./component/home/home.component";
+import {SearchComponent} from "./component/home/search/search.component";
+
+import {ProfileComponent} from "./component/user/profile/profile.component";
+
 
 @NgModule({
   declarations: [
@@ -20,7 +26,7 @@ import { routing } from './app.routing';
     ContactComponent,
     FooterComponent,
     HeaderComponent,
-    MainComponent,
+    HomeComponent,
     ProfileComponent,
     SearchComponent
   ],
