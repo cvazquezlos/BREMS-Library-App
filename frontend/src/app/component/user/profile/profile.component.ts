@@ -7,6 +7,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class ProfileComponent {
 
-  constructor(private router: Router, activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router, activatedRoute: ActivatedRoute) { }
 
 }
