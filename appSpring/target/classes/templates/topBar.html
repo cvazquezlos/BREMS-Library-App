@@ -1,0 +1,117 @@
+<header>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-5 col-lg-5 logo">
+				<a href="/"> <img src="/img/logo.png" alt="logo brems">
+					<h1>Book Reserve System Management</h1>
+				</a>
+			</div>
+			<div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
+				<form id="search-form" action="/search" method="get">
+				<div id="search-input">
+					<div class="input-group col-md-12">
+						<input type="text" class="form-control input-lg" name="mySearch" placeholder="Buscar" /> 
+						<span class="input-group-btn"><button class="glyphicon glyphicon-search" type="submit"></button></span>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</header>
+<nav class="navbar navbar-default">
+	<div class="container-fluid menuNav">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false">
+            <span class="sr-only">Navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li {{#index}}class="active" {{/index}}><a href="/">Inicio</a></li>
+					<li {{#profile}}class="active" {{/profile}}><a href="/user_profile">Perfil</a></li>
+					<li {{#about}}class="active" {{/about}}><a href="/about">Sobre</a></li>
+					<li {{#contact}}class="active" {{/contact}}><a href="/contact">Contacto</a></li>
+				</ul>
+				{{#unlogged}}
+				<div class="col-lg-7">
+					<div class="row">
+						<div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
+							<div class="btn-group iconMenu" role="group" aria-label="...">
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#login-modal">
+										<img src="img/user_undefined_f_40x40.jpg" class="img-circle" />
+										<span>Iniciar sesi&oacute;n</span> <span
+											class="fa fa-power-off"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{{/unlogged}} {{#logged}}
+				<div class="col-lg-7">
+					<div class="row">
+						<div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
+							<ul class="nav navbar-nav">
+								<li class="dropdown userdropmenu">
+									<a data-toggle="dropdown">{{#user}} {{ name }} {{/user}}</a>
+									<ul class="dropdown-menu userdrop">
+										<li><a href="/user_profile">Mi perfil <span class="glyphicon glyphicon-user"></span></a></li>
+										{{#admin}}
+										<li><a href="/admin/">Panel administrador <span class="glyphicon glyphicon-cog"></span></a></li>
+										{{/admin}}
+										<li><a href="/logout">Cerrar sesi&oacute;n <span class="glyphicon glyphicon-log-out"></span></a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				{{/logged}}
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- // Login modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" align="center">
+				<img id="img_logo" src="img/logo.png">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</button>
+			</div>
+			<div id="div-forms">
+				<!-- Login form -->
+				<form id="login-form" action="/login" method="post">
+					<div class="modal-body">
+						<div id="div-login-msg">
+							<div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+							<span id="text-login-msg">Escribe tu usuario y contrase&ntilde;a</span>
+						</div>
+						<input id="username" class="form-control" name="username" type="text" placeholder="Usuario" required> <input id="password" class="form-control" name="password" type="password" placeholder="Contrase&ntilde;a" required>
+						<div class="checkbox">
+							<!--<label> <input type="checkbox"> Recordar</label>-->
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div>
+							<button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar
+								sesi&oacute;n</button>
+						</div>
+						<div>
+							<a href="/"><button id="login_lost_btn" type="button" class="btn btn-link">Olvid&eacute; mi contrase&ntilde;a</button></a>
+							<a href="/register"><button id="login_register_btn" type="button"class="btn btn-link">Registrarse</button></a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
