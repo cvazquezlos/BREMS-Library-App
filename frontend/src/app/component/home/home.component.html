@@ -1,31 +1,73 @@
-<p>Index</p>
-
-<div class="tab-content">
-  <div class="listItems">
-    <ng-template ngFor let-book [ngForOf]="books">
-      <div class="row item">
-        <div class="col-sm-12 col-md-4 col-lg-3">
-          <div class="coverItem">
-            <div *ngIf="book.avaiblereserve"><a href="#" class="btn btn-reserve">Reservar</a></div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-          <h3 class="title">{{book.title}}</h3>
-          <h5 class="authorName">por {{book.author}}</h5>
-          <div class="description">
-            <p>
-              {{book.description}}
-              <span>...</span>
-              <a href="#"> <span class="moreInfo">+ info</span> </a>
-            </p>
-            <div class="available stockAvailable">
-              <span class="glyphicon glyphicon-ok-circle"></span>
-              <span class="textAvailable">Disponible</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-template>
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <ul class="breadcrumb">
+      <li class="active"><i class="fa fa-home" aria-hidden="true"></i>Inicio</li>
+    </ul>
   </div>
-  <div *ngFor="let magazine of magazines"><p>{{magazine.author}}</p></div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ngb-tabset>
+      <ngb-tab title="Libros">
+        <template ngbTabContent>
+          <div class="listItems">
+          <ng-template ngFor let-book [ngForOf]="books">
+            <div class="row item">
+              <div class="col-sm-12 col-md-4 col-lg-3">
+                <div class="coverItem">
+                  <div *ngIf="book.avaiblereserve"><button (click)="reserveResource(book.id)" class="btn btn-reserve">Reservar</button></div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+                <h3 class="title">{{book.title}}</h3>
+                <h5 class="authorName">por {{book.author}}</h5>
+                <div class="description">
+                  <p>
+                    {{book.description}}
+                    <span>...</span>
+                    <a href="#"> <span class="moreInfo">+ info</span> </a>
+                  </p>
+                  <div class="available stockAvailable">
+                    <span class="glyphicon glyphicon-ok-circle"></span>
+                    <span class="textAvailable">Disponible</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        </template>
+      </ngb-tab>
+      <ngb-tab title="Revistas">
+        <template ngbTabContent>
+          <div class="listItems">
+          <ng-template ngFor let-magazine [ngForOf]="magazines">
+            <div class="row item">
+              <div class="col-sm-12 col-md-4 col-lg-3">
+                <div class="coverItem">
+                  <div *ngIf="magazine.avaiblereserve"><a href="#" class="btn btn-reserve">Reservar</a></div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+                <h3 class="title">{{magazine.title}}</h3>
+                <h5 class="authorName">por {{magazine.author}}</h5>
+                <div class="description">
+                  <p>
+                    {{magazine.description}}
+                    <span>...</span>
+                    <a href="#"> <span class="moreInfo">+ info</span> </a>
+                  </p>
+                  <div class="available stockAvailable">
+                    <span class="glyphicon glyphicon-ok-circle"></span>
+                    <span class="textAvailable">Disponible</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        </template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
 </div>

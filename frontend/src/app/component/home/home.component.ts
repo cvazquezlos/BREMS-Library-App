@@ -14,6 +14,7 @@ export class HomeComponent {
 
   books: Resource[] = [];
   magazines: Resource[] = [];
+  resources: Resource[] = [];
 
   constructor(private router: Router, activatedRoute: ActivatedRoute, private resourceService: ResourceService, private http: Http) {
     this.resourceService.getResources('Libro').subscribe(
@@ -25,5 +26,7 @@ export class HomeComponent {
       error => console.error(error)
     );
   }
+
+  reserveResource(id: number) {}
 
 }
