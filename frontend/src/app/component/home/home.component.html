@@ -1,2 +1,31 @@
 <p>Index</p>
-<div *ngFor="let resource of resources"><p>{{resource}}</p></div>
+
+<div class="tab-content">
+  <div class="listItems">
+    <ng-template ngFor let-book [ngForOf]="books">
+      <div class="row item">
+        <div class="col-sm-12 col-md-4 col-lg-3">
+          <div class="coverItem">
+            <div *ngIf="book.avaiblereserve"><a href="#" class="btn btn-reserve">Reservar</a></div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+          <h3 class="title">{{book.title}}</h3>
+          <h5 class="authorName">por {{book.author}}</h5>
+          <div class="description">
+            <p>
+              {{book.description}}
+              <span>...</span>
+              <a href="#"> <span class="moreInfo">+ info</span> </a>
+            </p>
+            <div class="available stockAvailable">
+              <span class="glyphicon glyphicon-ok-circle"></span>
+              <span class="textAvailable">Disponible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngFor="let magazine of magazines"><p>{{magazine.author}}</p></div>
+</div>
