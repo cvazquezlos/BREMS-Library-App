@@ -1,6 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Http} from '@angular/http';
 
 import {Resource} from '../../model/resource.model';
 
@@ -13,19 +11,49 @@ import {ResourceService} from '../../service/resource.service';
 export class HomeComponent {
 
   books: Resource[] = [];
+  booksPage: number;
   magazines: Resource[] = [];
-  resources: Resource[] = [];
+  magazinesPage: number;
 
-  constructor(private router: Router, activatedRoute: ActivatedRoute, private resourceService: ResourceService, private http: Http) {
-    this.resourceService.getResources('Libro').subscribe(
+  constructor(private resourceService: ResourceService) {
+    this.booksPage = 0;
+    this.magazinesPage = 0;
+    this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
       books => this.books = books,
       error => console.error(error)
     );
-    this.resourceService.getResources('Revista').subscribe(
+    this.booksPage++;
+    this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
       magazines => this.magazines = magazines,
       error => console.error(error)
     );
+    this.magazinesPage++;
   }
+
+  addBooks() {
+    let newBooks: Resource[] = [];
+    this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
+      books => newBooks = books,
+      error => console.error(error)
+    );
+    this.booksPage++;
+    for (const book of newBooks) {
+      this.books.push(book);
+    }
+  }
+
+  addMagazines() {
+    let newMagazines: Resource[] = [];
+    this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
+      magazines => newMagazines = magazines,
+      error => console.error(error)
+    );
+    this.magazinesPage++;
+    for (const magazine of newMagazines) {
+      this.books.push(magazine);
+    }
+  }
+
 
   reserveResource(id: number) {}
 
