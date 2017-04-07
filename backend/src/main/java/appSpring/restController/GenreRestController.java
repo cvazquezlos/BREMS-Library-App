@@ -70,7 +70,6 @@ public class GenreRestController {
 		}
 	}
 
-	@JsonView(GenreDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Genre> deleteGenre(@PathVariable Integer id, HttpSession session) {
 
