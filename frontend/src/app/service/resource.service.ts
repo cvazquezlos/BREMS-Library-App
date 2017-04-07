@@ -19,6 +19,6 @@ export class ResourceService {
   }
 
   private extractTitles(response: Response) {
-    return response.json().map(resource => resource.title);
+    return response.json().content.map(resource => resource.title);
   }
 }
