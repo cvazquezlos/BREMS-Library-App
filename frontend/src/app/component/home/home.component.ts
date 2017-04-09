@@ -16,42 +16,39 @@ export class HomeComponent {
   magazinesPage: number;
 
   constructor(private resourceService: ResourceService) {
-    this.booksPage = 0;
-    this.magazinesPage = 0;
-    this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
-      books => this.books = books,
-      error => console.error(error)
-    );
-    this.booksPage++;
-    this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
-      magazines => this.magazines = magazines,
-      error => console.error(error)
-    );
-    this.magazinesPage++;
+    this.booksPage      = 0;
+    this.magazinesPage  = 0;
+    this.books          = [];
+    this.magazines      = [];
+
+    this.addBooks();
+    this.addMagazines();
   }
 
   addBooks() {
     let newBooks: Resource[] = [];
     this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
-      books => newBooks = books,
+      books => {
+        //newBooks = books
+        this.booksPage++;
+        this.books = this.books.concat(books);
+      },
       error => console.error(error)
     );
-    this.booksPage++;
-    for (const book of newBooks) {
-      this.books.push(book);
-    }
+
   }
 
   addMagazines() {
     let newMagazines: Resource[] = [];
+
     this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
-      magazines => newMagazines = magazines,
+      magazines => {
+        //newMagazines = magazines;
+        this.magazinesPage++;
+        this.magazines = this.magazines.concat(magazines);
+      },
       error => console.error(error)
     );
-    this.magazinesPage++;
-    for (const magazine of newMagazines) {
-      this.books.push(magazine);
-    }
   }
 
   reserveResource(id: number) {}
