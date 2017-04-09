@@ -1,0 +1,607 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BREMS",
+		"_postman_id": "62a6d53a-b189-2dbf-2557-a41024df160f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:8443/api/resources/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resources/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Unregistered user - Resource list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Resource list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/all?type=Libro&page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resources/all?type=Libro&page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Unregistered user - Resource list, first page and filter applied.\n\nResponse status: 200 (OK).\nResponse contains: Resource list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resourcecopies/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/resourcecopies/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Unregistered user - Resource copy list, first page.\n\nResponse status: 401 (Unauthorized).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic Y2FybG9zdjpwYXNzYw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (normal priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/1",
+			"request": {
+				"url": "https://localhost:8443/api/resources/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (normal priviledges) - Resource id 1.\n\nResponse status: 200 (OK).\nResponse contains: Resource."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/resources/1",
+			"request": {
+				"url": "https://localhost:8443/api/resources/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (normal priviledges) - Delete resource id 1.\n\nResponse status: 403 (Forbidden).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (normal priviledges) - Loan list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Action list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/2",
+			"request": {
+				"url": "https://localhost:8443/api/loans/2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (normal priviledges) - Action id 2.\n\nResponse status: 403 (Forbidden).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/2",
+			"request": {
+				"url": "https://localhost:8443/api/users/2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Registered user (normal priviledges) - User id 2.\n\nResponse status: 403 (Forbidden).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/1",
+			"request": {
+				"url": "https://localhost:8443/api/users/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": null,\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Modify user id 1.\n\nResponse status: 200 (OK).\nResponse contains: Modified user."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/genres/all?page=0",
+			"request": {
+				"url": "https://localhost:8443/api/genres/all?page=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"dni\": \"123456\",\n\t\"firstName\": \"Charlito\",\n\t\"lastName1\": \"Vázquez\",\n\t\"lastName2\": \"Losada\",\n\t\"email\": \"carlosvazquezlosada@gmail.com\",\n\t\"address\": \"Sierra de Guadarrama\",\n\t\"telephone\": \"656565066\",\n\t\"avatar\": \"user_undefined_f.png\",\n\t\"biography\": \"Bussiness man.\"\n}"
+				},
+				"description": "Registered user (normal priviledges) - Genre list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Genre list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/",
+			"request": {
+				"url": "https://localhost:8443/api/loans/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 3,\r\n    \"locationCode\": \"1GaCi3\",\r\n    \"resource\": {\r\n      \"id\": 1\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Reserve resource.\n\nResponse status: 406 (BAD_REQUEST).\nResponse contains: null."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/",
+			"request": {
+				"url": "https://localhost:8443/api/loans/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 5,\r\n    \"locationCode\": \"2AnEl5\",\r\n    \"resource\": {\r\n      \"id\": 2\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Reserve resource.\n\nResponse status: 200 (OK).\nResponse contains: Action."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 5,\r\n    \"locationCode\": \"2AnEl5\",\r\n    \"resource\": {\r\n      \"id\": 2\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 1\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Reserve resource.\n\nResponse status: 201 (CREATED).\nResponse contains: Loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/4?action=give",
+			"request": {
+				"url": "https://localhost:8443/api/loans/4?action=give",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 4,\n    \"dateLoanInit\": 1491140797000,\n    \"dateLoanGiven\": null,\n    \"dateLoanReturn\": null,\n    \"copy\": {\n        \"id\": 5,\n        \"locationCode\": \"2AnEl5\",\n        \"resource\": {\n        \t\"id\": 2,\n        \t\"title\": \"El principito\",\n        \t\"author\": \"Antoine de Saint-Exupéry\",\n        \t\"editorial\": \"Reynal & Hitchcock\",\n        \t\"picture\": \"2.jpg\",\n        \t\"noReservedCopies\": [],\n        \t\"avaiblereserve\": false,\n        \t\"description\": \"El principito es un cuento poético que viene acompañado de ilustraciones hechas con acuarelas por el mismo Saint-Exupéry. En él, un piloto se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería, pero para su sorpresa, es allí donde conoce a un pequeño príncipe proveniente de otro planeta. La historia tiene una temática filosófica, donde se incluyen críticas sociales dirigidas a la «extrañeza» con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.\"\n        }\n    },\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"carlosv\"\n    }\n}"
+				},
+				"description": "Registered user (admin priviledges) - Give action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/all?page=1",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all?page=1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Loan list, second page.\n\nResponse status: 200 (OK).\nResponse contains: Action list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/4?action=return",
+			"request": {
+				"url": "https://localhost:8443/api/loans/4?action=return",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 4,\n    \"dateLoanInit\": 1491140797000,\n    \"dateLoanGiven\": null,\n    \"dateLoanReturn\": null,\n    \"copy\": {\n        \"id\": 5,\n        \"locationCode\": \"2AnEl5\",\n        \"resource\": {\n        \t\"id\": 2,\n        \t\"title\": \"El principito\",\n        \t\"author\": \"Antoine de Saint-Exupéry\",\n        \t\"editorial\": \"Reynal & Hitchcock\",\n        \t\"picture\": \"2.jpg\",\n        \t\"noReservedCopies\": [],\n        \t\"avaiblereserve\": false,\n        \t\"description\": \"El principito es un cuento poético que viene acompañado de ilustraciones hechas con acuarelas por el mismo Saint-Exupéry. En él, un piloto se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería, pero para su sorpresa, es allí donde conoce a un pequeño príncipe proveniente de otro planeta. La historia tiene una temática filosófica, donde se incluyen críticas sociales dirigidas a la «extrañeza» con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.\"\n        }\n    },\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"carlosv\"\n    }\n}"
+				},
+				"description": "Registered user (admin priviledges) - Return action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/fines/all",
+			"request": {
+				"url": "https://localhost:8443/api/fines/all",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Fine list, first page.\n\nResponse status: 200 (OK).\nResponse contains: Fine list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logOut",
+			"request": {
+				"url": "https://localhost:8443/api/logOut",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Log out.\n\nRequest status: 200 (OK).\nRequest content: true."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/users/",
+			"request": {
+				"url": "https://localhost:8443/api/users/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"vazquezlos\",\r\n\t\"passwordHash\": \"1234\",\r\n\t\"dni\": 1234,\r\n\t\"firstName\": \"José\",\r\n\t\"lastName1\": \"Quintana\",\r\n\t\"lastName2\": \"Pepe\",\r\n\t\"email\": \"pepito@gmail.com\",\r\n\t\"telephone\": 656565066,\r\n\t\"avatar\": \"user_undefined_f.png\",\r\n\t\"literaryHobby\": [\r\n    \t\"leer\",\r\n    \t\"deporte\",\r\n    \t\"escribir\"\r\n\t],\r\n\t\"actions\": [],\r\n\t\"penalties\": [],\r\n\t\"roles\": [\r\n    \t\"ROLE_USER\"\r\n\t]\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - New user.\n\nRequest status: 201 (CREATED).\nRequest content: New user."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dmF6cXVlemxvczoxMjM0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"vazquezlos\",\r\n\t\"passwordHash\": \"1234\",\r\n\t\"dni\": 1234,\r\n\t\"firstName\": \"José\",\r\n\t\"lastName1\": \"Quintana\",\r\n\t\"lastName2\": \"Pepe\",\r\n\t\"email\": \"pepito@gmail.com\",\r\n\t\"telephone\": 656565066,\r\n\t\"avatar\": \"user_undefined_f.png\",\r\n\t\"literaryHobby\": [\r\n    \t\"leer\",\r\n    \t\"deporte\",\r\n    \t\"escribir\"\r\n\t],\r\n\t\"actions\": [],\r\n\t\"penalties\": [],\r\n\t\"roles\": [\r\n    \t\"ROLE_USER\"\r\n\t]\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/",
+			"request": {
+				"url": "https://localhost:8443/api/loans/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"copy\": {\r\n    \"id\": 5,\r\n    \"locationCode\": \"2AnEl5\",\r\n    \"resource\": {\r\n      \"id\": 2\r\n    }\r\n  },\r\n  \"user\": {\r\n    \"id\": 5\r\n  }\r\n}"
+				},
+				"description": "Registered user (normal priviledges) - Reserve resource.\n\nResponse status: 200 (OK).\nResponse contains: Action."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logOut",
+			"request": {
+				"url": "https://localhost:8443/api/logOut",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Log out.\n\nRequest status: 200 (OK).\nRequest content: true."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logIn",
+			"request": {
+				"url": "https://localhost:8443/api/logIn",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Login.\n\nResponse status: 200 (OK).\nResponse contains: Basic user information."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/all?page=1",
+			"request": {
+				"url": "https://localhost:8443/api/loans/all?page=1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"carasdasdsadsdsasdalosv\",\n    \"passwordHash\": \"1234\",\n    \"dni\": \"0000\",\n    \"firstName\": \"Carlos\",\n    \"lastName1\": \"Vázquez\",\n    \"lastName2\": \"Losada\",\n    \"email\": \"c.vazquasdasdasdsadezlosada@gmail.com\",\n    \"isBanned\": false,\n    \"literaryHobby\": [\n      \"Ciencia ficción\",\n      \"Terror\",\n      \"Novela\",\n      \"Literatura\",\n      \"Drama\"\n    ],\n    \"actions\": [],\n    \"penalties\": [],\n    \"roles\": [\n      \"ROLE_USER\",\n      \"ROLE_ADMIN\"\n    ]\n  }"
+				},
+				"description": "Registered user (admin priviledges) - Loan list, second page.\n\nResponse status: 200 (OK).\nResponse contains: Action list."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/4?action=give",
+			"request": {
+				"url": "https://localhost:8443/api/loans/4?action=give",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"id\": 4,\n      \"dateLoanInit\": 1491147636000,\n      \"dateLoanGiven\": null,\n      \"dateLoanReturn\": null,\n      \"copy\": {\n        \"id\": 5,\n        \"locationCode\": \"2AnEl5\",\n        \"resource\": {\n          \"id\": 2,\n          \"title\": \"El principito\",\n          \"author\": \"Antoine de Saint-Exupéry\",\n          \"editorial\": \"Reynal & Hitchcock\",\n          \"picture\": \"2.jpg\",\n          \"noReservedCopies\": [],\n          \"avaiblereserve\": false,\n          \"description\": \"El principito es un cuento poético que viene acompañado de ilustraciones hechas con acuarelas por el mismo Saint-Exupéry. En él, un piloto se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería, pero para su sorpresa, es allí donde conoce a un pequeño príncipe proveniente de otro planeta. La historia tiene una temática filosófica, donde se incluyen críticas sociales dirigidas a la «extrañeza» con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.\"\n        }\n      },\n      \"user\": {\n        \"id\": 5,\n        \"name\": \"vazquezlos\"\n      }\n    }"
+				},
+				"description": "Registered user (admin priviledges) - Give action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/loans/4?action=return",
+			"request": {
+				"url": "https://localhost:8443/api/loans/4?action=return",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2VyZ2lvYjpwYXNzcw==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 4,\n    \"dateLoanInit\": 1491140797000,\n    \"dateLoanGiven\": null,\n    \"dateLoanReturn\": null,\n    \"copy\": {\n        \"id\": 5,\n        \"locationCode\": \"2AnEl5\",\n        \"resource\": {\n        \t\"id\": 2,\n        \t\"title\": \"El principito\",\n        \t\"author\": \"Antoine de Saint-Exupéry\",\n        \t\"editorial\": \"Reynal & Hitchcock\",\n        \t\"picture\": \"2.jpg\",\n        \t\"noReservedCopies\": [],\n        \t\"avaiblereserve\": false,\n        \t\"description\": \"El principito es un cuento poético que viene acompañado de ilustraciones hechas con acuarelas por el mismo Saint-Exupéry. En él, un piloto se encuentra perdido en el desierto del Sahara después de que su avión sufriera una avería, pero para su sorpresa, es allí donde conoce a un pequeño príncipe proveniente de otro planeta. La historia tiene una temática filosófica, donde se incluyen críticas sociales dirigidas a la «extrañeza» con la que los adultos ven las cosas. Estas críticas a las cosas «importantes» y al mundo de los adultos van apareciendo en el libro a lo largo de la narración.\"\n        }\n    },\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"carlosv\"\n    }\n}"
+				},
+				"description": "Registered user (admin priviledges) - Return action.\n\nResponse status: 200 (OK).\nResponse contains: Modified loan."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:8443/api/logOut",
+			"request": {
+				"url": "https://localhost:8443/api/logOut",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Log out.\n\nRequest status: 200 (OK).\nRequest content: true."
+			},
+			"response": []
+		}
+	]
+}

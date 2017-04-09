@@ -31,7 +31,6 @@ import appSpring.service.UserService;
 public class UserRestController {
 
 	public interface UserDetail extends User.Basic, User.Act, User.Fin, Fine.Basic, Action.Basic {}
-	public interface UserDetail2 extends User.LoginInt {}
 
 	@Autowired
 	private UserService userService;
@@ -83,7 +82,7 @@ public class UserRestController {
 		}
 	}
 
-	@JsonView(UserDetail2.class)
+	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id, HttpSession session,
 			Authentication authentication) {
