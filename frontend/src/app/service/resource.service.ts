@@ -1,24 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/Rx';
+import {RESOURCES_URL} from "../util";
+
+
 
 @Injectable()
 export class ResourceService {
 
-  private resources: string[] = [];
-
   constructor(private http: Http) {
   }
 
-  getResources(type: string) {
-    const url = 'https://localhost:8443/api/resources/all?type=' + type;
+  getAllResources(type: string, page: number) {
 
-    return this.http.get(url)
-      .map(response => this.extractTitles(response))
+    return this.http.get(RESOURCES_URL + 'all?type=' + type + '&page=' + page)
+      .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
-  }
-
-  private extractTitles(response: Response) {
-    return response.json().content.map(resource => resource.title);
   }
 }

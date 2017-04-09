@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <ul class="breadcrumb">
+      <li><a [routerLink]="['']"><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+      <li class="active">Iniciar sesión</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="modal-body">
+      <div id="div-login-msg">
+        <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+        <span id="text-login-msg">Escribe tu usuario y contraseña</span>
+      </div>
+      <input class="form-control" [(ngModel)]="username" type="text" placeholder="Usuario" required>
+      <input class="form-control" [(ngModel)]="password" type="password" placeholder="Contraseña" required>
+    </div>
+    <div class="modal-footer">
+      <div>
+        <button class="btn btn-primary btn-lg btn-block" (click)="logIn()">Iniciar
+          sesión
+        </button>
+      </div>
+      <div>
+        <a href="/">
+          <button id="login_lost_btn" type="button" class="btn btn-link">Olvidé mi contraseña</button>
+        </a>
+        <a href="/register">
+          <button id="login_register_btn" type="button" class="btn btn-link">Registrarse {{prueba}}</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
