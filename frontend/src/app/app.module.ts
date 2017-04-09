@@ -20,6 +20,7 @@ import {HomeComponent} from './component/home/home.component';
 import {SearchComponent} from './component/home/search/search.component';
 
 import {LoginComponent} from './component/login/login.component';
+import {RegisterComponent} from './component/login/register.component';
 
 import {ProfileComponent} from './component/user/profile/profile.component';
 
@@ -40,7 +41,8 @@ import {LoginService} from './service/login.service';
     HomeAdminComponent,
     ProfileComponent,
     SearchComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     NgbModule.forRoot(),

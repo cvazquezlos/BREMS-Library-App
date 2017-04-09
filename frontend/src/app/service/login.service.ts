@@ -26,4 +26,10 @@ export class LoginService {
       .map(response => response.json())
       .catch(error => Observable.throw('Server error'));
   }
+
+  register(firstname: string, lastname: string, lastname2: string, username: string,
+           password: string, dni: string, email: string, phone: string){
+    
+    
+  }
 }
