@@ -54,7 +54,6 @@ export class HomeComponent {
     }
   }
 
-
   reserveResource(id: number) {}
 
 }

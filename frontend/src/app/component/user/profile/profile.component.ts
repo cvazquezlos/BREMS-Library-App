@@ -7,6 +7,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class ProfileComponent {
 
-  constructor(private router: Router, activatedRoute: ActivatedRoute) { }
+  id: number;
+
+  constructor(private router: Router, activatedRoute: ActivatedRoute) {
+    if (!this.id) {
+      this.router.navigate(['/login']);
+    }
+  }
 
 }

@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Headers} from '@angular/http';
-import {Http} from '@angular/http';
+
+import {User} from '../../model/user.model';
+
+import {LoginService} from '../../service/login.service';
 
 @Component({
   templateUrl: 'login.component.html'
@@ -9,23 +10,18 @@ import {Http} from '@angular/http';
 
 export class LoginComponent {
 
-  constructor(private router: Router, activatedRoute: ActivatedRoute, private http: Http) { }
+  username: string;
+  password: string;
+  id: number;
 
-  logIn(username:String, password:String){
-    var headers = new Headers();
-
-    let value = "Basic " + btoa(username + ":" + password);
-    headers.append("Authorization", value);
-    this.http.get("https://localhost:8443/api/logIn",{headers : headers}).subscribe(
-        response => {response.json().content},
-        error => console.error(error)
-    );
+  constructor(private loginService: LoginService) {
+    this.id = 0;
   }
 
-  logOut(){
-    this.http.get("https://localhost:8443/api/logOut").subscribe(
-        response => {response.json().content},
-        error => console.error(error)
+  logIn() {
+    this.loginService.logIn(this.username, this.password).subscribe(
+      userId => this.id = userId,
+      error => console.log(error)
     );
   }
 }
