@@ -19,6 +19,8 @@ import {ContactComponent} from './component/home/contact.component';
 import {HomeComponent} from './component/home/home.component';
 import {SearchComponent} from './component/home/search/search.component';
 
+import {LoginComponent} from './component/login/login.component';
+
 import {ProfileComponent} from './component/user/profile/profile.component';
 
 import {ResourceService} from './service/resource.service';
@@ -36,7 +38,8 @@ import {ResourceService} from './service/resource.service';
     HomeComponent,
     HomeAdminComponent,
     ProfileComponent,
-    SearchComponent
+    SearchComponent,
+    LoginComponent
   ],
   imports: [
     NgbModule.forRoot(),
