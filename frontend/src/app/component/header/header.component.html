@@ -42,10 +42,9 @@
             <div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
               <div class="btn-group iconMenu" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="modal" aria-haspopup="true" aria-expanded="false" data-target="#login-modal">
+                  <button type="button" class="btn btn-default dropdown-toggle" (click)="login()">
                     <img src="../../../assets/img/user_undefined_f_40x40.jpg" class="img-circle" />
-                    <span>Iniciar sesi&oacute;n</span> <span
-                    class="fa fa-power-off"></span>
+                    <span>Iniciar sesi&oacute;n</span> <span class="fa fa-power-off"></span>
                   </button>
                 </div>
               </div>
@@ -56,7 +55,13 @@
     </div>
   </div>
 </nav>
+
+
 <!-- // Login modal -->
+
+
+
+
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">

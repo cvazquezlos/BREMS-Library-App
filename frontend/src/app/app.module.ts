@@ -27,6 +27,7 @@ import {ProfileComponent} from './component/user/profile/profile.component';
 import {ResourceService} from './service/resource.service';
 import {UserService} from './service/user.service';
 import {LoginService} from './service/login.service';
+import {ModalLogin} from "./component/login/modal.component/modal-login";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {LoginService} from './service/login.service';
     ProfileComponent,
     SearchComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ModalLogin
   ],
   imports: [
     NgbModule.forRoot(),
