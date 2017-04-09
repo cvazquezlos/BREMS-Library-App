@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
-
-const BASE_URL = 'https://localhost:8443/api/';
+import {BASE_URL} from "../util";
 
 @Injectable()
 export class LoginService {
@@ -12,9 +11,9 @@ export class LoginService {
   }
 
   logIn(username: string, password: string) {
-    const headers = new Headers();
+    let headers = new Headers();
 
-    const value = 'Basic ' + btoa(username + ':' + password);
+    let value = 'Basic ' + btoa(username + ':' + password);
     headers.append('Authorization', value);
     return this.http.get(BASE_URL + 'logIn', {headers : headers})
       .map(response => response.json().id)

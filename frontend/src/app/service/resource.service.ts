@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
+import {RESOURCES_URL} from "../util";
 
-const BASE_URL = 'https://localhost:8443/api/resources/';
+
 
 @Injectable()
 export class ResourceService {
@@ -13,7 +14,7 @@ export class ResourceService {
 
   getAllResources(type: string, page: number) {
 
-    return this.http.get(BASE_URL + 'all?type=' + type + '&page=' + page)
+    return this.http.get(RESOURCES_URL + 'all?type=' + type + '&page=' + page)
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
