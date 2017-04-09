@@ -26,7 +26,7 @@ import {ProfileComponent} from './component/user/profile/profile.component';
 
 import {ResourceService} from './service/resource.service';
 import {UserService} from './service/user.service';
-import {LoginService} from './service/login.service';
+import {SessionService} from './service/session.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import {LoginService} from './service/login.service';
   providers: [
     ResourceService,
     UserService,
-    LoginService
+    SessionService
   ],
   bootstrap: [AppComponent]
 })
