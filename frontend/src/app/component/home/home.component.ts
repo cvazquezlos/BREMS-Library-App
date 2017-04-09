@@ -3,9 +3,13 @@ import {Component, Input} from '@angular/core';
 import {Resource} from '../../model/resource.model';
 
 import {ResourceService} from '../../service/resource.service';
+import {STATUS_NO_CONTENT, BOOKS_IMG_URL} from "../../util";
 
 @Component({
-  templateUrl: 'home.component.html'
+  templateUrl: 'home.component.html',
+  styles: [`
+  .showBtnMoreBook {display: block}
+  .showBtnMoreMagaz{display: block}`]
 })
 
 export class HomeComponent {
@@ -15,39 +19,70 @@ export class HomeComponent {
   magazines: Resource[] = [];
   magazinesPage: number;
 
+  img_url        : string;
+  moreBooksActive: boolean;
+  moreMagazActive: boolean;
+
   constructor(private resourceService: ResourceService) {
     this.booksPage      = 0;
     this.magazinesPage  = 0;
     this.books          = [];
     this.magazines      = [];
 
+    this.img_url        = BOOKS_IMG_URL;
+    this.moreBooksActive  = true;
+    this.moreMagazActive  = true;
+
     this.addBooks();
     this.addMagazines();
   }
 
+  /**
+   * Muestra más recursos de tipo LIBRO de forma paginada
+   * Si no hay más recursos, se deshabilita el botón de "mostrar más"
+   */
   addBooks() {
-    let newBooks: Resource[] = [];
     this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
       books => {
-        //newBooks = books
         this.booksPage++;
         this.books = this.books.concat(books);
       },
-      error => console.error(error)
+      error => {
+        if( error.statusCode == STATUS_NO_CONTENT ) {
+          console.log(error + " - STATUS CODE: " + error.statusCode);
+        }
+
+        else{
+          console.error("ERROR: " + error);
+        }
+
+        this.moreBooksActive = false;
+      }
     );
 
   }
 
+  /**
+   * Muestra más recursos de tipo REVISTA de forma paginada
+   * Si no hay más recursos, se deshabilita el botón de "mostrar más"
+   */
   addMagazines() {
-    let newMagazines: Resource[] = [];
-
     this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
       magazines => {
-        //newMagazines = magazines;
         this.magazinesPage++;
         this.magazines = this.magazines.concat(magazines);
       },
-      error => console.error(error)
+      error => {
+        if( error.statusCode == STATUS_NO_CONTENT ) {
+          console.log(error + " - STATUS CODE: " + error.statusCode);
+        }
+
+        else{
+          console.error("ERROR: " + error);
+        }
+
+        this.moreMagazActive = false;
+      }
     );
   }
 
