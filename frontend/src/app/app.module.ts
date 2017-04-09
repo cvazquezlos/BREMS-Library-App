@@ -24,7 +24,8 @@ import {LoginComponent} from './component/login/login.component';
 import {ProfileComponent} from './component/user/profile/profile.component';
 
 import {ResourceService} from './service/resource.service';
-
+import {UserService} from './service/user.service';
+import {LoginService} from './service/login.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,11 @@ import {ResourceService} from './service/resource.service';
     JsonpModule,
     routing
   ],
-  providers: [ResourceService],
+  providers: [
+    ResourceService,
+    UserService,
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

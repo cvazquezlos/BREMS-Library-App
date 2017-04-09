@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
@@ -12,9 +13,14 @@ export class UserService {
   }
 
   getAllUsers() {
-
     return this.http.get(BASE_URL + 'all')
       .map(response => response.json().content)
+      .catch(error => Observable.throw('Server error'));
+  }
+
+  getUser(id: number) {
+    return this.http.get(BASE_URL + id)
+      .map(response => response.json())
       .catch(error => Observable.throw('Server error'));
   }
 }
