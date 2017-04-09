@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	{{> head}}
+<body>
+    {{> topBar}}
+
+    <div class="container content">
+        <!-- Content -->
+        <div class="row contentMain">
+            <div class="col-lg-12">
+                <div class="col-lg-2">
+                    <div class="brands_products">
+                        <!--brands_products-->
+                        <h3 class="title">G&eacute;nero</h3>
+                        <div class="well">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    {{#genres}} <a href="/search?mySearch={{name}}">{{name}} <span class="pull-right">({{resources.size}})</span></a> {{/genres}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <h3 class="title" id="searchName">Resultados para <span>{{searchName}}</span></h3>
+                    <div class="well" id="results">
+						<div class="listItems">
+							{{#search}} {{> listItems}} {{/search}}
+						</div>
+						{{#isEmpty}}<button type="button" class="btn btn-lg btn-block btn-view-more">No hay resultados</button>{{/isEmpty}}
+						{{^isEmpty}}<button id="moreSearch" type="button" class="btn btn-lg btn-block btn-view-more">Ver más</button>{{/isEmpty}}
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{> footer}}
+</body>
+
+</html>
