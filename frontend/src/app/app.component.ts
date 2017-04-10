@@ -9,6 +9,10 @@ import { ModalLogin } from "./component/login/modal.component/modal-login";
 })
 export class AppComponent {
 
+  constructor() {
+    localStorage.clear();
+  }
+
   @ViewChild(ModalLogin)
   private modalLogin: ModalLogin;
 

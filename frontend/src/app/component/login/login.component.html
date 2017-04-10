@@ -13,12 +13,12 @@
         <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
         <span id="text-login-msg">Escribe tu usuario y contraseña</span>
       </div>
-      <input class="form-control" [(ngModel)]="username" type="text" placeholder="Usuario" required>
-      <input class="form-control" [(ngModel)]="password" type="password" placeholder="Contraseña" required>
+      <input class="form-control" #username type="text" placeholder="Usuario" required>
+      <input class="form-control" #password type="password" placeholder="Contraseña" required>
     </div>
     <div class="modal-footer">
       <div>
-        <button class="btn btn-primary btn-lg btn-block" (click)="logIn()">Iniciar
+        <button class="btn btn-primary btn-lg btn-block" (click)="logIn($event, username.value, password.value)">Iniciar
           sesión
         </button>
       </div>
