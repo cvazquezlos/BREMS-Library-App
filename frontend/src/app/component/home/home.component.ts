@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {Resource} from '../../model/resource.model';
 
@@ -22,6 +22,7 @@ export class HomeComponent {
   img_url        : string;
   moreBooksActive: boolean;
   moreMagazActive: boolean;
+
 
   constructor(private resourceService: ResourceService) {
     this.booksPage      = 0;
