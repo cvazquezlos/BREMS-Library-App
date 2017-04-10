@@ -36,18 +36,17 @@ export class SessionService {
           );
           localStorage.setItem("user", username);
           return this.user;
-        }
-      )
+      })
       .catch(error => Observable.throw('Server error'));
   }
 
   logOut() {
-    this.http.get(BASE_URL + 'logOut').subscribe(
-      response => {
+    return this.http.get(BASE_URL + 'logOut')
+      .map(response => {
         localStorage.removeItem("user");
-      },
-      error => console.error(error)
-    );
+        return true;
+      })
+      .catch(error => Observable.throw('Server error'));
   }
 
   checkCredentials() {

@@ -15,7 +15,6 @@ export class LoginComponent {
   id: number;
 
   constructor(private sessionService: SessionService, private router: Router) {
-    this.id = 0;
   }
 
   logIn(event: any, username: string, password: string) {
@@ -27,5 +26,9 @@ export class LoginComponent {
       },
       error => {console.log(error); console.log('fail')}
     );
+  }
+
+  logOut() {
+    this.sessionService.logOut();
   }
 }
