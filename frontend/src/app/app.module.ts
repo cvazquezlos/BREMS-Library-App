@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -29,6 +30,7 @@ import {ResourceService} from './service/resource.service';
 import {UserService} from './service/user.service';
 import {SessionService} from './service/session.service';
 
+
 @NgModule({
   declarations: [
     AboutComponent,
@@ -52,6 +54,7 @@ import {SessionService} from './service/session.service';
     FormsModule,
     HttpModule,
     JsonpModule,
+    BrowserAnimationsModule,
     routing
   ],
   providers: [

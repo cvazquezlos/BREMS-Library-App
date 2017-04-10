@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoginService} from '../../service/session.service';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   templateUrl: 'register.component.html'
@@ -8,7 +8,7 @@ import {LoginService} from '../../service/session.service';
 export class RegisterComponent {
 
 
-    constructor(private loginService: LoginService) {
+    constructor(private loginService: SessionService) {
     }
 
 

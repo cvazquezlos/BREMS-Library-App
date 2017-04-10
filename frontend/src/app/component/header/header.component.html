@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-5 col-lg-5 logo">
-        <a [routerLink]="['']"> <img src="../../../assets/img/logo.png" alt="logo brems">
+        <a [routerLink]="['']"> <img src="./assets/img/logo.png" alt="logo brems">
           <h1>Book Reserve System Management</h1>
         </a>
       </div>
@@ -19,6 +19,7 @@
     </div>
   </div>
 </header>
+
 <nav class="navbar navbar-default">
   <div class="container-fluid menuNav">
     <div class="container">
@@ -43,7 +44,7 @@
               <div class="btn-group iconMenu" role="group" aria-label="...">
                 <div class="btn-group" role="group">
                   <button type="button" class="btn btn-default dropdown-toggle" (click)="login()">
-                    <img src="../../../assets/img/user_undefined_f_40x40.jpg" class="img-circle" />
+                    <img src="../assets/img/user_undefined_f_40x40.jpg" class="img-circle" />
                     <span>Iniciar sesi&oacute;n</span> <span class="fa fa-power-off"></span>
                   </button>
                 </div>
@@ -56,46 +57,3 @@
   </div>
 </nav>
 
-
-<!-- // Login modal -->
-
-
-
-
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" align="center">
-        <img id="img_logo" src="img/logo.png">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </button>
-      </div>
-      <div id="div-forms">
-        <!-- Login form -->
-        <form id="login-form" action="/login" method="post">
-          <div class="modal-body">
-            <div id="div-login-msg">
-              <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
-              <span id="text-login-msg">Escribe tu usuario y contrase&ntilde;a</span>
-            </div>
-            <input id="username" class="form-control" name="username" type="text" placeholder="Usuario" required> <input id="password" class="form-control" name="password" type="password" placeholder="Contrase&ntilde;a" required>
-            <div class="checkbox">
-              <!--<label> <input type="checkbox"> Recordar</label>-->
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div>
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar
-                sesi&oacute;n</button>
-            </div>
-            <div>
-              <a [routerLink]="['']"><button id="login_lost_btn" type="button" class="btn btn-link">Olvid&eacute; mi contrase&ntilde;a</button></a>
-              <a href="/register"><button id="login_register_btn" type="button"class="btn btn-link">Registrarse</button></a>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
