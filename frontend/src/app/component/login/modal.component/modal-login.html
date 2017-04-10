@@ -1,0 +1,10 @@
+<div [@dialog] *ngIf="visible" class="modalAviso">
+  <ng-content></ng-content>
+
+  <div class="txtAviso">
+    <p> Login </p>
+    <button (click)="close()">Aceptar</button>
+  </div>
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>
+

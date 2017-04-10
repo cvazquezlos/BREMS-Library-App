@@ -1,5 +1,13 @@
-<app-header></app-header>
+<!-- HEADER -->
+<app-header (openModalLogin)="openLogin()"></app-header>
+
+<!-- CONTENT -->
 <div class="container content">
   <router-outlet></router-outlet>
 </div>
+
+<!-- // Login modal -->
+<modal-login></modal-login>
+
+<!-- FOOTER -->
 <app-footer></app-footer>
