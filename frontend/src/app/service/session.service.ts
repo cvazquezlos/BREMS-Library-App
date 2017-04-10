@@ -1,85 +1,56 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import {Headers, Http, RequestOptions} from '@angular/http';
+import {Router} from '@angular/router';
 import 'rxjs/Rx';
-import {BASE_URL} from "../util";
+import {Observable} from 'rxjs/Observable';
 
 import {User} from '../model/user.model';
 
 import {UserService} from '../service/user.service';
 
+import {BASE_URL} from "../util";
+
 @Injectable()
 export class SessionService {
 
-  isLogged = false;
-  isAdmin = false;
   user: User;
-  current: User;
 
-  constructor(private http: Http, private userService: UserService) {
-    this.reqIsLogged();
+  constructor(private http: Http, private userService: UserService, private router: Router) {
   }
 
   getSession() {
-    return Observable.of(this.user);
-  }
-
-  setSession(current: User) {
-    this.current = current;
-  }
-
-  getLogged() {
-    return this.isLogged;
-  }
-
-  reqIsLogged() {
-    let headers = new Headers({
-      'X-Requested-With': 'XMLHttpRequest'
-    });
-    return this.http.get(BASE_URL + 'logIn', {headers: headers}).subscribe(
-      response => this.processLogInResponse(response),
-      error => {
-        if (error.status != 401) {
-          console.error("Error when asking if logged: " + JSON.stringify(error));
-        }
-      }
-    )
-  }
-
-  private processLogInResponse(response) {
-    this.isLogged = true;
-    this.userService.getUser(response.json().id).map(
-      response => this.user = response.json()
-    );
-    this.isAdmin = this.user.roles.indexOf("ROLE_ADMIN") !== -1;
+    return this.user;
   }
 
   logIn(username: string, password: string) {
-    let headers = new Headers();
-
-    let value = 'Basic ' + btoa(username + ':' + password);
-    headers.append('Authorization', value);
-    return this.http.get(BASE_URL + 'logIn', {headers : headers})
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+    return this.http.get(BASE_URL + 'logIn', {headers: headers})
       .map(response => {
-        this.processLogInResponse(response);
-        return response.json().id
-      })
+          let id = response.json().id;
+          this.userService.getUser(id).subscribe(
+            user => {
+              this.user = user;
+            },
+            error => console.error(error)
+          );
+          localStorage.setItem("user", username);
+          return this.user;
+        }
+      )
       .catch(error => Observable.throw('Server error'));
   }
 
   logOut() {
-    return this.http.get(BASE_URL + 'logOut')
-      .map(response => {
-        this.isLogged = false;
-        this.isAdmin = false;
-        return response;
-      })
-      .catch(error => Observable.throw('Server error'));
+    this.http.get(BASE_URL + 'logOut').subscribe(
+      response => {
+        localStorage.removeItem("user");
+      },
+      error => console.error(error)
+    );
   }
 
-  register(firstname: string, lastname: string, lastname2: string, username: string,
-           password: string, dni: string, email: string, phone: string){
-
-
+  checkCredentials() {
+    return (localStorage.getItem("user") !== null);
   }
 }

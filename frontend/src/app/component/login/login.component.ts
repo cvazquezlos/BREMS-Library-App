@@ -11,21 +11,21 @@ import {SessionService} from '../../service/session.service';
 
 export class LoginComponent {
 
-  username: string;
-  password: string;
+  user: User;
   id: number;
 
-  constructor(private loginService: SessionService, private router: Router) {
+  constructor(private sessionService: SessionService, private router: Router) {
     this.id = 0;
   }
 
-  logIn() {
-    this.loginService.logIn(this.username, this.password).subscribe(
-      userId => {
-        this.id = userId;
-        this.router.navigate(['/profile', this.id]);
+  logIn(event: any, username: string, password: string) {
+    event.preventDefault();
+    this.sessionService.logIn(username, password).subscribe(
+      user => {
+        this.user = user;
+        this.router.navigate(['/profile']);
       },
-      error => console.log(error)
+      error => {console.log(error); console.log('fail')}
     );
   }
 }
