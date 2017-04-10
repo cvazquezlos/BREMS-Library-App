@@ -20,14 +20,14 @@ import {HomeComponent} from './component/home/home.component';
 import {SearchComponent} from './component/home/search/search.component';
 
 import {LoginComponent} from './component/login/login.component';
+import {ModalLogin} from "./component/login/modal.component/modal-login";
 import {RegisterComponent} from './component/login/register.component';
 
 import {ProfileComponent} from './component/user/profile/profile.component';
 
 import {ResourceService} from './service/resource.service';
 import {UserService} from './service/user.service';
-import {LoginService} from './service/login.service';
-import {ModalLogin} from "./component/login/modal.component/modal-login";
+import {SessionService} from './service/session.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,7 @@ import {ModalLogin} from "./component/login/modal.component/modal-login";
   providers: [
     ResourceService,
     UserService,
-    LoginService
+    SessionService
   ],
   bootstrap: [AppComponent]
 })

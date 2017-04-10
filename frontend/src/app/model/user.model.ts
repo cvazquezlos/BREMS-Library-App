@@ -11,4 +11,5 @@ export interface User {
   biography: string;
   avatar: string;
   literaryHobby: string[];
+  roles: string[];
 }
