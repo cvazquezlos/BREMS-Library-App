@@ -12,6 +12,7 @@ import {HomeAdminComponent} from './component/admin/home-admin.component';
 
 import {FooterComponent} from './component/footer/footer.component';
 import {FooterAdminComponent} from './component/footer/footer-admin.component';
+
 import {HeaderComponent} from './component/header/header.component';
 import {HeaderAdminComponent} from './component/header/header-admin.component';
 
@@ -26,8 +27,9 @@ import {RegisterComponent} from './component/login/register.component';
 
 import {ProfileComponent} from './component/user/profile/profile.component';
 
-import {ResourceService} from './service/resource.service';
+import {ActionService} from './service/action.service';
 import {UserService} from './service/user.service';
+import {ResourceService} from './service/resource.service';
 import {SessionService} from './service/session.service';
 
 
@@ -42,11 +44,11 @@ import {SessionService} from './service/session.service';
     HeaderAdminComponent,
     HomeComponent,
     HomeAdminComponent,
-    ProfileComponent,
-    SearchComponent,
     LoginComponent,
+    ModalLogin,
+    ProfileComponent,
     RegisterComponent,
-    ModalLogin
+    SearchComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -58,8 +60,9 @@ import {SessionService} from './service/session.service';
     routing
   ],
   providers: [
-    ResourceService,
+    ActionService,
     UserService,
+    ResourceService,
     SessionService
   ],
   bootstrap: [AppComponent]
