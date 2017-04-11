@@ -23,7 +23,6 @@
                   <span class="glyphicon glyphicon-pencil"></span>(Editar)
                 </a>
               </h4>
-
               <table class="table">
                 <tbody>
                 <tr>
@@ -75,7 +74,7 @@
                     <tr>
                       <th>Autor</th>
                       <td>{{action.copy.resource.author}}</td>
-                    </tr> 
+                    </tr>
                     <tr>
                       <th>Fecha de solicitud de préstamo</th>
                       <td>{{action.dateLoanInit}}</td>
@@ -95,7 +94,24 @@
       </ngb-tab>
       <ngb-tab title="Multas">
         <template ngbTabContent>
-          <p>sdsdasdasdasad</p>
+          <div class="tab-pane" id="bookFines">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Recurso</th>
+              <th>Fecha inicio</th>
+              <th>Fecha fin</th>
+            </tr>
+            </thead>
+            <ng-template ngFor let-fine [ngForOf]="fines">
+              <tr class="warning">
+                <td>{{fine.resourceCopy.resource.title}}</td>
+                <td>{{fine.initDate}}</td>
+                <td>{{fine.finishDate}}</td>
+              </tr>
+            </ng-template>
+          </table>
+        </div>
         </template>
       </ngb-tab>
     </ngb-tabset>

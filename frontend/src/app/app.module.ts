@@ -28,6 +28,7 @@ import {RegisterComponent} from './component/login/register.component';
 import {ProfileComponent} from './component/user/profile/profile.component';
 
 import {ActionService} from './service/action.service';
+import {FineService} from './service/fine.service';
 import {UserService} from './service/user.service';
 import {ResourceService} from './service/resource.service';
 import {SessionService} from './service/session.service';
@@ -61,6 +62,7 @@ import {SessionService} from './service/session.service';
   ],
   providers: [
     ActionService,
+    FineService,
     UserService,
     ResourceService,
     SessionService
