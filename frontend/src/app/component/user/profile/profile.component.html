@@ -55,13 +55,13 @@
       <ngb-tab title="Préstamos">
         <template ngbTabContent>
           <div class="listItems">
-            <ng-template *ngFor="let action of actions">
+            <ng-template ngFor let-action [ngForOf]="actions">
               <div class="row item">
                 <div class="col-sm-6 col-md-4 col-lg-2">
                   <div class="coverItem">
                     <p>Avatar</p>
                     <br>
-                    <a href="/{{ id }}"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    <a href="#"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
                     </a>
                   </div>
                 </div>

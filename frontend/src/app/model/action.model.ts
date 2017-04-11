@@ -1,6 +1,6 @@
 export interface Action {
   id?: number;
-  dateLoanInit: string;
-  dateLoanGiven: string;
-  dateLoanReturn: string;
+  dateLoanInit: any;
+  dateLoanGiven: any;
+  dateLoanReturn: any;
 }

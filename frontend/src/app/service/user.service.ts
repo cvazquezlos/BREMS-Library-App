@@ -32,7 +32,7 @@ export class UserService {
   getUser(id: number) {
     console.log(this.authCreds);
     let headers: Headers = new Headers();
-    headers.append('Authorization', 'Basic ' + btoa(this.authCreds));
+    headers.append('Authorization', 'Basic ' + this.authCreds);
     return this.http.get(USER_URL + id.toString(), {headers: headers})
       .map(response => {
         this.user = response.json();

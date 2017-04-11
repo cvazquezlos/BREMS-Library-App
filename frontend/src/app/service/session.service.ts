@@ -19,9 +19,9 @@ export class SessionService {
   }
 
   logIn(username: string, password: string) {
-    this.authCreds = username + ':' + password;
+    this.authCreds = btoa(username + ':' + password);
     let headers: Headers = new Headers();
-    headers.append('Authorization', 'Basic ' + btoa(this.authCreds));
+    headers.append('Authorization', 'Basic ' + this.authCreds);
     return this.http.get(BASE_URL + 'logIn', {headers: headers})
       .map(response => {
           let id = response.json().id;
@@ -52,11 +52,9 @@ export class SessionService {
     return (localStorage.getItem("user") !== null);
   }
 
-  register(firstName: string, lastName1: string, lastName2: string, username: string,
-             password: string, dni: string, email: string, phone: string){
-
-      let newUser : User;
+  register(firstName: string, lastName1: string, lastName2: string, username: string, password: string, dni: string, email: string, phone: string){
+      let newUser: User;
       newUser = {name: username, passwordHash: password, dni: dni, firstName: firstName, lastName1: lastName1, lastName2: lastName2, email: email, telephone: phone};
-      return this.http.post(BASE_URL + 'register',newUser);
+      return this.http.post(BASE_URL + 'register', newUser);
   }
 }

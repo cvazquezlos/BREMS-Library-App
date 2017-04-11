@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService, private sessionService: SessionService, private actionService: ActionService) {
     this.actionPage = 0;
+    this.actions = [];
   }
 
   ngOnInit() {
