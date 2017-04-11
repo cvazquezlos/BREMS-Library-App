@@ -38,10 +38,6 @@ export class HomeComponent {
     this.addMagazines();
   }
 
-  /**
-   * Muestra más recursos de tipo LIBRO de forma paginada
-   * Si no hay más recursos, se deshabilita el botón de "mostrar más"
-   */
   addBooks() {
     this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
       books => {
@@ -63,10 +59,6 @@ export class HomeComponent {
 
   }
 
-  /**
-   * Muestra más recursos de tipo REVISTA de forma paginada
-   * Si no hay más recursos, se deshabilita el botón de "mostrar más"
-   */
   addMagazines() {
     this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
       magazines => {

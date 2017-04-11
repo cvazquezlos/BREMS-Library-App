@@ -45,7 +45,9 @@
                 <tr>
                   <th scope="row">Aficiones literarias</th>
                   <td>
-                    Ieee
+                    <ng-template *ngFor="let hobby of user.literaryHobby">
+                      <span>{{hobby}} | </span>
+                    </ng-template>
                   </td>
                 </tr>
                 <tr>
@@ -60,7 +62,38 @@
       </ngb-tab>
       <ngb-tab title="Préstamos">
         <template ngbTabContent>
-          <p>sdsdasdasdasad</p>
+          <div class="listItems">
+            <ng-template *ngFor="let action of actions">
+              <div class="row item">
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <div class="coverItem">
+                    <p>Avatar</p>
+                    <br>
+                    <a href="/{{ id }}"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
+                  <table class="table">
+                    <tbody>
+                    <tr>
+                      <th>Título</th>
+                      <td>Título recurso</td>
+                    </tr>
+                    <tr>
+                      <th>Autor</th>
+                      <td>Autor recurso</td>
+                    </tr>
+                    <tr>
+                      <th>Fecha de solicitud de préstamo</th>
+                      <td>{{action.dateLoanInit}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </ng-template>
+          </div>
         </template>
       </ngb-tab>
       <ngb-tab title="Historial">
