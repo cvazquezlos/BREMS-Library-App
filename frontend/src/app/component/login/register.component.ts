@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {LoginService} from '../../service/session.service';
+import {Router} from '@angular/router';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   templateUrl: 'register.component.html'
@@ -7,9 +8,16 @@ import {LoginService} from '../../service/session.service';
 
 export class RegisterComponent {
 
-
-    constructor(private loginService: LoginService) {
+    constructor(private sessionService: SessionService, private router: Router) {
     }
 
+    register(firstName: string, lastName1: string, lastName2: string, username: string,
+             password: string, dni: string, email: string, phone: string){
 
+ 
+      this.sessionService.register(firstName, lastName1, lastName2, username, password, dni, email, phone).subscribe(
+        user => {this.router.navigate(['/']);},
+      error => {}
+    );
+    }
 }
