@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 import {User} from '../../../model/user.model';
 
@@ -13,7 +14,6 @@ import {UserService} from '../../../service/user.service';
 export class ProfileComponent implements OnInit {
 
   user: User;
-  id: number;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService, private sessionService: SessionService) {
   }
@@ -21,7 +21,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     if (!this.sessionService.checkCredentials())
       this.router.navigate(['/login']);
-    else
-      this.user = this.sessionService.getSession();
+    else {
+      this.user = this.userService.getUserCompleted();
+    }
   }
 }
