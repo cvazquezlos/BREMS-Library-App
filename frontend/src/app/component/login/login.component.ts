@@ -17,8 +17,8 @@ export class LoginComponent {
   constructor(private sessionService: SessionService, private router: Router) {
   }
 
-  logIn(event: any, username: string, password: string) {
-    event.preventDefault();
+  logIn(username: string, password: string) {
+
     this.sessionService.logIn(username, password).subscribe(
       user => {
         this.user = user;

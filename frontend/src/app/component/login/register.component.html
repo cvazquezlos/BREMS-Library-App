@@ -17,34 +17,35 @@
                 <br>
                 <div class="form-group">
                     <label>Nombre y apellidos</label>
-                    <input type="text" class="form-control" name="firstName" placeholder="Nombre">
-                    <input type="text" class="form-control" name="lastName1" placeholder="Primer apellido">
-                    <input type="text" class="form-control" name="lastName2" placeholder="Segundo apellido">
+                    <input type="text" class="form-control" name="firstName" placeholder="Nombre" #firstName>
+                    <input type="text" class="form-control" name="lastName1" placeholder="Primer apellido" #lastName1>
+                    <input type="text" class="form-control" name="lastName2" placeholder="Segundo apellido" #lastName2>
                 </div>
                 <div class="form-group">
                     <label>Usuario </label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" #userName>
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
-                    <input class="form-control" name="password" type="password">
+                    <input class="form-control" name="password" type="password" #password>
                 </div>
                 <div class="form-group">
                     <label>D.N.I.</label>
-                    <input class="form-control" name="dni" type="text">
+                    <input class="form-control" name="dni" type="text" #dni>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="text" class="form-control" name="email">
+                    <input type="text" class="form-control" name="email" #email>
                 </div>
                 <div class="form-group">
                     <label>Teléfono</label>
-                    <input class="form-control" name="telephone" type="text">
+                    <input class="form-control" name="telephone" type="text" #phone>
                 </div>
             </div>
             <div class="modal-footer">
                 <div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Registrarme</button>
+                    <button (click)="register(firstName.value, lastName1.value, lastName2.value, userName.value, password.value, dni.value, email.value, phone.value)"
+                            type="submit" class="btn btn-primary btn-lg btn-block">Registrarme</button>
                 </div>
                 <div>
                     <a href="/"><button id="login_lost_btn" type="button" class="btn btn-link">Olvidé mi contraseña</button></a>
