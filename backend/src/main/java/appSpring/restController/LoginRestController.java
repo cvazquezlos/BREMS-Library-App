@@ -29,7 +29,6 @@ public class LoginRestController {
 
 	@Autowired
 	private UserService userService;
-
 	@Autowired
 	private UserComponent userComponent;
 
@@ -58,6 +57,24 @@ public class LoginRestController {
 			log.info("Logged out");
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		}
+	}
+	
+	@RequestMapping(value ="/api/register", method = RequestMethod.POST)
+	public ResponseEntity<Boolean> register(HttpSession session, @RequestBody User user) {
+		if (userComponent.isLoggedUser()){
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		try{
+			User newUser = new User(user.getName(), user.getPasswordHash(), user.getDni(), user.getFirstName(), user.getLastName1(), user.getLastName2(),
+					user.getEmail(), user.getTelephone(), "ROLE_USER");
+			
+			userService.save(newUser);
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		}
+		catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		
 	}
 
 	@RequestMapping(value ="/api/register", method = RequestMethod.POST)
