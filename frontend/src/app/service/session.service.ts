@@ -6,8 +6,9 @@ import {BASE_URL} from "../util";
 
 import {User} from '../model/user.model';
 
-import {UserService} from '../service/user.service';
 import {ActionService} from '../service/action.service';
+import {FineService} from '../service/fine.service';
+import {UserService} from '../service/user.service';
 
 @Injectable()
 export class SessionService {
@@ -15,7 +16,8 @@ export class SessionService {
   user: User;
   authCreds: string;
 
-  constructor(private http: Http, private userService: UserService, private actionService: ActionService) {
+  constructor(private http: Http, private userService: UserService, private actionService: ActionService,
+              private fineService: FineService) {
   }
 
   logIn(username: string, password: string) {
@@ -34,6 +36,7 @@ export class SessionService {
           );
           localStorage.setItem("user", username);
           this.actionService.setAuthHeaders(this.authCreds);
+          this.fineService.setAuthHeaders(this.authCreds);
           return this.user;
       })
       .catch(error => Observable.throw('Server error'));
