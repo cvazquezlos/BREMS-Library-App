@@ -23,7 +23,6 @@
                   <span class="glyphicon glyphicon-pencil"></span>(Editar)
                 </a>
               </h4>
-
               <table class="table">
                 <tbody>
                 <tr>
@@ -43,12 +42,6 @@
                   <td>{{user?.telephone}}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Aficiones literarias</th>
-                  <td>
-                    Ieee
-                  </td>
-                </tr>
-                <tr>
                   <th scope="row" class="lastRow">Última vez</th>
                   <td>hace 34 minutos</td>
                 </tr>
@@ -60,7 +53,38 @@
       </ngb-tab>
       <ngb-tab title="Préstamos">
         <template ngbTabContent>
-          <p>sdsdasdasdasad</p>
+          <div class="listItems">
+            <ng-template ngFor let-action [ngForOf]="actions">
+              <div class="row item">
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <div class="coverItem">
+                    <p>Avatar</p>
+                    <br>
+                    <a href="#"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
+                  <table class="table">
+                    <tbody>
+                    <tr>
+                      <th>Título</th>
+                      <td>{{action.copy.resource.title}}</td>
+                    </tr>
+                    <tr>
+                      <th>Autor</th>
+                      <td>{{action.copy.resource.author}}</td>
+                    </tr>
+                    <tr>
+                      <th>Fecha de solicitud de préstamo</th>
+                      <td>{{action.dateLoanInit}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </ng-template>
+          </div>
         </template>
       </ngb-tab>
       <ngb-tab title="Historial">
@@ -70,7 +94,24 @@
       </ngb-tab>
       <ngb-tab title="Multas">
         <template ngbTabContent>
-          <p>sdsdasdasdasad</p>
+          <div class="tab-pane" id="bookFines">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Recurso</th>
+              <th>Fecha inicio</th>
+              <th>Fecha fin</th>
+            </tr>
+            </thead>
+            <ng-template ngFor let-fine [ngForOf]="fines">
+              <tr class="warning">
+                <td>{{fine.resourceCopy.resource.title}}</td>
+                <td>{{fine.initDate}}</td>
+                <td>{{fine.finishDate}}</td>
+              </tr>
+            </ng-template>
+          </table>
+        </div>
         </template>
       </ngb-tab>
     </ngb-tabset>

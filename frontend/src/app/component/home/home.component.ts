@@ -14,34 +14,30 @@ import {STATUS_NO_CONTENT, BOOKS_IMG_URL} from "../../util";
 
 export class HomeComponent {
 
-  books: Resource[] = [];
+  books: Resource[];
   booksPage: number;
-  magazines: Resource[] = [];
+  magazines: Resource[];
   magazinesPage: number;
 
-  img_url        : string;
+  img_url: string;
   moreBooksActive: boolean;
   moreMagazActive: boolean;
 
 
   constructor(private resourceService: ResourceService) {
-    this.booksPage      = 0;
-    this.magazinesPage  = 0;
-    this.books          = [];
-    this.magazines      = [];
+    this.booksPage = 0;
+    this.magazinesPage = 0;
+    this.books = [];
+    this.magazines = [];
 
-    this.img_url        = BOOKS_IMG_URL;
-    this.moreBooksActive  = true;
-    this.moreMagazActive  = true;
+    this.img_url  = BOOKS_IMG_URL;
+    this.moreBooksActive = true;
+    this.moreMagazActive = true;
 
     this.addBooks();
     this.addMagazines();
   }
 
-  /**
-   * Muestra más recursos de tipo LIBRO de forma paginada
-   * Si no hay más recursos, se deshabilita el botón de "mostrar más"
-   */
   addBooks() {
     this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
       books => {
@@ -63,10 +59,6 @@ export class HomeComponent {
 
   }
 
-  /**
-   * Muestra más recursos de tipo REVISTA de forma paginada
-   * Si no hay más recursos, se deshabilita el botón de "mostrar más"
-   */
   addMagazines() {
     this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
       magazines => {
