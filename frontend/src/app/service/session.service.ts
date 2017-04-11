@@ -18,21 +18,17 @@ export class SessionService {
   constructor(private http: Http, private userService: UserService, private router: Router) {
   }
 
-  getSession() {
-    return this.user;
-  }
-
   logIn(username: string, password: string) {
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
     return this.http.get(BASE_URL + 'logIn', {headers: headers})
       .map(response => {
           let id = response.json().id;
-          this.userService.getUser(id).subscribe(
+          this.userService.getUser(id, username, password).subscribe(
             user => {
               this.user = user;
             },
-            error => console.error(error)
+            error => console.log(error)
           );
           localStorage.setItem("user", username);
           return this.user;

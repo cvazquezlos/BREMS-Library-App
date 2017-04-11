@@ -1,16 +1,21 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Headers, Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {USER_URL} from "../util";
 
-
+import {User} from '../model/user.model';
 
 @Injectable()
 export class UserService {
 
+  user: User;
+
   constructor(private http: Http) {
+  }
+
+  getUserCompleted() {
+    return this.user;
   }
 
   getAllUsers() {
@@ -19,9 +24,14 @@ export class UserService {
       .catch(error => Observable.throw('Server error'));
   }
 
-  getUser(id: number) {
-    return this.http.get(USER_URL + id)
-      .map(response => response.json())
+  getUser(id: number, username: string, password: string) {
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+    return this.http.get(USER_URL + id.toString(), {headers: headers})
+      .map(response => {
+        this.user = response.json();
+        return this.user;
+      })
       .catch(error => Observable.throw('Server error'));
   }
 }
