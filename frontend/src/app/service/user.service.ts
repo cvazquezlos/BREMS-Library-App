@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, Response} from '@angular/http';
+import {Headers, Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {USER_URL} from "../util";
@@ -10,8 +10,13 @@ import {User} from '../model/user.model';
 export class UserService {
 
   user: User;
+  authCreds: string;
 
   constructor(private http: Http) {
+  }
+
+  setAuthHeaders(authCreds: string) {
+    this.authCreds = authCreds;
   }
 
   getUserCompleted() {
@@ -24,9 +29,10 @@ export class UserService {
       .catch(error => Observable.throw('Server error'));
   }
 
-  getUser(id: number, username: string, password: string) {
+  getUser(id: number) {
+    console.log(this.authCreds);
     let headers: Headers = new Headers();
-    headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+    headers.append('Authorization', 'Basic ' + btoa(this.authCreds));
     return this.http.get(USER_URL + id.toString(), {headers: headers})
       .map(response => {
         this.user = response.json();

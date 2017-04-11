@@ -1,17 +1,26 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import {Headers, Http} from '@angular/http';
 import 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 import {ACTION_URL} from "../util";
 
 @Injectable()
 export class ActionService {
 
+  authCreds: string;
+
   constructor(private http: Http) {
   }
 
+  setAuthHeaders(authCreds: string) {
+    this.authCreds = authCreds;
+  }
+
   getAllActions(page: number) {
-    return this.http.get(ACTION_URL + '&page=' + page)
+    console.log(this.authCreds);
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(this.authCreds));
+    return this.http.get(ACTION_URL + 'all?page=' + page, {headers: headers})
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
