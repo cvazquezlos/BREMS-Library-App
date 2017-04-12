@@ -54,7 +54,7 @@
       <ngb-tab title="Préstamos">
         <template ngbTabContent>
           <div class="listItems">
-            <ng-template ngFor let-action [ngForOf]="actions">
+            <ng-template ngFor let-action [ngForOf]="currentActions">
               <div class="row item">
                 <div class="col-sm-6 col-md-4 col-lg-2">
                   <div class="coverItem">
@@ -89,7 +89,46 @@
       </ngb-tab>
       <ngb-tab title="Historial">
         <template ngbTabContent>
-          <p>sdsdasdasdasad</p>
+          <div class="listItems">
+            <ng-template ngFor let-action [ngForOf]="history">
+              <div class="row item">
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                  <div class="coverItem">
+                    <p>Avatar</p>
+                    <br>
+                    <a href="#"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-7 detailsBorrow">
+                  <table class="table">
+                    <tbody>
+                    <tr>
+                      <th>Título</th>
+                      <td>{{action.copy.resource.title}}</td>
+                    </tr>
+                    <tr>
+                      <th>Autor</th>
+                      <td>{{action.copy.resource.author}}</td>
+                    </tr>
+                    <tr>
+                      <th>Fecha de solicitud de préstamo</th>
+                      <td>{{action.dateLoanInit}}</td>
+                    </tr>
+                    <tr>
+                      <th>Fecha de recogida de préstamo</th>
+                      <td>{{action.dateLoanGiven}}</td>
+                    </tr>
+                    <tr>
+                      <th>Fecha de devolución</th>
+                      <td>{{action.dateLoanReturn}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </ng-template>
+          </div>
         </template>
       </ngb-tab>
       <ngb-tab title="Multas">

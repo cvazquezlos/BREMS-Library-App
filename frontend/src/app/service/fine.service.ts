@@ -20,7 +20,7 @@ export class FineService {
     console.log(this.authCreds);
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.get(FINE_URL + 'all?page=' + page, {headers: headers})
+    return this.http.get(FINE_URL + '?page=' + page, {headers: headers})
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
