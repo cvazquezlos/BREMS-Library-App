@@ -36,7 +36,7 @@ public class FineRestController {
 	private UserService userService;
 
 	@JsonView(FineDetail.class)
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<Page<Fine>> getAllFine(Authentication authentication, HttpSession session,
 			HttpServletRequest request, @RequestParam (required=false) Integer page) {
 

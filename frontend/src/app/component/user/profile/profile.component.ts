@@ -17,18 +17,22 @@ import {UserService} from '../../../service/user.service';
 
 export class ProfileComponent implements OnInit {
 
-  actions: Action[];
-  actionPage: number;
+  currentActions: Action[];
+  currentActionsPage: number;
   fines: Fine[];
   finePage: number;
+  history: Action[];
+  historyPage: number;
   user: User;
 
   constructor(private router: Router, private userService: UserService, private sessionService: SessionService,
               private actionService: ActionService, private fineService: FineService) {
-    this.actions = [];
-    this.actionPage = 0;
+    this.currentActions = [];
+    this.currentActionsPage = 0;
     this.fines = [];
     this.finePage = 0;
+    this.history = [];
+    this.historyPage = 0;
   }
 
   ngOnInit() {
@@ -36,10 +40,10 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['/login']);
     else {
       this.user = this.userService.getUserCompleted();
-      this.actionService.getAllActions(this.actionPage).subscribe(
+      this.actionService.getAllActions(this.currentActionsPage, false).subscribe(
         actions => {
-          this.actions = actions;
-          this.actionPage++;
+          this.currentActions = actions;
+          this.currentActionsPage++;
         },
         error => console.log(error)
       );
@@ -47,6 +51,13 @@ export class ProfileComponent implements OnInit {
         fines => {
           this.fines = fines;
           this.finePage++;
+        },
+        error => console.log(error)
+      );
+      this.actionService.getAllActions(this.historyPage, true).subscribe(
+        actions => {
+          this.history = actions;
+          this.historyPage++;
         },
         error => console.log(error)
       );
