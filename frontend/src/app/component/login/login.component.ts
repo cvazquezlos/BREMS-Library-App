@@ -21,7 +21,7 @@ export class LoginComponent {
     this.sessionService.logIn(username, password).subscribe(
       user => {
         this.user = user;
-        this.router.navigate(['/profile']);
+        this.router.navigate(['']);
       },
       error => console.log(error)
     );

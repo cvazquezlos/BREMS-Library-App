@@ -16,14 +16,11 @@ export class HeaderComponent {
   contactActive = false;
   indexActive = true;
   isAdmin: boolean;
-  isLogged: boolean;
   profileActive = false;
-  loggedUser: User;
   @Output() openModalLogin: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router: Router, private sessionService: SessionService) {
     this.isAdmin = false;
-    this.isLogged = false;
   }
 
   gotoSearch() {
@@ -37,7 +34,6 @@ export class HeaderComponent {
 
   logOut() {
     if (this.sessionService.logOut()) {
-      this.isLogged = false;
       this.router.navigate(['']);
     }
   }
@@ -69,13 +65,5 @@ export class HeaderComponent {
         this.profileActive = false;
         break;
     }
-  }
-
-  setIsLogged(isLogged: boolean) {
-    this.isLogged = isLogged;
-  }
-
-  setLoggedUser(loggedUser: User) {
-    this.loggedUser = loggedUser;
   }
 }

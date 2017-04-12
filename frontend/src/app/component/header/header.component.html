@@ -38,19 +38,8 @@
         <div class="col-lg-7">
           <div class="row">
             <div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
-              <div *ngIf="isLogged; else notLogged">
-                <ul class="nav navbar-nav">
-                  <li class="dropdown userdropmenu">
-                    <a data-toggle="dropdown">{{loggedUser.name}}</a>
-                    <ul class="dropdown-menu userdrop">
-                      <li><a href="/user_profile">Mi perfil <span class="glyphicon glyphicon-user"></span></a></li>
-                      <div *ngIf="isAdmin">
-                        <li><a [routerLink]="['/admin']">Panel administrador <span class="glyphicon glyphicon-cog"></span></a></li>
-                      </div>
-                      <li><a (click)="logOut()">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a></li>
-                    </ul>
-                  </li>
-                </ul>
+              <div *ngIf="sessionService.isLogged; else notLogged">
+                <!-- TODO -->
               </div>
               <ng-template #notLogged>
                 <div class="btn-group iconMenu" role="group" aria-label="...">

@@ -61,7 +61,8 @@ export class HomeComponent implements OnInit {
           console.log(error + " - STATUS CODE: " + error.statusCode);
         }
         else {
-          console.error("ERROR: " + error);
+          if (userReq)
+            console.error("ERROR: " + error);
         }
         this.moreBooksActive = false;
       }
@@ -83,7 +84,8 @@ export class HomeComponent implements OnInit {
           console.log(error + " - STATUS CODE: " + error.statusCode);
         }
         else {
-          console.error("ERROR: " + error);
+          if (userReq)
+            console.error("ERROR: " + error);
         }
         this.moreMagazActive = false;
       }
