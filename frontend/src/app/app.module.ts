@@ -29,6 +29,7 @@ import {ProfileComponent} from './component/user/profile/profile.component';
 
 import {ActionService} from './service/action.service';
 import {FineService} from './service/fine.service';
+import {GenreService} from './service/genre.service';
 import {UserService} from './service/user.service';
 import {ResourceService} from './service/resource.service';
 import {SessionService} from './service/session.service';
@@ -63,6 +64,7 @@ import {SessionService} from './service/session.service';
   providers: [
     ActionService,
     FineService,
+    GenreService,
     UserService,
     ResourceService,
     SessionService
