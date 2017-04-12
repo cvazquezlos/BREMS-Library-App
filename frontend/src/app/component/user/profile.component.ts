@@ -2,14 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 
-import {Action} from '../../../model/action.model';
-import {Fine} from '../../../model/fine.model';
-import {User} from '../../../model/user.model';
+import {Action} from '../../model/action.model';
+import {Fine} from '../../model/fine.model';
+import {User} from '../../model/user.model';
 
-import {ActionService} from '../../../service/action.service';
-import {FineService} from '../../../service/fine.service';
-import {SessionService} from '../../../service/session.service';
-import {UserService} from '../../../service/user.service';
+import {ActionService} from '../../service/action.service';
+import {FineService} from '../../service/fine.service';
+import {SessionService} from '../../service/session.service';
+import {UserService} from '../../service/user.service';
 
 @Component({
   templateUrl: 'profile.component.html'

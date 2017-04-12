@@ -25,7 +25,7 @@ import {LoginComponent} from './component/login/login.component';
 import {ModalLogin} from "./component/login/modal.component/modal-login";
 import {RegisterComponent} from './component/login/register.component';
 
-import {ProfileComponent} from './component/user/profile/profile.component';
+import {ProfileComponent} from './component/user/profile.component';
 
 import {ActionService} from './service/action.service';
 import {FineService} from './service/fine.service';

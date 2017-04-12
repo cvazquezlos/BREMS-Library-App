@@ -18,11 +18,10 @@ export class LoginComponent {
   }
 
   logIn(username: string, password: string) {
-
     this.sessionService.logIn(username, password).subscribe(
       user => {
         this.user = user;
-        this.router.navigate(['']);
+        this.router.navigate(['/profile']);
       },
       error => console.log(error)
     );
