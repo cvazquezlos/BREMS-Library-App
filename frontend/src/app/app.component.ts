@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ModalLogin } from "./component/login/modal.component/modal-login";
+import { ModalLogin } from './component/login/modal.component/modal-login';
 
 
 @Component({
