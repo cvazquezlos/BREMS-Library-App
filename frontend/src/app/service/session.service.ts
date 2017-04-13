@@ -15,6 +15,7 @@ export class SessionService {
 
   user: User;
   authCreds: string;
+  isLogged = false;
 
   constructor(private http: Http, private userService: UserService, private actionService: ActionService,
               private fineService: FineService) {
@@ -37,6 +38,7 @@ export class SessionService {
           localStorage.setItem("user", username);
           this.actionService.setAuthHeaders(this.authCreds);
           this.fineService.setAuthHeaders(this.authCreds);
+          this.isLogged = true;
           return this.user;
       })
       .catch(error => Observable.throw('Server error'));

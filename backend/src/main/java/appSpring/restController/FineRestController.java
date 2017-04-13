@@ -47,11 +47,7 @@ public class FineRestController {
 			return new ResponseEntity<>(fines, HttpStatus.OK);
 		} else {
 			Page<Fine> fines = fineService.findByUser(userService.findByName(authentication.getName()), page);
-			if (fines.getNumberOfElements() > 0) {
-				return new ResponseEntity<>(fines, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+			return new ResponseEntity<>(fines, HttpStatus.OK);
 		}
 	}
 
