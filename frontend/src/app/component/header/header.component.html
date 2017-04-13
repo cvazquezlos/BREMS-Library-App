@@ -39,7 +39,16 @@
           <div class="row">
             <div class="col-lg-4 col-lg-offset-7 paddingNone userDropdownMenu">
               <div *ngIf="sessionService.isLogged; else notLogged">
-                <!-- TODO -->
+                <div class="dropdown" dropdown>
+                  <button class="btn btn-primary dropdown-toggle" dropdown-open>
+                    <img src="../../../assets/img/user_undefined_f_40x40.jpg" class="img-circle" />
+                    {{sessionService.user?.name}}</button>
+                  <ul class="dropdown-menu">
+                    <li><a [routerLink]="['/profile']" (click)="update('profile')">Perfil <span class="glyphicon glyphicon-user"></span></a>
+                    <li *ngIf="sessionService.isAdmin"><a href="#" (click)="select()">Panel de administración <span class="glyphicon glyphicon-cog"></span></a></li>
+                    <li><a href="#" (click)="logOut()">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a></li>
+                  </ul>
+                </div>
               </div>
               <ng-template #notLogged>
                 <div class="btn-group iconMenu" role="group" aria-label="...">
