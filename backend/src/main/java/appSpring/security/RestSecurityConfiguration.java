@@ -33,8 +33,8 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/resources", "/api/genres", "/api/resourcetypes",
 				"/api/resourcecopies").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**/**").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/users/{id}").hasAnyRole("USER", "ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/resources/{id}", "/api/loans/{id}",
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/users/{id}", "/api/users/{id}/upload").hasAnyRole("USER", "ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/resources/{id}", "/api/resources/{id}/upload", "/api/loans/{id}",
 				"/api/genres/{id}", "/api/resourcetypes/{id}", "/api/resourcecopies/{id}").hasAnyRole("ADMIN");
 
 		// USE HTTP BASIC AUTHENTICATION

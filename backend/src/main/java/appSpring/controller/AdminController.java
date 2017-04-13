@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSpring.model.Action;
 import appSpring.model.Genre;
+import appSpring.model.ImagesPath;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.ResourceType;
@@ -333,7 +334,7 @@ public class AdminController {
 	public String addResourceAction(Model model, @RequestParam String title, @RequestParam String description,
 			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
 			@RequestParam String resourceType, @RequestParam MultipartFile picture, HttpServletRequest request,
-			RedirectAttributes redirectAttrs, @RequestParam int copiesNumber) {
+			RedirectAttributes redirectAttrs, @RequestParam int copiesNumber) throws IOException {
 
 		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
 		model.addAttribute("admin", loggedAdmin);
@@ -356,20 +357,12 @@ public class AdminController {
 		}
 		resourceService.save(resource);
 
-		String pictureName = resource.getId().toString() + ".jpg";
-		if (!picture.isEmpty()) {
-			try {
-				File filesFolder = new File("src/main/resources/static/img/books");
-				if (!filesFolder.exists()) {
-					filesFolder.mkdirs();
-				}
-				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
-				picture.transferTo(uploadedFile);
-			} catch (Exception e) {
-			}
-			resource.setPicture(pictureName);
-			resourceService.save(resource);
-		}
+		String filename = resourceService.handleUploadImagetoDatabase(picture, resource.getId(), 
+					ImagesPath.IMAGES_RESOURCE.toString());
+		resource.setPicture(filename);
+		resource.setHasPhoto(true);
+		System.out.println("TODO OK");
+		resourceService.save(resource);
 
 		ResourceCopy copy;
 		for (int i = 0; i < copiesNumber; i++) {
@@ -404,7 +397,7 @@ public class AdminController {
 	public String editResourceAction(Model model, @PathVariable Integer id, @RequestParam String description,
 			@RequestParam String author, @RequestParam String genre, @RequestParam String editorial,
 			@RequestParam String resourceType, @RequestParam MultipartFile picture, RedirectAttributes redirectAttrs,
-			@RequestParam int copyNumber) {
+			@RequestParam int copyNumber) throws IOException {
 
 		Resource resource = resourceService.findOne(id);
 		resource.setDescription(description);
@@ -424,19 +417,12 @@ public class AdminController {
 		} else {
 			resource.setProductType(resourceTypeFound);
 		}
-		String pictureName = resource.getId().toString() + ".jpg";
-		if (!picture.isEmpty()) {
-			try {
-				File filesFolder = new File("src/main/resources/static/img/books");
-				if (!filesFolder.exists()) {
-					filesFolder.mkdirs();
-				}
-				File uploadedFile = new File(filesFolder.getAbsolutePath(), pictureName);
-				picture.transferTo(uploadedFile);
-			} catch (Exception e) {
-			}
-			resource.setPicture(pictureName);
-		}
+
+		String filename = resourceService.handleUploadImagetoDatabase(picture, resource.getId(), 
+					ImagesPath.IMAGES_RESOURCE.toString());
+		resource.setPicture(filename);
+		resource.setHasPhoto(true);
+		System.out.println("TODO OK");
 		resourceService.save(resource);
 
 		if (copyNumber < resource.getResourceCopies().size()) {

@@ -1,5 +1,6 @@
 package appSpring.restController;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 import appSpring.model.Action;
 import appSpring.model.Genre;
+import appSpring.model.ImagesPath;
 import appSpring.model.Resource;
 import appSpring.model.ResourceCopy;
 import appSpring.model.ResourceType;
@@ -127,6 +130,26 @@ public class ResourceRestController {
 			resource.setProductType(resourceUpdated.getProductType());
 			resourceService.save(resource);
 			return new ResponseEntity<>(resourceUpdated, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/{id}/upload", method = RequestMethod.PUT)
+	public ResponseEntity<Resource> putUserImage(@PathVariable Integer id, 
+			@RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+
+		session.setMaxInactiveInterval(-1);
+		Resource resource = resourceService.findOne(id);
+		if (resource != null) {
+			String filename = resourceService.handleUploadImagetoDatabase(file, resource.getId(), 
+						ImagesPath.IMAGES_RESOURCE.toString());
+			resource.setPicture(filename);
+			resource.setHasPhoto(true);
+			System.out.println("TODO OK");
+			resourceService.save(resource);
+			return new ResponseEntity<>(resource, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
