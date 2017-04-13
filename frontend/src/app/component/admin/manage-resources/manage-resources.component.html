@@ -1,3 +1,43 @@
-<p>
-  manage-resources works!
-</p>
+<section class="content-header">
+  <h1>Administración de recursos <small>Administra los libros o las revistas</small></h1>
+</section>
+
+<section class="content">
+  <table class="table table-bordered table-striped" style="background-color: white !important;">
+    <thead>
+      <tr>
+        <th width="14%">Título</th>
+        <th width="20%">Sumario</th>
+        <th width="5%">Ejemplares</th>
+        <th width="5%">Sin alquilar</th>
+        <th width="8%">Autor</th>
+        <th width="5%">Género</th>
+        <th width="5%">Tipo</th>
+        <th width="3%">Administrar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let resource of resources">
+        <td>{{ resource.title }}</td>
+        <td>{{ resource.description }}</td>
+        <td>{{ resource.copies.length }}</td>
+        <td>{{ resource.noReservedCopies.length }}</td>
+        <td>{{ resource.author }}</td>
+        <td>{{ resource.genre.name }}</td>
+        <td>{{ resource.resourceType.name }}</td>
+        <td>
+          <a>
+            <button type="button" class="btn btn-success"><span class="fa fa-pencil"></span></button>
+          </a>
+          <a>
+            <button type="button" class="btn btn-warning"><span class="fa fa-trash"></span></button>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a>
+    <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir recurso</button>
+  </a>
+
+</section>

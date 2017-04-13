@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-manage-resources',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageResourcesComponent implements OnInit {
 
-  constructor() { }
+  private resources: Object[] = [];
+
+  constructor(private http: Http) {
+  }
 
   ngOnInit() {
+    this.getResources();
+  }
+
+  getResources() {
+    this.resources = [];
+    let url = "https://localhost:8443/api/resources";
+
+    this.http.get(url).subscribe(
+      response => {
+        let data = response.json().content;
+        data.forEach(element => {
+          this.resources.push(element);
+        });
+      },
+      error => console.error(error)
+    );
   }
 
 }
