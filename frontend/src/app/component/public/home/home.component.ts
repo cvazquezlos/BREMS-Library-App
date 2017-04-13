@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {STATUS_NO_CONTENT, BOOKS_IMG_URL} from "../../util";
+import { Component, OnInit } from '@angular/core';
+import { STATUS_NO_CONTENT, BOOKS_IMG_URL } from "../../../util";
 
-import {Resource} from '../../model/resource.model';
+import { Resource } from '../../../model/resource.model';
 
-import {ResourceService} from '../../service/resource.service';
-import {SessionService} from '../../service/session.service';
+import { ResourceService } from '../../../service/resource.service';
+import { SessionService } from '../../../service/session.service';
 
 @Component({
   templateUrl: 'home.component.html',

@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {trigger, style, animate, transition} from '@angular/animations';
-import {Router} from '@angular/router';
-import {SessionService} from '../../../service/session.service';
+import { Component } from '@angular/core';
+import { trigger, style, animate, transition } from '@angular/animations';
+import { Router } from '@angular/router';
+import { SessionService } from '../../../../service/session.service';
 
 @Component({
   selector: 'modal-login',
@@ -12,10 +12,10 @@ import {SessionService} from '../../../service/session.service';
   animations: [
     trigger('dialog', [
       transition('void => *', [
-        animate(100, style({ transform: 'scale3d(.3, .3, .3)'}))
+        animate(100, style({ transform: 'scale3d(.3, .3, .3)' }))
       ]),
       transition('* => void', [
-        animate(100, style({ transform: 'scale3d(.0, .0, .0)'}))
+        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
       ])
     ])
   ]
@@ -55,8 +55,8 @@ export class ModalLogin {
     this.visible = false;
   }
 
-  open() : void {
-    if( !this.visible )
+  open(): void {
+    if (!this.visible)
       this.visible = true;
   }
 }

@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {User} from '../../model/user.model';
+import { User } from '../../../model/user.model';
 
-import {SessionService} from '../../service/session.service';
+import { SessionService } from '../../../service/session.service';
 
 @Component({
   templateUrl: 'login.component.html'

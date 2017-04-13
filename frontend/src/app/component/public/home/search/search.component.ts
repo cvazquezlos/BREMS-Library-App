@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {BOOKS_IMG_URL} from '../../../util';
+import { BOOKS_IMG_URL } from '../../../../util';
 
-import {Genre} from '../../../model/genre.model';
-import {Resource} from '../../../model/resource.model';
+import { Genre } from '../../../../model/genre.model';
+import { Resource } from '../../../../model/resource.model';
 
-import {GenreService} from '../../../service/genre.service';
+import { GenreService } from '../../../../service/genre.service';
 
 @Component({
   templateUrl: 'search.component.html'
@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   constructor(private router: Router, private genreService: GenreService) {
     this.genres = [];
     this.genresPage = 0;
-    this.img_url  = BOOKS_IMG_URL;
+    this.img_url = BOOKS_IMG_URL;
     this.resources = [];
     this.visible = false;
   }

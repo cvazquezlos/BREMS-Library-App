@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {User} from '../../model/user.model';
+import { User } from '../../../model/user.model';
 
-import {SessionService} from '../../service/session.service';
+import { SessionService } from '../../../service/session.service';
 
 @Component({
   selector: 'app-header',
@@ -39,7 +39,7 @@ export class HeaderComponent {
   }
 
   update(page: string) {
-    switch(page){
+    switch (page) {
       case 'index':
         this.aboutActive = false;
         this.contactActive = false;
