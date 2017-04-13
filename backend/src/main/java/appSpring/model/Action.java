@@ -17,9 +17,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Action {
 
-	public interface Basic {}
-	public interface ResoCopy {}
-	public interface Usr {}
+	public interface Basic {
+	}
+
+	public interface ResoCopy {
+	}
+
+	public interface Usr {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,13 +32,13 @@ public class Action {
 	private Integer id;
 
 	@JsonView(Basic.class)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd' 'HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd' 'HH:mm:ss")
 	private Date dateLoanInit;
 	@JsonView(Basic.class)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd' 'HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd' 'HH:mm:ss")
 	private Date dateLoanGiven;
 	@JsonView(Basic.class)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd' 'HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd' 'HH:mm:ss")
 	private Date dateLoanReturn;
 
 	@ManyToOne
@@ -53,8 +58,8 @@ public class Action {
 
 	public Action(Date dateLoanInit) {
 		this.dateLoanInit = dateLoanInit;
-		dateLoanReturn = null;
-		dateLoanGiven = null;
+		dateLoanReturn = new Date(0);
+		dateLoanGiven = new Date(0);
 	}
 
 	public Integer getID() {
@@ -88,7 +93,6 @@ public class Action {
 	public void setDateLoanReturn(Date dateLoanReturn) {
 		this.dateLoanReturn = dateLoanReturn;
 	}
-
 
 	public ResourceCopy getResource() {
 		return copy;
