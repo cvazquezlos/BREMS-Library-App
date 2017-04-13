@@ -52,7 +52,8 @@
 					<div role="tabpanel" class="tab-pane active" id="userProfile">
 						<div class="row userProfile">
 							<div class="col-lg-2 avatar">
-								<img src="/img/avatars/{{avatar}}" alt="avatarUser" class="img-responsive avatar">
+							{{#hasPhoto}}<img src="img/avatars/{{avatar}}" alt="avatarUser" class="img-responsive avatar">{{/hasPhoto}}
+							{{^hasPhoto}}<img src="img/avatars/user_undefined.jpg" alt="avatarUser" class="img-responsive avatar">{{/hasPhoto}}
 							</div>
 							<div class="col-lg-8">
 								<h4>

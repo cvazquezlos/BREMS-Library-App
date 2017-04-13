@@ -1,6 +1,7 @@
 package appSpring.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import appSpring.model.Action;
+import appSpring.model.ImagesPath;
 import appSpring.model.User;
 import appSpring.service.UserService;
 
@@ -54,7 +56,7 @@ public class UserController {
 	
 	@RequestMapping("/user_profile/edit/{id}")
 	public String editUserProfile(Model model, @PathVariable Integer id, @RequestParam String firstName, @RequestParam String lastName1, @RequestParam String lastName2,
-			@RequestParam String email, @RequestParam String telephone, @RequestParam MultipartFile avatar) {
+			@RequestParam String email, @RequestParam String telephone, @RequestParam MultipartFile avatar) throws IOException {
 
 		User user = userService.findOne(id);
 		if( user != null ) {
@@ -63,19 +65,11 @@ public class UserController {
 			user.setLastName2(lastName2);
 			user.setEmail(email);
 			user.setTelephone(telephone);
-			String avatarName = user.getId().toString() + ".jpg";
-			if (!avatarName.isEmpty()) {
-				try {
-					File filesFolder = new File("src/main/resources/static/img/avatars/");
-					if (!filesFolder.exists()) {
-						filesFolder.mkdirs();
-					}
-					File uploadedFile = new File(filesFolder.getAbsolutePath(), avatarName);
-					avatar.transferTo(uploadedFile);
-				} catch (Exception e) {
-				}
-				user.setAvatar(avatarName);
-			}
+			String filename = userService.handleUploadImagetoDatabase(avatar, user.getId(), 
+					ImagesPath.IMAGES_USER.toString());
+			user.setAvatar(filename);
+			user.setHasPhoto(true);
+			System.out.println("TODO OK");
 			userService.save(user);
 		}			
 
