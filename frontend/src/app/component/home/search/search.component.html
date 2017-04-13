@@ -15,7 +15,7 @@
           <ul class="nav nav-pills nav-stacked">
             <ng-template ngFor let-genre [ngForOf]="genres">
               <li>
-                <a (click)="searchResourcesByGenre(genre.id)">{{genre.name}} <span class="pull-right">({{genre.resources.size}})</span></a>
+                <a (click)="searchResourcesByGenre(genre.id)">{{genre.name}} <span class="pull-right">({{genre.resources?.length}})</span></a>
               </li>
             </ng-template>
           </ul>
@@ -23,47 +23,49 @@
       </div>
     </div>
     <div class="col-lg-9">
-      <ng-template [ngIf]="visible">
         <h3 class="title" id="searchName">Resultados</h3>
         <div class="well" id="results">
-          <div class="listItems">
-            <ng-template ngFor let-resource [ngForOf]="resources">
-              <div class="row item">
-                <div class="col-sm-12 col-md-4 col-lg-3">
-                  <div class="coverItem">
-                    <img *ngIf="resource.picture != null; else otherCont" [src]="img_url + resource.picture" class="img-responsive" />
-                    <ng-template #otherCont>
-                      <img [src]="'../../../../assets/img/noPicture.png'" class="img-responsive" />
-                    </ng-template>
-                    <div>
-                      <button *ngIf="resource.avaiblereserve; else notEnough" (click)="reserveResource(resource.id)" class="btn btn-reserve">Reservar</button>
-                      <ng-template #notEnough>
-                        <p class="btn btn-notEnough">No disponible</p>
+          <ng-template [ngIf]="visible">
+            <div class="listItems">
+              <ng-template ngFor let-resource [ngForOf]="resources">
+                <div class="row item">
+                  <div class="col-sm-12 col-md-4 col-lg-3">
+                    <div class="coverItem">
+                      <img *ngIf="resource.picture != null; else otherCont" [src]="img_url + resource.picture" class="img-responsive" />
+                      <ng-template #otherCont>
+                        <img [src]="'../../../../assets/img/noPicture.png'" class="img-responsive" />
                       </ng-template>
+                      <div>
+                        <div *ngIf="isLogged">
+                          <button *ngIf="resource.avaiblereserve; else notEnough" (click)="reserveResource(resource.id)" class="btn btn-reserve">Reservar</button>
+                          <ng-template #notEnough>
+                            <p class="btn btn-notEnough">No disponible</p>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+                    <h3 class="title">{{resource.title}}</h3>
+                    <h5 class="authorName">por {{resource.author}}</h5>
+                    <div class="description">
+                      <p>
+                        {{resource.description}}
+                        <span>...</span>
+                        <a href=""> <span class="moreInfo">+ info</span> </a>
+                      </p>
+                      <div class="available stockAvailable">
+                        <span class="glyphicon glyphicon-ok-circle"></span>
+                        <span class="textAvailable">Disponible</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-                  <h3 class="title">{{resource.title}}</h3>
-                  <h5 class="authorName">por {{resource.author}}</h5>
-                  <div class="description">
-                    <p>
-                      {{resource.description}}
-                      <span>...</span>
-                      <a href=""> <span class="moreInfo">+ info</span> </a>
-                    </p>
-                    <div class="available stockAvailable">
-                      <span class="glyphicon glyphicon-ok-circle"></span>
-                      <span class="textAvailable">Disponible</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-            <button id="moreSearch" type="button" class="btn btn-lg btn-block btn-view-more">Ver más</button>
-          </div>
+              </ng-template>
+              <button id="moreSearch" type="button" class="btn btn-lg btn-block btn-view-more">Ver más</button>
+            </div>
+          </ng-template>
       </div>
-      </ng-template>
     </div>
   </div>
 </div>
