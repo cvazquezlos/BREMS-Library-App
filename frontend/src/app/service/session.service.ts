@@ -15,6 +15,8 @@ export class SessionService {
 
   user: User;
   authCreds: string;
+  isLogged = false;
+  isAdmin = false;
 
   constructor(private http: Http, private userService: UserService, private actionService: ActionService,
               private fineService: FineService) {
@@ -31,21 +33,28 @@ export class SessionService {
           this.userService.getUser(id).subscribe(
             user => {
               this.user = user;
+              if (this.user.roles.includes('ROLE_ADMIN', 0))
+                this.isAdmin = true;
             },
             error => console.log(error)
           );
           localStorage.setItem("user", username);
           this.actionService.setAuthHeaders(this.authCreds);
           this.fineService.setAuthHeaders(this.authCreds);
+          this.isLogged = true;
           return this.user;
       })
       .catch(error => Observable.throw('Server error'));
   }
 
   logOut() {
-    return this.http.get(BASE_URL + 'logOut')
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + this.authCreds);
+    return this.http.get(BASE_URL + 'logOut', {headers: headers})
       .map(response => {
-        localStorage.removeItem("user");
+        localStorage.clear();
+        this.isLogged = false;
+        this.user = null;
         return true;
       })
       .catch(error => Observable.throw('Server error'));

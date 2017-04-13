@@ -18,7 +18,6 @@ export class LoginComponent {
   }
 
   logIn(username: string, password: string) {
-
     this.sessionService.logIn(username, password).subscribe(
       user => {
         this.user = user;
