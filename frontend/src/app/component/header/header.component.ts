@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {User} from '../../model/user.model';
-
 import {SessionService} from '../../service/session.service';
 
 @Component({
@@ -33,9 +31,12 @@ export class HeaderComponent {
   }
 
   logOut() {
-    if (this.sessionService.logOut()) {
-      this.router.navigate(['']);
-    }
+    this.sessionService.logOut().subscribe(
+      success => {
+        this.router.navigate(['']);
+      },
+      fail => console.log(fail)
+    );
   }
 
   update(page: string) {

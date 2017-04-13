@@ -1,6 +1,7 @@
-import {NgModule} from '@angular/core';
+import {DropdownModule} from "ngx-dropdown";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
+import {NgModule} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -49,6 +50,7 @@ import {SessionService} from './service/session.service';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    DropdownModule,
     FormsModule,
     HttpModule,
     JsonpModule,
