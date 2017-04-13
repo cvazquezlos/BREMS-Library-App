@@ -1,8 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import {User} from './model/user.model';
+import { User } from './model/user.model';
 
-import {ModalLogin} from "./component/login/modal.component/modal-login";
+import { ModalLogin } from "./component/public/login/modal.component/modal-login";
 
 @Component({
   selector: 'app-root',
