@@ -1,8 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-
-import { User } from './model/user.model';
-
-import { ModalLogin } from "./component/public/login/modal.component/modal-login";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +8,5 @@ import { ModalLogin } from "./component/public/login/modal.component/modal-login
 export class AppComponent {
 
   constructor() {
-    localStorage.clear();
-  }
-
-  @ViewChild(ModalLogin)
-  private modalLogin: ModalLogin;
-
-  openLogin() {
-    this.modalLogin.open();
   }
 }
