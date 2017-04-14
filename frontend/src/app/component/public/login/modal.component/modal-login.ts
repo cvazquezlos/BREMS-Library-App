@@ -38,7 +38,7 @@ export class ModalLogin {
         console.log(user);
 
         this.close();
-        this.router.navigate(['/profile']);
+        this.router.navigate(['./profile']);
       },
       error => {
         console.log(error);

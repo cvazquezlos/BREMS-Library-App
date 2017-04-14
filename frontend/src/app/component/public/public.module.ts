@@ -15,7 +15,6 @@ import { ModalLogin } from "./login/modal.component/modal-login";
 import { RegisterComponent } from './login/register.component';
 import { ProfileComponent } from './user/profile.component';
 
-
 import { PublicRoutingModule } from './public-routing.module';
 
 @NgModule({

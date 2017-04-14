@@ -32,7 +32,7 @@ public class LoginRestController {
 	private UserComponent userComponent;
 
 	@JsonView(UserDetail.class)
-	@RequestMapping(value = "/api/logIn")
+	@RequestMapping(value = "/api/login")
 	public ResponseEntity<User> logIn() {
 
 		if (!userComponent.isLoggedUser()) {
