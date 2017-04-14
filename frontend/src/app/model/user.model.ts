@@ -11,7 +11,7 @@ export interface User {
   viewTelephone: boolean;
   address?: string;
   biography?: string;
-  avatar?: string;
   literaryHobby?: string[];
   roles?: string[];
+  hasPhoto?: boolean;
 }

@@ -1,5 +1,7 @@
 import {Component, OnInit, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import 'rxjs/Rx';
+import {DomSanitizer} from '@angular/platform-browser';
 
 import {Action} from '../../../model/action.model';
 import {Fine} from '../../../model/fine.model';
@@ -7,6 +9,7 @@ import {User} from '../../../model/user.model';
 
 import {ActionService} from '../../../service/action.service';
 import {FineService} from '../../../service/fine.service';
+import {FileService} from '../../../service/file.service';
 import {SessionService} from '../../../service/session.service';
 import {UserService} from '../../../service/user.service';
 import {ModalProfileEdit} from "./modal.profile.component/modal-profile-edit";
@@ -27,6 +30,7 @@ export class ProfileComponent implements OnInit {
   history: Action[];
   historyPage: number;
   user: User;
+  userImage: any;
 
   @ViewChild(ModalProfileEdit)
   private modalProfileEdit: ModalProfileEdit;
@@ -35,7 +39,8 @@ export class ProfileComponent implements OnInit {
   private modalBiographyEdit: ModalBiographyEdit;
 
   constructor(private router: Router, private userService: UserService, private sessionService: SessionService,
-              private actionService: ActionService, private fineService: FineService) {
+              private actionService: ActionService, private fineService: FineService,
+              private sanitizer: DomSanitizer, private fileService: FileService) {
     this.currentActions = [];
     this.currentActionsPage = 0;
     this.fines = [];
@@ -69,6 +74,14 @@ export class ProfileComponent implements OnInit {
           this.historyPage++;
         },
         error => console.log(error)
+      );
+      this.fileService.getUserFile(this.user.id).subscribe(
+        data => {
+          let dataRecieved: string[] = data.split('"');
+          this.userImage = 'data:image/png;base64,' + dataRecieved[3];
+          console.log(this.userImage);
+        },
+        error => console.log("FILAZO")
       );
     }
   }

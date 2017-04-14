@@ -13,11 +13,7 @@
         <template ngbTabContent>
           <div class="row userProfile">
             <div class="col-lg-2 avatar">
-              <img *ngIf="user?.avatar != null || user?.avatar != ''; else userUndefined" [src]="url_avatar + user?.avatar" alt="avatarUser" class="img-responsive avatar" />
-
-              <ng-template #userUndefined>
-                <img [src]="url_avatar + 'user_undefined.jpg'" alt="avatarUser" class="img-responsive avatar" />
-              </ng-template>
+              <img [src]="sanitizer.bypassSecurityTrustUrl(userImage)">
             </div>
             <div class="col-lg-8">
               <h4>

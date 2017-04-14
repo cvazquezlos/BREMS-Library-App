@@ -55,8 +55,8 @@ public class User {
 	private String address;
 	@JsonView(Basic.class)
 	private String biography;
-	@JsonView(Basic.class)
 	private String avatar;
+	@JsonView(Basic.class)
 	private boolean hasPhoto;
 	@JsonView({Basic.class, LoginInt.class})
 	private int avaibleLoans;
