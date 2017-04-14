@@ -116,8 +116,11 @@ public class UserRestController {
 
 		session.setMaxInactiveInterval(-1);
 		User user = userService.findOne(id);
-		if ((user != null) && (user.getId() == userUpdated.getId())) {
-			if ((authentication.getName().equals(user.getName())) || (request.isUserInRole("ADMIN"))) {
+		
+		if ((user != null) && (user.getId() == userUpdated.getId())) 
+		{
+			if ((authentication.getName().equals(user.getName())) || (request.isUserInRole("ADMIN"))) 
+			{
 				user.setEmail(userUpdated.getEmail());
 				user.setFirstName(userUpdated.getFirstName());
 				user.setLastName1(userUpdated.getLastName1());

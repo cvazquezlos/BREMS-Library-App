@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {ModalLogin} from "./login/modal.component/modal-login";
+import {User} from "../../model/user.model";
 
 
 @Component({

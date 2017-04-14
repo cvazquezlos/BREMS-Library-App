@@ -8,6 +8,7 @@ export interface User {
   lastName2: string;
   email: string;
   telephone: string;
+  viewTelephone: boolean;
   address?: string;
   biography?: string;
   avatar?: string;

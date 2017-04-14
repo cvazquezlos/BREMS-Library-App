@@ -30,13 +30,26 @@ export class UserService {
   }
 
   getUser(id: number) {
-    console.log(this.authCreds);
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
+
     return this.http.get(USER_URL + '/' + id.toString(), {headers: headers})
       .map(response => {
         this.user = response.json();
         return this.user;
+      })
+      .catch(error => Observable.throw('Server error'));
+  }
+
+  updateUser(id: number) {
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + this.authCreds);
+
+    return this.http.put(USER_URL + '/' + id.toString(), this.user, {headers: headers})
+      .map(
+        response => {
+          console.log(response.json());
+          return this.user;
       })
       .catch(error => Observable.throw('Server error'));
   }

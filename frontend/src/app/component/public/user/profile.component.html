@@ -13,14 +13,18 @@
         <template ngbTabContent>
           <div class="row userProfile">
             <div class="col-lg-2 avatar">
-              <p>Avatar</p>
+              <img *ngIf="user?.avatar != null || user?.avatar != ''; else userUndefined" [src]="url_avatar + user?.avatar" alt="avatarUser" class="img-responsive avatar" />
+
+              <ng-template #userUndefined>
+                <img [src]="url_avatar + 'user_undefined.jpg'" alt="avatarUser" class="img-responsive avatar" />
+              </ng-template>
             </div>
             <div class="col-lg-8">
               <h4>
                 Información Básica
-                <a href="#" data-toggle="modal" aria-haspopup="true" aria-expanded="false"
-                   data-target="#editProfile-modal">
-                  <span class="glyphicon glyphicon-pencil"></span>(Editar)
+                <a data-toggle="modal" aria-haspopup="true" aria-expanded="false"
+                   data-target="#editProfile-modal" (click)="editProfile()">
+                  <span class="glyphicon glyphicon-pencil" ></span>(Editar)
                 </a>
               </h4>
               <table class="table">
@@ -47,6 +51,22 @@
                 </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          <div class="row otherUserProfile">
+            <div class="col-lg-4 biographic">
+              <h4>
+                Mi Biografía
+                <a (click)="editBiography()">
+                  <span class="glyphicon glyphicon-pencil"></span >(Editar)
+                </a>
+              </h4>
+              <p *ngIf="user?.biography != null || user?.biography != ''; else notBiography">{{user?.biography}}</p>
+
+              <ng-template #notBiography>
+                <p>(No hay información para mostrar)</p>
+              </ng-template>
             </div>
           </div>
         </template>
@@ -156,3 +176,10 @@
     </ngb-tabset>
   </div>
 </div>
+
+
+<!-- // profile edit modal-->
+<modal-profile-edit></modal-profile-edit>
+
+<!-- // biography edit modal-->
+<modal-biography-edit></modal-biography-edit>

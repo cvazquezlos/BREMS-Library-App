@@ -68,7 +68,7 @@ export class SessionService {
 
   register(firstName: string, lastName1: string, lastName2: string, username: string, password: string, dni: string, email: string, phone: string){
       let newUser: User;
-      newUser = {name: username, passwordHash: password, dni: dni, firstName: firstName, lastName1: lastName1, lastName2: lastName2, email: email, telephone: phone};
+      newUser = {name: username, passwordHash: password, dni: dni, firstName: firstName, lastName1: lastName1, lastName2: lastName2, email: email, telephone: phone, viewTelephone: false};
       return this.http.post(BASE_URL + 'register', newUser);
   }
 }

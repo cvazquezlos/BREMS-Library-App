@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { SessionService } from 'app/service/session.service';
 
 import {User} from '../../../../model/user.model';
+import {UserService} from "../../../../service/user.service";
 
 @Component({
-  selector: 'modal-login',
-  templateUrl: 'modal-login.html',
+  selector: 'modal-biography-edit',
+  templateUrl: 'modal-biography-edit.html',
   styles: [`
     .hide{display: none}`]
   ,
@@ -22,31 +23,24 @@ import {User} from '../../../../model/user.model';
     ])
   ]
 })
-export class ModalLogin {
+export class ModalBiographyEdit {
   // - attributes
-  visible: boolean;
-  user: User;
+  visible       : boolean;
+  user          : User;
 
   // ------------------------------------------------------------------------------------------------------------------
-  constructor(private sessionService: SessionService, private router: Router) {
+  constructor(private userServ: UserService,) {
     this.visible = false;
   }
 
   // ------------------------------------------------------------------------------------------------------------------
 
-  logIn(username: string, password: string) {
+  edit(biography: string) {
+    this.user.biography = biography;
 
-    this.sessionService.logIn(username, password).subscribe(
-      () => {
-        this.close();
-        this.router.navigate(['']);
-      },
-      error => {
-        console.log(error);
-        console.log('fail');
-
-        this.close();
-      }
+    this.userServ.updateUser(this.user.id).subscribe(
+      response => console.log("user updated"),
+      error => console.log(JSON.stringify(error))
     );
   }
 
@@ -56,8 +50,11 @@ export class ModalLogin {
     this.visible = false;
   }
 
-  open(): void {
-    if (!this.visible)
+  open(user: User): void {
+    if (!this.visible) {
       this.visible = true;
+    }
+
+    this.user = user;
   }
 }
