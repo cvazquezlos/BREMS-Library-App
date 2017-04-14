@@ -36,7 +36,7 @@
                     <p>
                       {{book.description}}
                       <span>...</span>
-                      <a href="#"> <span class="moreInfo">+ info</span> </a>
+                      <a [routerLink]="['/resource',book.id]"> <span class="moreInfo">+ info</span> </a>
                     </p>
                     <div class="available stockAvailable">
                       <span class="glyphicon glyphicon-ok-circle"></span>
@@ -78,7 +78,7 @@
                     <p>
                       {{magazine.description}}
                       <span>...</span>
-                      <a href="#"> <span class="moreInfo">+ info</span> </a>
+                      <a [routerLink]="['/resource',magazine.id]"> <span class="moreInfo">+ info</span> </a>
                     </p>
                     <div class="available stockAvailable">
                       <span class="glyphicon glyphicon-ok-circle"></span>
