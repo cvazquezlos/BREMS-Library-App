@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
+import {ModalLogin} from "./login/modal.component/modal-login";
 
-import { User } from 'app/model/user.model';
-
-import { ModalLogin } from "app/component/public/login/modal.component/modal-login";
 
 @Component({
   selector: 'app-public',
@@ -21,5 +19,4 @@ export class PublicComponent {
   openLogin() {
     this.modalLogin.open();
   }
-
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http} from '@angular/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import {BASE_URL} from "../util";
+import {BASE_URL, LOGIN_URL} from "../util";
 
 import {User} from '../model/user.model';
 
@@ -26,8 +26,10 @@ export class SessionService {
     this.authCreds = btoa(username + ':' + password);
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.get(BASE_URL + 'logIn', {headers: headers})
-      .map(response => {
+
+    return this.http.get(LOGIN_URL, {headers: headers})
+      .map(
+        response => {
           let id = response.json().id;
           this.userService.setAuthHeaders(this.authCreds);
           this.userService.getUser(id).subscribe(
