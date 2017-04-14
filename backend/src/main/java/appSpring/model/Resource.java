@@ -35,6 +35,7 @@ public class Resource {
 	private String editorial;
 	@JsonView(Basic.class)
 	private String picture;
+	private boolean hasPhoto;
 	@JsonView(Basic.class)
 	private ArrayList<String> noReservedCopies;
 	@JsonView(Basic.class)
@@ -66,6 +67,7 @@ public class Resource {
 		this.description = description;
 		noReservedCopies = new ArrayList<String>();
 		avaiblereserve = new Boolean(true);
+		hasPhoto = false;
 	}
 
 	public Resource(String title, String author, String editorial, String description, String picture) {
@@ -76,6 +78,7 @@ public class Resource {
 		this.picture = picture;
 		noReservedCopies = new ArrayList<String>();
 		avaiblereserve = new Boolean(true);
+		hasPhoto = true;
 	}
 
 	public Integer getId() {
@@ -164,6 +167,14 @@ public class Resource {
 
 	public void setAvaibleReserve(Boolean avaiblereserve) {
 		this.avaiblereserve = avaiblereserve;
+	}
+
+	public boolean getHasPhoto() {
+		return this.hasPhoto;
+	}
+
+	public void setHasPhoto(boolean hasPhoto) {
+		this.hasPhoto = hasPhoto;
 	}
 
 }

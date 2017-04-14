@@ -57,6 +57,7 @@ public class User {
 	private String biography;
 	@JsonView(Basic.class)
 	private String avatar;
+	private boolean hasPhoto;
 	@JsonView({Basic.class, LoginInt.class})
 	private int avaibleLoans;
 	@JsonView(Basic.class)
@@ -95,7 +96,7 @@ public class User {
 		this.setViewTelephone(false);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		this.biography = "Nací, crecí y vi un barco pasar.";
-		this.avatar = "user_undefined_f.png";
+		this.hasPhoto = false;
 		this.literaryHobby = new ArrayList<String>();
 		this.literaryHobby.add("Ciencia ficción");
 		this.literaryHobby.add("Terror");
@@ -250,6 +251,14 @@ public class User {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public boolean getHasPhoto() {
+		return hasPhoto;
+	}
+
+	public void setHasPhoto(boolean hasPhoto) {
+		this.hasPhoto = hasPhoto;
 	}
 
 	public int getAvaibleLoans() {

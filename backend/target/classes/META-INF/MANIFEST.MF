@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: appSpring
 Implementation-Version: 0.0.1
-Built-By: jherel
+Built-By: c.vazquezlos
 Implementation-Vendor-Id: es.urjc.daw
 Build-Jdk: 1.8.0_121
 Implementation-URL: http://projects.spring.io/spring-boot/appSpring/

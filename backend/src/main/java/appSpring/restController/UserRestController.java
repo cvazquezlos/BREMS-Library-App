@@ -1,5 +1,6 @@
-	package appSpring.restController;
+package appSpring.restController;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 import appSpring.model.Action;
+import appSpring.model.ImagesPath;
 import appSpring.model.Fine;
 import appSpring.model.User;
 import appSpring.service.ActionService;
@@ -134,4 +137,28 @@ public class UserRestController {
 		}
 	}
 
+	@JsonView(UserDetail.class)
+	@RequestMapping(value = "/{id}/upload", method = RequestMethod.PUT)
+	public ResponseEntity<User> putUserImage(@PathVariable Integer id, 
+			@RequestParam("file") MultipartFile file, HttpSession session, 
+			HttpServletRequest request, Authentication authentication) throws IOException {
+
+		session.setMaxInactiveInterval(-1);
+		User user = userService.findOne(id);
+		if (user != null) {
+			if ((authentication.getName().equals(user.getName())) || (request.isUserInRole("ADMIN"))) {
+				String filename = userService.handleUploadImagetoDatabase(file, user.getId(), 
+						ImagesPath.IMAGES_USER.toString());
+				user.setAvatar(filename);
+				user.setHasPhoto(true);
+				System.out.println("TODO OK");
+				userService.save(user);
+				return new ResponseEntity<>(user, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 }
