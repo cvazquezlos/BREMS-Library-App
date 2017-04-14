@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import {ModalLogin} from "./login/modal.component/modal-login";
 
 
-
 @Component({
   selector: 'app-public',
   templateUrl: './public.component.html',
@@ -10,7 +9,9 @@ import {ModalLogin} from "./login/modal.component/modal-login";
 })
 export class PublicComponent {
 
-  constructor() { }
+  constructor() {
+    localStorage.clear();
+  }
 
   @ViewChild(ModalLogin)
   private modalLogin: ModalLogin;

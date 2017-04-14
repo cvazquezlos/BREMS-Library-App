@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DropdownModule } from "ngx-dropdown";
 
 import { PublicComponent } from './public.component';
 import { FooterComponent } from './footer/footer.component';
@@ -22,6 +23,7 @@ import { PublicRoutingModule } from './public-routing.module';
         CommonModule,
         PublicRoutingModule,
         NgbModule.forRoot(),
+        DropdownModule
     ],
     declarations: [
         PublicComponent,

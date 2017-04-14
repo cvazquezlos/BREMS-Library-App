@@ -9,8 +9,8 @@
       <div class="col-sm-12 col-md-5 col-lg-3 col-md-offset-2 col-lg-offset-4">
         <div id="search-input">
           <div class="input-group col-md-12">
-            <input type="text" class="form-control input-lg" name="mySearch" placeholder="Buscar" />
-            <span class="input-group-btn"><button (click)="gotoSearch()" class="glyphicon glyphicon-search" type="submit"></button></span>
+            <input type="text" #mySearch class="form-control input-lg" name="mySearch" placeholder="Buscar" />
+            <span class="input-group-btn"><button (click)="gotoSearch(mySearch.value)" class="glyphicon glyphicon-search" type="submit"></button></span>
           </div>
         </div>
       </div>
@@ -45,8 +45,8 @@
                     {{sessionService.user?.name}}</button>
                   <ul class="dropdown-menu">
                     <li><a [routerLink]="['/profile']" (click)="update('profile')">Perfil <span class="glyphicon glyphicon-user"></span></a>
-                    <li *ngIf="sessionService.isAdmin"><a href="#" (click)="select()">Panel de administración <span class="glyphicon glyphicon-cog"></span></a></li>
-                    <li><a href="#" (click)="logOut()">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a></li>
+                      <li *ngIf="sessionService.isAdmin"><a [routerLink]="['/admin']" (click)="select()">Panel de administración <span class="glyphicon glyphicon-cog"></span></a></li>
+                      <li><a href="#" (click)="logOut()">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a></li>
                   </ul>
                 </div>
               </div>
