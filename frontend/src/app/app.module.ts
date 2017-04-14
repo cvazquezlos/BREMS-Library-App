@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ActionService } from './service/action.service';
+import { FileService } from './service/file.service';
 import { FineService } from './service/fine.service';
 import { GenreService } from './service/genre.service';
 import { UserService } from './service/user.service';
@@ -33,6 +34,7 @@ import { SessionService } from './service/session.service';
   ],
   providers: [
     ActionService,
+    FileService,
     FineService,
     GenreService,
     UserService,

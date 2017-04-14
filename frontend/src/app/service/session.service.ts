@@ -7,6 +7,7 @@ import {BASE_URL, LOGIN_URL} from "../util";
 import {User} from '../model/user.model';
 
 import {ActionService} from '../service/action.service';
+import {FileService} from '../service/file.service';
 import {FineService} from '../service/fine.service';
 import {UserService} from '../service/user.service';
 
@@ -19,7 +20,7 @@ export class SessionService {
   isAdmin = false;
 
   constructor(private http: Http, private userService: UserService, private actionService: ActionService,
-              private fineService: FineService) {
+              private fineService: FineService, private fileService: FileService) {
   }
 
   logIn(username: string, password: string) {
@@ -42,6 +43,7 @@ export class SessionService {
           );
           localStorage.setItem("user", username);
           this.actionService.setAuthHeaders(this.authCreds);
+          this.fileService.setAuthHeaders(this.authCreds);
           this.fineService.setAuthHeaders(this.authCreds);
           this.isLogged = true;
           return this.user;
@@ -68,7 +70,7 @@ export class SessionService {
 
   register(firstName: string, lastName1: string, lastName2: string, username: string, password: string, dni: string, email: string, phone: string){
       let newUser: User;
-      newUser = {name: username, passwordHash: password, dni: dni, firstName: firstName, lastName1: lastName1, lastName2: lastName2, email: email, telephone: phone};
+      newUser = {name: username, passwordHash: password, dni: dni, firstName: firstName, lastName1: lastName1, lastName2: lastName2, email: email, telephone: phone, hasPhoto: false};
       return this.http.post(BASE_URL + 'register', newUser);
   }
 }
