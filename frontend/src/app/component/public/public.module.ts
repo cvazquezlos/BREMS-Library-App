@@ -20,15 +20,19 @@ import {RegisterComponent} from './login/register.component';
 
 import {ProfileComponent} from './user/profile.component';
 
-
 import {PublicRoutingModule} from './public-routing.module';
+import {ModalProfileEdit} from "./user/modal.profile.component/modal-profile-edit";
+import {FormsModule} from "@angular/forms";
+import {ModalBiographyEdit} from "./user/modal.biography.component/modal-biography-edit";
+
 
 @NgModule({
   imports: [
     CommonModule,
     PublicRoutingModule,
     NgbModule.forRoot(),
-    DropdownModule
+    DropdownModule,
+    FormsModule
   ],
   declarations: [
     PublicComponent,
@@ -42,7 +46,9 @@ import {PublicRoutingModule} from './public-routing.module';
     LoginComponent,
     ModalLogin,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    ModalProfileEdit,
+    ModalBiographyEdit
   ]
 })
 export class PublicModule {

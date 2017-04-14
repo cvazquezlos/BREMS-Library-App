@@ -1,0 +1,35 @@
+header .logo img {
+  height: 4vw;
+  width: 5vw;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-right: 1px solid #3b3a3b;
+}
+
+a.logo {
+  height: 4vw;
+  text-align: left;
+}
+
+.main-header .logo .logo-mini {
+  display: inline-block;
+}
+
+.logo span.logo-mini {
+  font-size: 0.9vw;
+  vertical-align: top;
+  margin-top: -4.5vw;
+  margin-left: 5.5vw;
+  width: 11vw;
+  height: 4vw;
+}
+.logo span.br {
+  margin-top: -6.7vw;
+}
+
+.skin-blue .main-header .logo {
+  background-color: rgba(180, 175, 0, 0.52);
+  color: #fff;
+  border-bottom: 0 solid transparent;
+  font-weight: bold;
+}

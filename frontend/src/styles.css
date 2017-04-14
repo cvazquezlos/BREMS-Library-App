@@ -23,6 +23,7 @@ body {
 
 a {
   color: #215E5D;
+  cursor: pointer;
 }
 
 a:focus,
@@ -482,7 +483,7 @@ html {
 
 
 /*body {
-  /* Margin bottom by footer height 
+  /* Margin bottom by footer height
   margin-bottom: 100px;
 }*/
 
@@ -634,4 +635,40 @@ input#username {
 
 .submitButton {
   margin-left: 0px !important;
+}
+
+.modalProfileEdit {
+  z-index: 200;
+  position: fixed;
+  top: 0vw;
+  left: 29vw;
+  color: #000;
+  padding: 2vw;
+}
+
+.modal-body-profile {
+  overflow: overlay;
+  height: 29vw;
+}
+
+.modalProfileEdit .modal-footer .btn-primary {
+  height: 3vw;
+  width: 9vw;
+  float: right;
+  margin-right: 2vw;
+}
+
+.modalAviso .bordeBottom {
+  width: 12vw;
+  height: 0.3vw;
+  background-color: #225f5e;
+  margin-top: -0.2vw;
+}
+
+.modalAviso input[type="text"] {
+  width: 37vw;
+}
+
+.modalAviso .modal-content {
+  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.59);
 }

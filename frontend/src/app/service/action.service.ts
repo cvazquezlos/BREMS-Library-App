@@ -17,7 +17,7 @@ export class ActionService {
   }
 
   getAllActions(page: number, finished: boolean) {
-    console.log(this.authCreds);
+
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
     return this.http.get(ACTION_URL + '?page=' + page + '&finished=' + finished, {headers: headers})
