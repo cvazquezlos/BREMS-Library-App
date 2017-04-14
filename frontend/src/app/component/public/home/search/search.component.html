@@ -52,7 +52,7 @@
                       <p>
                         {{resource.description}}
                         <span>...</span>
-                        <a href=""> <span class="moreInfo">+ info</span> </a>
+                        <a [routerLink]="['/resource', resource.id]"> <span class="moreInfo">+ info</span> </a>
                       </p>
                       <div class="available stockAvailable">
                         <span class="glyphicon glyphicon-ok-circle"></span>
