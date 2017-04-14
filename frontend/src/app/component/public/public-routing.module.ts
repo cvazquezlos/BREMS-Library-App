@@ -5,6 +5,7 @@ import { PublicComponent } from './public.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './home/about.component';
 import { ContactComponent } from './home/contact.component';
+import { SearchComponent } from './home/search/search.component';
 import { ProfileComponent } from './user/profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
@@ -22,7 +23,8 @@ const publicRoutes: Routes = [
                     { path: 'login', component: LoginComponent },
                     { path: 'register', component: RegisterComponent },
                     { path: 'about', component: AboutComponent },
-                    { path: 'contact', component: ContactComponent }
+                    { path: 'contact', component: ContactComponent },
+                    { path: 'search', component: SearchComponent }
                 ]
             }
         ]
