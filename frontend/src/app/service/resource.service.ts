@@ -11,10 +11,8 @@ export class ResourceService {
   }
 
   getResource(id: number) {
-    let url = RESOURCES_URL + '/' + id;
-
-    return this.http.get(url)
-      .map(response => response.json().content)
+    return this.http.get(RESOURCES_URL + '/' + id)
+      .map(response => response.json())
       .catch(error => Observable.throw('Server error'))
   }
 
