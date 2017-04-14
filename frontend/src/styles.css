@@ -450,7 +450,6 @@ header .logo h1 {
 .btn-view-more {
   background-color: rgba(10, 78, 77, 0.9);
   color: #ffffff;
-  display: none;
 }
 
 .btn-view-more:hover {
@@ -614,4 +613,8 @@ input#username {
 
 #register-form input[name="firstName"], #register-form input[name="lastName1"] {
   margin-bottom: 0.5vw;
+}
+
+.submitButton{
+  margin-left: 0px !important;
 }
