@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
-import { SessionService } from '../../../../service/session.service';
+import { SessionService } from 'app/service/session.service';
 
 @Component({
   selector: 'modal-login',
@@ -38,7 +38,7 @@ export class ModalLogin {
         console.log(user);
 
         this.close();
-        this.router.navigate(['/profile']);
+        this.router.navigate(['./profile']);
       },
       error => {
         console.log(error);

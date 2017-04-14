@@ -45,8 +45,8 @@
                     {{sessionService.user?.name}}</button>
                   <ul class="dropdown-menu">
                     <li><a [routerLink]="['/profile']" (click)="update('profile')">Perfil <span class="glyphicon glyphicon-user"></span></a>
-                    <li *ngIf="sessionService.isAdmin"><a href="#" (click)="select()">Panel de administración <span class="glyphicon glyphicon-cog"></span></a></li>
-                    <li><a href="#" (click)="logOut()">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a></li>
+                      <li *ngIf="sessionService.isAdmin"><a [routerLink]="['/admin']" (click)="select()">Panel de administración <span class="glyphicon glyphicon-cog"></span></a></li>
+                      <li><a href="#" (click)="logOut()">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a></li>
                   </ul>
                 </div>
               </div>
