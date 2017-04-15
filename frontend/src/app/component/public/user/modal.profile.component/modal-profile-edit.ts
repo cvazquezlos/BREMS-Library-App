@@ -57,10 +57,9 @@ export class ModalProfileEdit {
       response => {
         console.log(this.user.name + " successfully updated.");
         this.user = this.userService.getUserCompleted();
-        // NOW YOU HAVE TO RETURN THE MODIFIED USER TO FATHER COMPONENT.
         this.close();
       },
-      error => console.log("Faile trying to modify " + this.user.name + ".")
+      error => console.log("Fail trying to modify " + this.user.name + ".")
     );
   }
 
