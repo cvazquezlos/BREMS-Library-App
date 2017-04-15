@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
           this.userImage = 'data:image/png;base64,' + dataRecieved[3];
           console.log(this.userImage);
         },
-        error => console.log("FILAZO")
+        error => console.log("Fail trying to charge " + this.user.name + " image.")
       );
     }
   }

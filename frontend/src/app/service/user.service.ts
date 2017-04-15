@@ -32,7 +32,6 @@ export class UserService {
   getUser(id: number) {
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-
     return this.http.get(USER_URL + '/' + id.toString(), {headers: headers})
       .map(response => {
         this.user = response.json();
@@ -41,16 +40,22 @@ export class UserService {
       .catch(error => Observable.throw('Server error'));
   }
 
-  updateUser(id: number) {
+  updateUser(user: User) {
     let headers: Headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Origin', 'https://localhost:8443/api/');
     headers.append('Authorization', 'Basic ' + this.authCreds);
-
-    return this.http.put(USER_URL + '/' + id.toString(), this.user, {headers: headers})
+    return this.http.put(USER_URL + '/' + user.id, user, {headers: headers})
       .map(
         response => {
-          console.log(response.json());
+          // GETTING ALL INFORMATION ABOUT MODIFIED USER (NORMAL RESPONSE JUST RETURNS BASIC DATA,
+          // SO WE NEED FULL INFORMATION ABOUT HIM/HER, THATS WHY I CALL "GETUSER" METHOD AGAIN.
+          this.getUser(user.id).subscribe(
+            user => this.user = user,
+            error => console.log("Fail trying to get full user information by UserService.")
+          );
           return this.user;
-      })
+        })
       .catch(error => Observable.throw('Server error'));
   }
 }
