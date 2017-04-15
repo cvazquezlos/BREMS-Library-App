@@ -19,7 +19,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import appSpring.model.Fine;
 import appSpring.model.ResourceCopy;
 import appSpring.model.User;
+
 import appSpring.service.UserService;
+import appSpring.service.ResourceService;
 
 @RestController
 @RequestMapping("/api/files")
@@ -30,13 +32,28 @@ public class FileRestController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ResourceService resourceService;
 
 	@JsonView(FineDetail.class)
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<String> getFine(@PathVariable int id, Authentication authentication, HttpSession session,
+	public ResponseEntity<String> getUserfile(@PathVariable int id, Authentication authentication, HttpSession session,
 			HttpServletRequest request) throws IOException {
 
 		String data = userService.getImageData(id + ".jpg");
+		if (data != null) {
+			return new ResponseEntity<>(data, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@JsonView(FineDetail.class)
+	@RequestMapping(value = "/resource/{id}", method = RequestMethod.GET)
+	public ResponseEntity<String> getResourceFile(@PathVariable int id, Authentication authentication, HttpSession session,
+			HttpServletRequest request) throws IOException {
+
+		String data = resourceService.getImageData(id + ".jpg");
 		if (data != null) {
 			return new ResponseEntity<>(data, HttpStatus.OK);
 		} else {
