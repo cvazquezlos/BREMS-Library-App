@@ -13,7 +13,7 @@
         <template ngbTabContent>
           <div class="row userProfile">
             <div class="col-lg-2 avatar">
-              <img [src]="sanitizer.bypassSecurityTrustUrl(userImage)">
+              <img [src]="sanitizer.bypassSecurityTrustUrl(userImage)" class="img-responsive avatar">
             </div>
             <div class="col-lg-8">
               <h4>

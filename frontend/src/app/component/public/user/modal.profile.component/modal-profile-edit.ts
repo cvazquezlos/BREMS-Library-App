@@ -36,7 +36,6 @@ export class ModalProfileEdit {
   telephone     : string;
   viewTelephone : boolean;
   address       : string;
-  avatar        : string;
 
   // ------------------------------------------------------------------------------------------------------------------
   constructor(private userServ: UserService,) {
@@ -51,7 +50,6 @@ export class ModalProfileEdit {
       this.telephone      = this.user.telephone;
       this.viewTelephone  = this.user.viewTelephone;
       this.address        = this.user.address;
-      this.avatar         = this.user.avatar;
     }
   }
 
@@ -65,7 +63,6 @@ export class ModalProfileEdit {
     this.user.telephone      = this.telephone;
     this.user.viewTelephone  = this.viewTelephone;
     this.user.address        = this.address;
-    this.user.avatar         = this.avatar;
 
     this.userServ.updateUser(this.user.id).subscribe(
       response => console.log("user updated"),

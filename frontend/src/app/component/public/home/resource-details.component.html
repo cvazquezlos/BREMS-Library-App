@@ -16,36 +16,15 @@
     <div class="row">
       <div class="col-lg-3">
         <div class="coverItem">
+          <img [src]="sanitizer.bypassSecurityTrustUrl(resource?.image)" class="img-responsive" />
         </div>
       </div>
-      <!-- informacion del libro -->
       <div class="col-lg-9 information">
         <h5 class="authorName"><span>por </span>{{resource?.author}}</h5>
-        <ul class="stars">
-          <li class="staticStar p10"></li>
-          <li class="staticStar p10"></li>
-          <li class="staticStar p10"></li>
-          <li class="staticStar p6"></li>
-          <li class="staticStar p0"></li>
-        </ul> <span class="ratingValue">3.66</span>
         <div class="description">
           {{resource?.description}}
         </div>
-        <div>
-          <!-- // - text available -->
-          <div class="available">
-            <!--
-            {{#available}}
-            <span class="graphicAvailable stockGreen"></span>
-            <span class="textAvailable">Disponible</span>{{/available}} {{^available}}
-            <span class="graphicAvailable stockYellow"></span>
-            <span class="textAvailable">No disponible</span>{{/available}}
-            <!--<span class="graphicAvailable stockYellow"></span>-->
-            <!--<span class="glyphicon glyphicon-ban-circle"></span>-->
-          </div>
-          <!-- // - button reserved -->
-          <button type="button" class="btn btn-success">Reservar</button>
-        </div>
+        <button type="button" class="btn btn-success">Reservar</button>
       </div>
     </div>
   </div>
