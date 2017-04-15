@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { Router } from '@angular/router';
 import {trigger, style, animate, transition} from '@angular/animations';
 
 import {User} from '../../../../model/user.model';
@@ -26,37 +27,23 @@ import {UserService} from "../../../../service/user.service";
 export class ModalProfileEdit {
   visible: boolean;
   user: User;
-  firstName: string;
-  lastName1: string;
-  lastName2: string;
-  email: string;
-  telephone: string;
-  viewTelephone: boolean;
-  address: string;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.visible = false;
   }
 
-  edit() {
-    this.user.firstName = this.firstName;
-    this.user.lastName1 = this.lastName1;
-    this.user.lastName2 = this.lastName2;
-    this.user.email = this.email;
-    this.user.telephone = this.telephone;
-    this.user.viewTelephone = this.viewTelephone;
-    this.user.address = this.address;
-
+  edit(firstName, lastName1, lastName2, email, telephone, viewTelephone, address, avatar) {
     let updatedUser = {
-      id: this.user.id, name: this.user.name, dni: this.user.dni, firstName: this.firstName,
-      lastName1: this.lastName1, lastName2: this.lastName2, email: this.email, telephone: this.telephone,
-      viewTelephone: this.viewTelephone, address: this.address, biography: this.user.biography
+      id: this.user.id, name: this.user.name, dni: this.user.dni, firstName: firstName,
+      lastName1: lastName1, lastName2: lastName2, email: email, telephone: telephone,
+      viewTelephone: viewTelephone, address: address, biography: this.user.biography
     };
 
     this.userService.updateUser(updatedUser).subscribe(
       response => {
         console.log(this.user.name + " successfully updated.");
         this.user = this.userService.getUserCompleted();
+        this.router.navigate(['/profile']);
         this.close();
       },
       error => console.log("Fail trying to modify " + this.user.name + ".")

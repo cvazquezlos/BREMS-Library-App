@@ -49,8 +49,6 @@ export class UserService {
     return this.http.put(USER_URL + '/' + user.id, body, {headers: headers})
       .map(
         response => {
-          // GETTING ALL INFORMATION ABOUT MODIFIED USER (NORMAL RESPONSE JUST RETURNS BASIC DATA,
-          // SO WE NEED FULL INFORMATION ABOUT HIM/HER, THATS WHY I CALL "GETUSER" METHOD AGAIN.
           this.getUser(user.id).subscribe(
             user => this.user = user,
             error => console.log("Fail trying to get full user information by UserService.")
@@ -58,5 +56,9 @@ export class UserService {
           return this.user;
         })
       .catch(error => Observable.throw('Server error'));
+  }
+
+  updateFile() {
+    
   }
 }
