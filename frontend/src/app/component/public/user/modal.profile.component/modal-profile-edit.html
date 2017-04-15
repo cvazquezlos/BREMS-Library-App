@@ -17,50 +17,59 @@
 
           <div class="form-group">
             <label for="userAvatar">Modificar</label>
-            <input type="file" id="userAvatar" name="avatar">
+            <input type="file" (change)="selectFile($event)" id="userAvatar" name="avatar">
             <p class="help-block">Selecciona una imagen</p>
           </div>
         </div>
 
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" id="nombre" name="firstName" placeholder="Nombre" [(ngModel)]="firstName" [value]="user?.firstName">
+          <input type="text" class="form-control" id="nombre" name="firstName" placeholder="Nombre" #firstName
+                 [value]="user?.firstName">
         </div>
 
         <div class="form-group">
           <label for="apellido1">Primer apellido</label>
-          <input type="text" class="form-control" id="apellido1" name="lastName1" placeholder="Primer Apellido" [(ngModel)]="lastName1" [value]="user?.lastName1">
+          <input type="text" class="form-control" id="apellido1" name="lastName1" placeholder="Primer Apellido"
+                 #lastName1 [value]="user?.lastName1">
         </div>
 
         <div class="form-group">
           <label for="apellido2">Segundo apellido</label>
-          <input type="text" class="form-control" id="apellido2" name="lastName2" placeholder="Segundo Apellido" [(ngModel)]="lastName2" [value]="user?.lastName2">
+          <input type="text" class="form-control" id="apellido2" name="lastName2" placeholder="Segundo Apellido"
+                 #lastName2 [value]="user?.lastName2">
         </div>
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="email" [value]="user?.email">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email" #email
+                 [value]="user?.email">
         </div>
 
         <div class="form-group">
           <label for="telefono">Tel&eacute;fono</label>
           <div class="checkbox viewTelephone">
             <label>
-              <input type="checkbox" name="viewTelephone" [(ngModel)]="viewTelephone" [value]="user?.viewTelephone"/> Mostrar en mi perfil
+              <input type="checkbox" name="viewTelephone" #viewTelephone [value]="user?.viewTelephone"/> Mostrar en mi
+              perfil
             </label>
           </div>
-          <input type="text" class="form-control" id="telefono" name="telephone" placeholder="Telefono" [(ngModel)]="telephone" [value]="user?.telephone">
+          <input type="text" class="form-control" id="telefono" name="telephone" placeholder="Telefono" #telephone
+                 [value]="user?.telephone">
         </div>
 
         <div class="form-group">
           <label for="telefono">Direcci&oacute;n</label>
-          <input type="text" class="form-control" id="address" name="address" placeholder="Dirección" [(ngModel)]="address" [value]="user?.address">
+          <input type="text" class="form-control" id="address" name="address" placeholder="Dirección" #address
+                 [value]="user?.address">
         </div>
       </div>
 
       <div class="modal-footer">
         <div>
-          <button class="btn btn-primary btn-lg btn-block" (click)="edit()">Modificar</button>
+          <button class="btn btn-primary btn-lg btn-block" (click)="edit(firstName.value, lastName1.value,
+          lastName2.value, email.value, telephone.value, viewTelephone.value, address.value)">Modificar
+          </button>
         </div>
       </div>
 

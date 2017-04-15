@@ -41,21 +41,28 @@ export class UserService {
   }
 
   updateUser(user: User) {
+    let body = JSON.stringify(user);
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Origin', 'https://localhost:8443/api/');
+    headers.append('X-Requested-With', 'XMLHttpRequest');
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.put(USER_URL + '/' + user.id, user, {headers: headers})
+    return this.http.put(USER_URL + '/' + user.id, body, {headers: headers})
       .map(
         response => {
-          // GETTING ALL INFORMATION ABOUT MODIFIED USER (NORMAL RESPONSE JUST RETURNS BASIC DATA,
-          // SO WE NEED FULL INFORMATION ABOUT HIM/HER, THATS WHY I CALL "GETUSER" METHOD AGAIN.
           this.getUser(user.id).subscribe(
             user => this.user = user,
             error => console.log("Fail trying to get full user information by UserService.")
           );
           return this.user;
         })
+      .catch(error => Observable.throw('Server error'));
+  }
+
+  updateFile(formData: FormData, user: User) {
+    let headers: Headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this.http.put(USER_URL + '/' + user.id + '/upload', formData, {headers: headers})
+      .map(response => console.log("Success. The file has been successfully added to server directories."))
       .catch(error => Observable.throw('Server error'));
   }
 }
