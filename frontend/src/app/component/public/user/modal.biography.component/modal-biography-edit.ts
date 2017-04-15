@@ -38,10 +38,6 @@ export class ModalBiographyEdit {
   edit(biography: string) {
     this.user.biography = biography;
 
-    this.userServ.updateUser(this.user.id).subscribe(
-      response => console.log("user updated"),
-      error => console.log(JSON.stringify(error))
-    );
   }
 
   // ------------------------------------------------------------------------------------------------------------------
