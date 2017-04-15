@@ -17,7 +17,7 @@
 
           <div class="form-group">
             <label for="userAvatar">Modificar</label>
-            <input type="file" #avatar id="userAvatar" name="avatar">
+            <input type="file" (change)="selectFile($event)" id="userAvatar" name="avatar">
             <p class="help-block">Selecciona una imagen</p>
           </div>
         </div>
@@ -68,7 +68,7 @@
       <div class="modal-footer">
         <div>
           <button class="btn btn-primary btn-lg btn-block" (click)="edit(firstName.value, lastName1.value,
-          lastName2.value, email.value, telephone.value, viewTelephone.value, address.value, avatar.value)">Modificar
+          lastName2.value, email.value, telephone.value, viewTelephone.value, address.value)">Modificar
           </button>
         </div>
       </div>

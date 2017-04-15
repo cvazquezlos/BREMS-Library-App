@@ -58,7 +58,11 @@ export class UserService {
       .catch(error => Observable.throw('Server error'));
   }
 
-  updateFile() {
-    
+  updateFile(formData: FormData, user: User) {
+    let headers: Headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this.http.put(USER_URL + '/' + user.id + '/upload', formData, {headers: headers})
+      .map(response => console.log("Success. The file has been successfully added to server directories."))
+      .catch(error => Observable.throw('Server error'));
   }
 }

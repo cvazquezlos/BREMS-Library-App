@@ -27,12 +27,13 @@ import {UserService} from "../../../../service/user.service";
 export class ModalProfileEdit {
   visible: boolean;
   user: User;
+  userImage: any;
 
   constructor(private userService: UserService, private router: Router) {
     this.visible = false;
   }
 
-  edit(firstName, lastName1, lastName2, email, telephone, viewTelephone, address, avatar) {
+  edit(firstName, lastName1, lastName2, email, telephone, viewTelephone, address) {
     let updatedUser = {
       id: this.user.id, name: this.user.name, dni: this.user.dni, firstName: firstName,
       lastName1: lastName1, lastName2: lastName2, email: email, telephone: telephone,
@@ -41,6 +42,14 @@ export class ModalProfileEdit {
 
     this.userService.updateUser(updatedUser).subscribe(
       response => {
+        if (this.userImage !== undefined) {
+          console.log("Uploading file...");
+          let formData = new FormData();
+          formData.append("file", this.userImage);
+          this.userService.updateFile(formData, updatedUser).subscribe(
+            error => console.log("Fail trying to upload image to server directories.")
+          );
+        }
         console.log(this.user.name + " successfully updated.");
         this.user = this.userService.getUserCompleted();
         this.router.navigate(['/profile']);
@@ -48,6 +57,11 @@ export class ModalProfileEdit {
       },
       error => console.log("Fail trying to modify " + this.user.name + ".")
     );
+  }
+
+  selectFile($event) {
+    this.userImage = $event.target.files[0];
+    console.log("Selected file: " + this.userImage.name + " type:" + this.userImage.type + " size:" + this.userImage.size);
   }
 
   close(): void {
