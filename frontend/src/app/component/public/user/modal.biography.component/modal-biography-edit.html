@@ -1,0 +1,29 @@
+<div [@dialog]="visible" [class.hide]="!visible" class="modalAviso modalProfileEdit modal-dialog">
+  <ng-content></ng-content>
+
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h3>Mi Biograf&iacute;a</h3>
+        <div class="bordeBottom"></div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div id="div-forms">
+        <div class="modal-body">
+          <div class="form-group biographyEdit">
+            <textarea name="biography" rows=5 cols=75 #biography>{{user?.biography}}</textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div>
+            <button class="btn btn-primary btn-lg btn-block" (click)="edit(biography.value)">Modificar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>
+

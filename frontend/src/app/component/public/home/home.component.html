@@ -15,10 +15,7 @@
               <div class="row item">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                   <div class="coverItem">
-                    <img *ngIf="book.picture != null; else otherCont" [src]="img_url + book.picture" class="img-responsive" />
-                    <ng-template #otherCont>
-                      <img [src]="'./assets/img/noPicture.png'" class="img-responsive" />
-                    </ng-template>
+                    <img [src]="sanitizer.bypassSecurityTrustUrl(book.image)" class="img-responsive" />
                     <div>
                       <div *ngIf="isLogged">
                         <button *ngIf="book.avaiblereserve; else notEnough" (click)="reserveResource(book.id)" class="btn btn-reserve">Reservar</button>
@@ -36,7 +33,7 @@
                     <p>
                       {{book.description}}
                       <span>...</span>
-                      <a href="#"> <span class="moreInfo">+ info</span> </a>
+                      <a [routerLink]="['/resource',book.id]"> <span class="moreInfo">+ info</span> </a>
                     </p>
                     <div class="available stockAvailable">
                       <span class="glyphicon glyphicon-ok-circle"></span>
@@ -57,10 +54,7 @@
               <div class="row item">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                   <div class="coverItem">
-                    <img *ngIf="magazine.picture != null; else otherCont" [src]="img_url + magazine.picture" class="img-responsive" />
-                    <ng-template #otherCont>
-                      <img [src]="'./assets/img/noPicture.png'" class="img-responsive" />
-                    </ng-template>
+                    <img [src]="sanitizer.bypassSecurityTrustUrl(magazine.image)" class="img-responsive" />
                     <div>
                       <div *ngIf="isLogged">
                         <button *ngIf="magazine.avaiblereserve; else notEnough" (click)="reserveResource(magazine.id)" class="btn btn-reserve">Reservar</button>
@@ -78,7 +72,7 @@
                     <p>
                       {{magazine.description}}
                       <span>...</span>
-                      <a href="#"> <span class="moreInfo">+ info</span> </a>
+                      <a [routerLink]="['/resource',magazine.id]"> <span class="moreInfo">+ info</span> </a>
                     </p>
                     <div class="available stockAvailable">
                       <span class="glyphicon glyphicon-ok-circle"></span>

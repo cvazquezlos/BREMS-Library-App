@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {Component, OnInit, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import 'rxjs/Rx';
+import {DomSanitizer} from '@angular/platform-browser';
 
 import {Action} from '../../../model/action.model';
 import {Fine} from '../../../model/fine.model';
@@ -8,13 +9,18 @@ import {User} from '../../../model/user.model';
 
 import {ActionService} from '../../../service/action.service';
 import {FineService} from '../../../service/fine.service';
+import {FileService} from '../../../service/file.service';
 import {SessionService} from '../../../service/session.service';
 import {UserService} from '../../../service/user.service';
+import {ModalProfileEdit} from "./modal.profile.component/modal-profile-edit";
+import {IMG_URL} from "../../../util";
+import {ModalBiographyEdit} from "./modal.biography.component/modal-biography-edit";
+
+const url_avatar = IMG_URL + "avatars/";
 
 @Component({
   templateUrl: 'profile.component.html'
 })
-
 export class ProfileComponent implements OnInit {
 
   currentActions: Action[];
@@ -24,9 +30,17 @@ export class ProfileComponent implements OnInit {
   history: Action[];
   historyPage: number;
   user: User;
+  userImage: any;
+
+  @ViewChild(ModalProfileEdit)
+  private modalProfileEdit: ModalProfileEdit;
+
+  @ViewChild(ModalBiographyEdit)
+  private modalBiographyEdit: ModalBiographyEdit;
 
   constructor(private router: Router, private userService: UserService, private sessionService: SessionService,
-              private actionService: ActionService, private fineService: FineService) {
+              private actionService: ActionService, private fineService: FineService,
+              private sanitizer: DomSanitizer, private fileService: FileService) {
     this.currentActions = [];
     this.currentActionsPage = 0;
     this.fines = [];
@@ -61,6 +75,22 @@ export class ProfileComponent implements OnInit {
         },
         error => console.log(error)
       );
+      this.fileService.getUserFile(this.user.id).subscribe(
+        data => {
+          let dataRecieved: string[] = data.split('"');
+          this.userImage = 'data:image/png;base64,' + dataRecieved[3];
+          console.log(this.userImage);
+        },
+        error => console.log("FILAZO")
+      );
     }
+  }
+
+  public editProfile() {
+    this.modalProfileEdit.open(this.user);
+  }
+
+  public editBiography() {
+    this.modalBiographyEdit.open(this.user);
   }
 }

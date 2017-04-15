@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
-import { SessionService } from '../../../../service/session.service';
+import { SessionService } from 'app/service/session.service';
+
+import {User} from '../../../../model/user.model';
 
 @Component({
   selector: 'modal-login',
@@ -23,6 +25,7 @@ import { SessionService } from '../../../../service/session.service';
 export class ModalLogin {
   // - attributes
   visible: boolean;
+  user: User;
 
   // ------------------------------------------------------------------------------------------------------------------
   constructor(private sessionService: SessionService, private router: Router) {
@@ -34,11 +37,9 @@ export class ModalLogin {
   logIn(username: string, password: string) {
 
     this.sessionService.logIn(username, password).subscribe(
-      user => {
-        console.log(user);
-
+      () => {
         this.close();
-        this.router.navigate(['/profile']);
+        this.router.navigate(['']);
       },
       error => {
         console.log(error);
