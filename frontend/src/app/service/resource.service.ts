@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
-import { RESOURCES_URL } from "../util";
+import {RESOURCES_URL} from "../util";
 
 @Injectable()
 export class ResourceService {
@@ -22,9 +22,9 @@ export class ResourceService {
       .catch(error => Observable.throw('Server error'));
   }
 
-  searchResources(name: string, page: number){
-      return this.http.get(RESOURCES_URL + '?name=' + name + '&page=' + page)
-        .map(response => response.json().content)
-        .catch(error => Observable.throw('Server error'));
-    }
+  searchResources(name: string, page: number) {
+    return this.http.get(RESOURCES_URL + '?name=' + name + '&page=' + page)
+      .map(response => response.json().content)
+      .catch(error => Observable.throw('Server error'));
+  }
 }

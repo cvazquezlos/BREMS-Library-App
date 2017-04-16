@@ -10,6 +10,7 @@ import {ActionService} from '../service/action.service';
 import {FileService} from '../service/file.service';
 import {FineService} from '../service/fine.service';
 import {UserService} from '../service/user.service';
+import {ResourceCopyService} from '../service/resource-copy.service';
 
 @Injectable()
 export class SessionService {
@@ -20,7 +21,8 @@ export class SessionService {
   isAdmin = false;
 
   constructor(private http: Http, private userService: UserService, private actionService: ActionService,
-              private fineService: FineService, private fileService: FileService) {
+              private fineService: FineService, private fileService: FileService,
+              private resourceCopyService: ResourceCopyService) {
   }
 
   logIn(username: string, password: string) {
@@ -45,6 +47,7 @@ export class SessionService {
           this.actionService.setAuthHeaders(this.authCreds);
           this.fileService.setAuthHeaders(this.authCreds);
           this.fineService.setAuthHeaders(this.authCreds);
+          this.resourceCopyService.setAuthHeaders(this.authCreds);
           this.isLogged = true;
           return this.user;
       })
