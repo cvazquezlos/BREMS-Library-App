@@ -33,8 +33,8 @@ public class Resource {
 	private String author;
 	@JsonView(Basic.class)
 	private String editorial;
-	@JsonView(Basic.class)
 	private String picture;
+	@JsonView(Basic.class)
 	private boolean hasPhoto;
 	@JsonView(Basic.class)
 	private ArrayList<String> noReservedCopies;

@@ -11,6 +11,7 @@ html {
   border: 1px solid #AAA;
 }
 
+
 /************************
         GENERALES
 *************************/
@@ -22,6 +23,7 @@ body {
 
 a {
   color: #215E5D;
+  cursor: pointer;
 }
 
 a:focus,
@@ -51,6 +53,7 @@ a:hover .moreInfo {
 .visibilityHide {
   visibility: hidden;
 }
+
 
 /************************
         HEADER
@@ -115,6 +118,7 @@ header .logo h1 {
   font-size: 23px;
 }
 
+
 /************************
         Menu Nav
 *************************/
@@ -147,6 +151,7 @@ header .logo h1 {
   background-color: #e7e7e7;
 }
 
+
 /** Login **/
 
 .userDropdownMenu .dropdown-toggle[data-toggle] {
@@ -169,6 +174,7 @@ header .logo h1 {
 .userdropmenu {
   padding-left: 149px;
 }
+
 
 /************************
         Sub Header
@@ -293,9 +299,15 @@ header .logo h1 {
   margin-right: 8px;
 }
 
+
 /************************
         CONTENT
 *************************/
+
+.content {
+  min-height: 78%;
+}
+
 
 /*Nav tabs*/
 
@@ -324,6 +336,7 @@ header .logo h1 {
   background-color: transparent;
 }
 
+
 /*Breadcrumb*/
 
 .content .titleBreadcrumb {
@@ -343,6 +356,7 @@ header .logo h1 {
   margin: 0px;
   font-size: 32px;
 }
+
 
 /* Items */
 
@@ -457,6 +471,7 @@ header .logo h1 {
   color: #ffffff;
 }
 
+
 /************************
         FOOTER
 *************************/
@@ -466,14 +481,15 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
+
+/*body {
+  /* Margin bottom by footer height
   margin-bottom: 100px;
-}
+}*/
 
 footer {
   background-color: #9a5c28;
-  position: absolute;
+  /*position: absolute;*/
   bottom: 0;
   width: 100%;
   height: 60px;
@@ -605,16 +621,54 @@ input#username {
   color: #ffffff;
 }
 
-.userDropdownMenu .dropdown-toggle:focus, .userDropdownMenu .dropdown-toggle:hover {
+.userDropdownMenu .dropdown-toggle:focus,
+.userDropdownMenu .dropdown-toggle:hover {
   background-color: #e7e7e7;
   border-bottom: 2px solid #b1ad27;
   color: #000000;
 }
 
-#register-form input[name="firstName"], #register-form input[name="lastName1"] {
+#register-form input[name="firstName"],
+#register-form input[name="lastName1"] {
   margin-bottom: 0.5vw;
 }
 
-.submitButton{
+.submitButton {
   margin-left: 0px !important;
+}
+
+.modalProfileEdit {
+  z-index: 200;
+  position: fixed;
+  top: 0vw;
+  left: 29vw;
+  color: #000;
+  padding: 2vw;
+}
+
+.modal-body-profile {
+  overflow: overlay;
+  height: 29vw;
+}
+
+.modalProfileEdit .modal-footer .btn-primary {
+  height: 3vw;
+  width: 9vw;
+  float: right;
+  margin-right: 2vw;
+}
+
+.modalAviso .bordeBottom {
+  width: 12vw;
+  height: 0.3vw;
+  background-color: #225f5e;
+  margin-top: -0.2vw;
+}
+
+.modalAviso input[type="text"] {
+  width: 37vw;
+}
+
+.modalAviso .modal-content {
+  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.59);
 }

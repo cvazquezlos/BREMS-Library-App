@@ -11,33 +11,36 @@
     </div>
     <div id="div-forms">
       <!-- Login form -->
-      <form id="login-form" action="/login" method="post">
-        <div class="modal-body">
-          <div id="div-login-msg">
-            <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
-            <span id="text-login-msg">Escribe tu usuario</span>
-          </div>
-          <input id="username" #username class="form-control" name="username" type="text" placeholder="Usuario" required>
+      <div class="modal-body">
+        <div id="div-login-msg">
+          <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+          <span id="text-login-msg">Escribe tu usuario</span>
+        </div>
+        <input id="username" #username class="form-control" name="username" type="text" placeholder="Usuario" required>
 
-          <div id="div-login-msg">
-            <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
-            <span id="text-login-msg">Escribe tu contrase&ntilde;a</span>
-          </div>
-          <input id="password" #password class="form-control" name="password" type="password" placeholder="Contrase&ntilde;a" required>
-          <div class="checkbox">
-            <!--<label> <input type="checkbox"> Recordar</label>-->
-          </div>
+        <div id="div-login-msg">
+          <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+          <span id="text-login-msg">Escribe tu contrase&ntilde;a</span>
         </div>
-        <div class="modal-footer">
-          <div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="logIn(username.value, password.value)">Iniciar sesi&oacute;n</button>
-          </div>
-          <div>
-            <a [routerLink]="['']"><button id="login_lost_btn" type="button" class="btn btn-link">Olvid&eacute; mi contrase&ntilde;a</button></a>
-            <a href="/register"><button id="login_register_btn" type="button"class="btn btn-link">Registrarse</button></a>
-          </div>
+        <input id="password" #password class="form-control" name="password" type="password"
+               placeholder="Contrase&ntilde;a" required>
+        <div class="checkbox">
+          <!--<label> <input type="checkbox"> Recordar</label>-->
         </div>
-      </form>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <button class="btn btn-primary btn-lg btn-block" (click)="logIn(username.value, password.value)">Iniciar sesi&oacute;n</button>
+        </div>
+        <div>
+          <a [routerLink]="['']">
+            <button id="login_lost_btn" type="button" class="btn btn-link">Olvid&eacute; mi contraseña</button>
+          </a>
+          <a [routerLink]="['/register']">
+            <button id="login_register_btn" type="button" class="btn btn-link">Registrarse</button>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 

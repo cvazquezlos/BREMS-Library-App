@@ -23,7 +23,7 @@ export class LoginComponent {
         this.user = user;
         this.router.navigate(['']);
       },
-      error => console.log(error)
+      error => console.log("Fail trying to login.")
     );
   }
 

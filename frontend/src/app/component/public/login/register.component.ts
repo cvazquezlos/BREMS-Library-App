@@ -17,7 +17,7 @@ export class RegisterComponent {
 
     this.sessionService.register(firstName, lastName1, lastName2, username, password, dni, email, phone).subscribe(
       user => { this.router.navigate(['/']); },
-      error => { }
+      error => console.log("Fail trying to register new account.")
     );
   }
 }

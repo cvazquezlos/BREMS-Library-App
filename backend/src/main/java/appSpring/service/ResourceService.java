@@ -1,8 +1,16 @@
 package appSpring.service;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import appSpring.model.Genre;
+import appSpring.model.ImagesPath;
 import appSpring.model.Resource;
 import appSpring.model.ResourceType;
 import appSpring.repository.ResourceRepository;
@@ -134,6 +143,29 @@ public class ResourceService {
 
 		}
 		return "ERROR";
+	}
+	
+	public String getImageData(String filename) throws IOException {
+		File fileFolder = new File(ImagesPath.IMAGES_RESOURCE.toString());
+		File targetFile = new File(fileFolder, filename);
+		if (targetFile.exists()) {
+			BufferedImage image = ImageIO.read(targetFile);
+			return imgToBase64String(image, "jpg");
+		} else {
+			targetFile = new File(fileFolder, "resource_undefined.png");
+			BufferedImage image = ImageIO.read(targetFile);
+			return imgToBase64String(image, "jpg");
+		}
+	}
+	
+	private static String imgToBase64String(final RenderedImage img, final String formatName) {
+		final ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(img, formatName, Base64.getEncoder().wrap(os));
+			return os.toString(StandardCharsets.ISO_8859_1.name());
+		} catch (final IOException ioe) {
+			throw new UncheckedIOException(ioe);
+		}
 	}
 
 }

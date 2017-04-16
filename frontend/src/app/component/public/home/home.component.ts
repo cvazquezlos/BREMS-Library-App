@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { STATUS_NO_CONTENT, BOOKS_IMG_URL } from "../../../util";
+import {Component, OnInit} from '@angular/core';
+import {STATUS_NO_CONTENT, BOOKS_IMG_URL} from "../../../util";
+import {DomSanitizer} from '@angular/platform-browser';
 
-import { Resource } from '../../../model/resource.model';
+import {Resource} from '../../../model/resource.model';
 
-import { ResourceService } from '../../../service/resource.service';
-import { SessionService } from '../../../service/session.service';
+import {ResourceService} from '../../../service/resource.service';
+import {SessionService} from '../../../service/session.service';
+import {FileService} from '../../../service/file.service';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -30,7 +32,8 @@ export class HomeComponent implements OnInit {
   moreMagazActive: boolean;
 
 
-  constructor(private resourceService: ResourceService, private sessionService: SessionService) {
+  constructor(private resourceService: ResourceService, private sessionService: SessionService,
+              private sanitizer: DomSanitizer, private fileService: FileService) {
     this.books = [];
     this.booksPage = 0;
     this.img_url = BOOKS_IMG_URL;
@@ -53,6 +56,7 @@ export class HomeComponent implements OnInit {
         if (userReq) {
           this.booksPage++;
           this.books = this.books.concat(books);
+          this.downloadImages(this.books);
           this.addBooks(false);
         }
       },
@@ -76,6 +80,7 @@ export class HomeComponent implements OnInit {
         if (userReq) {
           this.magazinesPage++;
           this.magazines = this.magazines.concat(magazines);
+          this.downloadImages(this.magazines);
           this.addMagazines(false);
         }
       },
@@ -90,6 +95,18 @@ export class HomeComponent implements OnInit {
         this.moreMagazActive = false;
       }
     );
+  }
+
+  downloadImages(resources: Resource[]) {
+    for (let resource of resources) {
+      this.fileService.getResourceFile(resource.id).subscribe(
+        data => {
+          let dataRecieved: string[] = data.split('"');
+          resource.image = 'data:image/png;base64,' + dataRecieved[3];
+        },
+        error => console.log("Fail adding resource " + resource.title + "image.")
+      );
+    }
   }
 
   reserveResource(id: number) {
