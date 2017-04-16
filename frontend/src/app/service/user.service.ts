@@ -51,7 +51,7 @@ export class UserService {
         response => {
           this.getUser(user.id).subscribe(
             user => this.user = user,
-            error => console.log("Fail trying to get full user information by UserService.")
+            error => error
           );
           return this.user;
         })
@@ -60,7 +60,8 @@ export class UserService {
 
   updateFile(formData: FormData, user: User) {
     let headers: Headers = new Headers();
-    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Basic ' + this.authCreds);
     return this.http.put(USER_URL + '/' + user.id + '/upload', formData, {headers: headers})
       .map(response => console.log("Success. The file has been successfully added to server directories."))
       .catch(error => Observable.throw('Server error'));

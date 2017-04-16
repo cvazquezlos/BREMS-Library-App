@@ -45,10 +45,8 @@ export class ModalProfileEdit {
         if (this.userImage !== undefined) {
           console.log("Uploading file...");
           let formData = new FormData();
-          formData.append("file", this.userImage);
-          this.userService.updateFile(formData, updatedUser).subscribe(
-            error => console.log("Fail trying to upload image to server directories.")
-          );
+          formData.append('file', this.userImage, this.userImage.name);
+          this.userService.updateFile(formData, updatedUser).subscribe();
         }
         console.log(this.user.name + " successfully updated.");
         this.user = this.userService.getUserCompleted();
