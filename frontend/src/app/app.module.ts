@@ -15,6 +15,7 @@ import { FineService } from './service/fine.service';
 import { GenreService } from './service/genre.service';
 import { UserService } from './service/user.service';
 import { ResourceService } from './service/resource.service';
+import { ResourceCopyService } from './service/resource-copy.service';
 import { SessionService } from './service/session.service';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SessionService } from './service/session.service';
     GenreService,
     UserService,
     ResourceService,
+    ResourceCopyService,
     SessionService
   ],
   bootstrap: [AppComponent]

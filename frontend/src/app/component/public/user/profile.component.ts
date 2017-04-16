@@ -6,6 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {Action} from '../../../model/action.model';
 import {Fine} from '../../../model/fine.model';
 import {User} from '../../../model/user.model';
+import {Resource} from '../../../model/resource.model';
 
 import {ActionService} from '../../../service/action.service';
 import {FineService} from '../../../service/fine.service';
@@ -53,11 +54,15 @@ export class ProfileComponent implements OnInit {
     if (!this.sessionService.checkCredentials())
       this.router.navigate(['/login']);
     else {
+      let resources: Resource[];
       this.user = this.userService.getUserCompleted();
       this.actionService.getAllActions(this.currentActionsPage, false).subscribe(
         actions => {
           this.currentActions = actions;
+          for (let action of this.currentActions)
+            resources.push(action.copy.resource);
           this.currentActionsPage++;
+          this.downloadImages(resources);
         },
         error => console.log("Fail trying to charge " + this.user.name + " current loans.")
       );
@@ -68,10 +73,14 @@ export class ProfileComponent implements OnInit {
         },
         error => console.log("Fail trying to charge " + this.user.name + " fines.")
       );
+      resources = [];
       this.actionService.getAllActions(this.historyPage, true).subscribe(
         actions => {
           this.history = actions;
+          for (let action of this.history)
+            resources.push(action.copy.resource);
           this.historyPage++;
+          this.downloadImages(resources);
         },
         error => console.log("Fail trying to charge " + this.user.name + " history.")
       );
@@ -81,6 +90,19 @@ export class ProfileComponent implements OnInit {
           this.userImage = 'data:image/png;base64,' + dataRecieved[3];
         },
         error => console.log("Fail trying to charge " + this.user.name + " image.")
+      );
+    }
+  }
+
+  downloadImages(resources: Resource[]) {
+    console.log('Downloading images from server...');
+    for (let resource of resources) {
+      this.fileService.getResourceFile(resource.id).subscribe(
+        data => {
+          let dataRecieved: string[] = data.split('"');
+          resource.image = 'data:image/png;base64,' + dataRecieved[3];
+        },
+        error => console.log('Fail adding resource ' + resource.title + 'image.')
       );
     }
   }

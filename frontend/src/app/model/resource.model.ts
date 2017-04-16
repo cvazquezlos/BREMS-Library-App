@@ -7,4 +7,5 @@ export interface Resource {
   avaiblereserve: boolean;
   description: string;
   hasPhoto: boolean;
+  noReservedCopies: string[];
 }

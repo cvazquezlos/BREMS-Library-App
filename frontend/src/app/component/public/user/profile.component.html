@@ -74,9 +74,9 @@
               <div class="row item">
                 <div class="col-sm-6 col-md-4 col-lg-2">
                   <div class="coverItem">
-                    <p>Avatar</p>
+                    <img [src]="sanitizer.bypassSecurityTrustUrl(action.copy.resource.image)" class="img-responsive" />
                     <br>
-                    <a href="#"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    <a [routerLink]="['/resource',action.copy.resource.id]"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
                     </a>
                   </div>
                 </div>
@@ -110,9 +110,9 @@
               <div class="row item">
                 <div class="col-sm-6 col-md-4 col-lg-2">
                   <div class="coverItem">
-                    <p>Avatar</p>
+                    <img [src]="sanitizer.bypassSecurityTrustUrl(action.copy.resource.image)" class="img-responsive" />
                     <br>
-                    <a href="#"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    <a [routerLink]="['/resource',action.copy.resource.id]"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
                     </a>
                   </div>
                 </div>
