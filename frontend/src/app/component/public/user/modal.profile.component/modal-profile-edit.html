@@ -1,6 +1,5 @@
 <div [@dialog]="visible" [class.hide]="!visible" class="modalAviso modalProfileEdit modal-dialog">
   <ng-content></ng-content>
-
   <div class="modal-content">
     <div class="modal-header" align="center">
       <h3>Información Básica</h3>
@@ -9,9 +8,7 @@
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </button>
     </div>
-
     <div id="div-forms">
-      <!-- edit form -->
       <div class="modal-body modal-body-profile">
         <div class="form-group">
 
@@ -72,10 +69,8 @@
           </button>
         </div>
       </div>
-
     </div>
   </div>
-
 </div>
 <div *ngIf="visible" class="overlay" (click)="close()"></div>
 

@@ -63,11 +63,7 @@ public class UserRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<User> users = userService.findAll(page);
-		if (users.getNumberOfElements() > 0) {
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
 	@JsonView(UserDetail.class)
