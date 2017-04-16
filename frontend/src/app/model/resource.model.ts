@@ -3,7 +3,7 @@ export interface Resource {
   title: string;
   author: string;
   editorial: string;
-  image: any;
+  image?: any;
   avaiblereserve: boolean;
   description: string;
   hasPhoto: boolean;

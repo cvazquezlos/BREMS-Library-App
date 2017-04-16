@@ -17,8 +17,6 @@ import {ModalProfileEdit} from "./modal.profile.component/modal-profile-edit";
 import {IMG_URL} from "../../../util";
 import {ModalBiographyEdit} from "./modal.biography.component/modal-biography-edit";
 
-const url_avatar = IMG_URL + "avatars/";
-
 @Component({
   templateUrl: 'profile.component.html'
 })
