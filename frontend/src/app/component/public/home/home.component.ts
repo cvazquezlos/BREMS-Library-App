@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
         if (userReq) {
           this.booksPage++;
           this.books = this.books.concat(books);
-          this.uploadImages(this.books);
+          this.downloadImages(this.books);
           this.addBooks(false);
         }
       },
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
         if (userReq) {
           this.magazinesPage++;
           this.magazines = this.magazines.concat(magazines);
-          this.uploadImages(this.magazines);
+          this.downloadImages(this.magazines);
           this.addMagazines(false);
         }
       },
@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  uploadImages(resources: Resource[]) {
+  downloadImages(resources: Resource[]) {
     for (let resource of resources) {
       this.fileService.getResourceFile(resource.id).subscribe(
         data => {

@@ -131,9 +131,10 @@ public class UserRestController {
 				user.setLastName2(userUpdated.getLastName2());
 				user.setTelephone(userUpdated.getTelephone());
 				user.setBiography(userUpdated.getBiography());
-				user.setAvatar(userUpdated.getAvatar());
 				user.setAddress(userUpdated.getAddress());
 				user.setDni(userUpdated.getDni());
+				user.setTelephone(userUpdated.getTelephone());
+				user.setViewTelephone(userUpdated.isViewTelephone());
 				userService.save(user);
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			} else {
