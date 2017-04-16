@@ -17,7 +17,6 @@ export class FineService {
   }
 
   getAllFines(page: number) {
-
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
     return this.http.get(FINE_URL + '?page=' + page, {headers: headers})

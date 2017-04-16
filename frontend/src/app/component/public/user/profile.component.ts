@@ -59,29 +59,28 @@ export class ProfileComponent implements OnInit {
           this.currentActions = actions;
           this.currentActionsPage++;
         },
-        error => console.log(error)
+        error => console.log("Fail trying to charge " + this.user.name + " current loans.")
       );
       this.fineService.getAllFines(this.finePage).subscribe(
         fines => {
           this.fines = fines;
           this.finePage++;
         },
-        error => console.log(error)
+        error => console.log("Fail trying to charge " + this.user.name + " fines.")
       );
       this.actionService.getAllActions(this.historyPage, true).subscribe(
         actions => {
           this.history = actions;
           this.historyPage++;
         },
-        error => console.log(error)
+        error => console.log("Fail trying to charge " + this.user.name + " history.")
       );
       this.fileService.getUserFile(this.user.id).subscribe(
         data => {
           let dataRecieved: string[] = data.split('"');
           this.userImage = 'data:image/png;base64,' + dataRecieved[3];
-          console.log(this.userImage);
         },
-        error => console.log("FILAZO")
+        error => console.log("Fail trying to charge " + this.user.name + " image.")
       );
     }
   }
