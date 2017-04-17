@@ -26,7 +26,7 @@
         <td>{{ resource.genre.name }}</td>
         <td>{{ resource.resourceType.name }}</td>
         <td>
-          <a [routerLink]="['/resource', resource.id]">
+          <a [routerLink]="['../resource', resource.id]">
             <button type="button" class="btn btn-success"><span class="fa fa-pencil"></span></button>
           </a>
           <a>

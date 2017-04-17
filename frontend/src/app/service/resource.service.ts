@@ -16,15 +16,16 @@ export class ResourceService {
       .catch(error => Observable.throw('Server error'))
   }
 
-  getAllResources(type: string, page: number) {
-    return this.http.get(RESOURCES_URL + '?type=' + type + '&page=' + page)
+  getAllResources(type?: string, page?: number) {
+    let url = (type && page) ? RESOURCES_URL + '?type=' + type + '&page=' + page : RESOURCES_URL;
+    return this.http.get(url)
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
 
-  searchResources(name: string, page: number){
-      return this.http.get(RESOURCES_URL + '?name=' + name + '&page=' + page)
-        .map(response => response.json().content)
-        .catch(error => Observable.throw('Server error'));
-    }
+  searchResources(name: string, page: number) {
+    return this.http.get(RESOURCES_URL + '?name=' + name + '&page=' + page)
+      .map(response => response.json().content)
+      .catch(error => Observable.throw('Server error'));
+  }
 }

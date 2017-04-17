@@ -1,3 +1,45 @@
-<p>
-  manage-loans works!
-</p>
+<section class="content-header">
+  <h1>Administración de préstamos <small>Administra los préstamos de los recursos</small></h1>
+</section>
+
+<section class="content">
+  <table class="table table-bordered table-striped" style="background-color: white !important;">
+    <thead>
+      <tr>
+        <th width="20%">Identificador</th>
+        <th width="20%">Usuario</th>
+        <th>Recurso</th>
+        <th>Petición</th>
+        <th>Préstamo</th>
+        <th>Devolución</th>
+        <th>Administrar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loan of loans">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <a>
+            <button type="button" class="btn btn-primary"><span class="fa fa-bookmark-o"></span> &nbsp; Prestar</button>
+          </a>
+        </td>
+        <td>
+          <a>
+            <button type="button" class="btn btn-primary"><span class="fa fa-bookmark"></span> &nbsp; Devolución</button>
+          </a>
+        </td>
+        <td>
+          <a>
+            <button type="button" class="btn btn-warning"><span class="fa fa-trash"></span></button>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a>
+    <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir préstamo</button>
+  </a>
+</section>

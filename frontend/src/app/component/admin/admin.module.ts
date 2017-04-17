@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { AdminComponent } from './admin.component';
@@ -16,7 +17,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 @NgModule({
     imports: [
         CommonModule,
-        AdminRoutingModule
+        AdminRoutingModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         AdminComponent,

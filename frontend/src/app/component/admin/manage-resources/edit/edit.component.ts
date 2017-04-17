@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Resource } from 'app/model/resource.model';
-
 import { ResourceService } from 'app/service/resource.service';
 
 @Component({
@@ -14,21 +13,22 @@ export class EditResourceComponent implements OnInit {
   private resource: Resource;
 
   constructor(private router: Router,
-    activatedRoute: ActivatedRoute, service: ResourceService) {
-    let id = activatedRoute.snapshot.params['id'];
-
-    service.getResource(id).subscribe(
-      resource => this.resource = resource,
-      error => console.error(error)
-    );
-    console.log(this.resource);
+    private activatedRoute: ActivatedRoute,
+    private service: ResourceService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    let id = this.activatedRoute.snapshot.params['id'];
+    this.service.getResource(id).subscribe(
+      resource => {
+        this.resource = resource;
+      },
+      error => console.log(error)
+    );
+  }
 
   gotoResources() { this.router.navigate(['/resources']); }
 
   saveResource() { }
-
 
 }

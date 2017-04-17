@@ -16,11 +16,12 @@ export class ActionService {
     this.authCreds = authCreds;
   }
 
-  getAllActions(page: number, finished: boolean) {
-
+  getAllActions(page?: number, finished?: boolean) {
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.get(ACTION_URL + '?page=' + page + '&finished=' + finished, {headers: headers})
+
+    let url = (page && finished) ? ACTION_URL + '?page=' + page + '&finished=' + finished : ACTION_URL;
+    return this.http.get(url, {headers: headers})
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
