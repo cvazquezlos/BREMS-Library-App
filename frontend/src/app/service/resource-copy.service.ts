@@ -26,19 +26,22 @@ export class ResourceCopyService {
     let morePages = true;
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    while (page <= 2) {
+    while (morePages) {
       this.http.get(RESOURCECOPY_URL + '?page=' + page, {headers: headers})
         .map(response => response.json().content)
         .catch(error => Observable.throw('Server error')
-      ).subscribe(
+        ).subscribe(
         response => {
-          this.resourceCopies = this.resourceCopies.concat(response);
-        },
-        error => morePages = false
+          if (response[1] === undefined) {
+            morePages = false;
+          } else {
+            this.resourceCopies = this.resourceCopies.concat(response);
+          }
+        }
       );
       page++;
     }
-    for(let copy of this.resourceCopies) {
+    for (let copy of this.resourceCopies) {
       if (copy.locationCode === locationCode)
         return copy;
     }
