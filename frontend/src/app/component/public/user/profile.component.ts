@@ -6,6 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {Action} from '../../../model/action.model';
 import {Fine} from '../../../model/fine.model';
 import {User} from '../../../model/user.model';
+import {Resource} from '../../../model/resource.model';
 
 import {ActionService} from '../../../service/action.service';
 import {FineService} from '../../../service/fine.service';
@@ -15,8 +16,6 @@ import {UserService} from '../../../service/user.service';
 import {ModalProfileEdit} from "./modal.profile.component/modal-profile-edit";
 import {IMG_URL} from "../../../util";
 import {ModalBiographyEdit} from "./modal.biography.component/modal-biography-edit";
-
-const url_avatar = IMG_URL + "avatars/";
 
 @Component({
   templateUrl: 'profile.component.html'
@@ -53,35 +52,55 @@ export class ProfileComponent implements OnInit {
     if (!this.sessionService.checkCredentials())
       this.router.navigate(['/login']);
     else {
+      let resources: Resource[];
       this.user = this.userService.getUserCompleted();
       this.actionService.getAllActions(this.currentActionsPage, false).subscribe(
         actions => {
           this.currentActions = actions;
+          for (let action of this.currentActions)
+            resources.push(action.copy.resource);
           this.currentActionsPage++;
+          this.downloadImages(resources);
         },
-        error => console.log(error)
+        error => console.log("Fail trying to charge " + this.user.name + " current loans.")
       );
       this.fineService.getAllFines(this.finePage).subscribe(
         fines => {
           this.fines = fines;
           this.finePage++;
         },
-        error => console.log(error)
+        error => console.log("Fail trying to charge " + this.user.name + " fines.")
       );
+      resources = [];
       this.actionService.getAllActions(this.historyPage, true).subscribe(
         actions => {
           this.history = actions;
+          for (let action of this.history)
+            resources.push(action.copy.resource);
           this.historyPage++;
+          this.downloadImages(resources);
         },
-        error => console.log(error)
+        error => console.log("Fail trying to charge " + this.user.name + " history.")
       );
       this.fileService.getUserFile(this.user.id).subscribe(
         data => {
           let dataRecieved: string[] = data.split('"');
           this.userImage = 'data:image/png;base64,' + dataRecieved[3];
-          console.log(this.userImage);
         },
-        error => console.log("FILAZO")
+        error => console.log("Fail trying to charge " + this.user.name + " image.")
+      );
+    }
+  }
+
+  downloadImages(resources: Resource[]) {
+    console.log('Downloading images from server...');
+    for (let resource of resources) {
+      this.fileService.getResourceFile(resource.id).subscribe(
+        data => {
+          let dataRecieved: string[] = data.split('"');
+          resource.image = 'data:image/png;base64,' + dataRecieved[3];
+        },
+        error => console.log('Fail adding resource ' + resource.title + 'image.')
       );
     }
   }

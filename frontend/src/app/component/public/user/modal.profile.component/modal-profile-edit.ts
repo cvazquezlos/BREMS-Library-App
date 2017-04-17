@@ -1,76 +1,66 @@
-import { Component } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
+import {Component} from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionService } from 'app/service/session.service';
+import {trigger, style, animate, transition} from '@angular/animations';
 
 import {User} from '../../../../model/user.model';
 import {UserService} from "../../../../service/user.service";
-import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'modal-profile-edit',
   templateUrl: 'modal-profile-edit.html',
   styles: [`
-    .hide{display: none}`]
+    .hide {
+      display: none
+    }`]
   ,
   animations: [
     trigger('dialog', [
       transition('void => *', [
-        animate(100, style({ transform: 'scale3d(.3, .3, .3)' }))
+        animate(100, style({transform: 'scale3d(.3, .3, .3)'}))
       ]),
       transition('* => void', [
-        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+        animate(100, style({transform: 'scale3d(.0, .0, .0)'}))
       ])
     ])
   ]
 })
 export class ModalProfileEdit {
-  // - attributes
-  visible       : boolean;
-  user          : User;
+  visible: boolean;
+  user: User;
+  userImage: any;
 
-  firstName     : string;
-  lastName1     : string;
-  lastName2     : string;
-  email         : string;
-  telephone     : string;
-  viewTelephone : boolean;
-  address       : string;
-
-  // ------------------------------------------------------------------------------------------------------------------
-  constructor(private userServ: UserService,) {
+  constructor(private userService: UserService, private router: Router) {
     this.visible = false;
-
-    if( !isNullOrUndefined(this.user) )
-    {
-      this.firstName      = this.user.firstName;
-      this.lastName1      = this.user.lastName1;
-      this.lastName2      = this.user.lastName2;
-      this.email          = this.user.email;
-      this.telephone      = this.user.telephone;
-      this.viewTelephone  = this.user.viewTelephone;
-      this.address        = this.user.address;
-    }
   }
 
-  // ------------------------------------------------------------------------------------------------------------------
+  edit(firstName, lastName1, lastName2, email, telephone, viewTelephone, address) {
+    let updatedUser = {
+      id: this.user.id, name: this.user.name, dni: this.user.dni, firstName: firstName,
+      lastName1: lastName1, lastName2: lastName2, email: email, telephone: telephone,
+      viewTelephone: viewTelephone, address: address, biography: this.user.biography
+    };
 
-  edit() {
-    this.user.firstName      = this.firstName;
-    this.user.lastName1      = this.lastName1;
-    this.user.lastName2      = this.lastName2;
-    this.user.email          = this.email;
-    this.user.telephone      = this.telephone;
-    this.user.viewTelephone  = this.viewTelephone;
-    this.user.address        = this.address;
-
-    this.userServ.updateUser(this.user.id).subscribe(
-      response => console.log("user updated"),
-      error => console.log(JSON.stringify(error))
+    this.userService.updateUser(updatedUser).subscribe(
+      response => {
+        if (this.userImage !== undefined) {
+          console.log("Uploading file...");
+          let formData = new FormData();
+          formData.append('file', this.userImage, this.userImage.name);
+          this.userService.updateFile(formData, updatedUser).subscribe();
+        }
+        console.log(this.user.name + " successfully updated.");
+        this.user = this.userService.getUserCompleted();
+        this.router.navigate(['/profile']);
+        this.close();
+      },
+      error => console.log("Fail trying to modify " + this.user.name + ".")
     );
   }
 
-  // ------------------------------------------------------------------------------------------------------------------
+  selectFile($event) {
+    this.userImage = $event.target.files[0];
+    console.log("Selected file: " + this.userImage.name + " type:" + this.userImage.type + " size:" + this.userImage.size);
+  }
 
   close(): void {
     this.visible = false;
@@ -80,7 +70,6 @@ export class ModalProfileEdit {
     if (!this.visible) {
       this.visible = true;
     }
-
     this.user = user;
   }
 }

@@ -45,11 +45,7 @@ public class ResourceTypeRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<ResourceType> resourceTypes = resourceTypeService.findAll(page);
-		if (resourceTypes.getNumberOfElements() >0) {
-			return new ResponseEntity<>(resourceTypes, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<>(resourceTypes, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

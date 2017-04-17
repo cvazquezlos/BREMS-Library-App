@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,7 @@ public class UserRestController {
 	@Autowired
 	private LogicService logicService;
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@JsonView(UserDetail.class)
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<User> postUser(@RequestBody User user) {
@@ -61,11 +63,7 @@ public class UserRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<User> users = userService.findAll(page);
-		if (users.getNumberOfElements() > 0) {
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
 	@JsonView(UserDetail.class)
@@ -85,6 +83,7 @@ public class UserRestController {
 		}
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id, HttpSession session,
@@ -109,6 +108,7 @@ public class UserRestController {
 		}
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<User> putUser(@PathVariable Integer id, @RequestBody User userUpdated,
@@ -127,9 +127,10 @@ public class UserRestController {
 				user.setLastName2(userUpdated.getLastName2());
 				user.setTelephone(userUpdated.getTelephone());
 				user.setBiography(userUpdated.getBiography());
-				user.setAvatar(userUpdated.getAvatar());
 				user.setAddress(userUpdated.getAddress());
 				user.setDni(userUpdated.getDni());
+				user.setTelephone(userUpdated.getTelephone());
+				user.setViewTelephone(userUpdated.isViewTelephone());
 				userService.save(user);
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			} else {
@@ -140,6 +141,7 @@ public class UserRestController {
 		}
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@JsonView(UserDetail.class)
 	@RequestMapping(value = "/{id}/upload", method = RequestMethod.PUT)
 	public ResponseEntity<User> putUserImage(@PathVariable Integer id, 
