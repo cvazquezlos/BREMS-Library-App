@@ -75,11 +75,7 @@ public class ResourceRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<Resource> resources = resourceService.findByGenreAndNameAndTypeAllIgnoreCase(genre, type, name, page);
-		if (resources.getNumberOfElements() >0) {
-			return new ResponseEntity<>(resources, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+		return new ResponseEntity<>(resources, HttpStatus.OK);
 	}
 
 	@JsonView(ResourceDetail.class)

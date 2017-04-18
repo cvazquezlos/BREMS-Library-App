@@ -39,7 +39,7 @@ export class ModalBiographyEdit {
       lastName1: this.user.lastName1, lastName2: this.user.lastName2, email: this.user.email,
       telephone: this.user.telephone, viewTelephone: this.user.viewTelephone, address: this.user.address,
       biography: biography};
-    this.userService.updateUser(updatedUser).subscribe(
+    this.userService.updateUser(updatedUser, true).subscribe(
       response => {
         console.log(this.user.name + " successfully updated.");
         this.user = this.userService.getUserCompleted();

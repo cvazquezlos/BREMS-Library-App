@@ -14,15 +14,7 @@ import {SessionService} from '../../../service/session.service';
 import {UserService} from '../../../service/user.service';
 
 @Component({
-  templateUrl: 'home.component.html',
-  styles: [`
-    .showBtnMoreBook {
-      display: block
-    }
-
-    .showBtnMoreMagaz {
-      display: block
-    }`]
+  templateUrl: 'home.component.html'
 })
 
 export class HomeComponent implements OnInit {
@@ -50,8 +42,8 @@ export class HomeComponent implements OnInit {
     this.isLogged = false;
     this.magazines = [];
     this.magazinesPage = 0;
-    this.moreBooksActive = true;
-    this.moreMagazActive = true;
+    this.moreBooksActive = false;
+    this.moreMagazActive = false;
     this.successMessage = false;
 
     this.addBooks(true);
@@ -66,23 +58,17 @@ export class HomeComponent implements OnInit {
   addBooks(userReq: boolean) {
     this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
       books => {
-        if (userReq) {
+        if (books[1] === undefined) {
+          this.moreBooksActive = false;
+        } else if (userReq) {
+          this.moreBooksActive = true;
           this.booksPage++;
           this.books = this.books.concat(books);
           this.downloadImages(this.books);
           this.addBooks(false);
         }
       },
-      error => {
-        if (error.statusCode == STATUS_NO_CONTENT) {
-          console.log(error + " - STATUS CODE: " + error.statusCode);
-        }
-        else {
-          if (userReq)
-            console.error("ERROR: " + error);
-        }
-        this.moreBooksActive = false;
-      }
+      error => console.log('Fail trying to get BREMS books.')
     );
 
   }
@@ -90,23 +76,17 @@ export class HomeComponent implements OnInit {
   addMagazines(userReq: boolean) {
     this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
       magazines => {
-        if (userReq) {
+        if (magazines[1] == null) {
+          this.moreMagazActive = false;
+        } else if (userReq) {
+          this.moreMagazActive = true;
           this.magazinesPage++;
           this.magazines = this.magazines.concat(magazines);
           this.downloadImages(this.magazines);
           this.addMagazines(false);
         }
       },
-      error => {
-        if (error.statusCode == STATUS_NO_CONTENT) {
-          console.log(error + " - STATUS CODE: " + error.statusCode);
-        }
-        else {
-          if (userReq)
-            console.error("ERROR: " + error);
-        }
-        this.moreMagazActive = false;
-      }
+      error => console.log('Fail trying to get BREMS magazines.')
     );
   }
 
