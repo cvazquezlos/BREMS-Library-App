@@ -7,7 +7,7 @@ import {SessionService} from '../../../../service/session.service';
 import {UserService} from '../../../../service/user.service';
 
 @Component({
-  templateUrl: './edit.component.html'
+  templateUrl: 'edit.component.html'
 })
 export class EditUserComponent implements OnInit {
 

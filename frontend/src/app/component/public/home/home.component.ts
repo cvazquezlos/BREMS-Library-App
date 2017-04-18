@@ -59,6 +59,7 @@ export class HomeComponent implements OnInit {
     this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
       books => {
         if (books[1] === undefined) {
+          console.log('No hay más libros.');
           this.moreBooksActive = false;
         } else if (userReq) {
           this.moreBooksActive = true;
