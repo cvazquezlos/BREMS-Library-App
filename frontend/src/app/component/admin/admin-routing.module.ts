@@ -30,8 +30,8 @@ const adminRoutes: Routes = [
           {path: 'loans', component: ManageLoansComponent},
           {path: 'fines', component: ManageFinesComponent},
           {path: 'users', component: ManageUsersComponent},
-          {path: 'user/:id', component: EditUserComponent},
-          {path: 'user/new', component: CreateUserComponent},
+          {path: 'users/new', component: CreateUserComponent},
+          {path: 'users/:id', component: EditUserComponent},
           {path: '', component: DashboardComponent}
         ]
       }
