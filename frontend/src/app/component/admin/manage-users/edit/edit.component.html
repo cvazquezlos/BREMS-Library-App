@@ -1,0 +1,48 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      Administración de usuarios
+      <small>Administra los usuarios</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li><a [routerLink]="['/admin/users']">Usuarios</a></li>
+      <li class="active">Añadir usuario</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box box-default">
+      <div class="box-header with-border">
+        <h3 class="box-title">Editar {{user?.name}}</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="form-group">
+              <label>Nombre y apellidos</label>
+              <br>
+              <input type="text" class="form-control" name="firstName" style='display: inline; width: 38%;'
+                     #firstName value="{{user?.firstName}}">
+              <input type="text" class="form-control" name="lastName1" style='display: inline; width: 30%;'
+                     #lastName1 value="{{user?.lastName1}}">
+              <input type="text" class="form-control" name="lastName2" style='display: inline; width: 30%;'
+                     #lastName2 value="{{user?.lastName2}}">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email" #email value="{{user?.email}}">
+            </div>
+            <div class="form-group">
+              <label>DNI</label>
+              <input type="text" class="form-control" name="dni" #dni value="{{user?.dni}}">
+            </div>
+            <div class="pull-right">
+              <button type="submit" class="btn btn-success" (click)="edit(firstName.value, lastName1.value,
+              lastName2.value, email.value, dni.value)">Modificar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

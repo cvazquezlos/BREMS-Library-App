@@ -1,0 +1,66 @@
+<div class="content-wrapper">
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <section class="content-header">
+    <h1>
+      Administración de usuarios
+      <small>Administra los usuarios</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li><a href="/admin/users">Usuarios</a></li>
+      <li class="active">Añadir usuario</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="box box-default">
+      <div class="box-header with-border">
+        <h3 class="box-title">Nuevo usuario</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="form-group">
+              <label>Nombre y apellidos</label>
+              <br>
+              <input type="text" class="form-control" style='display: inline; width: 38%;' placeholder="Nombre"
+                     #firstName required>
+              <input type="text" class="form-control" style='display: inline; width: 30%;'
+                     placeholder="Primer apellido" #lastName1 required>
+              <input type="text" class="form-control" style='display: inline; width: 30%;'
+                     placeholder="Segundo apellido" #lastName2 required>
+            </div>
+            <div class="form-group">
+              <label>Usuario</label>
+              <input type="text" class="form-control" name="name" placeholder="Usuario" #name required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email" placeholder="Email" #email required>
+            </div>
+            <div class="pull-left">
+              <button class="btn btn-success" (click)="create(firstName.value, lastName1.value, lastName2.value,
+              name.value, email.value, password.value, dni.value, telephone.value)">Registrar</button>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label>Contraseña</label>
+              <input class="form-control" name="password" type="password" placeholder="Contraseña" #password required>
+            </div>
+            <div class="form-group">
+              <label>D.N.I.</label>
+              <input class="form-control" name="dni" type="text" #dni placeholder="D.N.I.">
+            </div>
+            <div class="form-group">
+              <label>Teléfono</label>
+              <input class="form-control" name="telephone" type="text" #telephone placeholder="Teléfono">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

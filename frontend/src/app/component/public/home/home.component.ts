@@ -42,8 +42,8 @@ export class HomeComponent implements OnInit {
     this.isLogged = false;
     this.magazines = [];
     this.magazinesPage = 0;
-    this.moreBooksActive = true;
-    this.moreMagazActive = true;
+    this.moreBooksActive = false;
+    this.moreMagazActive = false;
     this.successMessage = false;
 
     this.addBooks(true);
@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
         if (books[1] === undefined) {
           this.moreBooksActive = false;
         } else if (userReq) {
+          this.moreBooksActive = true;
           this.booksPage++;
           this.books = this.books.concat(books);
           this.downloadImages(this.books);
@@ -78,6 +79,7 @@ export class HomeComponent implements OnInit {
         if (magazines[1] == null) {
           this.moreMagazActive = false;
         } else if (userReq) {
+          this.moreMagazActive = true;
           this.magazinesPage++;
           this.magazines = this.magazines.concat(magazines);
           this.downloadImages(this.magazines);

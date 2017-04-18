@@ -40,7 +40,7 @@ export class ModalProfileEdit {
       viewTelephone: viewTelephone, address: address, biography: this.user.biography
     };
 
-    this.userService.updateUser(updatedUser).subscribe(
+    this.userService.updateUser(updatedUser, true).subscribe(
       response => {
         if (this.userImage !== undefined) {
           console.log("Uploading file...");

@@ -21,9 +21,12 @@
               <div class="row item">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                   <div class="coverItem">
-                    <div *ngIf="book.image != undefined">
-                      <img [src]="sanitizer.bypassSecurityTrustUrl(book.image)" class="img-responsive" />
+                    <div *ngIf="book.image == undefined; else chargedImage">
+                      <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
                     </div>
+                    <ng-template #chargedImage>
+                      <img [src]="sanitizer.bypassSecurityTrustUrl(book.image)" class="img-responsive" />
+                    </ng-template>
                     <div>
                       <div *ngIf="isLogged">
                         <div>
@@ -68,9 +71,12 @@
               <div class="row item">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                   <div class="coverItem">
-                    <div *ngIf="magazine.image != undefined">
-                      <img [src]="sanitizer.bypassSecurityTrustUrl(magazine.image)" class="img-responsive" />
+                    <div *ngIf="magazine.image == undefined; else chargedImage">
+                      <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
                     </div>
+                    <ng-template #chargedImage>
+                      <img [src]="sanitizer.bypassSecurityTrustUrl(magazine.image)" class="img-responsive" />
+                    </ng-template>
                     <div>
                       <div *ngIf="isLogged">
                         <div>
