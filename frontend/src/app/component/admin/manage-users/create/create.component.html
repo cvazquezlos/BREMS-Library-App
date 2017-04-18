@@ -39,6 +39,11 @@
             <label>Email</label>
             <input type="text" class="form-control" name="email" placeholder="Email" #email required>
           </div>
+          <div class="form-group">
+            <label>Tipo de usuario</label>
+            <input type="radio" name="type" [(ngModel)]="typeuser" value="User"> Usuario
+            <input type="radio" name="type" [(ngModel)]="typeuser" value="Administrator"> Administrador
+          </div>
         </div>
         <div class="col-lg-2">
           <div class="form-group">

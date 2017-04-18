@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 
 
 @Component({
@@ -6,8 +6,13 @@ import { Component } from '@angular/core';
   templateUrl: 'app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 
   constructor() {
   }
+
+  ngOnDestroy() {
+    console.log('Killing proccesses...');
+  }
+
 }

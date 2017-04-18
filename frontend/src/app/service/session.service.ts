@@ -30,8 +30,6 @@ export class SessionService implements OnDestroy {
               private resourceCopyService: ResourceCopyService) {
   }
 
-
-
   logIn(username: string, password: string) {
     this.authCreds = btoa(username + ':' + password);
     let headers: Headers = new Headers();
@@ -40,7 +38,8 @@ export class SessionService implements OnDestroy {
       .map(
         response => {
           let id = response.json().id;
-          localStorage.setItem("creds", this.authCreds);
+          localStorage.setItem('creds', this.authCreds);
+          localStorage.setItem('id', String(id));
           this.userService.setAuthHeaders(this.authCreds);
           this.userService.getUser(id).subscribe(
             user => {
@@ -50,8 +49,8 @@ export class SessionService implements OnDestroy {
             },
             error => console.log(error)
           );
-          localStorage.setItem("creds", this.authCreds);
-          localStorage.setItem("user", username);
+          localStorage.setItem('user', username);
+          localStorage.setItem('password', password);
           this.actionService.setAuthHeaders(this.authCreds);
           this.fileService.setAuthHeaders(this.authCreds);
           this.fineService.setAuthHeaders(this.authCreds);
