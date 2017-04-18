@@ -1,11 +1,8 @@
 <header class="main-header">
-
-  <a [routerLink]="['']" class="logo">
-    <img [src]="imgLogo" width="50" height="50">
-    <span class="logo-mini">Book Reserve System</span>
-    <span class="logo-mini br">Management</span>
+  <a [routerLink]="['/admin']" class="logo" height="40px">
+    <img [src]="imgLogo">
+    <span class="logo-mini">BREMS</span>
   </a>
-
   <nav class="navbar navbar-static-top" role="navigation">
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
       <span class="sr-only">Menú</span>
@@ -14,14 +11,23 @@
       <ul class="nav navbar-nav">
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="img/icon-profile.png" class="user-image" alt="User Image">
-            <span class="hidden-xs"></span>
+            <div *ngIf="userImage == undefined; else chargedImage">
+              <img src="../../../../assets/img/loadingImages.svg" width="20px" height="20px" align="middle">
+            </div>
+            <ng-template #chargedImage>
+              <img [src]="sanitizer.bypassSecurityTrustUrl(userImage)" class="user-image" />
+            </ng-template>
+            <span class="hidden-xs">{{user?.firstName}} {{user?.lastName1}}</span>
           </a>
           <ul class="dropdown-menu">
             <li class="user-header">
               <div class="imgUploaderr">
-                <img id="myImg" src="img/icon-profile.png" alt="Tu imagen" />
-                <input type='file' />
+                <div *ngIf="userImage == undefined; else chargedImage">
+                  <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
+                </div>
+                <ng-template #chargedImage>
+                  <img [src]="sanitizer.bypassSecurityTrustUrl(userImage)" class="user-image" />
+                </ng-template>
               </div>
               <p>
               </p>

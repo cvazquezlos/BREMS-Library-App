@@ -11,5 +11,6 @@ export const USER_URL       = BASE_URL + 'users';
 
 export const BOOKS_IMG_URL  = "./assets/img/books/";
 export const IMG_URL        = "./assets/img/";
+export const ADMIN_IMG_URL  = "../../../assets/img/";
 
 export const STATUS_NO_CONTENT = 204;
