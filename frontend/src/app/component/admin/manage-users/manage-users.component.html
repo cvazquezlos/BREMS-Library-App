@@ -1,55 +1,60 @@
-<div class="content-wrapper">
-  <div *ngIf="successMessage" class="alert alert-success">
-    <strong>¡Eliminado!</strong> {{message}}
-  </div>
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    <strong>Algo ha ido mal...</strong> {{message}}
-  </div>
-  <section class="content-header">
-    <h1>
-      Administración de usuarios
-      <small>Administra los usuarios</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i> Inicio</a></li>
-      <li class="active">Usuarios</li>
-    </ol>
-  </section>
-  <section class="content">
-    <table class="table table-bordered table-striped" style="background-color: white !important;">
-      <thead>
-      <tr>
-        <th>Nombre y apellidos</th>
-        <th>Usuario</th>
-        <th>Rol(es)</th>
-        <th>Multas</th>
-        <th>Préstamos</th>
-        <th>Administrar</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-template ngFor let-user [ngForOf]="users">
-        <tr>
-          <td>{{user.firstName}} {{user.lastName1}} {{user.lastName2}}</td>
-          <td>{{user.name}}</td>
-          <td>{{user.roles?.length}}</td>
-          <td>{{user.penalties?.length}}</td>
-          <td>{{user.actions?.length}}</td>
-          <td>
-            <a [routerLink]="['/user',user.id]">
-              <button type="button" class="btn btn-success"><span class="fa fa-pencil"></span></button>
-            </a>
-            &nbsp;&nbsp;
-            <button type="button" class="btn btn-warning" (click)="delete(user.id)"><span class="fa fa-trash"></span>
-            </button>
-          </td>
-        </tr>
-      </ng-template>
-      </tbody>
-    </table>
-    <a [routerLink]="['/user/new']">
-      <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir usuario
-      </button>
-    </a>
-  </section>
+<div *ngIf="successMessage" class="alert alert-success">
+  <strong>¡Eliminado!</strong> {{message}}
 </div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  <strong>Algo ha ido mal...</strong> {{message}}
+</div>
+<section class="content-header">
+  <h1>
+    Administración de usuarios
+    <small>Administra los usuarios</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active">Usuarios</li>
+  </ol>
+</section>
+<section class="content">
+  <table class="table table-bordered table-striped" style="background-color: white !important;">
+    <thead>
+    <tr>
+      <th width="20%">Nombre y apellidos</th>
+      <th width="20%">Usuario</th>
+      <th width="5%">Rol(es)</th>
+      <th width="5%">Multas</th>
+      <th width="5%">Préstamos</th>
+      <th width="3%">Administrar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-user [ngForOf]="users">
+      <tr>
+        <td>{{user?.firstName}} {{user?.lastName1}} {{user?.lastName2}}</td>
+        <td>{{user?.name}}</td>
+        <td>{{user?.roles?.length}}</td>
+        <td>{{user.penalties?.length}}</td>
+        <td>{{user.actions?.length}}</td>
+        <td>
+          <a [routerLink]="['./',user.id]">
+            <button type="button" class="btn btn-success"><span class="fa fa-pencil"></span></button>
+          </a>
+          &nbsp;&nbsp;
+          <button type="button" class="btn btn-warning" (click)="delete(user.id)"><span class="fa fa-trash"></span>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </table>
+  <div>
+    <div class="pull-left">
+      <a [routerLink]="['/admin/users/new']">
+        <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span>&nbsp;Añadir usuario</button>
+      </a>
+    </div>
+    <div class="pull-right">
+      <button *ngIf="showPreviousPage" type="button" class="btn btn-primary" (click)="previousPage()">&#8678;</button>
+      <button *ngIf="showNextPage" type="button" class="btn btn-primary" (click)="nextPage()">&#8680;</button>
+    </div>
+  </div>
+</section>

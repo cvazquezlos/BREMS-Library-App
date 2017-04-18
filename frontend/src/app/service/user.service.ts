@@ -24,30 +24,17 @@ export class UserService {
     return this.user;
   }
 
-  getAllUsers() {
-    let page = 0;
-    let morePages = true;
+  getUsers(page: number) {
+    this.authCreds = localStorage.getItem("creds");
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    while (morePages) {
-      this.http.get(USER_URL + '?page=' + page, {headers: headers})
-        .map(response => response.json().content)
-        .catch(error => Observable.throw('Server error')
-        ).subscribe(
-        response => {
-          if (response[1] === undefined) {
-            morePages = false;
-          } else {
-            this.users = this.users.concat(response);
-          }
-        }
-      );
-      page++;
-    }
-    return this.users;
+    return this.http.get(USER_URL + '?page=' + page, {headers: headers})
+      .map(response => response.json().content)
+      .catch(error => Observable.throw('Server error'));
   }
 
   getUser(id: number) {
+    this.authCreds = localStorage.getItem("creds");
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
     return this.http.get(USER_URL + '/' + id.toString(), {headers: headers})
@@ -59,6 +46,7 @@ export class UserService {
   }
 
   updateUser(user: User, current: boolean) {
+    this.authCreds = localStorage.getItem("creds");
     let body = JSON.stringify(user);
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -87,6 +75,7 @@ export class UserService {
   }
 
   deleteUser(id: number) {
+    this.authCreds = localStorage.getItem("creds");
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('X-Requested-With', 'XMLHttpRequest');
@@ -97,6 +86,7 @@ export class UserService {
   }
 
   createUser(user: User) {
+    this.authCreds = localStorage.getItem("creds");
     let body = JSON.stringify(user);
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
