@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {Headers, Http} from '@angular/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
@@ -13,7 +13,12 @@ import {UserService} from '../service/user.service';
 import {ResourceCopyService} from '../service/resource-copy.service';
 
 @Injectable()
-export class SessionService {
+export class SessionService implements OnDestroy {
+
+  ngOnDestroy() {
+    console.log("localStorage called from ngOnDestroy");
+    localStorage.clear();
+  }
 
   user: User;
   authCreds: string;
@@ -25,15 +30,17 @@ export class SessionService {
               private resourceCopyService: ResourceCopyService) {
   }
 
+
+
   logIn(username: string, password: string) {
     this.authCreds = btoa(username + ':' + password);
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-
     return this.http.get(LOGIN_URL, {headers: headers})
       .map(
         response => {
           let id = response.json().id;
+          localStorage.setItem("creds", this.authCreds);
           this.userService.setAuthHeaders(this.authCreds);
           this.userService.getUser(id).subscribe(
             user => {
@@ -43,6 +50,7 @@ export class SessionService {
             },
             error => console.log(error)
           );
+          localStorage.setItem("creds", this.authCreds);
           localStorage.setItem("user", username);
           this.actionService.setAuthHeaders(this.authCreds);
           this.fileService.setAuthHeaders(this.authCreds);
