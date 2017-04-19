@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DoCheck} from '@angular/core';
 import {STATUS_NO_CONTENT, BOOKS_IMG_URL} from "../../../util";
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -17,7 +17,7 @@ import {UserService} from '../../../service/user.service';
   templateUrl: 'home.component.html'
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, DoCheck {
 
   books: Resource[];
   booksPage: number;
@@ -53,6 +53,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isLogged = this.sessionService.checkCredentials();
     this.user = this.userService.getUserCompleted();
+  }
+
+  ngDoCheck() {
+    if (this.isLogged != this.sessionService.checkCredentials()) {
+      this.ngOnInit();
+    }
   }
 
   addBooks(userReq: boolean) {
