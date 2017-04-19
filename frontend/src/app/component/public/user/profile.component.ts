@@ -14,7 +14,6 @@ import {FileService} from '../../../service/file.service';
 import {SessionService} from '../../../service/session.service';
 import {UserService} from '../../../service/user.service';
 import {ModalProfileEdit} from "./modal.profile.component/modal-profile-edit";
-import {IMG_URL} from "../../../util";
 import {ModalBiographyEdit} from "./modal.biography.component/modal-biography-edit";
 
 @Component({
