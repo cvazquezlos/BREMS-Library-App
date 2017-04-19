@@ -1,3 +1,49 @@
-<p>
-  manage-fines works!
-</p>
+<section class="content-header">
+  <h1>
+    Administración de multas
+    <small>Administra las multas de los usuarios</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active">Multas</li>
+  </ol>
+</section>
+<section class="content">
+  <table class="table table-bordered table-striped" style="background-color: white !important;">
+    <thead>
+    <tr>
+      <th width="10%">Identificador</th>
+      <th width="15%">Usuario</th>
+      <th width="20%">Recurso</th>
+      <th width="10%">Razón</th>
+      <th width="20%">Tiempo</th>
+      <th width="3%">Administrar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-fine [ngForOf]="fines">
+      <tr>
+        <td>{{fine?.id}}</td>
+        <td>{{fine.user?.name}}</td>
+        <td>{{fine.resourceCopy?.title}}</td>
+        <td>Default</td>
+        <td>{{fine?.initDate}} - {{fine?.finishDate}}</td>
+        <td>
+          <button type="button" class="btn btn-warning" (click)="delete(fine.id)">
+            <span class="fa fa-trash"></span>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </table><div>
+  <div class="pull-right">
+    <button *ngIf="showPreviousPage" type="button" class="btn btn-primary" (click)="previousPage()">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </button>
+    <button *ngIf="showNextPage" type="button" class="btn btn-primary" (click)="nextPage()">
+      <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+</section>
