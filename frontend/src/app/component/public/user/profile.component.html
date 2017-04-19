@@ -13,7 +13,12 @@
         <template ngbTabContent>
           <div class="row userProfile">
             <div class="col-lg-2 avatar">
-              <img [src]="sanitizer.bypassSecurityTrustUrl(userImage)" class="img-responsive avatar">
+              <div *ngIf="userImage == undefined; else chargedImage">
+                <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
+              </div>
+              <ng-template #chargedImage>
+                <img [src]="sanitizer.bypassSecurityTrustUrl(userImage)" class="img-responsive avatar" />
+              </ng-template>
             </div>
             <div class="col-lg-8">
               <h4>
@@ -74,9 +79,11 @@
               <div class="row item">
                 <div class="col-sm-6 col-md-4 col-lg-2">
                   <div class="coverItem">
-                    <p>Avatar</p>
+                    <div *ngIf="action.copy.resource.image != undefined">
+                      <img [src]="sanitizer.bypassSecurityTrustUrl(action.copy.resource.image)" class="img-responsive" />
+                    </div>
                     <br>
-                    <a href="#"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    <a [routerLink]="['/resource',action.copy.resource.id]"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
                     </a>
                   </div>
                 </div>
@@ -110,9 +117,11 @@
               <div class="row item">
                 <div class="col-sm-6 col-md-4 col-lg-2">
                   <div class="coverItem">
-                    <p>Avatar</p>
+                    <div *ngIf="action.copy.resource.image != undefined">
+                      <img [src]="sanitizer.bypassSecurityTrustUrl(action.copy.resource.image)" class="img-responsive" />
+                    </div>
                     <br>
-                    <a href="#"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
+                    <a [routerLink]="['/resource',action.copy.resource.id]"> <span class="glyphicon glyphicon-info-sign"></span>ver libro
                     </a>
                   </div>
                 </div>

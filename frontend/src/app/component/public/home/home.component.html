@@ -5,6 +5,12 @@
     </ul>
   </div>
 </div>
+<div *ngIf="successMessage" class="alert alert-success">
+  <strong>¡Reservado!</strong> {{message}}
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  <strong>Algo ha ido mal...</strong> {{message}}
+</div>
 <div class="row">
   <div class="col-sm-12">
     <ngb-tabset>
@@ -15,13 +21,22 @@
               <div class="row item">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                   <div class="coverItem">
-                    <img [src]="sanitizer.bypassSecurityTrustUrl(book.image)" class="img-responsive" />
+                    <div *ngIf="book.image == undefined; else chargedImage">
+                      <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
+                    </div>
+                    <ng-template #chargedImage>
+                      <img [src]="sanitizer.bypassSecurityTrustUrl(book.image)" class="img-responsive" />
+                    </ng-template>
                     <div>
                       <div *ngIf="isLogged">
-                        <button *ngIf="book.avaiblereserve; else notEnough" (click)="reserveResource(book.id)" class="btn btn-reserve">Reservar</button>
-                        <ng-template #notEnough>
-                          <p class="btn btn-notEnough">No disponible</p>
-                        </ng-template>
+                        <div>
+                          <div *ngIf="book.avaiblereserve; else notEnough">
+                            <button (click)="reserveResource(book)" class="btn btn-reserve">Reservar</button>
+                          </div>
+                          <ng-template #notEnough>
+                            <p class="btn btn-notEnough">No disponible</p>
+                          </ng-template>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -43,7 +58,9 @@
                 </div>
               </div>
             </ng-template>
-            <button [class.showBtnMoreBook]="moreBooksActive" (click)="addBooks(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más libros</button>
+            <div *ngIf="moreBooksActive">
+              <button (click)="addBooks(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más libros</button>
+            </div>
           </div>
         </template>
       </ngb-tab>
@@ -54,13 +71,22 @@
               <div class="row item">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                   <div class="coverItem">
-                    <img [src]="sanitizer.bypassSecurityTrustUrl(magazine.image)" class="img-responsive" />
+                    <div *ngIf="magazine.image == undefined; else chargedImage">
+                      <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
+                    </div>
+                    <ng-template #chargedImage>
+                      <img [src]="sanitizer.bypassSecurityTrustUrl(magazine.image)" class="img-responsive" />
+                    </ng-template>
                     <div>
                       <div *ngIf="isLogged">
-                        <button *ngIf="magazine.avaiblereserve; else notEnough" (click)="reserveResource(magazine.id)" class="btn btn-reserve">Reservar</button>
-                        <ng-template #notEnough>
-                          <p class="btn btn-notEnough">No disponible</p>
-                        </ng-template>
+                        <div>
+                          <div *ngIf="magazine.avaiblereserve; else notEnough">
+                            <button (click)="reserveResource(magazine)" class="btn btn-reserve">Reservar</button>
+                          </div>
+                          <ng-template #notEnough>
+                            <p class="btn btn-notEnough">No disponible</p>
+                          </ng-template>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -82,7 +108,9 @@
                 </div>
               </div>
             </ng-template>
-            <button [class.showBtnMoreMagaz]="moreMagazActive" (click)="addMagazines(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más revistas</button>
+            <div *ngIf="moreMagazActive">
+              <button (click)="addMagazines(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más revistas</button>
+            </div>
           </div>
         </template>
       </ngb-tab>

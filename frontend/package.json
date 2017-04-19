@@ -26,6 +26,7 @@
     "bootstrap-sass": "^3.3.7",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
+    "ng-alerts": "^1.0.6",
     "ng-bootstrap-dropdown": "^1.0.0",
     "ng2-bootstrap": "^1.6.2",
     "ngx-dropdown": "0.0.22",

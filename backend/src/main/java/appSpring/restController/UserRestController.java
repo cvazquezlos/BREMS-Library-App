@@ -35,6 +35,7 @@ import appSpring.service.UserService;
 public class UserRestController {
 
 	public interface UserDetail extends User.Basic, User.Act, User.Fin, Fine.Basic, Action.Basic {}
+	public interface UserBasic extends User.LoginInt {}
 
 	@Autowired
 	private UserService userService;
@@ -63,11 +64,7 @@ public class UserRestController {
 		session.setMaxInactiveInterval(-1);
 		if(page==null) page=0;
 		Page<User> users = userService.findAll(page);
-		if (users.getNumberOfElements() > 0) {
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
 	@JsonView(UserDetail.class)
@@ -88,7 +85,7 @@ public class UserRestController {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@JsonView(UserDetail.class)
+	@JsonView(UserBasic.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id, HttpSession session,
 			Authentication authentication) {
