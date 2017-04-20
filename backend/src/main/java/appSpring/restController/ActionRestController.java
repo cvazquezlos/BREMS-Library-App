@@ -50,24 +50,16 @@ public class ActionRestController {
 
 	@JsonView(LoanDetail.class)
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<Action> postAction(@RequestBody Action loan, Authentication authentication,
-			HttpSession session, HttpServletRequest request) {
+	public ResponseEntity<Action> postAction(@RequestBody Action loan) {
 
-		session.setMaxInactiveInterval(-1);
-		if ((authentication.getName().equals(userService.findOne(loan.getUser().getId()).getName()))
-				|| (request.isUserInRole("ADMIN"))) {
-			Date date = new Date();
-			Resource resource = resourceService.findOne(loan.getResource().getResource().getId());
-			ResourceCopy resourceCopy = resourceCopyService.findOne(loan.getResource().getID());
-			int status = logicService.reserveAResource(userService.findOne(loan.getUser().getId()), date, resource,
-					resourceCopy);
-			if (status == 0) {
-				return new ResponseEntity<>(logicService.getAction(), HttpStatus.CREATED);
-			} else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
+		Date date = new Date();
+		Resource resource = resourceService.findOne(loan.getResource().getResource().getId());
+		ResourceCopy resourceCopy = resourceCopyService.findOne(loan.getResource().getID());
+		int status = logicService.reserveAResource(userService.findOne(loan.getUser().getId()), date, resource, resourceCopy);
+		if (status == 0) {
+			return new ResponseEntity<>(logicService.getAction(), HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
