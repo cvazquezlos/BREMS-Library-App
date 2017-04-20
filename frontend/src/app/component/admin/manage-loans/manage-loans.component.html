@@ -3,11 +3,11 @@
 </section>
 
 <section class="content">
-  <table class="table table-bordered table-striped" style="background-color: white !important;">
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th width="20%">Identificador</th>
-        <th width="20%">Usuario</th>
+        <th width="10%">Identificador</th>
+        <th width="15%">Usuario</th>
         <th>Recurso</th>
         <th>Petición</th>
         <th>Préstamo</th>
@@ -17,19 +17,21 @@
     </thead>
     <tbody>
       <tr *ngFor="let loan of loans">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{ loan.copy.locationCode }}</td>
+        <td>{{ loan.user.name }}</td>
+        <td>{{ loan.copy.resource.title }}</td>
+        <td>{{ loan.dateLoanInit }}</td>
         <td>
           <a>
             <button type="button" class="btn btn-primary"><span class="fa fa-bookmark-o"></span> &nbsp; Prestar</button>
           </a>
+          {{ loan.dateLoanGiven }}
         </td>
         <td>
           <a>
             <button type="button" class="btn btn-primary"><span class="fa fa-bookmark"></span> &nbsp; Devolución</button>
           </a>
+          {{ loan.dateLoanReturn }}
         </td>
         <td>
           <a>

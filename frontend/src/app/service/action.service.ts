@@ -19,6 +19,8 @@ export class ActionService {
   }
 
   getAllActions(page?: number, finished?: boolean) {
+    this.authCreds = localStorage.getItem("creds");
+
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
 

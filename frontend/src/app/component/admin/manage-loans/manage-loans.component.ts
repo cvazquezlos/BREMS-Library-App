@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { Action } from 'app/model/action.model';
+
+import { SessionService } from 'app/service/session.service';
 import { ActionService } from 'app/service/action.service'
 
 @Component({
@@ -8,18 +12,22 @@ import { ActionService } from 'app/service/action.service'
 })
 export class ManageLoansComponent implements OnInit {
 
-  private loans: Object[] = [];
+  private loans: Action[] = [];
 
-  constructor(private service: ActionService) {
+  constructor(private router: Router,
+    private sessionService: SessionService,
+    private actionService: ActionService) {
   }
 
   ngOnInit() {
-    this.service.getAllActions().subscribe(
-      loans => {
-        this.loans = loans;
-        console.log(this.loans);
-      },
-      error => console.log(error)
-    );
+    if (!this.sessionService.checkCredentials()) {
+      this.router.navigate(["/login"]);
+    } else {
+      this.actionService.getAllActions().subscribe(
+        loans => { this.loans = loans; console.log(loans); },
+        error => console.log(error)
+      );
+    }
   }
+
 }
