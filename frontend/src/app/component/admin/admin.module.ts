@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {AdminComponent} from './admin.component';
 
@@ -35,7 +36,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
         ManageUsersComponent,
         CreateUserComponent,
         EditUserComponent,
-        
+
     ]
 })
 export class AdminModule {

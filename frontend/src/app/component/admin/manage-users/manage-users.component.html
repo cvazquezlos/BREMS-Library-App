@@ -49,12 +49,16 @@
   <div>
     <div class="pull-left">
       <a [routerLink]="['/admin/users/new']">
-        <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span>&nbsp;Añadir usuario</button>
+        <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle">  </span>&nbsp;Añadir usuario</button>
       </a>
     </div>
     <div class="pull-right">
-      <button *ngIf="showPreviousPage" type="button" class="btn btn-primary" (click)="previousPage()">&#8678;</button>
-      <button *ngIf="showNextPage" type="button" class="btn btn-primary" (click)="nextPage()">&#8680;</button>
+      <button *ngIf="showPreviousPage" type="button" class="btn btn-primary" (click)="previousPage()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <button *ngIf="showNextPage" type="button" class="btn btn-primary" (click)="nextPage()">
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 </section>
