@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, ViewChild, DoCheck} from '@angular/core';
 import {Router} from '@angular/router';
 import 'rxjs/Rx';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -14,13 +14,12 @@ import {FileService} from '../../../service/file.service';
 import {SessionService} from '../../../service/session.service';
 import {UserService} from '../../../service/user.service';
 import {ModalProfileEdit} from "./modal.profile.component/modal-profile-edit";
-import {IMG_URL} from "../../../util";
 import {ModalBiographyEdit} from "./modal.biography.component/modal-biography-edit";
 
 @Component({
   templateUrl: 'profile.component.html'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, DoCheck {
 
   currentActions: Action[];
   currentActionsPage: number;
@@ -89,6 +88,12 @@ export class ProfileComponent implements OnInit {
         },
         error => console.log("Fail trying to charge " + this.user.name + " image.")
       );
+    }
+  }
+
+  ngDoCheck() {
+    if(this.user != this.userService.getUserCompleted()){
+      this.ngOnInit();
     }
   }
 

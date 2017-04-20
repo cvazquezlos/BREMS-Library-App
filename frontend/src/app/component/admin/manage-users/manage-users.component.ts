@@ -24,7 +24,7 @@ export class ManageUsersComponent implements OnInit {
     this.errorMessage = false;
     this.users = [];
     this.usersPage = 0;
-    this.showNextPage = true;
+    this.showNextPage = false;
     this.showPreviousPage = false;
   }
 
@@ -33,6 +33,8 @@ export class ManageUsersComponent implements OnInit {
       this.router.navigate(["/login"]);
     } else {
       this.getUsers();
+      this.checkNextPage();
+      this.checkPreviousPage();
     }
   }
 
@@ -64,7 +66,6 @@ export class ManageUsersComponent implements OnInit {
   checkNextPage() {
     this.userService.getUsers(this.usersPage + 1).subscribe(
       users => {
-        console.log(this.usersPage + 1 + users);
         if (Object.keys(users).length === 0) {
           this.showNextPage = false;
         } else {
@@ -78,7 +79,6 @@ export class ManageUsersComponent implements OnInit {
     if (this.usersPage > 0) {
       this.userService.getUsers(this.usersPage - 1).subscribe(
         users => {
-          console.log(this.usersPage + users);
           if (Object.keys(users).length === 0) {
             this.showPreviousPage = false;
           } else {
@@ -99,12 +99,7 @@ export class ManageUsersComponent implements OnInit {
         this.message = 'Usuario eliminado correctamente.';
         this.usersPage = 0;
         console.log('User successfully deleted.');
-        this.userService.getUsers(this.usersPage).subscribe(
-          users => {
-            this.users = users;
-          },
-          error => console.log("Fail trying to get all users.")
-        );
+        this.getUsers();
         this.checkNextPage();
         this.checkPreviousPage();
       },

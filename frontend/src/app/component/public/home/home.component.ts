@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DoCheck} from '@angular/core';
 import {STATUS_NO_CONTENT, BOOKS_IMG_URL} from "../../../util";
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -17,7 +17,7 @@ import {UserService} from '../../../service/user.service';
   templateUrl: 'home.component.html'
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, DoCheck {
 
   books: Resource[];
   booksPage: number;
@@ -53,6 +53,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isLogged = this.sessionService.checkCredentials();
     this.user = this.userService.getUserCompleted();
+  }
+
+  ngDoCheck() {
+    if (this.isLogged != this.sessionService.checkCredentials()) {
+      this.ngOnInit();
+    }
   }
 
   addBooks(userReq: boolean) {
@@ -105,26 +111,31 @@ export class HomeComponent implements OnInit {
   }
 
   reserveResource(resource: Resource) {
-    console.log('Trying to find a reserve copy avaible of ' + resource.title + '...')
-    let copy = this.resourceCopyService.getResourceCopyByLocationCode(resource.noReservedCopies[0]);
-    if (copy === undefined) {
-      console.log('Not enough copies or user is not allow to make the reserve.');
-      this.successMessage = false;
-      this.errorMessage = true;
-      this.message = 'La reserva no se ha podido realizar.';
-    } else {
-      let action: Action;
-      action = {copy: copy, user: this.user};
-      console.log(JSON.stringify(action));
-      this.actionService.postAction(action).subscribe(
-        response => {
-          this.errorMessage = false;
-          this.successMessage = true;
-          this.message = 'La reserva se ha realizado exitosamente.';
-          console.log('Reserve successfully completed.');
-        },
-        error => console.log('Fail trying to make the reserve.')
-      );
-    }
+    console.log('Trying to find a reserve copy avaible of ' + resource.title + '...');
+    this.resourceCopyService.getResourceCopies().subscribe(
+      response => {
+        for (let copy of response) {
+          if (copy.locationCode === resource.noReservedCopies[0]) {
+            let action: Action;
+            action = {copy: copy, user: this.user};
+            this.actionService.postAction(action).subscribe(
+              response => {
+                this.errorMessage = false;
+                this.successMessage = true;
+                this.message = 'La reserva se ha realizado exitosamente.';
+                console.log('Reserve successfully completed.');
+              },
+              error => console.log('Fail trying to make the reserve.')
+            );
+          }
+        }
+      },
+      error => {
+        console.log('Not enough copies or user is not allow to make the reserve.');
+        this.successMessage = false;
+        this.errorMessage = true;
+        this.message = 'La reserva no se ha podido realizar.';
+      }
+    );
   }
 }
