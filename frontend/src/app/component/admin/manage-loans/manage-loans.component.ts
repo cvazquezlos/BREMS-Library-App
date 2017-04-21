@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Action } from 'app/model/action.model';
 
 import { SessionService } from 'app/service/session.service';
-import { ActionService } from 'app/service/action.service'
+import { ActionService } from 'app/service/action.service';
 
 @Component({
     templateUrl: './manage-loans.component.html',
@@ -12,12 +12,12 @@ import { ActionService } from 'app/service/action.service'
 })
 export class ManageLoansComponent implements OnInit {
 
-    private loans: Action[] = [];
-    private errorMessage: boolean;
-    private message: String;
-    private showNextPage: boolean;
-    private showPreviousPage: boolean;
-    private successMessage: boolean;
+    loans: Action[] = [];
+    errorMessage: boolean;
+    message: String;
+    showNextPage: boolean;
+    showPreviousPage: boolean;
+    successMessage: boolean;
     private loansPage: number;
 
     constructor(private router: Router,
@@ -67,30 +67,39 @@ export class ManageLoansComponent implements OnInit {
 
     checkNextPage() {
         this.actionService.getAllActions(this.loansPage + 1).subscribe(
-            loans => {
-                if (Object.keys(loans).length === 0) {
-                    this.showNextPage = false;
-                } else {
-                    this.showNextPage = true;
-                }
-            }
+            loans => this.showNextPage = (Object.keys(loans).length === 0) ? false : true
         );
     }
 
     checkPreviousPage() {
         if (this.loansPage > 0) {
             this.actionService.getAllActions(this.loansPage - 1).subscribe(
-                loans => {
-                    if (Object.keys(loans).length === 0) {
-                        this.showPreviousPage = false;
-                    } else {
-                        this.showPreviousPage = true;
-                    }
-                }
-            );
+                loans => this.showPreviousPage = (Object.keys(loans).length === 0) ? false : true);
         } else {
             this.showPreviousPage = false;
         }
+    }
+
+    updateLoan(id: number, action: String) {
+        let loan: Action;
+        loan = this.loans.find(x => x.id === id);
+
+        this.actionService.updateAction(loan, action).subscribe(
+            response => {
+                this.successMessage = true;
+                this.errorMessage = false;
+                this.message = 'Realizado correctamente.';
+                this.loansPage = 0;
+                this.getLoans();
+                this.checkNextPage();
+                this.checkPreviousPage();
+            },
+            error => {
+                this.successMessage = false;
+                this.errorMessage = true;
+                this.message = 'No se ha podido realizar la acción.'
+            }
+        );
     }
 
     deleteLoan(id: number) {

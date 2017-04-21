@@ -37,7 +37,7 @@
         <td>{{ resource.genre.name }}</td>
         <td>{{ resource.resourceType.name }}</td>
         <td>
-          <a [routerLink]="['../resource', resource.id]">
+          <a [routerLink]="['./', resource.id]">
             <button type="button" class="btn btn-success"><span class="fa fa-pencil"></span></button>
           </a>
           <button type="button" class="btn btn-warning" (click)="deleteResource(resource.id)"><span class="fa fa-trash"></span></button>

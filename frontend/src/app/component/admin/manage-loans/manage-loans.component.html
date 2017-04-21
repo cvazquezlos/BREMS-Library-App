@@ -1,73 +1,69 @@
 <div *ngIf="successMessage" class="alert alert-success">
-  <strong>¡Eliminado!</strong> {{message}}
+    <strong>¡Eliminado!</strong> {{message}}
 </div>
 <div *ngIf="errorMessage" class="alert alert-danger">
-  <strong>Algo ha ido mal...</strong> {{message}}
+    <strong>Algo ha ido mal...</strong> {{message}}
 </div>
 
 <section class="content-header">
-  <h1>Administración de préstamos <small>Administra los préstamos de los recursos</small></h1>
-  <ol class="breadcrumb">
-    <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li class="active">Prestamos</li>
-  </ol>
+    <h1>Administración de préstamos <small>Administra los préstamos de los recursos</small></h1>
+    <ol class="breadcrumb">
+        <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li class="active">Prestamos</li>
+    </ol>
 </section>
 
 <section class="content">
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th width="10%">Identificador</th>
-        <th width="15%">Usuario</th>
-        <th>Recurso</th>
-        <th>Petición</th>
-        <th>Préstamo</th>
-        <th>Devolución</th>
-        <th>Administrar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let loan of loans">
-        <td>{{ loan.copy.locationCode }}</td>
-        <td>{{ loan.user.name }}</td>
-        <td>{{ loan.copy.resource.title }}</td>
-        <td>{{ loan.dateLoanInit }}</td>
-        <td>
-          <div *ngIf="loan.dateLoanGiven; else elseBlock">{{ loan.dateLoanGiven }}</div>
-          <ng-template #elseBlock>
-            <a>
-              <button type="button" class="btn btn-primary"><span class="fa fa-bookmark-o"></span> &nbsp; Prestar</button>
-            </a>
-          </ng-template>
-        </td>
-        <td>
-          <div *ngIf="loan.dateLoanReturn; else elseBlock">{{ loan.dateLoanReturn }}</div>
-          <ng-template #elseBlock>
-            <a>
-              <button type="button" class="btn btn-primary"><span class="fa fa-bookmark"></span> &nbsp; Devolución</button>
-            </a>
-          </ng-template>
-        </td>
-        <td>
-          <button type="button" class="btn btn-warning" (click)="deleteLoan(loan.id)"><span class="fa fa-trash"></span></button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th width="10%">Identificador</th>
+                <th width="15%">Usuario</th>
+                <th>Recurso</th>
+                <th>Petición</th>
+                <th>Préstamo</th>
+                <th>Devolución</th>
+                <th>Administrar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let loan of loans">
+                <td>{{ loan.copy.locationCode }}</td>
+                <td>{{ loan.user.name }}</td>
+                <td>{{ loan.copy.resource.title }}</td>
+                <td>{{ loan.dateLoanInit }}</td>
+                <td>
+                    <div *ngIf="loan.dateLoanGiven != '1970-01-01 00:00:00' ; else elseBlockLoanGiven">{{ loan.dateLoanGiven }}</div>
+                    <ng-template #elseBlockLoanGiven>
+                        <button type="button" class="btn btn-primary" (click)="updateLoan(loan.id, 'give')"><span class="fa fa-bookmark-o"></span> &nbsp; Prestar</button>
+                    </ng-template>
+                </td>
+                <td>
+                    <div *ngIf="loan.dateLoanReturn != '1970-01-01 00:00:00' ; else elseBlockLoanReturn">{{ loan.dateLoanReturn }}</div>
+                    <ng-template #elseBlockLoanReturn>
+                        <button type="button" class="btn btn-primary" (click)="updateLoan(loan.id, 'return')"><span class="fa fa-bookmark"></span> &nbsp; Devolución</button>
+                    </ng-template>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" (click)="deleteLoan(loan.id)"><span class="fa fa-trash"></span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-  <div>
-    <div class="pull-left">
-      <a [routerLink]="['/admin/users/new']">
-        <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle">  </span>&nbsp;Añadir préstamo</button>
-      </a>
-    </div>
-    <div class="pull-right">
-      <button *ngIf="showPreviousPage" type="button" class="btn btn-primary" (click)="previousPage()">
+    <div>
+        <div class="pull-left">
+            <a [routerLink]="['/admin/loans/new']">
+                <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle">  </span>&nbsp;Añadir préstamo</button>
+            </a>
+        </div>
+        <div class="pull-right">
+            <button *ngIf="showPreviousPage" type="button" class="btn btn-primary" (click)="previousPage()">
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
       </button>
-      <button *ngIf="showNextPage" type="button" class="btn btn-primary" (click)="nextPage()">
+            <button *ngIf="showNextPage" type="button" class="btn btn-primary" (click)="nextPage()">
         <i class="fa fa-arrow-right" aria-hidden="true"></i>
       </button>
+        </div>
     </div>
-  </div>
 </section>

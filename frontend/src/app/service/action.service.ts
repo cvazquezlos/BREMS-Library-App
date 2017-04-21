@@ -36,12 +36,27 @@ export class ActionService {
     }
 
     postAction(action: Action) {
+        this.authCreds = localStorage.getItem("creds");
         let body = JSON.stringify(action);
         let headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('X-Requested-With', 'XMLHttpRequest');
         headers.append('Authorization', 'Basic ' + this.authCreds);
         return this.http.post(ACTION_URL, body, { headers: headers })
+            .map(response => response.json())
+            .catch(error => Observable.throw('Server error'));
+    }
+
+    updateAction(loan: Action, action: String) {
+        this.authCreds = localStorage.getItem("creds");
+        let body = JSON.stringify(loan);
+        let headers: Headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('X-Requested-With', 'XMLHttpRequest');
+        headers.append('Authorization', 'Basic ' + this.authCreds);
+
+        let url = ACTION_URL + '/' + loan.id + '?action=' + action;
+        return this.http.put(url, body, { headers: headers })
             .map(response => response.json())
             .catch(error => Observable.throw('Server error'));
     }

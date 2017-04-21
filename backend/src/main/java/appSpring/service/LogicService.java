@@ -143,7 +143,7 @@ public class LogicService {
 	}
 
 	private boolean itIsPossibleToReturn(Action action) {
-		return ((action.getDateLoanGiven() == new Date(0)) && (action.getDateLoanReturn() == new Date(0)));
+		return ((action.getDateLoanGiven() != new Date(0)) && (action.getDateLoanReturn() == new Date(0)));
 	}
 
 	private boolean itIsPossibleToGive(Action action) {
@@ -187,7 +187,7 @@ public class LogicService {
 			if (date1 == new Date(0))
 				continue;
 			Date date3 = currentAction.getDateLoanReturn();
-			if (date3 == new Date(0))
+			if (date3 != new Date(0))
 				continue;
 			date1.setMinutes(date1.getMinutes() + 1);
 			Date date2 = new Date();
