@@ -55,7 +55,7 @@ public class LogicService {
 	private boolean hasAnActiveAction(User user, Resource resource) {
 		List<Action> actions = user.getActions();
 		for (Action action : actions) {
-			if (action.getResource().getResource() == resource && action.getDateLoanReturn() == null) {
+			if (action.getResource().getResource() == resource && action.getDateLoanReturn() == new Date(0)) {
 				return true;
 			}
 		}
@@ -105,7 +105,7 @@ public class LogicService {
 	}
 
 	private boolean deleteLoanAvaible(Action loan) {
-		return (loan.getDateLoanReturn() == null);
+		return (loan.getDateLoanReturn() == new Date(0));
 	}
 
 	public int deleteALoan(Action loan) {
@@ -143,11 +143,11 @@ public class LogicService {
 	}
 
 	private boolean itIsPossibleToReturn(Action action) {
-		return ((action.getDateLoanGiven() != null) && (action.getDateLoanReturn() == null));
+		return ((action.getDateLoanGiven() == new Date(0)) && (action.getDateLoanReturn() == new Date(0)));
 	}
 
 	private boolean itIsPossibleToGive(Action action) {
-		return ((action.getDateLoanGiven() == null) && (action.getDateLoanReturn() == null));
+		return ((action.getDateLoanGiven() == new Date(0)) && (action.getDateLoanReturn() == new Date(0)));
 	}
 
 	public int addGiveDate(Action action, Date date) {
@@ -184,10 +184,10 @@ public class LogicService {
 		List<Action> currentActions = actionService.findByUser(action.getUser());
 		for (Action currentAction : currentActions) {
 			Date date1 = currentAction.getDateLoanGiven();
-			if (date1 == null)
+			if (date1 == new Date(0))
 				continue;
 			Date date3 = currentAction.getDateLoanReturn();
-			if (date3 != null)
+			if (date3 == new Date(0))
 				continue;
 			date1.setMinutes(date1.getMinutes() + 1);
 			Date date2 = new Date();

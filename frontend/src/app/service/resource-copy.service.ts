@@ -9,7 +9,6 @@ import {ResourceCopy} from "../model/resource-copy.model";
 @Injectable()
 export class ResourceCopyService {
 
-  resourceCopy: ResourceCopy;
   resourceCopies: ResourceCopy[];
   authCreds: string;
 
@@ -21,30 +20,11 @@ export class ResourceCopyService {
     this.authCreds = authCreds;
   }
 
-  getResourceCopyByLocationCode(locationCode: string) {
-    let page = 0;
-    let morePages = true;
+  getResourceCopies() {
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    while (morePages) {
-      this.http.get(RESOURCECOPY_URL + '?page=' + page, {headers: headers})
-        .map(response => response.json().content)
-        .catch(error => Observable.throw('Server error')
-        ).subscribe(
-        response => {
-          if (response[1] === undefined) {
-            morePages = false;
-          } else {
-            this.resourceCopies = this.resourceCopies.concat(response);
-          }
-        }
-      );
-      page++;
-    }
-    for (let copy of this.resourceCopies) {
-      if (copy.locationCode === locationCode)
-        return copy;
-    }
+    return this.http.get(RESOURCECOPY_URL, {headers: headers})
+      .map(response => response.json())
+      .catch(error => Observable.throw('Server error'))
   }
-
 }
