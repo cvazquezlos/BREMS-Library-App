@@ -25,7 +25,7 @@ export class ResourceService {
   }
 
   getAllResources(type?: string, page?: number) {
-    let url = (type && page) ? RESOURCES_URL + '?type=' + type + '&page=' + page : RESOURCES_URL;
+    let url = RESOURCES_URL + '?type=' + type + '&page=' + page;
     return this.http.get(url)
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));

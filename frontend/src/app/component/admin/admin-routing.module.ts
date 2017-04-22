@@ -28,8 +28,8 @@ const adminRoutes: Routes = [
         path: '',
         children: [
           { path: 'resources', component: ManageResourcesComponent },
-          { path: 'resources/:id', component: EditResourceComponent },
           { path: 'resources/new', component: CreateResourceComponent },
+          { path: 'resources/:id', component: EditResourceComponent },
           { path: 'loans', component: ManageLoansComponent },
           { path: 'loans/new', component: CreateLoanComponent },
           { path: 'fines', component: ManageFinesComponent },
