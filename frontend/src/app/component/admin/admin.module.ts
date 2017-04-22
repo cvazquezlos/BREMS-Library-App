@@ -41,8 +41,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         ManageUsersComponent,
         CreateUserComponent,
         EditUserComponent,
-        CreateResourceComponent,
-
+        CreateResourceComponent
     ]
 })
 export class AdminModule {

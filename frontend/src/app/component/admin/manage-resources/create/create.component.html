@@ -1,3 +1,61 @@
-<p>
-  create works!
-</p>
+<section class="content-header">
+  <h1>Administraión de recursos <small>Administra los libros o las revistas</small></h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a [routerLink]="['/admin/resources']">Recursos</a></li>
+    <li class="active">Añadir recurso</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box box-default">
+    <div class="box-header with-border">
+      <h3 class="box-title">Nuevo libro</h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <form>
+          <div class="col-lg-8">
+            <div class="form-group">
+              <label>Título del recurso</label>
+              <input type="text" class="form-control" name="title" placeholder="Título" required>
+            </div>
+            <div class="form-group">
+              <label>Sumario del recurso</label>
+              <input type="text" class="form-control" name="description" placeholder="Sumario corto">
+            </div>
+            <div class="form-group">
+              <label>Autor o compañía</label>
+              <input type="text" class="form-control" name="author" placeholder="Autor o compañía" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputFile">Imagen</label>
+              <input for="exampleInputFile" type="file" name="picture" required>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label>Género literario</label>
+              <input type="text" class="form-control" name="genre" placeholder="Género" required>
+            </div>
+            <div class="form-group">
+              <label>Editorial</label>
+              <input type="text" class="form-control" name="editorial" placeholder="Editorial">
+            </div>
+            <div class="form-group">
+              <label>Tipo de recurso</label>
+              <input type="text" class="form-control" name="resourceType" placeholder="Tipo" required>
+            </div>
+            <div class="form-group">
+              <label>Número de copias</label>
+              <input type="number" class="form-control" name="copiesNumber" placeholder="Número de copias" required>
+            </div>
+            <div class="pull-right">
+              <input type="submit" class="btn btn-success">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
