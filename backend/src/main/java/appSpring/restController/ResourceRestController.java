@@ -151,5 +151,15 @@ public class ResourceRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@JsonView(ResourceDetail.class)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getAllResources(HttpSession session) {
+		
+		session.setMaxInactiveInterval(-1);
+		
+		List<Resource> resources = resourceService.findAll();
+		return new ResponseEntity<>(resources, HttpStatus.OK);
+	}
 
 }

@@ -31,6 +31,13 @@ export class ResourceService {
       .catch(error => Observable.throw('Server error'));
   }
 
+  getAllListResources() {
+    let url = RESOURCES_URL + '/all';
+    return this.http.get(url)
+      .map(response => response.json())
+      .catch(error => Observable.throw('Server error'));
+  }
+
   getPageResources(page?: number) {
     let url = (page) ? RESOURCES_URL + '?page=' + page : RESOURCES_URL;
     return this.http.get(url)

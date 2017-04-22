@@ -45,7 +45,7 @@ export class CreateLoanComponent implements OnInit {
                 users => this.users = users,
                 error => console.log(error)
             );
-            this.resourceService.getAllResources().subscribe(
+            this.resourceService.getAllListResources().subscribe(
                 resources => this.resources = resources,
                 error => console.log(error)
             );
