@@ -13,11 +13,11 @@ import { ResourceService } from 'app/service/resource.service';
 export class ManageResourcesComponent implements OnInit {
 
   private resources: Resource[] = [];
+  successMessage: boolean;
   errorMessage: boolean;
   message: String;
   showNextPage: boolean;
   showPreviousPage: boolean;
-  successMessage: boolean;
   resourcesPage: number;
 
   constructor(private router: Router,
@@ -82,7 +82,7 @@ export class ManageResourcesComponent implements OnInit {
   }
 
   deleteResource(id: number) {
-    this.ResourceService.deleteUser(id).subscribe(
+    this.ResourceService.deleteResource(id).subscribe(
       response => {
         this.successMessage = true;
         this.errorMessage = false;
