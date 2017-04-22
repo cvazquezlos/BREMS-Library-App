@@ -43,7 +43,6 @@ export class EditResourceComponent implements OnInit {
             },
             error => console.log('Fail adding resource ' + resource.title + 'image.')
           );
-          console.log(resource);
         },
         error => console.log(error)
       );

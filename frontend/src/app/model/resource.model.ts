@@ -1,4 +1,5 @@
 import { ResourceCopy } from './resource-copy.model';
+import { Genre } from './genre.model';
 
 export interface Resource {
   id?: number;
@@ -11,4 +12,5 @@ export interface Resource {
   description: string;
   hasPhoto: boolean;
   noReservedCopies: string[];
+  genre?: Genre;
 }

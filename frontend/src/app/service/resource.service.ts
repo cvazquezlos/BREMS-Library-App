@@ -66,6 +66,20 @@ export class ResourceService {
       .catch(error => Observable.throw('Server error'));
   }
 
+  createResource(resource: Resource) {
+    let body = JSON.stringify(resource);
+
+    this.authCreds = localStorage.getItem("creds");
+
+    let headers: Headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('X-Requested-With', 'XMLHttpRequest');
+    headers.append('Authorization', 'Basic ' + this.authCreds);
+    return this.http.post(RESOURCES_URL, body, { headers: headers })
+      .map(response => response.json())
+      .catch(error => Observable.throw('Server error'))
+  }
+
   deleteResource(id: number) {
     this.authCreds = localStorage.getItem("creds");
 
@@ -76,6 +90,13 @@ export class ResourceService {
 
     return this.http.delete(RESOURCES_URL + '/' + id, { headers: headers })
       .map(response => response.json())
+      .catch(error => Observable.throw('Server error'));
+  }
+
+  getResourcesTypes() {
+    let url = 'https://localhost:8443/api/resourcetypes';
+    return this.http.get(url)
+      .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
 }

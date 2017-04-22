@@ -14,47 +14,49 @@
     </div>
     <div class="box-body">
       <div class="row">
-        <form>
-          <div class="col-lg-8">
-            <div class="form-group">
-              <label>Título del recurso</label>
-              <input type="text" class="form-control" name="title" placeholder="Título" required>
-            </div>
-            <div class="form-group">
-              <label>Sumario del recurso</label>
-              <input type="text" class="form-control" name="description" placeholder="Sumario corto">
-            </div>
-            <div class="form-group">
-              <label>Autor o compañía</label>
-              <input type="text" class="form-control" name="author" placeholder="Autor o compañía" required>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputFile">Imagen</label>
-              <input for="exampleInputFile" type="file" name="picture" required>
-            </div>
+        <div class="col-lg-8">
+          <div class="form-group">
+            <label>Título del recurso</label>
+            <input type="text" class="form-control" placeholder="Título" required [(ngModel)]="newResource.title">
           </div>
-          <div class="col-lg-2">
-            <div class="form-group">
-              <label>Género literario</label>
-              <input type="text" class="form-control" name="genre" placeholder="Género" required>
-            </div>
-            <div class="form-group">
-              <label>Editorial</label>
-              <input type="text" class="form-control" name="editorial" placeholder="Editorial">
-            </div>
-            <div class="form-group">
-              <label>Tipo de recurso</label>
-              <input type="text" class="form-control" name="resourceType" placeholder="Tipo" required>
-            </div>
-            <div class="form-group">
-              <label>Número de copias</label>
-              <input type="number" class="form-control" name="copiesNumber" placeholder="Número de copias" required>
-            </div>
-            <div class="pull-right">
-              <input type="submit" class="btn btn-success">
-            </div>
+          <div class="form-group">
+            <label>Sumario del recurso</label>
+            <input type="text" class="form-control" placeholder="Sumario corto" [(ngModel)]="newResource.description">
           </div>
-        </form>
+          <div class="form-group">
+            <label>Autor o compañía</label>
+            <input type="text" class="form-control" placeholder="Autor o compañía" required [(ngModel)]="newResource.author">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile">Imagen</label>
+            <input for="exampleInputFile" type="file" name="picture" required>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <div class="form-group">
+            <label>Género literario</label>
+            <select [(ngModel)]="newResource.genre" required>
+                <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Editorial</label>
+            <input type="text" class="form-control" placeholder="Editorial" [(ngModel)]="newResource.editorial">
+          </div>
+          <div class="form-group">
+            <label>Tipo de recurso</label>
+            <select [(ngModel)]="newResource.type" required>
+                <option *ngFor="let type of types" [ngValue]="type">{{type.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Número de copias</label>
+            <input type="number" class="form-control" name="copiesNumber" placeholder="Número de copias" required>
+          </div>
+          <div class="pull-right">
+            <input type="button" class="btn btn-success" value="Guardar" (click)="createResource()">
+          </div>
+        </div>
       </div>
     </div>
   </div>

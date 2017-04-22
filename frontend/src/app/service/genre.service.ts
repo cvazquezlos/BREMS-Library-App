@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import {GENRE_URL} from "../util";
+import { GENRE_URL } from "../util";
 
 @Injectable()
 export class GenreService {
@@ -10,8 +10,9 @@ export class GenreService {
   constructor(private http: Http) {
   }
 
-  getAllGenres(page: number) {
-    return this.http.get(GENRE_URL + '?page=' + page)
+  getAllGenres(page?: number) {
+    let url = (page) ? GENRE_URL + '?page=' + page : GENRE_URL ;
+    return this.http.get(url)
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
