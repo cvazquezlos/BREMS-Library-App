@@ -13,8 +13,8 @@ import {FineService} from '../../../service/fine.service';
 import {FileService} from '../../../service/file.service';
 import {SessionService} from '../../../service/session.service';
 import {UserService} from '../../../service/user.service';
-import {ModalProfileEdit} from "./modal.profile.component/modal-profile-edit";
-import {ModalBiographyEdit} from "./modal.biography.component/modal-biography-edit";
+import {ModalProfileEdit} from './modal.profile.component/modal-profile-edit';
+import {ModalBiographyEdit} from './modal.biography.component/modal-biography-edit';
 
 @Component({
   templateUrl: 'profile.component.html'
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit, DoCheck {
           this.currentActionsPage++;
           this.downloadImages(resources);
         },
-        error => console.log("Fail trying to charge " + this.user.name + " current loans.")
+        error => console.log('Fail trying to charge ' + this.user.name + " current loans.")
       );
       this.fineService.getAllFines(this.finePage).subscribe(
         fines => {

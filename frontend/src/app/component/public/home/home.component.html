@@ -17,100 +17,114 @@
       <ngb-tab title="Libros">
         <template ngbTabContent>
           <div class="listItems">
-            <ng-template ngFor let-book [ngForOf]="books">
-              <div class="row item">
-                <div class="col-sm-12 col-md-4 col-lg-3">
-                  <div class="coverItem">
-                    <div *ngIf="book.image == undefined; else chargedImage">
-                      <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
-                    </div>
-                    <ng-template #chargedImage>
-                      <img [src]="sanitizer.bypassSecurityTrustUrl(book.image)" class="img-responsive" />
-                    </ng-template>
-                    <div>
-                      <div *ngIf="isLogged">
-                        <div>
-                          <div *ngIf="book.avaiblereserve; else notEnough">
-                            <button (click)="reserveResource(book)" class="btn btn-reserve">Reservar</button>
+            <div *ngIf="books.length == 0; else chargedBooks">
+              <img src="../../../../assets/img/loadingElements.gif" style="margin-left: 40%;">
+            </div>
+            <ng-template #chargedBooks>
+              <ng-template ngFor let-book [ngForOf]="books">
+                <div class="row item">
+                  <div class="col-sm-12 col-md-4 col-lg-3">
+                    <div class="coverItem">
+                      <div *ngIf="book.image == undefined; else chargedImage">
+                        <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
+                      </div>
+                      <ng-template #chargedImage>
+                        <img [src]="sanitizer.bypassSecurityTrustUrl(book.image)" class="img-responsive"/>
+                      </ng-template>
+                      <div>
+                        <div *ngIf="isLogged">
+                          <div>
+                            <div *ngIf="book.avaiblereserve; else notEnough">
+                              <button (click)="reserveResource(book)" class="btn btn-reserve">Reservar</button>
+                            </div>
+                            <ng-template #notEnough>
+                              <p class="btn btn-notEnough">No disponible</p>
+                            </ng-template>
                           </div>
-                          <ng-template #notEnough>
-                            <p class="btn btn-notEnough">No disponible</p>
-                          </ng-template>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-                  <h3 class="title">{{book.title}}</h3>
-                  <h5 class="authorName">por {{book.author}}</h5>
-                  <div class="description">
-                    <p>
-                      {{book.description}}
-                      <span>...</span>
-                      <a [routerLink]="['/resource',book.id]"> <span class="moreInfo">+ info</span> </a>
-                    </p>
-                    <div class="available stockAvailable">
-                      <span class="glyphicon glyphicon-ok-circle"></span>
-                      <span class="textAvailable">Disponible</span>
+                  <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+                    <h3 class="title">{{book.title}}</h3>
+                    <h5 class="authorName">por {{book.author}}</h5>
+                    <div class="description">
+                      <p>
+                        {{book.description}}
+                        <span>...</span>
+                        <a [routerLink]="['/resource',book.id]"> <span class="moreInfo">+ info</span> </a>
+                      </p>
+                      <div class="available stockAvailable">
+                        <span class="glyphicon glyphicon-ok-circle"></span>
+                        <span class="textAvailable">Disponible</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </ng-template>
+              <div *ngIf="moreBooksActive">
+                <button (click)="addBooks(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más
+                  libros
+                </button>
               </div>
             </ng-template>
-            <div *ngIf="moreBooksActive">
-              <button (click)="addBooks(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más libros</button>
-            </div>
           </div>
         </template>
       </ngb-tab>
       <ngb-tab title="Revistas">
         <template ngbTabContent>
           <div class="listItems">
-            <ng-template ngFor let-magazine [ngForOf]="magazines">
-              <div class="row item">
-                <div class="col-sm-12 col-md-4 col-lg-3">
-                  <div class="coverItem">
-                    <div *ngIf="magazine.image == undefined; else chargedImage">
-                      <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
-                    </div>
-                    <ng-template #chargedImage>
-                      <img [src]="sanitizer.bypassSecurityTrustUrl(magazine.image)" class="img-responsive" />
-                    </ng-template>
-                    <div>
-                      <div *ngIf="isLogged">
-                        <div>
-                          <div *ngIf="magazine.avaiblereserve; else notEnough">
-                            <button (click)="reserveResource(magazine)" class="btn btn-reserve">Reservar</button>
+            <div *ngIf="magazines.length == 0; else chargedMagazines">
+                <img src="../../../../assets/img/loadingElements.gif" style="margin-left: 40%;">
+            </div>
+            <ng-template #chargedMagazines>
+              <ng-template ngFor let-magazine [ngForOf]="magazines">
+                <div class="row item">
+                  <div class="col-sm-12 col-md-4 col-lg-3">
+                    <div class="coverItem">
+                      <div *ngIf="magazine.image == undefined; else chargedImage">
+                        <img src="../../../../assets/img/loadingImages.svg" width="50px" height="50px" align="middle">
+                      </div>
+                      <ng-template #chargedImage>
+                        <img [src]="sanitizer.bypassSecurityTrustUrl(magazine.image)" class="img-responsive"/>
+                      </ng-template>
+                      <div>
+                        <div *ngIf="isLogged">
+                          <div>
+                            <div *ngIf="magazine.avaiblereserve; else notEnough">
+                              <button (click)="reserveResource(magazine)" class="btn btn-reserve">Reservar</button>
+                            </div>
+                            <ng-template #notEnough>
+                              <p class="btn btn-notEnough">No disponible</p>
+                            </ng-template>
                           </div>
-                          <ng-template #notEnough>
-                            <p class="btn btn-notEnough">No disponible</p>
-                          </ng-template>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
-                  <h3 class="title">{{magazine.title}}</h3>
-                  <h5 class="authorName">por {{magazine.author}}</h5>
-                  <div class="description">
-                    <p>
-                      {{magazine.description}}
-                      <span>...</span>
-                      <a [routerLink]="['/resource',magazine.id]"> <span class="moreInfo">+ info</span> </a>
-                    </p>
-                    <div class="available stockAvailable">
-                      <span class="glyphicon glyphicon-ok-circle"></span>
-                      <span class="textAvailable">Disponible</span>
+                  <div class="col-sm-12 col-md-8 col-lg-7 informationItem">
+                    <h3 class="title">{{magazine.title}}</h3>
+                    <h5 class="authorName">por {{magazine.author}}</h5>
+                    <div class="description">
+                      <p>
+                        {{magazine.description}}
+                        <span>...</span>
+                        <a [routerLink]="['/resource',magazine.id]"> <span class="moreInfo">+ info</span> </a>
+                      </p>
+                      <div class="available stockAvailable">
+                        <span class="glyphicon glyphicon-ok-circle"></span>
+                        <span class="textAvailable">Disponible</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </ng-template>
+              <div *ngIf="moreMagazActive">
+                <button (click)="addMagazines(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más
+                  revistas
+                </button>
               </div>
             </ng-template>
-            <div *ngIf="moreMagazActive">
-              <button (click)="addMagazines(true)" type="button" class="btn btn-lg btn-block btn-view-more">Ver más revistas</button>
-            </div>
           </div>
         </template>
       </ngb-tab>
