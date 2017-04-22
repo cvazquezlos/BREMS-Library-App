@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Headers, Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import {USER_URL} from "../util";
+import { USER_URL } from "../util";
 
-import {User} from '../model/user.model';
+import { User } from '../model/user.model';
 
 @Injectable()
 export class UserService {
@@ -24,11 +24,12 @@ export class UserService {
     return this.user;
   }
 
-  getUsers(page: number) {
+  getUsers(page?: number) {
     this.authCreds = localStorage.getItem("creds");
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.get(USER_URL + '?page=' + page, {headers: headers})
+    let url = (page) ? USER_URL + '?page=' + page : USER_URL;
+    return this.http.get(url, { headers: headers })
       .map(response => response.json().content)
       .catch(error => Observable.throw('Server error'));
   }
@@ -37,7 +38,7 @@ export class UserService {
     this.authCreds = localStorage.getItem("creds");
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.get(USER_URL + '/' + id.toString(), {headers: headers})
+    return this.http.get(USER_URL + '/' + id.toString(), { headers: headers })
       .map(response => {
         this.user = response.json();
         return response.json();
@@ -52,7 +53,7 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     headers.append('X-Requested-With', 'XMLHttpRequest');
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.put(USER_URL + '/' + user.id, body, {headers: headers})
+    return this.http.put(USER_URL + '/' + user.id, body, { headers: headers })
       .map(response => {
         if (current) {
           this.getUser(user.id).subscribe(
@@ -69,7 +70,7 @@ export class UserService {
     let headers: Headers = new Headers();
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.put(USER_URL + '/' + user.id + '/upload', formData, {headers: headers})
+    return this.http.put(USER_URL + '/' + user.id + '/upload', formData, { headers: headers })
       .map(response => console.log("Success. The file has been successfully added to server directories."))
       .catch(error => Observable.throw('Server error'));
   }
@@ -80,7 +81,7 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     headers.append('X-Requested-With', 'XMLHttpRequest');
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.delete(USER_URL + '/' + id, {headers: headers})
+    return this.http.delete(USER_URL + '/' + id, { headers: headers })
       .map(response => response.json())
       .catch(error => Observable.throw('Server error'));
   }
@@ -92,7 +93,7 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     headers.append('X-Requested-With', 'XMLHttpRequest');
     headers.append('Authorization', 'Basic ' + this.authCreds);
-    return this.http.post(USER_URL, body, {headers: headers})
+    return this.http.post(USER_URL, body, { headers: headers })
       .map(response => response.json())
       .catch(error => Observable.throw('Server error'))
   }
