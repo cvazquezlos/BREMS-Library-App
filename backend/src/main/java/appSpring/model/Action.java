@@ -58,8 +58,6 @@ public class Action {
 
 	public Action(Date dateLoanInit) {
 		this.dateLoanInit = dateLoanInit;
-		dateLoanReturn = new Date(0);
-		dateLoanGiven = new Date(0);
 	}
 
 	public Integer getID() {
