@@ -1,9 +1,20 @@
+<div *ngIf="successMessage" class="alert alert-success">
+  <strong>¡Eliminado!</strong> {{message}}
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  <strong>Algo ha ido mal...</strong> {{message}}
+</div>
+
 <section class="content-header">
   <h1>Administración de recursos <small>Administra los libros o las revistas</small></h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i>Inicio</a></li>
+    <li class="active">Recursos</li>
+  </ol>
 </section>
 
 <section class="content">
-  <table class="table table-bordered table-striped" style="background-color: white !important;">
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th width="14%">Título</th>
@@ -23,21 +34,31 @@
         <td>{{ resource.copies.length }}</td>
         <td>{{ resource.noReservedCopies.length }}</td>
         <td>{{ resource.author }}</td>
-        <td>{{ resource.genre.name }}</td>
-        <td>{{ resource.resourceType.name }}</td>
+        <td>{{ resource.genre?.name }}</td>
+        <td>{{ resource.resourceType?.name }}</td>
         <td>
-          <a [routerLink]="['/resource', resource.id]">
+          <a [routerLink]="['./', resource.id]">
             <button type="button" class="btn btn-success"><span class="fa fa-pencil"></span></button>
           </a>
-          <a>
-            <button type="button" class="btn btn-warning"><span class="fa fa-trash"></span></button>
-          </a>
+          <button type="button" class="btn btn-warning" (click)="deleteResource(resource.id)"><span class="fa fa-trash"></span></button>
         </td>
       </tr>
     </tbody>
   </table>
-  <a>
-    <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle"> </span> &nbsp; Añadir recurso</button>
-  </a>
 
+  <div>
+    <div class="pull-left">
+      <a [routerLink]="['./new']">
+        <button type="button" class="btn btn-primary"><span class="fa fa-plus-circle">  </span>&nbsp;Añadir recurso</button>
+      </a>
+    </div>
+    <div class="pull-right">
+      <button *ngIf="showPreviousPage" type="button" class="btn btn-primary" (click)="previousPage()">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <button *ngIf="showNextPage" type="button" class="btn btn-primary" (click)="nextPage()">
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
 </section>

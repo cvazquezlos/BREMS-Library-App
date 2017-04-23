@@ -24,7 +24,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.update('index');
-    console.log(Number(localStorage.getItem('id')));
     this.userService.getUser(Number(localStorage.getItem('id'))).subscribe(
       user => this.user = user,
       error => console.log("Fail trying to get user information.")

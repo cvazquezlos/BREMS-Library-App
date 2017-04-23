@@ -40,6 +40,7 @@ public class Resource {
 	private ArrayList<String> noReservedCopies;
 	@JsonView(Basic.class)
 	private Boolean avaiblereserve;
+	private Integer resourceCopiesNumber;
 
 	@Column(length = 1024)
 	@JsonView(Basic.class)
@@ -177,4 +178,12 @@ public class Resource {
 		this.hasPhoto = hasPhoto;
 	}
 
+	public int getResourceCopiesNumber() {
+		return this.resourceCopiesNumber;
+	}
+	
+	public void setResourceCopiesNumber(int resourceCopiesNumber) {
+		this.resourceCopiesNumber = resourceCopiesNumber;
+	}
+	
 }

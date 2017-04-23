@@ -11,7 +11,6 @@ import {User} from "../../model/user.model";
 export class PublicComponent {
 
   constructor() {
-    localStorage.clear();
   }
 
   @ViewChild(ModalLogin)

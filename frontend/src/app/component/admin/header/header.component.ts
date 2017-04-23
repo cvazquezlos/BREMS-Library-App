@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ADMIN_IMG_URL} from '../../../util';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ADMIN_IMG_URL } from '../../../util';
 
-import {User} from '../../../model/user.model';
+import { User } from '../../../model/user.model';
 
-import {FileService} from '../../../service/file.service';
-import {UserService} from '../../../service/user.service';
+import { FileService } from '../../../service/file.service';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-admin-header',
@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
   constructor(private fileService: FileService, private sanitizer: DomSanitizer, private userService: UserService) { }
 
   ngOnInit() {
-    console.log(Number(localStorage.getItem('id')));
     this.userService.getUser(Number(localStorage.getItem('id'))).subscribe(
       user => this.user = user,
       error => console.log("Fail trying to get user information.")
