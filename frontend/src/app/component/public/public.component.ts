@@ -11,6 +11,9 @@ import {User} from "../../model/user.model";
 export class PublicComponent {
 
   constructor() {
+    if (localStorage.getItem('user') !== 'sergiob') {
+      localStorage.clear();
+    }
   }
 
   @ViewChild(ModalLogin)

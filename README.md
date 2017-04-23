@@ -57,8 +57,8 @@ In our App, we use these entities: *User*, *fine*, *resource*, *loan* and *copy*
 #### Tasks management 
 We use [Trello](https://trello.com/b/3hdFhIap/brems) and SCRUM because we think is the best way to work in a group.
 
-#### Views of app
-This app contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible. This design is originally made by @annyCS.
+#### Views of app - BACKEND (SPRING)
+Backend contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible. This design is originally made by @annyCS.
 
 ##### Index page
 ![index][index]
@@ -102,7 +102,8 @@ This app contains views (each page which makes this website useful). As a librar
 ###### Add user page
 ![admin-users-add][admin-users-add]
 
-#### App controllers class diagrams
+### BACKEND
+#### Backend controllers class diagrams
 ##### AdminController and services relationships
 ![admin-controller-and-services][admin-controller-and-services]
 
@@ -118,7 +119,7 @@ This app contains views (each page which makes this website useful). As a librar
 ##### UserController and services relationships
 ![user-controller-and-services][user-controller-and-services]
 
-#### App services class diagrams
+#### Backend services class diagrams
 ##### LogicService class diagrams
 ###### LogicService and services relationships
 ![logic-service-and-services][logic-service-and-services]
@@ -148,6 +149,73 @@ This app contains views (each page which makes this website useful). As a librar
 ##### UserRestController and services relationships
 ![user-rest-controller][user-rest-controller]
 
+### FRONTEND
+#### Frontend services
+##### ActionService 
+![action-service][action-service]
+
+##### FileService 
+![file-service][file-service]
+
+##### FineService 
+![fine-service][fine-service]
+
+##### GenreService 
+![genre-service][genre-service]
+
+##### ResourceCopyService 
+![resource-copy-service][resource-copy-service]
+
+##### ResourceService 
+![resource-service][resource-service]
+
+##### SessionService 
+![session-service][session-service]
+
+##### UserService 
+![user-service][user-service]
+
+#### Public module
+##### Public component 
+![public-component][public-component]
+
+##### Public module 
+![public-module][public-module]
+
+##### Public routing module 
+![public-routing-module][public-routing-module]
+
+##### HomeComponent 
+![home-component][home-component]
+
+##### ProfileComponent 
+![profile-component][profile-component]
+
+#### Admin module
+##### Admin component 
+![admin-component][admin-component]
+
+##### Admin module  
+![admin-module][admin-module]
+
+##### Admin routing module
+![admin-routing-module][admin-routing-module]
+
+##### DashboardComponent
+![dashboard-component][dashboard-component]
+
+##### ManageFinesComponent
+![manage-fines-component][manage-fines-component]
+
+##### ManageLoansComponent
+![manage-loans-component][manage-loans-component]
+
+##### ManageResourcesComponent
+![manage-resources-component][manage-resources-component]
+
+##### ManageUsersComponent
+![manage-users-component][manage-users-component]
+
 [index]: /media/README/01-homePage.png
 [about]: /media/README/02-aboutPage.png
 [contact]: /media/README/03-contactPage.png
@@ -175,3 +243,24 @@ This app contains views (each page which makes this website useful). As a librar
 [resource-rest-controller]: /media/README/25-ResourceRestControllerRelationships.png
 [resource-type-rest-controller]: /media/README/26-ResourceTypeRestControllerRelationships.png
 [user-rest-controller]: /media/README/27-UserRestControllerRelationships.png
+[action-service]: /media/README/28-ActionService.png
+[file-service]: /media/README/29-FileService.png
+[fine-service]: /media/README/30-FineService.png
+[genre-service]: /media/README/31-GenreService.png
+[resource-copy-service]: /media/README/32-ResourceCopyService.png
+[resource-service]: /media/README/33-ResourceService.png
+[session-service]: /media/README/34-SessionService.png
+[user-service]: /media/README/35-UserService.png
+[public-component]: /media/README/36-PublicComponent.png
+[public-module]: /media/README/37-PublicModule.png
+[public-routing-module]: /media/README/38-PublicRoutingModule.png
+[home-component]: /media/README/39-HomeComponent.png
+[profile-component]: /media/README/40-ProfileComponent.png
+[admin-component]: /media/README/41-AdminComponent.png
+[admin-module]: /media/README/42-AdminModule.png
+[admin-routing-module]: /media/README/43-AdminRoutingModule.png
+[dashboard-component]: /media/README/44-DashboardComponent.png
+[manage-fines-component]: /media/README/45-ManageFinesComponent.png
+[manage-loans-component]: /media/README/46-ManageLoansComponent.png
+[manage-resources-component]: /media/README/47-ManageResourcesComponent.png
+[manage-users-component]: /media/README/48-ManageUsersComponent.png

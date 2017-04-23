@@ -94,6 +94,14 @@ export class ProfileComponent implements OnInit, DoCheck {
   ngDoCheck() {
     if(this.user != this.userService.getUserCompleted()){
       this.ngOnInit();
+      this.userImage = null;
+      this.fileService.getUserFile(this.user.id).subscribe(
+        data => {
+          let dataRecieved: string[] = data.split('"');
+          this.userImage = 'data:image/png;base64,' + dataRecieved[3];
+        },
+        error => console.log("Fail trying to charge " + this.user.name + " image.")
+      );
     }
   }
 

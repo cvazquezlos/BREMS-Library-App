@@ -84,6 +84,13 @@ export class EditResourceComponent implements OnInit {
         this.errorMessage = false;
         this.message = 'Recurso editado correctamente.';
         this.getResource();
+        this.fileService.getResourceFile(this.resource.id).subscribe(
+          data => {
+            let dataRecieved: string[] = data.split('"');
+            this.resource.image = 'data:image/png;base64,' + dataRecieved[3];
+          },
+          error => console.log('Fail adding resource ' + this.resource.title + 'image.')
+        );
       },
       error => {
         this.successMessage = false;
