@@ -1,6 +1,6 @@
 # BREMS - Book Reserve Management System
 
-### About the contributors
+## About the contributors
 + Blay González, Sergio
   - [Github account](https://github.com/Blay93).
   - Email: s.blay@alumnos.urjc.es
@@ -14,12 +14,12 @@
   - [Github account](https://github.com/cvazquezlos).
   - Email: c.vazquezlos@alumnos.urjc.es
  
-### About this web application
+## About this web application
 Online management of resources (books and magazines) in a library. Each resource has a copy which a reader can reserve. This resource will be taken by a reader for 30 days (in case of a books) and for 2 days (in case of magazines).
 An administrator will manage the resource loans, resource stock and resource copies.
-Web functionality deppends on type of user (administrator o reader).
+Web functionality deppends on type of user (administrator o reader). [Link](https://www.youtube.com/watch?v=qlVj2XOEnFA) to explicative video about BREMS (spanish).
 
-#### Users: Readers
+### Users: Readers
 A reader is an user who can reserve a resource through BREMS app. Those functionalities are public:
 + List of resources.
 + Search resources using a *title*, *author* y/o *resource name*.
@@ -29,7 +29,7 @@ A reader is an user who can reserve a resource through BREMS app. Those function
 + List of fines.
 + Sing-up.
 
-#### Users: Administrator
+### Users: Administrator
 An administrator is an user who can manage resource data and the loans. Those functionalities are private:
 + Manage resources (books and magazines).
   - Modify resources.
@@ -43,7 +43,7 @@ An administrator is an user who can manage resource data and the loans. Those fu
   - Unsubscribe a user.
   - Modify user's information.
 
-#### Entities of BREMS' App
+### Entities of BREMS' App
 In our App, we use these entities: *User*, *fine*, *resource*, *loan* and *copy*.
 
 | Entity   | Description                                                          | Secondary entities     |
@@ -54,55 +54,64 @@ In our App, we use these entities: *User*, *fine*, *resource*, *loan* and *copy*
 | Loan     | Action through a reader can reserve a copy.                          | ActionType and Token   |
 | Copy     | Limited number of resource number which can be reserved by a reader. | -                      |
 
-#### Tasks management 
+### Tasks management 
 We use [Trello](https://trello.com/b/3hdFhIap/brems) and SCRUM because we think is the best way to work in a group.
 
-#### Views of app
-This app contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible. This design is originally made by @annyCS.
+### App views
+Backend contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible. This design is originally made by @annyCS.
 
-##### Index page
+#### Index page
 ![index][index]
 
-##### About page
+#### About page
 ![about][about]
 
-##### Contact page
+#### Contact page
 ![contact][contact]
 
-##### Search page
+#### Search page
 ![search][search]
 
-##### Profile page
+#### Profile page
 ![profile][profile]
 
-##### Admin page
+#### Admin page
 ![admin][admin]
 
-##### Admin resources page
-###### Resources general view
+#### Admin resources page
+##### Resources general view
 ![admin-resources][admin-resources]
 
-###### Edit resource page
+##### Edit resource page
 ![admin-resources-edit][admin-resources-edit]
 
-###### Add resource page
+##### Add resource page
 ![admin-resources-add][admin-resources-add]
 
-##### Admin loans page
-###### Loans general view
+#### Admin loans page
+##### Loans general view
 ![admin-loans][admin-loans]
 
-###### Add loans page
+##### Add loans page
 ![admin-loans-add][admin-loans-add]
 
-##### Admin users page
-###### Users general view
+#### Admin users page
+##### Users general view
 ![admin-users][admin-users]
 
-###### Add user page
+##### Add user page
 ![admin-users-add][admin-users-add]
 
-#### App controllers class diagrams
+## Backend
+### Running BREMS Backend
+You must have MySQL installed, your conection credentials must be "root" and "1234" (user and pass) and you need to have a MySQL Schema called "BREMS".
+1. Download this repository (or clone it).
+2. Navigate to "backend/target".
+3. Using your shell, execute `java -jar appSpring-0.0.1.jar`.
+4. Using Google Chrome (any browser can be used) navigate to "https://localhost:8443".
+5. Enjoy it!
+### Backend diagrams
+#### Backend controllers class diagrams
 ##### AdminController and services relationships
 ![admin-controller-and-services][admin-controller-and-services]
 
@@ -118,7 +127,7 @@ This app contains views (each page which makes this website useful). As a librar
 ##### UserController and services relationships
 ![user-controller-and-services][user-controller-and-services]
 
-#### App services class diagrams
+#### Backend services class diagrams
 ##### LogicService class diagrams
 ###### LogicService and services relationships
 ![logic-service-and-services][logic-service-and-services]
@@ -148,6 +157,80 @@ This app contains views (each page which makes this website useful). As a librar
 ##### UserRestController and services relationships
 ![user-rest-controller][user-rest-controller]
 
+## Frontend
+### Running BREMS Frontend
+1. Download this repository (or clone it).
+2. Navigate to "frontend".
+3. Using your shell, execute `npm install` and then `ng serve`.
+4. Using Google Chrome (any browser can be used) navigate to "http://localhost:4200".
+5. Enjoy it!
+### Frontend diagrams
+#### Frontend services
+##### ActionService 
+![action-service][action-service]
+
+##### FileService 
+![file-service][file-service]
+
+##### FineService 
+![fine-service][fine-service]
+
+##### GenreService 
+![genre-service][genre-service]
+
+##### ResourceCopyService 
+![resource-copy-service][resource-copy-service]
+
+##### ResourceService 
+![resource-service][resource-service]
+
+##### SessionService 
+![session-service][session-service]
+
+##### UserService 
+![user-service][user-service]
+
+#### Public module
+##### Public component 
+![public-component][public-component]
+
+##### Public module 
+![public-module][public-module]
+
+##### Public routing module 
+![public-routing-module][public-routing-module]
+
+##### HomeComponent 
+![home-component][home-component]
+
+##### ProfileComponent 
+![profile-component][profile-component]
+
+#### Admin module
+##### Admin component 
+![admin-component][admin-component]
+
+##### Admin module  
+![admin-module][admin-module]
+
+##### Admin routing module
+![admin-routing-module][admin-routing-module]
+
+##### DashboardComponent
+![dashboard-component][dashboard-component]
+
+##### ManageFinesComponent
+![manage-fines-component][manage-fines-component]
+
+##### ManageLoansComponent
+![manage-loans-component][manage-loans-component]
+
+##### ManageResourcesComponent
+![manage-resources-component][manage-resources-component]
+
+##### ManageUsersComponent
+![manage-users-component][manage-users-component]
+
 [index]: /media/README/01-homePage.png
 [about]: /media/README/02-aboutPage.png
 [contact]: /media/README/03-contactPage.png
@@ -175,3 +258,24 @@ This app contains views (each page which makes this website useful). As a librar
 [resource-rest-controller]: /media/README/25-ResourceRestControllerRelationships.png
 [resource-type-rest-controller]: /media/README/26-ResourceTypeRestControllerRelationships.png
 [user-rest-controller]: /media/README/27-UserRestControllerRelationships.png
+[action-service]: /media/README/28-ActionService.png
+[file-service]: /media/README/29-FileService.png
+[fine-service]: /media/README/30-FineService.png
+[genre-service]: /media/README/31-GenreService.png
+[resource-copy-service]: /media/README/32-ResourceCopyService.png
+[resource-service]: /media/README/33-ResourceService.png
+[session-service]: /media/README/34-SessionService.png
+[user-service]: /media/README/35-UserService.png
+[public-component]: /media/README/36-PublicComponent.png
+[public-module]: /media/README/37-PublicModule.png
+[public-routing-module]: /media/README/38-PublicRoutingModule.png
+[home-component]: /media/README/39-HomeComponent.png
+[profile-component]: /media/README/40-ProfileComponent.png
+[admin-component]: /media/README/41-AdminComponent.png
+[admin-module]: /media/README/42-AdminModule.png
+[admin-routing-module]: /media/README/43-AdminRoutingModule.png
+[dashboard-component]: /media/README/44-DashboardComponent.png
+[manage-fines-component]: /media/README/45-ManageFinesComponent.png
+[manage-loans-component]: /media/README/46-ManageLoansComponent.png
+[manage-resources-component]: /media/README/47-ManageResourcesComponent.png
+[manage-users-component]: /media/README/48-ManageUsersComponent.png
