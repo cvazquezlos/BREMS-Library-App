@@ -1,0 +1,59 @@
+<section class="content-header">
+  <h1>Administraión de recursos <small>Administra los libros o las revistas</small></h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['/admin']"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a [routerLink]="['/admin/resources']">Recursos</a></li>
+    <li class="active">Añadir recurso</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box box-default">
+    <div class="box-header with-border">
+      <h3 class="box-title">Nuevo libro</h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="form-group">
+            <label>Título del recurso</label>
+            <input type="text" class="form-control" placeholder="Título" required [(ngModel)]="newResource.title">
+          </div>
+          <div class="form-group">
+            <label>Sumario del recurso</label>
+            <input type="text" class="form-control" placeholder="Sumario corto" [(ngModel)]="newResource.description">
+          </div>
+          <div class="form-group">
+            <label>Autor o compañía</label>
+            <input type="text" class="form-control" placeholder="Autor o compañía" required [(ngModel)]="newResource.author">
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <div class="form-group">
+            <label>Género literario</label>
+            <select [(ngModel)]="newResource.genre" required>
+                <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Editorial</label>
+            <input type="text" class="form-control" placeholder="Editorial" [(ngModel)]="newResource.editorial">
+          </div>
+          <div class="form-group">
+            <label>Tipo de recurso</label>
+            <select [(ngModel)]="newResource.resourceType" required>
+                <option *ngFor="let type of types" [ngValue]="type">{{type.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Número de copias</label>
+            <input type="number" class="form-control" name="copiesNumber" placeholder="Número de copias" required>
+          </div>
+          <div class="pull-right">
+            <input type="button" class="btn btn-success" value="Guardar" (click)="createResource()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
