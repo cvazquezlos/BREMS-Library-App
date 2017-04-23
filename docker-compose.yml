@@ -1,0 +1,22 @@
+version: "2.0"
+
+services: 
+  bremsHost:
+    image: jherel/brems-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=brems
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=1234
+  spring-boot-jpa-docker-webapp:
+    image: jherel/brems
+    depends_on:
+      - bremsHost
+    ports:
+      - 8443:8443
+    environment:
+      - DATABASE_HOST=bremsHost
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=1234
+      - DATABASE_NAME=brems
+      - DATABASE_PORT=3306
