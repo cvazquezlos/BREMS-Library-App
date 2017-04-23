@@ -88,7 +88,6 @@ export class ManageResourcesComponent implements OnInit {
         this.errorMessage = false;
         this.message = 'Recurso eliminado correctamente.';
         this.resourcesPage = 0;
-        console.log('Resource successfully deleted.');
         this.getResources();
         this.checkNextPage();
         this.checkPreviousPage();
@@ -97,7 +96,6 @@ export class ManageResourcesComponent implements OnInit {
         this.successMessage = false;
         this.errorMessage = true;
         this.message = 'No se ha podido eliminar el recurso.'
-        console.log('Fail trying to delete selected resource.');
       }
     );
   }

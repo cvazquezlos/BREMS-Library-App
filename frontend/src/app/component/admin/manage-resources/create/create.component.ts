@@ -20,8 +20,8 @@ export class CreateResourceComponent implements OnInit {
     types: ResourceType[];
 
     newResource: any = {};
+    resourceImage: any;
 
-    successMessage: boolean;
     errorMessage: boolean;
     message: string;
 
@@ -37,7 +37,7 @@ export class CreateResourceComponent implements OnInit {
             editorial: '',
             description: '',
             genre: null,
-            type: null
+            resourceType: null
         }
     }
 
@@ -59,19 +59,23 @@ export class CreateResourceComponent implements OnInit {
     createResource() {
         this.resource = this.newResource;
 
-        console.log(this.resource);
-
         this.resourceService.createResource(this.resource).subscribe(
             response => {
-                this.successMessage = true;
-                this.errorMessage = false;
-                this.message = 'Recurso editado correctamente.';
+                if (this.resourceImage !== undefined) {
+                    let formData = new FormData();
+                    formData.append('file', this.resourceImage, this.resourceImage.name);
+                    this.resourceService.updateFile(formData, response.id).subscribe();
+                }
+                this.router.navigate(['/admin/resources']);
             },
             error => {
-                this.successMessage = false;
                 this.errorMessage = true;
-                this.message = 'No se ha podido editar el recurso.'
+                this.message = 'No se ha podido crear el recurso.'
             }
         );
+    }
+
+    selectFile($event) {
+        this.resourceImage = $event.target.files[0];
     }
 }

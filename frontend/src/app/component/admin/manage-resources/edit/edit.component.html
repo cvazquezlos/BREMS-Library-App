@@ -30,7 +30,7 @@
               <img [src]="sanitizer.bypassSecurityTrustUrl(resource.image)" class="img-responsive" />
             </ng-template>
             <label for="exampleInputFile">Imagen</label>
-            <input for="exampleInputFile" type="file" name="picture">
+            <input for="exampleInputFile" type="file" name="picture" (change)="selectFile($event)">
           </div>
         </div>
         <div class="col-lg-8">
@@ -43,16 +43,22 @@
             <input type="text" class="form-control" [(ngModel)]="resource.author">
           </div>
           <div class="form-group">
-            <label>Género literario</label>
-            <input type="text" class="form-control" value="{{resource?.genre?.name}}">
+            <label>Género literario</label>: {{resource.genre?.name}}
+            <br>
+            <select [(ngModel)]="resource.genre">
+                <option *ngFor="let genre of genres" [ngValue]="genre" [selected]="resource.genre?.id == genre.id">{{genre.name}}</option>
+            </select>
           </div>
           <div class="form-group">
             <label>Editorial</label>
             <input type="text" class="form-control" [(ngModel)]="resource.editorial">
           </div>
           <div class="form-group">
-            <label>Tipo de recurso</label>
-            <input type="text" class="form-control" [(ngModel)]="resource.resourceType">
+            <label>Tipo de recurso</label> : {{resource.resourceType?.name}}
+            <br>
+            <select [(ngModel)]="resource.resourceType">
+                <option *ngFor="let type of types" [ngValue]="type" [selected]="resource.resourceType?.id == type.id">{{type.name}}</option>
+            </select>
           </div>
           <div class="form-group">
             <label>Número de copias</label>

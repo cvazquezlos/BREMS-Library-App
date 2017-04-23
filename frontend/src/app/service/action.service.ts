@@ -24,13 +24,13 @@ export class ActionService {
         let headers: Headers = new Headers();
         headers.append('Authorization', 'Basic ' + this.authCreds);
 
-        let url = ACTION_URL;
+        /*let url = ACTION_URL;
         if (page)
             url += '?page=' + page;
         if (finished)
-            url += '&finished=' + finished;
+            url += '&finished=' + finished;*/
 
-        return this.http.get(url, { headers: headers })
+        return this.http.get(ACTION_URL + '?page=' + page + '&finished=' + finished, { headers: headers })
             .map(response => response.json().content)
             .catch(error => Observable.throw('Server error'));
     }

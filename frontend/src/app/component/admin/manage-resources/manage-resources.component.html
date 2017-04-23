@@ -34,8 +34,8 @@
         <td>{{ resource.copies.length }}</td>
         <td>{{ resource.noReservedCopies.length }}</td>
         <td>{{ resource.author }}</td>
-        <td>{{ resource.genre.name }}</td>
-        <td>{{ resource.resourceType.name }}</td>
+        <td>{{ resource.genre?.name }}</td>
+        <td>{{ resource.resourceType?.name }}</td>
         <td>
           <a [routerLink]="['./', resource.id]">
             <button type="button" class="btn btn-success"><span class="fa fa-pencil"></span></button>

@@ -80,6 +80,15 @@ export class ResourceService {
       .catch(error => Observable.throw('Server error'))
   }
 
+  updateFile(formData: FormData, id: number) {
+    let headers: Headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Basic ' + this.authCreds);
+    return this.http.put(RESOURCES_URL + '/' + id + '/upload', formData, { headers: headers })
+      .map(response => console.log("Success. The file has been successfully added to server directories."))
+      .catch(error => Observable.throw('Server error'));
+  }
+
   deleteResource(id: number) {
     this.authCreds = localStorage.getItem("creds");
 

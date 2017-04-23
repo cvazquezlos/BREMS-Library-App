@@ -27,10 +27,6 @@
             <label>Autor o compañía</label>
             <input type="text" class="form-control" placeholder="Autor o compañía" required [(ngModel)]="newResource.author">
           </div>
-          <div class="form-group">
-            <label for="exampleInputFile">Imagen</label>
-            <input for="exampleInputFile" type="file" name="picture" required>
-          </div>
         </div>
         <div class="col-lg-2">
           <div class="form-group">
@@ -45,7 +41,7 @@
           </div>
           <div class="form-group">
             <label>Tipo de recurso</label>
-            <select [(ngModel)]="newResource.type" required>
+            <select [(ngModel)]="newResource.resourceType" required>
                 <option *ngFor="let type of types" [ngValue]="type">{{type.name}}</option>
             </select>
           </div>
