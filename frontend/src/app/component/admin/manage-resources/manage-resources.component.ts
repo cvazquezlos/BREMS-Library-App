@@ -12,7 +12,7 @@ import { ResourceService } from 'app/service/resource.service';
 })
 export class ManageResourcesComponent implements OnInit {
 
-  private resources: Resource[] = [];
+  resources: Resource[] = [];
   successMessage: boolean;
   errorMessage: boolean;
   message: String;

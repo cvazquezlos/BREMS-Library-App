@@ -90,6 +90,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>SpringDocker</finalName>
 	</build>
 
 </project>

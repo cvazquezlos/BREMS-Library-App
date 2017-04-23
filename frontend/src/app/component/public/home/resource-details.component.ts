@@ -16,7 +16,7 @@ export class ResourceDetailsComponent implements OnInit {
   resource: Resource;
 
   constructor(private activatedRoute: ActivatedRoute, private resourceService: ResourceService,
-              private sanitizer: DomSanitizer, private fileService: FileService) {
+              public sanitizer: DomSanitizer, private fileService: FileService) {
   }
 
   ngOnInit() {
