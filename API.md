@@ -35,19 +35,14 @@ All Request URLs can be send by typing http://localhost:8443 followed by the req
   "title": newTitle,
   "author": newAuthor,
   "editorial": newEditorial,
+  "resourceCopiesNumber": numberOfCopies,
   "description": newDescription,
   "resourceType": {
      "id": typeId
   },
   "genre": {
     "id": genreId
-  },
-  "copies": [
-    {
-      "id": newAndUniqueCopyId,
-      "locationCode": newLocationCode
-    }
-  ]
+  }
 }
 ```
 #### DELETE method

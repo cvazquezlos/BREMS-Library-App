@@ -13,4 +13,5 @@ export interface Resource {
   hasPhoto: boolean;
   noReservedCopies: string[];
   genre?: Genre;
+  resourceCopiesNumber?: number;
 }

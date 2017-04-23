@@ -51,17 +51,19 @@ public class ResourceRestController {
 		newResource.setGenre(resource.getGenre());
 		newResource.setProductType(resource.getProductType());
 		resourceService.save(newResource);
-		for (ResourceCopy resourceCopy : resource.getResourceCopies()) {
-			if (resourceCopyService.findOne(resourceCopy.getID()) == null) {
-				resourceCopy.setResource(newResource);
-				resourceCopyService.save(resourceCopy);
-				newResource.getNoReservedCopies().add(resourceCopy.getLocationCode());
-			} else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
+		ResourceCopy copy;
+		for (int i = 0; i < resource.getResourceCopiesNumber(); i++) {
+			copy = new ResourceCopy();
+			copy.setResource(newResource);
+			copy.generatorCode();
+			resourceCopyService.save(copy);
+			copy.setLocationCode(copy.getLocationCode() + copy.getID());
+			resourceCopyService.save(copy);
+			newResource.getNoReservedCopies().add(copy.getLocationCode());
+			newResource.getResourceCopies().add(copy);
 		}
 		resourceService.save(newResource);
-		return new ResponseEntity<>(resource, HttpStatus.OK);
+		return new ResponseEntity<>(newResource, HttpStatus.OK);
 	}
 
 	@JsonView(ResourceDetail.class)
