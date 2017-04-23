@@ -17,7 +17,7 @@
 ## About this web application
 Online management of resources (books and magazines) in a library. Each resource has a copy which a reader can reserve. This resource will be taken by a reader for 30 days (in case of a books) and for 2 days (in case of magazines).
 An administrator will manage the resource loans, resource stock and resource copies.
-Web functionality deppends on type of user (administrator o reader).
+Web functionality deppends on type of user (administrator o reader). [Link](https://www.youtube.com/watch?v=qlVj2XOEnFA) to explicative video about BREMS (spanish).
 
 ### Users: Readers
 A reader is an user who can reserve a resource through BREMS app. Those functionalities are public:
