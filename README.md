@@ -1,6 +1,6 @@
 # BREMS - Book Reserve Management System
 
-### About the contributors
+## About the contributors
 + Blay González, Sergio
   - [Github account](https://github.com/Blay93).
   - Email: s.blay@alumnos.urjc.es
@@ -14,12 +14,12 @@
   - [Github account](https://github.com/cvazquezlos).
   - Email: c.vazquezlos@alumnos.urjc.es
  
-### About this web application
+## About this web application
 Online management of resources (books and magazines) in a library. Each resource has a copy which a reader can reserve. This resource will be taken by a reader for 30 days (in case of a books) and for 2 days (in case of magazines).
 An administrator will manage the resource loans, resource stock and resource copies.
 Web functionality deppends on type of user (administrator o reader).
 
-#### Users: Readers
+### Users: Readers
 A reader is an user who can reserve a resource through BREMS app. Those functionalities are public:
 + List of resources.
 + Search resources using a *title*, *author* y/o *resource name*.
@@ -29,7 +29,7 @@ A reader is an user who can reserve a resource through BREMS app. Those function
 + List of fines.
 + Sing-up.
 
-#### Users: Administrator
+### Users: Administrator
 An administrator is an user who can manage resource data and the loans. Those functionalities are private:
 + Manage resources (books and magazines).
   - Modify resources.
@@ -43,7 +43,7 @@ An administrator is an user who can manage resource data and the loans. Those fu
   - Unsubscribe a user.
   - Modify user's information.
 
-#### Entities of BREMS' App
+### Entities of BREMS' App
 In our App, we use these entities: *User*, *fine*, *resource*, *loan* and *copy*.
 
 | Entity   | Description                                                          | Secondary entities     |
@@ -54,55 +54,63 @@ In our App, we use these entities: *User*, *fine*, *resource*, *loan* and *copy*
 | Loan     | Action through a reader can reserve a copy.                          | ActionType and Token   |
 | Copy     | Limited number of resource number which can be reserved by a reader. | -                      |
 
-#### Tasks management 
+### Tasks management 
 We use [Trello](https://trello.com/b/3hdFhIap/brems) and SCRUM because we think is the best way to work in a group.
 
-#### Views of app - BACKEND (SPRING)
+### App views
 Backend contains views (each page which makes this website useful). As a library, the home page contains a list of all books and magazines avaible. This design is originally made by @annyCS.
 
-##### Index page
+#### Index page
 ![index][index]
 
-##### About page
+#### About page
 ![about][about]
 
-##### Contact page
+#### Contact page
 ![contact][contact]
 
-##### Search page
+#### Search page
 ![search][search]
 
-##### Profile page
+#### Profile page
 ![profile][profile]
 
-##### Admin page
+#### Admin page
 ![admin][admin]
 
-##### Admin resources page
-###### Resources general view
+#### Admin resources page
+##### Resources general view
 ![admin-resources][admin-resources]
 
-###### Edit resource page
+##### Edit resource page
 ![admin-resources-edit][admin-resources-edit]
 
-###### Add resource page
+##### Add resource page
 ![admin-resources-add][admin-resources-add]
 
-##### Admin loans page
-###### Loans general view
+#### Admin loans page
+##### Loans general view
 ![admin-loans][admin-loans]
 
-###### Add loans page
+##### Add loans page
 ![admin-loans-add][admin-loans-add]
 
-##### Admin users page
-###### Users general view
+#### Admin users page
+##### Users general view
 ![admin-users][admin-users]
 
-###### Add user page
+##### Add user page
 ![admin-users-add][admin-users-add]
 
-### BACKEND
+## Backend
+### Running BREMS Backend
+You must have MySQL installed, your conection credentials must be "root" and "1234" (user and pass) and you need to have a MySQL Schema called "BREMS".
+1. Download this repository (or clone it).
+2. Navigate to "backend/target".
+3. Using your shell, execute `java -jar appSpring-0.0.1.jar`.
+4. Using Google Chrome (any browser can be used) navigate to "https://localhost:8443".
+5. Enjoy it!
+### Backend diagrams
 #### Backend controllers class diagrams
 ##### AdminController and services relationships
 ![admin-controller-and-services][admin-controller-and-services]
@@ -149,7 +157,14 @@ Backend contains views (each page which makes this website useful). As a library
 ##### UserRestController and services relationships
 ![user-rest-controller][user-rest-controller]
 
-### FRONTEND
+## Frontend
+### Running BREMS Frontend
+1. Download this repository (or clone it).
+2. Navigate to "frontend".
+3. Using your shell, execute `npm install` and then `ng serve`.
+4. Using Google Chrome (any browser can be used) navigate to "http://localhost:4200".
+5. Enjoy it!
+### Frontend diagrams
 #### Frontend services
 ##### ActionService 
 ![action-service][action-service]
