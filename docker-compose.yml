@@ -8,8 +8,8 @@ services:
       - MYSQL_DATABASE=brems
       - MYSQL_USER=user
       - MYSQL_PASSWORD=1234
-  spring-boot-jpa-docker-webapp:
-    image: jherel/brems
+  webapp:
+    image: brems
     depends_on:
       - bremsHost
     ports:
@@ -20,3 +20,11 @@ services:
       - DATABASE_PASSWORD=1234
       - DATABASE_NAME=brems
       - DATABASE_PORT=3306
+  bremsAngular:
+    image: jherel/brems-angular
+    depends_on:
+      - webapp
+    ports:
+      - 4200:80
+    environment:
+      - API_URL=webapp
