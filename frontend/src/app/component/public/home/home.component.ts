@@ -64,8 +64,7 @@ export class HomeComponent implements OnInit, DoCheck {
   addBooks(userReq: boolean) {
     this.resourceService.getAllResources('Libro', this.booksPage).subscribe(
       books => {
-        if (books[1] === undefined) {
-          console.log('No hay más libros.');
+        if (Object.keys(books).length === 0) {
           this.moreBooksActive = false;
         } else if (userReq) {
           this.moreBooksActive = true;
@@ -83,7 +82,7 @@ export class HomeComponent implements OnInit, DoCheck {
   addMagazines(userReq: boolean) {
     this.resourceService.getAllResources('Revista', this.magazinesPage).subscribe(
       magazines => {
-        if (magazines[1] == null) {
+        if (Object.keys(magazines).length === 0) {
           this.moreMagazActive = false;
         } else if (userReq) {
           this.moreMagazActive = true;
